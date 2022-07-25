@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+import 'package:getx_study/entity/coin_rank_entity.dart';
+
+import 'package:getx_study/http_util/api.dart';
+import 'http_util/moya.dart';
+import 'entity/base_entity.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,6 +56,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _requestTest(page: 1);
+  }
+
+  void _requestTest({required int page}) async {
+    final api = Api.getRankingList + page.toString() + "/json";
+    BaseEntity<CoinRankEntity> model = await Moya.get(api: api);
+    print(model);
+  }
 
   void _incrementCounter() {
     setState(() {

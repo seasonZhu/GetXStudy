@@ -1,0 +1,30 @@
+import 'package:getx_study/generated/json/base/json_convert_content.dart';
+import 'package:getx_study/resource/constant.dart';
+
+class BaseEntity<T> {
+
+  BaseEntity(this.errorCode, this.errorMsg, this.data);
+
+  BaseEntity.fromJson(Map<String, dynamic> json) {
+    errorCode = json[Constant.errorCode] as int?;
+    errorMsg = json[Constant.errorMsg] as String;
+    if (json.containsKey(Constant.data)) {
+      data = _generateOBJ<T>(json[Constant.data] as Object);
+    }
+  }
+
+  int? errorCode;
+  String? errorMsg;
+  T? data;
+
+  T? _generateOBJ<O>(Object json) {
+    if (T.toString() == 'String') {
+      return json.toString() as T;
+    } else if (T.toString() == 'Map<dynamic, dynamic>') {
+      return json as T;
+    } else {
+      /// List类型数据由fromJsonAsT判断处理
+      return JsonConvert.fromJsonAsT<T>(json);
+    }
+  }
+}
