@@ -4,7 +4,7 @@ import 'http_util.dart';
 
 import 'package:getx_study/entity/base_entity.dart';
 
-extension Moya on HttpUtils {
+extension Request on HttpUtils {
   /// Get请求直接转模型
   static Future<BaseEntity<T>> get<T>(
       {required String api, Map<String, 

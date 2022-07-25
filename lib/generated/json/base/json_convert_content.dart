@@ -9,6 +9,7 @@ import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/entity/banner_entity.dart';
 import 'package:getx_study/entity/coin_rank_entity.dart';
 import 'package:getx_study/entity/hot_key_entity.dart';
+import 'package:getx_study/entity/my_coin_entity.dart';
 import 'package:getx_study/entity/my_coin_history_entity.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 
@@ -25,10 +26,10 @@ class JsonConvert {
 		(CoinRankEntity).toString(): CoinRankEntity.fromJson,
 		(CoinRankDatas).toString(): CoinRankDatas.fromJson,
 		(HotKeyEntity).toString(): HotKeyEntity.fromJson,
+		(MyCoinEntity).toString(): MyCoinEntity.fromJson,
 		(MyCoinHistoryEntity).toString(): MyCoinHistoryEntity.fromJson,
 		(MyCoinHistoryDatas).toString(): MyCoinHistoryDatas.fromJson,
 		(TabEntity).toString(): TabEntity.fromJson,
-		(TabChildren).toString(): TabChildren.fromJson,
 	};
 
   T? convert<T>(dynamic value) {
@@ -128,6 +129,9 @@ class JsonConvert {
 		if(<HotKeyEntity>[] is M){
 			return data.map<HotKeyEntity>((Map<String, dynamic> e) => HotKeyEntity.fromJson(e)).toList() as M;
 		}
+		if(<MyCoinEntity>[] is M){
+			return data.map<MyCoinEntity>((Map<String, dynamic> e) => MyCoinEntity.fromJson(e)).toList() as M;
+		}
 		if(<MyCoinHistoryEntity>[] is M){
 			return data.map<MyCoinHistoryEntity>((Map<String, dynamic> e) => MyCoinHistoryEntity.fromJson(e)).toList() as M;
 		}
@@ -136,9 +140,6 @@ class JsonConvert {
 		}
 		if(<TabEntity>[] is M){
 			return data.map<TabEntity>((Map<String, dynamic> e) => TabEntity.fromJson(e)).toList() as M;
-		}
-		if(<TabChildren>[] is M){
-			return data.map<TabChildren>((Map<String, dynamic> e) => TabChildren.fromJson(e)).toList() as M;
 		}
 
 		debugPrint("${M.toString()} not found");

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/entity/coin_rank_entity.dart';
 
 import 'package:getx_study/http_util/api.dart';
-import 'http_util/moya.dart';
+import 'http_util/request.dart' as Moya;
 import 'entity/base_entity.dart';
 
 void main() {
@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _requestTest({required int page}) async {
     final api = "${Api.getRankingList}${page.toString()}/json";
-    BaseEntity<CoinRankEntity> model = await Moya.get(api: api);
+    BaseEntity<CoinRankEntity> model = await Moya.Request.get(api: api);
     print(model.toString());
   }
 
