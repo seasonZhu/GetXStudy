@@ -1,13 +1,13 @@
 import 'package:getx_study/generated/json/base/json_convert_content.dart';
+
 import 'package:getx_study/resource/constant.dart';
 
 class BaseEntity<T> {
-
   BaseEntity(this.errorCode, this.errorMsg, this.data);
 
   BaseEntity.fromJson(Map<String, dynamic> json) {
     errorCode = json[Constant.errorCode] as int?;
-    errorMsg = json[Constant.errorMsg] as String;
+    errorMsg = json[Constant.errorMsg] as String?;
     if (json.containsKey(Constant.data)) {
       data = _generateOBJ<T>(json[Constant.data] as Object);
     }

@@ -64,12 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _requestTest({required int page}) async {
-    final api = Api.getRankingList + page.toString() + "/json";
+    final api = "${Api.getRankingList}${page.toString()}/json";
     BaseEntity<CoinRankEntity> model = await Moya.get(api: api);
-    print(model);
+    print(model.toString());
   }
 
   void _incrementCounter() {
+    _requestTest(page: 1);
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
