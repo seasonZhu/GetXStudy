@@ -216,6 +216,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.1.2+1"
+  flutter_svg:
+    dependency: transitive
+    description:
+      name: flutter_svg
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.23.0+1"
   flutter_swiper:
     dependency: "direct main"
     description:
@@ -352,6 +359,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.1"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.1+1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.1"
   path_provider:
     dependency: "direct main"
     description:
@@ -408,6 +429,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.11.1"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.0.0"
   platform:
     dependency: transitive
     description:
@@ -443,6 +471,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
+  r_dart_library:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "0.2.1"
+      resolved-ref: "392a91ab9eadf3b83dc230ef19a7ea1fdc964917"
+      url: "https://github.com/YK-Unit/r_dart_library.git"
+    source: git
+    version: "0.2.1"
   rxdart:
     dependency: "direct main"
     description:
@@ -679,6 +716,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0+1"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.4.1"
 sdks:
   dart: ">=2.17.6 <3.0.0"
   flutter: ">=3.0.0"

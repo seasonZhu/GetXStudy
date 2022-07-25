@@ -17,6 +17,8 @@ class BaseEntity<T> {
   String? errorMsg;
   T? data;
 
+  bool get isSuccess => errorCode == 0;
+
   T? _generateOBJ<O>(Object json) {
     if (T.toString() == 'String') {
       return json.toString() as T;

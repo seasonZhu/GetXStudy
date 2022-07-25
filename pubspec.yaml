@@ -30,9 +30,20 @@ dependencies:
   image_gallery_saver: null
   open_file: null
   pretty_dio_logger: null
+  r_dart_library:
+    git:
+      url: 'https://github.com/YK-Unit/r_dart_library.git'
+      ref: 0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
 flutter:
   uses-material-design: true
+  assets:
+  - assets/image/launchImage.png
+flr:
+  core_version: 3.1.0
+  dartfmt_line_length: 80
+  assets: []
+  fonts: []
