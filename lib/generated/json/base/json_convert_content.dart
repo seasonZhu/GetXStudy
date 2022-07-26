@@ -11,7 +11,9 @@ import 'package:getx_study/entity/coin_rank_entity.dart';
 import 'package:getx_study/entity/hot_key_entity.dart';
 import 'package:getx_study/entity/my_coin_entity.dart';
 import 'package:getx_study/entity/my_coin_history_entity.dart';
+import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/entity/tab_entity.dart';
+import 'package:getx_study/entity/JsonConvert+Extension.dart';
 
 JsonConvert jsonConvert = JsonConvert();
 typedef JsonConvertFunction<T> = T Function(Map<String, dynamic> json);
@@ -93,6 +95,8 @@ class JsonConvert {
       } else {
         if (_convertFuncMap.containsKey(type)) {
           return _convertFuncMap[type]!(value) as T;
+        } else if (MoreGenerics.genericsFuncMap.containsKey(type))  {
+          return MoreGenerics.genericsFuncMap[type]!(value) as T;
         } else {
           throw UnimplementedError('$type unimplemented');
         }

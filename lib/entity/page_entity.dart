@@ -18,7 +18,7 @@ class PageEntity<T> {
     pageCount = json[Constant.pageCount] as int?;
     size = json[Constant.size] as int?;
     total = json[Constant.total] as int?;
-    if (json.containsKey(Constant.data)) {
+    if (json.containsKey(Constant.datas)) {
       datas = _generateOBJ<T>(json[Constant.datas] as Object);
     }
   }

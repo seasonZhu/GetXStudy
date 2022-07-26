@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:getx_study/entity/coin_rank_entity.dart';
+import 'package:getx_study/entity/hot_key_entity.dart';
+import 'package:getx_study/entity/page_entity.dart';
+import 'package:getx_study/entity/tab_entity.dart';
 
 import 'package:getx_study/http_util/api.dart';
 import 'http_util/request.dart' as Moya;
@@ -65,8 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _requestTest({required int page}) async {
     final api = "${Api.getRankingList}${page.toString()}/json";
-    BaseEntity<CoinRankEntity> model = await Moya.Request.get(api: api);
+    /// 泛型里面带泛型的问题解决
+    BaseEntity<PageEntity<List<CoinRankDatas>>> model =
+        await Moya.Request.get(api: api);
     print(model.toString());
+
+    /// 这里的T是一个数组,Dart里面没有[HotKeyEntity]这种写法,必须使用List<HotKeyEntity>
+    BaseEntity<List<HotKeyEntity>> keys =
+        await Moya.Request.get(api: Api.getSearchHotKey);
+    print(keys);
+
+    BaseEntity<List<TabEntity>> tabs =
+        await Moya.Request.get(api: Api.getProjectClassify);
+    print(tabs);
   }
 
   void _incrementCounter() {
