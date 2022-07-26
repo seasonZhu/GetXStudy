@@ -9,6 +9,7 @@ import 'package:getx_study/entity/tab_entity.dart';
 import 'package:getx_study/http_util/api.dart';
 import 'http_util/request.dart' as Moya;
 import 'entity/base_entity.dart';
+import 'routes/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      getPages: Routes.routePage,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -63,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _requestTest(page: 1);
+    // _requestTest(page: 1);
   }
 
   void _requestTest({required int page}) async {
@@ -84,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter() {
-    _requestTest(page: 1);
+    Get.toNamed(Routes.coinRink);
+    // _requestTest(page: 1);
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
