@@ -7,6 +7,8 @@ import 'package:getx_study/pages/coin_rank/view/coin_rank_view.dart';
 abstract class Routes {
   static const coinRink = '/coinRink';
 
+  static const myHomePage = "/myHomePage";
+
   static const myNextPage = "/myNextPage";
 
   ///页面合集
@@ -17,8 +19,14 @@ abstract class Routes {
       binding: CoinRankBinding(),
     ),
     GetPage(
+      name: myHomePage,
+      page: () => MyHomePage(title: "普通计数器"),
+      binding: MyHomeBindings(),
+    ),
+    GetPage(
       name: myNextPage,
       page: () => MyNextPage(title: "响应式计数器"),
+      binding: MyNextBindings(),
     ),
   ];
 }

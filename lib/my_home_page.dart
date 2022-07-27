@@ -8,7 +8,7 @@ class MyHomePage extends StatelessWidget {
 
   final String title;
 
-  final _easyController = Get.put(CountEasyController());
+  final _easyController = Get.find<CountEasyController>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +60,19 @@ class CountEasyController extends GetxController {
   }
 }
 
+class MyHomeBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => CountEasyController());
+  }
+}
+
 class MyNextPage extends StatelessWidget {
   MyNextPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
-  final _rxController = Get.put(CountRxController());
+  final _rxController = Get.find<CountRxController>();
 
   final _easyController = Get.find<CountEasyController>();
 
@@ -106,6 +113,13 @@ class MyNextPage extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
     );
+  }
+}
+
+class MyNextBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => CountRxController());
   }
 }
 

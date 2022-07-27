@@ -11,8 +11,6 @@ import 'http_util/request.dart' as Moya;
 import 'entity/base_entity.dart';
 import 'routes/routes.dart';
 
-import 'my_home_page.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -27,24 +25,26 @@ class MyApp extends StatelessWidget {
       getPages: Routes.routePage,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'GetX 普通计数器'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("测试首页"),
+        ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: (() => Get.toNamed(Routes.myHomePage)),
+            child: const Text("去普通的计数首页"),
+          ),
+        ),
+      ),
     );
   }
 }
 
 void _requestTest({required int page}) async {
   final api = "${Api.getRankingList}${page.toString()}/json";
+
   /// 泛型里面带泛型的问题解决
   BaseEntity<PageEntity<List<CoinRankDatas>>> model =
       await Moya.Request.get(api: api);
