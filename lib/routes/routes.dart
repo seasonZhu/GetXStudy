@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/my_home_page.dart';
 import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
-import 'package:getx_study/pages/coin_rank/view/coin_rank_view.dart';
+import 'package:getx_study/pages/coin_rank/view/coin_rank_page.dart';
 
 abstract class Routes {
   static const coinRink = '/coinRink';

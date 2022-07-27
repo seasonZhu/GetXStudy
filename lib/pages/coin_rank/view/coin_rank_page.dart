@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/pages/coin_rank/controller/coin_rank_controller.dart';
 
@@ -12,7 +13,12 @@ class CoinRankPage extends GetView<CoinRankController> {
       appBar: AppBar(title: const Text("积分排名")),
       body: GetBuilder<CoinRankController>(
         builder: (controller) {
-          return ListView.builder(
+          return SmartRefresher(
+            enablePullUp: true,
+            controller: controller.refreshController,
+            onRefresh: controller.onRefresh,
+            onLoading: controller.onLoadMore,
+            child: ListView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             itemCount: controller.dataSource.length,
@@ -25,20 +31,10 @@ class CoinRankPage extends GetView<CoinRankController> {
                 trailing: Text('积分:${model.level.toString()}'),
               );
             },
+          ),
           );
         },
       ),
-    );
-  }
-
-  Widget _listView() {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      itemCount: controller.dataSource.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Text(controller.dataSource[index].rank.toString());
-      },
     );
   }
 }
