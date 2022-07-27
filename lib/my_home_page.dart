@@ -100,7 +100,7 @@ class MyNextPage extends StatelessWidget {
                 return Text(_rxController.message);
               },
             ),
-            ElevatedButton(onPressed: (() => {}), child: const Text("下一页"))
+            ElevatedButton(onPressed: _rxController.pushToCoinRankPage, child: const Text("下一页"))
           ],
         ),
       ),
@@ -139,5 +139,9 @@ class CountRxController extends GetxController {
 
   void increment() {
     ++count;
+  }
+
+  void pushToCoinRankPage() {
+    Get.toNamed(Routes.coinRink);
   }
 }

@@ -15,7 +15,7 @@ abstract class Routes {
   static final routePage = [
     GetPage(
       name: coinRink,
-      page: () => const CoinRankView(),
+      page: () => const CoinRankPage(),
       binding: CoinRankBinding(),
     ),
     GetPage(

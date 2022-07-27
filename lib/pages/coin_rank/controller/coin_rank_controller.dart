@@ -12,22 +12,20 @@ class CoinRankController extends GetxController {
 
   BaseEntity<PageEntity<List<CoinRankDatas>>>? response;
 
-  var dataSource = List.filled(0, CoinRankDatas()).obs;
+  List<CoinRankDatas> dataSource = [];
 
   var page = 1;
 
   @override
   void onInit() async {
-    super.onInit();
+    
     request = Get.find<CoinRankRepository>();
-    getCoinRankList();
-  }
-
-  void getCoinRankList() async {
     response = await request.getCoinRankList(page);
-    if (response!.data!.dataSource != null) {
-      final models = response!.data!.dataSource!;
-      dataSource.addAll(models);
-    }
+    final models = response?.data?.dataSource ?? [];
+    dataSource.addAll(models);
+
+    update();
+
+    super.onInit();
   }
 }
