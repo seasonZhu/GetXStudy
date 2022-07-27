@@ -10,4 +10,14 @@ abstract class BaseRequestController<R extends IRepository, T> extends GetxContr
   BaseEntity<T>? response;
 
   ResponseStatus status = ResponseStatus.loading;
+
+  T? data;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    request = Get.find<R>();
+  }
+
+  Future<void> aRequest() async {}
 }

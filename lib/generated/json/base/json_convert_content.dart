@@ -11,7 +11,6 @@ import 'package:getx_study/entity/coin_rank_entity.dart';
 import 'package:getx_study/entity/hot_key_entity.dart';
 import 'package:getx_study/entity/my_coin_entity.dart';
 import 'package:getx_study/entity/my_coin_history_entity.dart';
-import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 import 'package:getx_study/entity/JsonConvert+Extension.dart';
 

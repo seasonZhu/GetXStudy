@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getx_study/pages/common/status_view.dart';
+import 'package:getx_study/pages/common/refresh_status_view.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,7 @@ class CoinRankPage extends GetView<CoinRankController> {
       appBar: AppBar(
         title: const Text("积分排名"),
       ),
-      body: StatusView(
+      body: RefreshStatusView(
         controller: controller,
         contentBuilder: (controller) {
           return SmartRefresher(

@@ -6,19 +6,23 @@ import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/base_entity.dart';
-import 'package:getx_study/entity/coin_rank_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 
 abstract class BaseRefreshController<R extends IRepository, T>
     extends GetxController {
-      
   late R request;
 
   late RefreshController refreshController;
 
   late int page;
 
+  late int initPage;
+
+  ResponseStatus status = ResponseStatus.loading;
+
   BaseEntity<PageEntity<List<T>>>? response;
+
+  List<T> dataSource = [];
 
   @override
   void onInit() async {
@@ -26,6 +30,7 @@ abstract class BaseRefreshController<R extends IRepository, T>
     request = Get.find<R>();
     refreshController = Get.find<RefreshController>();
     page = Get.find<int>();
+    initPage = page;
   }
 
   Future<void> onRefresh() async {}
