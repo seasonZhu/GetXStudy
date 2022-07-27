@@ -1,13 +1,12 @@
 import 'package:get/get.dart';
+import 'package:getx_study/enum/response_status.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/coin_rank_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/pages/coin_rank/data/coin_rank_repository.dart';
-
-/// 上下拉行为类型
-enum ScrollViewActionType { refresh, loadMore }
+import 'package:getx_study/enum/scroll_view_action_type.dart';
 
 class CoinRankController extends GetxController {
   CoinRankController(
@@ -22,6 +21,8 @@ class CoinRankController extends GetxController {
   int page;
 
   BaseEntity<PageEntity<List<CoinRankDatas>>>? response;
+
+  ResponseStatus status = ResponseStatus.loading;
 
   List<CoinRankDatas> dataSource = [];
 
@@ -40,13 +41,15 @@ class CoinRankController extends GetxController {
   @override
   void onInit() async {
     _initPage = page;
-    await _request(type: ScrollViewActionType.refresh);
+    //await _request(type: ScrollViewActionType.refresh);
     super.onInit();
   }
 
   Future<void> _request({required ScrollViewActionType type}) async {
     request = Get.find<CoinRankRepository>();
     response = await request.getCoinRankList(page);
+    status = response?.responseStatus ?? ResponseStatus.loading;
+
     final models = response?.data?.dataSource ?? [];
 
     switch (type) {

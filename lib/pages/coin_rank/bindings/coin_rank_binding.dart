@@ -10,7 +10,7 @@ class CoinRankBinding extends Bindings {
       () => CoinRankRepository(),
     );
     Get.lazyPut<RefreshController>(
-      () => RefreshController(),
+      () => RefreshController(initialRefresh: true),
     );
     Get.lazyPut<int>(() => 1);
     Get.lazyPut(

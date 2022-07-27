@@ -1,3 +1,5 @@
+import 'package:getx_study/entity/page_entity.dart';
+import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/generated/json/base/json_convert_content.dart';
 
 import 'package:getx_study/resource/constant.dart';
@@ -27,6 +29,39 @@ class BaseEntity<T> {
     } else {
       /// List类型数据由fromJsonAsT判断处理
       return JsonConvert.fromJsonAsT<T>(json);
+    }
+  }
+
+  ResponseStatus get responseStatus => _responseStatus;
+
+  ResponseStatus get _responseStatus {
+    if (errorCode == null) {
+      return ResponseStatus.loading;
+    } else if (errorCode == 0) {
+      if (data is List) {
+        var listData = data as List;
+        if (listData.isNotEmpty) {
+          return ResponseStatus.successHasContent;
+        } else {
+          return ResponseStatus.successNoData;
+        }
+      } else if (data is PageEntity ) {
+        var pageEntity = data as PageEntity;
+        var dataSource = pageEntity.dataSource as List;
+        if (dataSource.isNotEmpty) {
+          return ResponseStatus.successHasContent;
+        } else {
+          return ResponseStatus.successNoData;
+        }
+      } else {
+        if (data != null) {
+          return ResponseStatus.successHasContent;
+        } else {
+          return ResponseStatus.successNoData;
+        }
+      }
+    } else {
+      return ResponseStatus.fail;
     }
   }
 }

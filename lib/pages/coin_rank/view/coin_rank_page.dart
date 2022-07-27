@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getx_study/pages/common/status_view.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
@@ -11,27 +12,28 @@ class CoinRankPage extends GetView<CoinRankController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("积分排名")),
-      body: GetBuilder<CoinRankController>(
-        builder: (controller) {
+      body: StatusView(
+        controller: controller,
+        contentBuilder: (controller) {
           return SmartRefresher(
             enablePullUp: true,
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
             child: ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: controller.dataSource.length,
-            itemBuilder: (BuildContext context, int index) {
-              final model = controller.dataSource[index];
-              
-              return ListTile(
-                leading: Text(model.rank.toString()),
-                title: Text(model.username.toString()),
-                trailing: Text('积分:${model.level.toString()}'),
-              );
-            },
-          ),
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              itemCount: controller.dataSource.length,
+              itemBuilder: (BuildContext context, int index) {
+                final model = controller.dataSource[index];
+
+                return ListTile(
+                  leading: Text(model.rank.toString()),
+                  title: Text(model.username.toString()),
+                  trailing: Text('积分:${model.level.toString()}'),
+                );
+              },
+            ),
           );
         },
       ),
