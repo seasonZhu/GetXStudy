@@ -11,7 +11,9 @@ class CoinRankPage extends GetView<CoinRankController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("积分排名")),
+      appBar: AppBar(
+        title: const Text("积分排名"),
+      ),
       body: StatusView(
         controller: controller,
         contentBuilder: (controller) {

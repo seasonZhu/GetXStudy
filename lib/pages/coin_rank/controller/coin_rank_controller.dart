@@ -9,16 +9,11 @@ import 'package:getx_study/pages/coin_rank/data/coin_rank_repository.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 
 class CoinRankController extends GetxController {
-  CoinRankController(
-      {required this.request,
-      required this.refreshController,
-      required this.page});
+  late CoinRankRepository request;
 
-  CoinRankRepository request;
+  late RefreshController refreshController;
 
-  RefreshController refreshController;
-
-  int page;
+  late int page;
 
   BaseEntity<PageEntity<List<CoinRankDatas>>>? response;
 
@@ -40,9 +35,11 @@ class CoinRankController extends GetxController {
 
   @override
   void onInit() async {
-    _initPage = page;
-    //await _request(type: ScrollViewActionType.refresh);
     super.onInit();
+    request = Get.find();
+    refreshController = Get.find();
+    page = Get.find();
+    _initPage = page;
   }
 
   Future<void> _request({required ScrollViewActionType type}) async {

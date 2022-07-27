@@ -14,11 +14,7 @@ class CoinRankBinding extends Bindings {
     );
     Get.lazyPut<int>(() => 1);
     Get.lazyPut(
-      () => CoinRankController(
-        request: Get.find(),
-        refreshController: Get.find(),
-        page: Get.find(),
-      ),
+      () => CoinRankController(),
     );
   }
 }
