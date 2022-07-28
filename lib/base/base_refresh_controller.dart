@@ -26,15 +26,28 @@ abstract class BaseRefreshController<R extends IRepository, T>
   @override
   void onInit() async {
     super.onInit();
+    print("${this.runtimeType.toString()}创建了");
+
     request = Get.find<R>();
     refreshController = Get.find<RefreshController>();
     page = Get.find<int>();
     initPage = page;
   }
 
+  @override
+  void onClose() {
+    
+    refreshController.dispose();
+    print("${this.runtimeType.toString()}被销毁了");
+    super.onClose();
+  }
+
   Future<void> onRefresh() async {}
 
   Future<void> onLoadMore() async {}
 
-  Future<void> aRequest({required ScrollViewActionType type, Map<String, dynamic>? parameters,}) async {}
+  Future<void> aRequest({
+    required ScrollViewActionType type,
+    Map<String, dynamic>? parameters,
+  }) async {}
 }

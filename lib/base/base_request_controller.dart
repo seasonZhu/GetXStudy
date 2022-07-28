@@ -16,7 +16,15 @@ abstract class BaseRequestController<R extends IRepository, T> extends GetxContr
   @override
   void onInit() async {
     super.onInit();
+    print("${this.runtimeType.toString()}创建了");
+
     request = Get.find<R>();
+  }
+
+  @override
+  void onClose() {
+    print("${this.runtimeType.toString()}被销毁了");
+    super.onClose();
   }
 
   Future<void> aRequest({Map<String, dynamic>? parameters,}) async {}

@@ -19,7 +19,6 @@ dependencies:
   cached_network_image: null
   drag_container: null
   flutter_intro: null
-  flutter_easyloading: null
   flutter_screenutil: null
   lpinyin: null
   shared_preferences: null

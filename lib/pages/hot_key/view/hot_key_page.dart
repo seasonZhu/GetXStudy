@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/hot_key/controller/hot_key_controller.dart';
+import 'search_field.dart';
 
 class HotKeyPage extends GetView<HotKeyController> {
   const HotKeyPage({Key? key}) : super(key: key);
@@ -12,7 +13,16 @@ class HotKeyPage extends GetView<HotKeyController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("热词"),
+        title: SizedBox(
+          height: 33,
+          child: SearchField(
+            keywordCallback: (keyword) {
+              controller.pushToSearchPage(keyword: keyword);
+            },
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        elevation: 0.1,
       ),
       body: StatusView(
         controller: controller,
@@ -34,7 +44,8 @@ class HotKeyPage extends GetView<HotKeyController> {
                       ),
                     ),
                     child: Text(model.name.toString()),
-                    onPressed: () {},
+                    onPressed: () => controller.pushToSearchPage(
+                        keyword: model.name.toString()),
                   ),
                 );
               },
