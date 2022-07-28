@@ -36,5 +36,5 @@ abstract class BaseRefreshController<R extends IRepository, T>
 
   Future<void> onLoadMore() async {}
 
-  Future<void> aRequest({required ScrollViewActionType type}) async {}
+  Future<void> aRequest({required ScrollViewActionType type, Map<String, dynamic>? parameters,}) async {}
 }

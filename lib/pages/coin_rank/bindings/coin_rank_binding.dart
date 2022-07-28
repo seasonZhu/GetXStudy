@@ -6,10 +6,10 @@ import 'package:getx_study/pages/coin_rank/repository/coin_rank_repository.dart'
 class CoinRankBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CoinRankRepository>(
+    Get.lazyPut(
       () => CoinRankRepository(),
     );
-    Get.lazyPut<RefreshController>(
+    Get.lazyPut(
       () => RefreshController(initialRefresh: true),
     );
     Get.lazyPut<int>(

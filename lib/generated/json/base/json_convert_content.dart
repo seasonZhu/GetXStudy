@@ -12,7 +12,7 @@ import 'package:getx_study/entity/hot_key_entity.dart';
 import 'package:getx_study/entity/my_coin_entity.dart';
 import 'package:getx_study/entity/my_coin_history_entity.dart';
 import 'package:getx_study/entity/tab_entity.dart';
-import 'package:getx_study/entity/JsonConvert+Extension.dart';
+import 'package:getx_study/entity/json_convert_extension.dart';
 
 JsonConvert jsonConvert = JsonConvert();
 typedef JsonConvertFunction<T> = T Function(Map<String, dynamic> json);

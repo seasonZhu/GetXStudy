@@ -19,5 +19,5 @@ abstract class BaseRequestController<R extends IRepository, T> extends GetxContr
     request = Get.find<R>();
   }
 
-  Future<void> aRequest() async {}
+  Future<void> aRequest({Map<String, dynamic>? parameters,}) async {}
 }
