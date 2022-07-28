@@ -40,7 +40,16 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - assets/image/launchImage.png
+  - assets/images/ic_head.jpeg
+  - assets/images/ic_eye.png
+  - assets/images/placeholder.png
+  - assets/images/saber.jpg
+  - assets/images/season_ali_pay.jpg
+  - assets/images/saber_logo.jpg
+  - assets/images/welcome_1.png
+  - assets/images/welcome_2.jpg
+  - assets/images/launchImage.png
+  - assets/images/upgrade.png
 flr:
   core_version: 3.1.0
   dartfmt_line_length: 80
