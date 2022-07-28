@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+
+// import 'package:get/get.dart';
+
+// class GetXRouterObserver extends NavigatorObserver {
+//   @override
+//   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+//     RouterReportManager.reportCurrentRoute(route);
+//   }
+
+//   @override
+//   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) async {
+//     RouterReportManager.reportRouteDispose(route);
+//   }
+// }
