@@ -10,7 +10,7 @@ class SearchResultBinding extends Bindings {
     Get.lazyPut(
       () => SearchResultRepository(),
     );
-    Get.lazyPut(
+    Get.lazyPut(tag: SearchResultController.className,
       () => RefreshController(initialRefresh: true),
     );
     Get.lazyPut<int>(

@@ -43,8 +43,4 @@ class CoinRankPage extends GetView<CoinRankController> {
       ),
     );
   }
-
-  void dispose() {
-    
-  }
 }

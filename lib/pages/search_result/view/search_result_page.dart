@@ -11,9 +11,10 @@ class SearchResultPage extends GetView<SearchResultController> {
 
   @override
   Widget build(BuildContext context) {
+    String title = Get.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("搜索"),
+        title: Text(title),
       ),
       body: RefreshStatusView(
         controller: controller,

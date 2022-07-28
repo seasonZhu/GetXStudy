@@ -1,12 +1,20 @@
 import 'package:get/get.dart';
 
 import 'package:getx_study/base/base_refresh_controller.dart';
+import 'package:getx_study/base/inferface.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/pages/search_result/repository/search_result_repository.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 
-class SearchResultController extends BaseRefreshController<SearchResultRepository, ArticleInfoDatas> {
+class SearchResultController
+    extends BaseRefreshController<SearchResultRepository, ArticleInfoDatas>
+    implements IClassName {
+  @override
+  void onInit() {
+    super.onInit();
+    refreshController = Get.find(tag: SearchResultController.className);
+  }
 
   @override
   Future<void> onRefresh() async {
@@ -21,8 +29,10 @@ class SearchResultController extends BaseRefreshController<SearchResultRepositor
   }
 
   @override
-  Future<void> aRequest({required ScrollViewActionType type, Map<String, dynamic>? parameters,}) async {
-
+  Future<void> aRequest({
+    required ScrollViewActionType type,
+    Map<String, dynamic>? parameters,
+  }) async {
     String keyword = Get.arguments;
 
     response = await request.searchKeyword(page: page, keyword: keyword);
@@ -48,4 +58,6 @@ class SearchResultController extends BaseRefreshController<SearchResultRepositor
 
     update();
   }
+
+  static String? get className => (SearchResultController).toString();
 }

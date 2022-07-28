@@ -3,8 +3,8 @@ import 'package:getx_study/base/inferface.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/base_entity.dart';
 
-
-abstract class BaseRequestController<R extends IRepository, T> extends GetxController {
+abstract class BaseRequestController<R extends IRepository, T>
+    extends GetxController {
   late R request;
 
   BaseEntity<T>? response;
@@ -16,16 +16,18 @@ abstract class BaseRequestController<R extends IRepository, T> extends GetxContr
   @override
   void onInit() async {
     super.onInit();
-    print("${this.runtimeType.toString()}创建了");
+    print("${runtimeType.toString()}创建了");
 
     request = Get.find<R>();
   }
 
   @override
   void onClose() {
-    print("${this.runtimeType.toString()}被销毁了");
+    print("${runtimeType.toString()}被销毁了");
     super.onClose();
   }
 
-  Future<void> aRequest({Map<String, dynamic>? parameters,}) async {}
+  Future<void> aRequest({
+    Map<String, dynamic>? parameters,
+  }) async {}
 }
