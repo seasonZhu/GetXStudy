@@ -27,8 +27,6 @@ abstract class BaseRefreshController<R extends IRepository, T>
   void onInit() async {
     super.onInit();
     request = Get.find<R>();
-    page = Get.find<int>();
-    initPage = page;
   }
 
   @override

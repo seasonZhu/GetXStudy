@@ -78,13 +78,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.2"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.16.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -153,13 +146,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.3.0"
-  flutter_html:
-    dependency: "direct main"
-    description:
-      name: flutter_html
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.11.1"
   flutter_intro:
     dependency: "direct main"
     description:
@@ -233,13 +219,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.6.5"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.14.0+4"
   http:
     dependency: transitive
     description:

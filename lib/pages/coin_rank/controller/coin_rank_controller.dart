@@ -8,10 +8,13 @@ import 'package:getx_study/pages/coin_rank/repository/coin_rank_repository.dart'
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 
 class CoinRankController
-    extends BaseRefreshController<CoinRankRepository, CoinRankDatas> implements IClassName {
+    extends BaseRefreshController<CoinRankRepository, CoinRankDatas>
+    implements IClassName {
   @override
   void onInit() {
     super.onInit();
+    initPage = Get.find<int>(tag: CoinRankController.className);
+    page = initPage;
     refreshController = Get.find(tag: CoinRankController.className);
   }
 

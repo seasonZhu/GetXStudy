@@ -14,7 +14,6 @@ dependencies:
   webview_flutter: null
   pull_to_refresh: null
   flutter_slidable: null
-  flutter_html: null
   image_picker: null
   cached_network_image: null
   drag_container: null

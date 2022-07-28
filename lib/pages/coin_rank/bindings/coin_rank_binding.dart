@@ -9,11 +9,14 @@ class CoinRankBinding extends Bindings {
     Get.lazyPut(
       () => CoinRankRepository(),
     );
+
     /// 需要通过tag来进行区分,避免RefreshController反复使用导致的内存泄露与崩溃
-    Get.lazyPut(tag: CoinRankController.className,
+    Get.lazyPut(
+      tag: CoinRankController.className,
       () => RefreshController(initialRefresh: true),
     );
     Get.lazyPut<int>(
+      tag: CoinRankController.className,
       () => 1,
     );
     Get.lazyPut(
@@ -21,4 +24,3 @@ class CoinRankBinding extends Bindings {
     );
   }
 }
-

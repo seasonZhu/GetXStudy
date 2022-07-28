@@ -13,7 +13,8 @@ class SearchResultController
   @override
   void onInit() {
     super.onInit();
-    initPage = 0;
+    initPage = Get.find(tag: SearchResultController.className);
+    page = initPage;
     refreshController = Get.find(tag: SearchResultController.className);
   }
 
