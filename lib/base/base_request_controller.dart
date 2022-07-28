@@ -16,14 +16,11 @@ abstract class BaseRequestController<R extends IRepository, T>
   @override
   void onInit() async {
     super.onInit();
-    print("${runtimeType.toString()}创建了");
-
     request = Get.find<R>();
   }
 
   @override
   void onClose() {
-    print("${runtimeType.toString()}被销毁了");
     super.onClose();
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/search_result/controller/search_result_controller.dart';
 import 'package:getx_study/routes/routes.dart';
@@ -30,13 +31,7 @@ class SearchResultPage extends GetView<SearchResultController> {
               itemCount: controller.dataSource.length,
               itemBuilder: (BuildContext context, int index) {
                 final model = controller.dataSource[index];
-                return Text(model.title.toString());
-                return ListTile(
-                  leading: Text(model.title.toString()),
-                  title: Text(model.desc.toString()),
-                  trailing: Text(model.author.toString()),
-                  onTap: () => Get.toNamed(Routes.hotKey),
-                );
+                return InfoCell(model: model);
               },
             ),
           );

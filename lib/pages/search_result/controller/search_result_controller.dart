@@ -13,6 +13,7 @@ class SearchResultController
   @override
   void onInit() {
     super.onInit();
+    initPage = 0;
     refreshController = Get.find(tag: SearchResultController.className);
   }
 
@@ -48,11 +49,16 @@ class SearchResultController
         break;
       case ScrollViewActionType.loadMore:
         dataSource.addAll(models);
-        if ((response?.data?.offset ?? false) == true) {
+        if (response?.data?.curPage == response?.data?.pageCount) {
           refreshController.loadNoData();
         } else {
           refreshController.loadComplete();
         }
+
+        if (status == ResponseStatus.successNoData && dataSource.isNotEmpty) {
+          status = ResponseStatus.successHasContent;
+        }
+
         break;
     }
 

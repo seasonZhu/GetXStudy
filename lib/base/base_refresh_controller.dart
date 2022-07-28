@@ -26,8 +26,6 @@ abstract class BaseRefreshController<R extends IRepository, T>
   @override
   void onInit() async {
     super.onInit();
-    print("${runtimeType.toString()}创建了");
-
     request = Get.find<R>();
     page = Get.find<int>();
     initPage = page;
@@ -35,9 +33,7 @@ abstract class BaseRefreshController<R extends IRepository, T>
 
   @override
   void onClose() {
-    
     refreshController.dispose();
-    print("${runtimeType.toString()}被销毁了");
     super.onClose();
   }
 
