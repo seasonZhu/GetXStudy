@@ -142,6 +142,6 @@ class CountRxController extends GetxController {
   }
 
   void pushToCoinRankPage() {
-    Get.toNamed(Routes.coinRink);
+    Get.toNamed(Routes.hotKey);
   }
 }

@@ -23,6 +23,6 @@ class HotKeyController
   }
 
   void pushToSearchPage({required String keyword}) {
-    Get.toNamed(Routes.myHomePage, arguments: keyword);
+    Get.toNamed(Routes.searchResult, arguments: keyword);
   }
 }

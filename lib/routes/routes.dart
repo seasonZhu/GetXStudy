@@ -4,11 +4,15 @@ import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
 import 'package:getx_study/pages/coin_rank/view/coin_rank_page.dart';
 import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
+import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
+import 'package:getx_study/pages/search_result/view/search_result_page.dart';
 
 abstract class Routes {
   static const coinRink = '/coinRink';
 
   static const hotKey = "/hotKey";
+
+  static const searchResult = "/searchResult";
 
   static const myHomePage = "/myHomePage";
 
@@ -25,6 +29,11 @@ abstract class Routes {
       name: hotKey,
       page: () => const HotKeyPage(),
       binding: HotKeyBinding(),
+    ),
+    GetPage(
+      name: searchResult,
+      page: () => const SearchResultPage(),
+      binding: SearchResultBinding(),
     ),
     GetPage(
       name: myHomePage,
