@@ -31,7 +31,12 @@ class SearchResultPage extends GetView<SearchResultController> {
               itemCount: controller.dataSource.length,
               itemBuilder: (BuildContext context, int index) {
                 final model = controller.dataSource[index];
-                return InfoCell(model: model);
+                return InfoCell(
+                  model: model,
+                  callback: (value) {
+                    print(value.toString());
+                  },
+                );
               },
             ),
           );

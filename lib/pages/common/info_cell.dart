@@ -8,10 +8,14 @@ import 'package:getx_study/extension/string_extension.dart';
 class InfoCell extends StatelessWidget {
   final ArticleInfoDatas _model;
 
-  const InfoCell({
-    Key? key,
-    required ArticleInfoDatas model,
-  })  : _model = model,
+  final ValueChanged<ArticleInfoDatas> _cellTapCallback;
+
+  const InfoCell(
+      {Key? key,
+      required ArticleInfoDatas model,
+      required ValueChanged<ArticleInfoDatas> callback})
+      : _model = model,
+        _cellTapCallback = callback,
         super(key: key);
 
   @override
@@ -19,7 +23,7 @@ class InfoCell extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: () {
-          _pushToWebView(context);
+          _cellTapCallback(_model);
         },
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -54,8 +58,10 @@ class InfoCell extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(_model.title.toString().replaceHtmlElement,
-                style: const TextStyle(fontSize: 15),),
+            Text(
+              _model.title.toString().replaceHtmlElement,
+              style: const TextStyle(fontSize: 15),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -108,6 +114,4 @@ class InfoCell extends StatelessWidget {
       ],
     );
   }
-
-  void _pushToWebView(BuildContext context) {}
 }

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import 'package:getx_study/base/inferface.dart';
+import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/base_entity.dart';
@@ -31,8 +31,8 @@ abstract class BaseRefreshController<R extends IRepository, T>
 
   @override
   void onClose() {
-    refreshController.dispose();
     super.onClose();
+    refreshController.dispose();
   }
 
   Future<void> onRefresh() async {}

@@ -1,5 +1,5 @@
 
-import 'package:getx_study/base/inferface.dart';
+import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/coin_rank_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
