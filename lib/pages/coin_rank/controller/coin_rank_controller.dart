@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/base/base_refresh_controller.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/coin_rank_entity.dart';
-import 'package:getx_study/pages/coin_rank/data/coin_rank_repository.dart';
+import 'package:getx_study/pages/coin_rank/repository/coin_rank_repository.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 
 class CoinRankController extends BaseRefreshController<CoinRankRepository, CoinRankDatas> {

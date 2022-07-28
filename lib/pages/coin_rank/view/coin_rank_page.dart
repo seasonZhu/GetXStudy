@@ -16,7 +16,7 @@ class CoinRankPage extends GetView<CoinRankController> {
       ),
       body: RefreshStatusView(
         controller: controller,
-        contentBuilder: (controller) {
+        contentBuilder: (_) {
           return SmartRefresher(
             enablePullUp: true,
             controller: controller.refreshController,

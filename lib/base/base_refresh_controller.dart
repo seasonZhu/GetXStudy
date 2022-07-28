@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/base/inferface.dart';
-import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/base_entity.dart';

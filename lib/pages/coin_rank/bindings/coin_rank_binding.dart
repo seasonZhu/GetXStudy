@@ -1,7 +1,7 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/pages/coin_rank/controller/coin_rank_controller.dart';
-import 'package:getx_study/pages/coin_rank/data/coin_rank_repository.dart';
+import 'package:getx_study/pages/coin_rank/repository/coin_rank_repository.dart';
 
 class CoinRankBinding extends Bindings {
   @override
