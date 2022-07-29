@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'routes/routes.dart';
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class MyHomePage extends GetView<CountEasyController> {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
-  final _easyController = Get.find<CountEasyController>();
+  // final _easyController = Get.find<CountEasyController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +32,14 @@ class MyHomePage extends StatelessWidget {
               }),
             ),
             ElevatedButton(
-              onPressed: _easyController.pushToNextPage,
+              onPressed: controller.pushToNextPage,
               child: const Text("下一页"),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _easyController.increment,
+        onPressed: controller.increment,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
@@ -67,12 +67,10 @@ class MyHomeBindings extends Bindings {
   }
 }
 
-class MyNextPage extends StatelessWidget {
+class MyNextPage extends GetView<CountRxController> {
   MyNextPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
-
-  final _rxController = Get.find<CountRxController>();
 
   final _easyController = Get.find<CountEasyController>();
 
@@ -91,22 +89,22 @@ class MyNextPage extends StatelessWidget {
             ),
             Obx(() {
               return Text(
-                _rxController.count.value.toString(),
+                controller.count.value.toString(),
                 style: Theme.of(context).textTheme.headline4,
               );
             }),
             GetBuilder<CountRxController>(
               builder: (controller) {
-                return Text(_rxController.message);
+                return Text(controller.message);
               },
             ),
-            ElevatedButton(onPressed: _rxController.pushToCoinRankPage, child: const Text("下一页"))
+            ElevatedButton(onPressed: controller.pushToCoinRankPage, child: const Text("下一页"))
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          _rxController.increment();
+          controller.increment();
           _easyController.increment();
         }),
         tooltip: 'Increment',

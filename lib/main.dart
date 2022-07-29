@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/base/getx_router_observer.dart';
 import 'package:getx_study/entity/coin_rank_entity.dart';
 import 'package:getx_study/entity/hot_key_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
@@ -22,20 +23,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      title: 'GetX Study',
+      navigatorObservers: [GetXRouterObserver()],
+      /// 通过使用initialRoute来保证绑定的操作
+      initialRoute: Routes.myHomePage,
       getPages: Routes.routePage,
-      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("测试首页"),
-        ),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: (() => Get.toNamed(Routes.myHomePage)),
-            child: const Text("去普通的计数首页"),
-          ),
+      /// 一开始的时候,我在初始化页面的发现并不能很好的进行初始化页面的binding操作,
+      /// 于是写了一个临时页面,便于路由进去操作,看完官方的example懂了
+      // home: const TestHome(),
+    );
+  }
+}
+
+class TestHome extends StatelessWidget {
+  const TestHome({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("测试首页"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: (() => Get.toNamed(Routes.myHomePage)),
+          child: const Text("去普通的计数首页"),
         ),
       ),
     );
@@ -43,11 +58,9 @@ class MyApp extends StatelessWidget {
 }
 
 void _requestTest({required int page}) async {
-  final api = "${Api.getRankingList}${page.toString()}/json";
-
   /// 泛型里面带泛型的问题解决
   BaseEntity<PageEntity<List<CoinRankDatas>>> model =
-      await Moya.Request.get(api: api);
+      await Moya.Request.get(api: "${Api.getRankingList}${page.toString()}/json");
   print(model.toString());
 
   /// 这里的T是一个数组,Dart里面没有[HotKeyEntity]这种写法,必须使用List<HotKeyEntity>
