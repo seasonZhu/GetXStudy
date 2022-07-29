@@ -44,21 +44,13 @@ class CoinRankController
       case ScrollViewActionType.refresh:
         dataSource.clear();
         dataSource.addAll(models);
-        refreshController.refreshCompleted();
         break;
       case ScrollViewActionType.loadMore:
         dataSource.addAll(models);
-        if (response?.data?.curPage == response?.data?.pageCount) {
-          refreshController.loadNoData();
-        } else {
-          refreshController.loadComplete();
-        }
-
-        if (status == ResponseStatus.successNoData && dataSource.isNotEmpty) {
-          status = ResponseStatus.successHasContent;
-        }
         break;
     }
+
+    refreshControllerStatusUpdate(type);
 
     update();
   }

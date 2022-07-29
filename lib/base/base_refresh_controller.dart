@@ -43,4 +43,27 @@ abstract class BaseRefreshController<R extends IRepository, T>
     required ScrollViewActionType type,
     Map<String, dynamic>? parameters,
   }) async {}
+
+  void refreshControllerStatusUpdate(ScrollViewActionType type) {
+    switch (type) {
+      case ScrollViewActionType.refresh:
+        refreshController.refreshCompleted(resetFooterState: true);
+        break;
+      case ScrollViewActionType.loadMore:
+        if (response?.data?.curPage == response?.data?.pageCount) {
+          refreshController.loadNoData();
+        } else {
+          refreshController.loadComplete();
+        }
+
+        checkDataSourceAndStatus();
+        break;
+    }
+  }
+
+  void checkDataSourceAndStatus() {
+    if (status == ResponseStatus.successNoData && dataSource.isNotEmpty) {
+      status = ResponseStatus.successHasContent;
+    }
+  }
 }
