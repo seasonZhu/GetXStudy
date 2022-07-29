@@ -8,8 +8,6 @@ class MyHomePage extends GetView<CountEasyController> {
 
   final String title;
 
-  // final _easyController = Get.find<CountEasyController>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -16,9 +16,6 @@ dependencies:
   flutter_slidable: null
   image_picker: null
   cached_network_image: null
-  drag_container: null
-  flutter_intro: null
-  flutter_screenutil: null
   lpinyin: null
   shared_preferences: null
   path_provider: null

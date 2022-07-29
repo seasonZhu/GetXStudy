@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'GetX Study',
       navigatorObservers: [GetXRouterObserver()],
       /// 通过使用initialRoute来保证绑定的操作
-      initialRoute: Routes.myHomePage,
+      initialRoute: Routes.project,
       getPages: Routes.routePage,
       theme: ThemeData(
         primarySwatch: Colors.blue,
