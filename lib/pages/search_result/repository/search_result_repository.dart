@@ -1,5 +1,3 @@
-
-import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/article_info_entity.dart';

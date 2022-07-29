@@ -6,6 +6,8 @@ import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
+import 'package:getx_study/pages/tree/bindings/tree_binding.dart';
+import 'package:getx_study/pages/tree/view/tree_page.dart';
 
 abstract class Routes {
   static const coinRink = '/coinRink';
@@ -13,6 +15,8 @@ abstract class Routes {
   static const hotKey = "/hotKey";
 
   static const searchResult = "/searchResult";
+
+  static const tree = "/tree";
 
   static const myHomePage = "/myHomePage";
 
@@ -34,6 +38,11 @@ abstract class Routes {
       name: searchResult,
       page: () => const SearchResultPage(),
       binding: SearchResultBinding(),
+    ),
+    GetPage(
+      name: tree,
+      page: () => const TreePage(),
+      binding: TreeBinding(),
     ),
     GetPage(
       name: myHomePage,

@@ -35,6 +35,7 @@ class SearchResultPage extends GetView<SearchResultController> {
                   model: model,
                   callback: (value) {
                     print(value.toString());
+                    Get.toNamed(Routes.tree);
                   },
                 );
               },
