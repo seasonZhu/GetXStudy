@@ -6,6 +6,8 @@ import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/tree/controller/tree_controller.dart';
+import 'package:getx_study/pages/tree/repository/tab_list_repository.dart';
+import 'package:getx_study/pages/tree/view/tab_list_page.dart';
 
 class TabsPage extends StatefulWidget {
   const TabsPage({Key? key}) : super(key: key);
@@ -76,11 +78,10 @@ class _TabsPageState extends State<TabsPage>
   }
 
   List<Widget> _createTabsPage() {
-    return (_treeController.data ?? [])
-        .map(
-          (model) => Container(),
-        )
-        .toList();
+    return (_treeController.data ?? []).map((model) {
+      return Container();
+      return TabListPage(type: _treeController.type, model: model);
+    }).toList();
   }
 
   @override
