@@ -57,16 +57,16 @@ abstract class Routes {
       page: () => const TreePage(),
       binding: TreeBinding(TagType.tree),
     ),
-    GetPage(
-      name: project,
-      page: () => const TabsPage(),
-      binding: TabsBinding(TagType.project),
-    ),
-    GetPage(
-      name: publicNumber,
-      page: () => const TabsPage(),
-      binding: TabsBinding(TagType.publicNumber),
-    ),
+    // GetPage(
+    //   name: project,
+    //   page: () => const TabsPage(),
+    //   binding: TabsBinding(TagType.project),
+    // ),
+    // GetPage(
+    //   name: publicNumber,
+    //   page: () => const TabsPage(),
+    //   binding: TabsBinding(TagType.publicNumber),
+    // ),
     GetPage(
       name: main,
       page: () => const MainPage(),

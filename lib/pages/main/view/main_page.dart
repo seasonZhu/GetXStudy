@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
+import 'package:getx_study/pages/tree/view/project_page.dart';
+import 'package:getx_study/pages/tree/view/public_number_page.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 
@@ -15,8 +17,8 @@ class MainPage extends GetView<MainController> {
           body: IndexedStack(
             index: controller.selectedIndex,
             children: const [
-              TabsPage(),
-              TabsPage(),
+              ProjectPage(),
+              PublicNumberPage(),
               TreePage(),
             ],
           ),
