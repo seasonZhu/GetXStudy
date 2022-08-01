@@ -8,7 +8,7 @@ import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
-import 'package:getx_study/pages/tree/controller/tree_controller.dart';
+import 'package:getx_study/pages/tree/controller/tabs_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
 
 class TabsPage extends StatefulWidget {
@@ -20,7 +20,7 @@ class TabsPage extends StatefulWidget {
 
 class _TabsPageState extends State<TabsPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  final _treeController = Get.find<TabsController>();
+  final _tabsController = Get.find<TabsController>();
 
   var _alreadyRequestIndex = Set<int>();
 
@@ -35,11 +35,11 @@ class _TabsPageState extends State<TabsPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      body: StatusView<TreeController>(
-        controller: _treeController,
+      body: StatusView<TabsController>(
+        controller: _tabsController,
         contentBuilder: (_) {
           _tabController = TabController(
-              length: _treeController.data?.length ?? 0, vsync: this);
+              length: _tabsController.data?.length ?? 0, vsync: this);
           _tabController.addListener(() {
             var index = _tabController.index;
             var value = _tabController.animation?.value;
@@ -57,7 +57,7 @@ class _TabsPageState extends State<TabsPage>
           });
           return Scaffold(
             appBar: AppBar(
-              title: Text(_treeController.type.title),
+              title: Text(_tabsController.type.title),
               iconTheme: const IconThemeData(color: Colors.white),
               elevation: 0.1,
               bottom: _tabBar(_tabController),
@@ -74,7 +74,7 @@ class _TabsPageState extends State<TabsPage>
 
   TabBar _tabBar(TabController controller) {
     return TabBar(
-      tabs: (_treeController.data ?? []).map(
+      tabs: (_tabsController.data ?? []).map(
         (model) {
           return Tab(
             child: Container(
@@ -99,14 +99,14 @@ class _TabsPageState extends State<TabsPage>
   }
 
   List<Widget> _createTabsPage() {
-    return (_treeController.data ?? []).map((model) {
+    return (_tabsController.data ?? []).map((model) {
       final controller = TabListController();
-      controller.tagType = _treeController.type;
+      controller.tagType = _tabsController.type;
       controller.id = model.id.toString();
       controller.request = Get.find();
       controller.refreshController = RefreshController(initialRefresh: true);
-      controller.page = _treeController.type.pageNum;
-      controller.initPage = _treeController.type.pageNum;
+      controller.page = _tabsController.type.pageNum;
+      controller.initPage = _tabsController.type.pageNum;
       Get.put(controller, tag: model.id.toString());
       _tabListControllers.add(controller);
       return TabListPage(

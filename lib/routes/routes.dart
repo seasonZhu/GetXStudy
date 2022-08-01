@@ -9,6 +9,8 @@ import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
+import 'package:getx_study/pages/tree/bindings/project_binding.dart';
+import 'package:getx_study/pages/tree/bindings/public_number_binding.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
 import 'package:getx_study/pages/tree/bindings/tree_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
@@ -68,7 +70,7 @@ abstract class Routes {
     GetPage(
       name: main,
       page: () => const MainPage(),
-      bindings: [MainBinding(), TabsBinding(TagType.project), TreeBinding(TagType.tree)], 
+      bindings: [MainBinding(), ProjectBinding(), PublicNumberBinding(), TreeBinding(TagType.tree)], 
     ),
     GetPage(
       name: myHomePage,
