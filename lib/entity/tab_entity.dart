@@ -6,13 +6,13 @@ import 'dart:convert';
 class TabEntity {
 
 	List<TabEntity>? children;
-	double? courseId;
-	double? id;
+	int? courseId;
+	int? id;
 	String? name;
-	double? order;
-	double? parentChapterId;
+	int? order;
+	int? parentChapterId;
 	bool? userControlSetTop;
-	double? visible;
+	int? visible;
   
   TabEntity();
 

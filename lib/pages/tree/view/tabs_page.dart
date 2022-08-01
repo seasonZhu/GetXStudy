@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/enum/scroll_view_action_type.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
+import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/controller/tree_controller.dart';
-import 'package:getx_study/pages/tree/repository/tab_list_repository.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
 
 class TabsPage extends StatefulWidget {
@@ -19,6 +21,10 @@ class TabsPage extends StatefulWidget {
 class _TabsPageState extends State<TabsPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _treeController = Get.find<TabsController>();
+
+  var _alreadyRequestIndex = Set<int>();
+
+  List<TabListController> _tabListControllers = [];
 
   late TabController _tabController;
 
@@ -34,6 +40,21 @@ class _TabsPageState extends State<TabsPage>
         contentBuilder: (_) {
           _tabController = TabController(
               length: _treeController.data?.length ?? 0, vsync: this);
+          _tabController.addListener(() {
+            var index = _tabController.index;
+            var value = _tabController.animation?.value;
+
+            ///修复执行2次的BUG,增加条件
+            if (index == value) {
+              if (!_alreadyRequestIndex.contains(index)) {
+                _alreadyRequestIndex.add(index);
+                _tabListControllers[index]
+                    .aRequest(type: ScrollViewActionType.refresh);
+              } else {
+                print("已经包含不用请求");
+              }
+            }
+          });
           return Scaffold(
             appBar: AppBar(
               title: Text(_treeController.type.title),
@@ -79,8 +100,18 @@ class _TabsPageState extends State<TabsPage>
 
   List<Widget> _createTabsPage() {
     return (_treeController.data ?? []).map((model) {
-      return Container();
-      return TabListPage(type: _treeController.type, model: model);
+      final controller = TabListController();
+      controller.tagType = _treeController.type;
+      controller.id = model.id.toString();
+      controller.request = Get.find();
+      controller.refreshController = RefreshController(initialRefresh: true);
+      controller.page = _treeController.type.pageNum;
+      controller.initPage = _treeController.type.pageNum;
+      Get.put(controller, tag: model.id.toString());
+      _tabListControllers.add(controller);
+      return TabListPage(
+        controller: controller,
+      );
     }).toList();
   }
 

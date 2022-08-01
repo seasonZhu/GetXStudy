@@ -26,7 +26,6 @@ class SearchResultPage extends GetView<SearchResultController> {
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
             child: ListView.builder(
-              padding: EdgeInsets.zero,
               shrinkWrap: true,
               itemCount: controller.dataSource.length,
               itemBuilder: (BuildContext context, int index) {

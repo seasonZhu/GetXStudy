@@ -7,11 +7,11 @@ TabEntity $TabEntityFromJson(Map<String, dynamic> json) {
 	if (children != null) {
 		tabEntity.children = children;
 	}
-	final double? courseId = jsonConvert.convert<double>(json['courseId']);
+	final int? courseId = jsonConvert.convert<int>(json['courseId']);
 	if (courseId != null) {
 		tabEntity.courseId = courseId;
 	}
-	final double? id = jsonConvert.convert<double>(json['id']);
+	final int? id = jsonConvert.convert<int>(json['id']);
 	if (id != null) {
 		tabEntity.id = id;
 	}
@@ -19,11 +19,11 @@ TabEntity $TabEntityFromJson(Map<String, dynamic> json) {
 	if (name != null) {
 		tabEntity.name = name;
 	}
-	final double? order = jsonConvert.convert<double>(json['order']);
+	final int? order = jsonConvert.convert<int>(json['order']);
 	if (order != null) {
 		tabEntity.order = order;
 	}
-	final double? parentChapterId = jsonConvert.convert<double>(json['parentChapterId']);
+	final int? parentChapterId = jsonConvert.convert<int>(json['parentChapterId']);
 	if (parentChapterId != null) {
 		tabEntity.parentChapterId = parentChapterId;
 	}
@@ -31,7 +31,7 @@ TabEntity $TabEntityFromJson(Map<String, dynamic> json) {
 	if (userControlSetTop != null) {
 		tabEntity.userControlSetTop = userControlSetTop;
 	}
-	final double? visible = jsonConvert.convert<double>(json['visible']);
+	final int? visible = jsonConvert.convert<int>(json['visible']);
 	if (visible != null) {
 		tabEntity.visible = visible;
 	}

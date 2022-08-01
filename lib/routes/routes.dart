@@ -7,6 +7,7 @@ import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
+import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
 import 'package:getx_study/pages/tree/bindings/tree_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
@@ -62,7 +63,7 @@ abstract class Routes {
     ),
     GetPage(
       name: myHomePage,
-      page: () => MyHomePage(title: "普通计数器"),
+      page: () => const MyHomePage(title: "普通计数器"),
       binding: MyHomeBindings(),
     ),
     GetPage(
