@@ -5,6 +5,8 @@ import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
 import 'package:getx_study/pages/coin_rank/view/coin_rank_page.dart';
 import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
+import 'package:getx_study/pages/main/bindings/main_binding.dart';
+import 'package:getx_study/pages/main/view/main_page.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
@@ -24,6 +26,8 @@ abstract class Routes {
   static const project = "/project";
 
   static const publicNumber = "/publicNumber";
+
+  static const main = "/main";
 
   static const myHomePage = "/myHomePage";
 
@@ -60,6 +64,11 @@ abstract class Routes {
       name: publicNumber,
       page: () => const TabsPage(),
       binding: TabsBinding(TagType.publicNumber),
+    ),
+    GetPage(
+      name: main,
+      page: () => const MainPage(),
+      bindings: [MainBinding(), TabsBinding(TagType.project), TreeBinding(TagType.tree)], 
     ),
     GetPage(
       name: myHomePage,
