@@ -4,9 +4,9 @@ import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 import 'package:getx_study/http_util/request.dart' as Moya;
 
-class TreeRepository extends IRepository {
+class TabsRepository extends IRepository {
 
-  TreeRepository(this.type);
+  TabsRepository(this.type);
 
   TagType type;
   
