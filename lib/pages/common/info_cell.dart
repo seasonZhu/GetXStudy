@@ -88,14 +88,11 @@ class InfoCell extends StatelessWidget {
                             _model.author.toString(),
                             style: const TextStyle(color: Colors.grey),
                           )
-                        : const Text(
-                            "收藏集",
-                            style: TextStyle(color: Colors.grey),
-                          ),
+                        : Container(),
                   ],
                 ),
                 Text(
-                  _model.niceShareDate ?? "好好学习",
+                  _model.niceShareDate ?? "",
                   style: const TextStyle(color: Colors.grey),
                 ),
               ],
