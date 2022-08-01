@@ -13,11 +13,12 @@ class TabListRepository extends IRepository {
       case TagType.project:
         var params = <String, String>{};
         params["cid"] = id.toString();
-        return await Moya.Request.get(
-            api: Api.getProjectClassifyList + page.toString() + "/json",
-            params: params);
+        final api = "${Api.getProjectClassifyList}${page.toString()}/json";
+        return await Moya.Request.get(api: api, params: params);
       case TagType.publicNumber:
-        return await Moya.Request.get(api: Api.getPubilicNumberList + id.toString() + "/" + page.toString() + "/json");
+        final api =
+            "${Api.getPubilicNumberList}${id.toString()}/${page.toString()}/json";
+        return await Moya.Request.get(api: api);
       case TagType.tree:
         return BaseEntity<PageEntity<List<ArticleInfoDatas>>>(null, null, null);
     }

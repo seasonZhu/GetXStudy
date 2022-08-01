@@ -48,6 +48,9 @@ abstract class BaseRefreshController<R extends IRepository, T>
     switch (type) {
       case ScrollViewActionType.refresh:
         refreshController.refreshCompleted(resetFooterState: true);
+        if (response?.data?.curPage == response?.data?.pageCount) {
+          refreshController.loadNoData();
+        }
         break;
       case ScrollViewActionType.loadMore:
         if (response?.data?.curPage == response?.data?.pageCount) {
