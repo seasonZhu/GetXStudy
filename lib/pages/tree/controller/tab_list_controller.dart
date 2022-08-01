@@ -4,7 +4,6 @@ import 'package:getx_study/base/base_refresh_controller.dart';
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
-import 'package:getx_study/pages/search_result/repository/search_result_repository.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/pages/tree/repository/tab_list_repository.dart';
