@@ -129,6 +129,8 @@ class TestPage extends StatelessWidget {
 */
 
 class AutoDisposePage extends StatefulWidget {
+  const AutoDisposePage({Key? key}) : super(key: key);
+
   @override
   _AutoDisposePageState createState() => _AutoDisposePageState();
 }
@@ -137,9 +139,9 @@ class _AutoDisposePageState extends State<AutoDisposePage> {
   final AutoDisposeLogic logic = Get.put(AutoDisposeLogic());
 
   @override
-    Widget build(BuildContext context) {
-      return Container();
-    }
+  Widget build(BuildContext context) {
+    return Container();
+  }
 
   @override
   void dispose() {
@@ -148,6 +150,4 @@ class _AutoDisposePageState extends State<AutoDisposePage> {
   }
 }
 
-class AutoDisposeLogic extends GetxController {
-
-}
+class AutoDisposeLogic extends GetxController {}

@@ -3,7 +3,7 @@ import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/enum/tag_type.dart';
-import 'package:getx_study/http_util/request.dart' as Moya;
+import 'package:getx_study/http_util/request.dart' as http;
 import 'package:getx_study/http_util/api.dart';
 
 class TabListRepository extends IRepository {
@@ -14,11 +14,11 @@ class TabListRepository extends IRepository {
         var params = <String, String>{};
         params["cid"] = id.toString();
         final api = "${Api.getProjectClassifyList}${page.toString()}/json";
-        return await Moya.Request.get(api: api, params: params);
+        return await http.Request.get(api: api, params: params);
       case TagType.publicNumber:
         final api =
             "${Api.getPubilicNumberList}${id.toString()}/${page.toString()}/json";
-        return await Moya.Request.get(api: api);
+        return await http.Request.get(api: api);
       case TagType.tree:
         return BaseEntity<PageEntity<List<ArticleInfoDatas>>>(null, null, null);
     }

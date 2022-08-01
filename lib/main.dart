@@ -8,7 +8,7 @@ import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 
 import 'package:getx_study/http_util/api.dart';
-import 'http_util/request.dart' as Moya;
+import 'http_util/request.dart' as http;
 import 'entity/base_entity.dart';
 import 'routes/routes.dart';
 
@@ -25,12 +25,14 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'GetX Study',
       navigatorObservers: [GetXRouterObserver()],
+
       /// 通过使用initialRoute来保证绑定的操作
       initialRoute: Routes.main,
       getPages: Routes.routePage,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+
       /// 一开始的时候,我在初始化页面的发现并不能很好的进行初始化页面的binding操作,
       /// 于是写了一个临时页面,便于路由进去操作,看完官方的example懂了
       // home: const TestHome(),
@@ -59,16 +61,16 @@ class TestHome extends StatelessWidget {
 
 void _requestTest({required int page}) async {
   /// 泛型里面带泛型的问题解决
-  BaseEntity<PageEntity<List<CoinRankDatas>>> model =
-      await Moya.Request.get(api: "${Api.getRankingList}${page.toString()}/json");
+  BaseEntity<PageEntity<List<CoinRankDatas>>> model = await http.Request.get(
+      api: "${Api.getRankingList}${page.toString()}/json");
   print(model.toString());
 
   /// 这里的T是一个数组,Dart里面没有[HotKeyEntity]这种写法,必须使用List<HotKeyEntity>
   BaseEntity<List<HotKeyEntity>> keys =
-      await Moya.Request.get(api: Api.getSearchHotKey);
+      await http.Request.get(api: Api.getSearchHotKey);
   print(keys);
 
   BaseEntity<List<TabEntity>> tabs =
-      await Moya.Request.get(api: Api.getProjectClassify);
+      await http.Request.get(api: Api.getProjectClassify);
   print(tabs);
 }

@@ -19,11 +19,6 @@ abstract class BaseRequestController<R extends IRepository, T>
     request = Get.find<R>();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   Future<void> aRequest({
     Map<String, dynamic>? parameters,
   }) async {}
