@@ -3,6 +3,7 @@ import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/my_home_page.dart';
 import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
 import 'package:getx_study/pages/coin_rank/view/coin_rank_page.dart';
+import 'package:getx_study/pages/home/binding/home_binding.dart';
 import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
 import 'package:getx_study/pages/main/bindings/main_binding.dart';
@@ -70,7 +71,12 @@ abstract class Routes {
     GetPage(
       name: main,
       page: () => const MainPage(),
-      bindings: [MainBinding(), TabsBinding(TagType.project), TreeBinding(TagType.tree)], 
+      bindings: [
+        MainBinding(),
+        HomeBinding(),
+        TabsBinding(TagType.project),
+        TreeBinding(TagType.tree),
+      ],
     ),
     GetPage(
       name: myHomePage,

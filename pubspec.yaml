@@ -10,7 +10,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   rxdart: null
   get: null
-  flutter_swiper: null
+  card_swiper: null
   webview_flutter: null
   pull_to_refresh: null
   flutter_slidable: null

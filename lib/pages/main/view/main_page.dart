@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:getx_study/pages/home/view/home_page.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
 import 'package:getx_study/pages/project_public_number/view/project_page.dart';
 import 'package:getx_study/pages/project_public_number/view/public_number_page.dart';
@@ -17,12 +18,13 @@ class MainPage extends GetView<MainController> {
           body: IndexedStack(
             index: controller.selectedIndex,
             children: const [
+              HomePage(),
               TabsPage(),
               TreePage(),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            items: const [
+            items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
               BottomNavigationBarItem(
         icon: Icon(Icons.perm_contact_calendar), label: "项目"),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: "体系")
