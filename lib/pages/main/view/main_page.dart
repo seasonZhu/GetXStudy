@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_study/pages/home/view/home_page.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
+import 'package:getx_study/pages/my/view/my_page.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 
@@ -19,13 +20,27 @@ class MainPage extends GetView<MainController> {
               HomePage(),
               TabsPage(),
               TreePage(),
+              MyPage(),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
+            items: const [
               BottomNavigationBarItem(
-        icon: Icon(Icons.perm_contact_calendar), label: "项目"),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: "体系")
+                icon: Icon(Icons.home),
+                label: "首页",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.perm_contact_calendar),
+                label: "项目",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: "体系",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: "我的",
+              ),
             ],
             currentIndex: controller.selectedIndex, //默认选中的 index
             type: BottomNavigationBarType.fixed, //类型为 fixed

@@ -50,34 +50,32 @@ class _HomePageState extends State<HomePage>
               itemCount: _controller.dataSource.length + 1,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
-return AspectRatio(
-            aspectRatio: 16.0 / 9.0,
-            child: Swiper(
-                itemBuilder: (BuildContext itemContext, int index) {
-                  return CachedNetworkImage(
-                    fit: BoxFit.fitWidth,
-                    imageUrl: _controller.banners[index].imagePath,
-                    placeholder: (context, url) => Image.asset(
-                      "assets/images/placeholder.png",
-                    ),
+                  return AspectRatio(
+                    aspectRatio: 16.0 / 9.0,
+                    child: Swiper(
+                        itemBuilder: (BuildContext itemContext, int index) {
+                          return CachedNetworkImage(
+                            fit: BoxFit.fitWidth,
+                            imageUrl: _controller.banners[index].imagePath,
+                            placeholder: (context, url) => Image.asset(
+                              "assets/images/placeholder.png",
+                            ),
+                          );
+                        },
+                        itemCount: _controller.banners.length,
+                        pagination: const SwiperPagination(),
+                        autoplay: true,
+                        autoplayDisableOnInteraction: true,
+                        onTap: (index) {}),
                   );
-                },
-                itemCount: _controller.banners.length,
-                pagination: const SwiperPagination(),
-                autoplay: true,
-                autoplayDisableOnInteraction: true,
-                onTap: (index) {}),
-          );
                 } else {
                   final model = _controller.dataSource[index - 1];
 
-                return InfoCell(
-                  model: model,
-                  callback: (_) {},
-                );
+                  return InfoCell(
+                    model: model,
+                    callback: (_) {},
+                  );
                 }
-
-                
               },
             ),
           );
