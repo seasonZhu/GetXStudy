@@ -8,6 +8,7 @@ import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
 import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
+import 'package:getx_study/pages/my/binding/my_binding.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
@@ -74,8 +75,10 @@ abstract class Routes {
         HomeBinding(),
         TabsBinding(TagType.project),
         TreeBinding(TagType.tree),
+        MyBinding(),
       ],
     ),
+    /// 以下是测试路由
     GetPage(
       name: myHomePage,
       page: () => const MyHomePage(title: "普通计数器"),

@@ -21,7 +21,7 @@ class MyPage extends StatelessWidget {
                 child: Container(),
               );
             } else {
-              final model = Ext.visitorDataSource[index];
+              final model = Ext.userDataSource[index];
               return ListTile(
                   leading: Icon(model.icon),
                   title: Text(model.title),
@@ -34,7 +34,7 @@ class MyPage extends StatelessWidget {
               height: 1.0,
             );
           },
-          itemCount: Ext.visitorDataSource.length),
+          itemCount: Ext.userDataSource.length),
     );
   }
 }
