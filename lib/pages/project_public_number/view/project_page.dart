@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
-import 'package:getx_study/pages/tree/controller/public_number_controller.dart';
+import 'package:getx_study/pages/project_public_number/controller/project_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/enum/tag_type.dart';
@@ -12,16 +12,16 @@ import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/controller/tabs_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
 
-class PublicNumberPage extends StatefulWidget {
-  const PublicNumberPage({Key? key}) : super(key: key);
+class ProjectPage extends StatefulWidget {
+  const ProjectPage({Key? key}) : super(key: key);
 
   @override
-  State<PublicNumberPage> createState() => _PublicNumberPageState();
+  State<ProjectPage> createState() => _ProjectPageState();
 }
 
-class _PublicNumberPageState extends State<PublicNumberPage>
+class _ProjectPageState extends State<ProjectPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  final _tabsController = Get.find<PublicNumberController>();
+  final _tabsController = Get.find<ProjectController>();
 
   var _alreadyRequestIndex = Set<int>();
 
@@ -36,7 +36,7 @@ class _PublicNumberPageState extends State<PublicNumberPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      body: StatusView<PublicNumberController>(
+      body: StatusView<ProjectController>(
         controller: _tabsController,
         contentBuilder: (_) {
           _tabController = TabController(
@@ -65,7 +65,7 @@ class _PublicNumberPageState extends State<PublicNumberPage>
             ),
             body: TabBarView(
               controller: _tabController,
-              children: _createPublicNumberPage(),
+              children: _createProjectPage(),
             ),
           );
         },
@@ -99,7 +99,7 @@ class _PublicNumberPageState extends State<PublicNumberPage>
     );
   }
 
-  List<Widget> _createPublicNumberPage() {
+  List<Widget> _createProjectPage() {
     return (_tabsController.data ?? []).map((model) {
       final controller = TabListController();
       controller.tagType = _tabsController.type;

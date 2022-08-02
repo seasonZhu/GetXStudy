@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
-import 'package:getx_study/pages/tree/view/project_page.dart';
-import 'package:getx_study/pages/tree/view/public_number_page.dart';
+import 'package:getx_study/pages/project_public_number/view/project_page.dart';
+import 'package:getx_study/pages/project_public_number/view/public_number_page.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 
@@ -17,8 +17,7 @@ class MainPage extends GetView<MainController> {
           body: IndexedStack(
             index: controller.selectedIndex,
             children: const [
-              ProjectPage(),
-              PublicNumberPage(),
+              TabsPage(),
               TreePage(),
             ],
           ),
@@ -26,8 +25,6 @@ class MainPage extends GetView<MainController> {
             items: const [
               BottomNavigationBarItem(
         icon: Icon(Icons.perm_contact_calendar), label: "项目"),
-        BottomNavigationBarItem(
-        icon: Icon(Icons.account_balance_wallet), label: "公众号"),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: "体系")
             ],
             currentIndex: controller.selectedIndex, //默认选中的 index

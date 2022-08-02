@@ -9,8 +9,8 @@ import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
-import 'package:getx_study/pages/tree/bindings/project_binding.dart';
-import 'package:getx_study/pages/tree/bindings/public_number_binding.dart';
+import 'package:getx_study/pages/project_public_number/binding/project_binding.dart';
+import 'package:getx_study/pages/project_public_number/binding/public_number_binding.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
 import 'package:getx_study/pages/tree/bindings/tree_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
@@ -57,20 +57,20 @@ abstract class Routes {
       page: () => const TreePage(),
       binding: TreeBinding(TagType.tree),
     ),
-    // GetPage(
-    //   name: project,
-    //   page: () => const TabsPage(),
-    //   binding: TabsBinding(TagType.project),
-    // ),
-    // GetPage(
-    //   name: publicNumber,
-    //   page: () => const TabsPage(),
-    //   binding: TabsBinding(TagType.publicNumber),
-    // ),
+    GetPage(
+      name: project,
+      page: () => const TabsPage(),
+      binding: TabsBinding(TagType.project),
+    ),
+    GetPage(
+      name: publicNumber,
+      page: () => const TabsPage(),
+      binding: TabsBinding(TagType.publicNumber),
+    ),
     GetPage(
       name: main,
       page: () => const MainPage(),
-      bindings: [MainBinding(), ProjectBinding(), PublicNumberBinding(), TreeBinding(TagType.tree)], 
+      bindings: [MainBinding(), TabsBinding(TagType.project), TreeBinding(TagType.tree)], 
     ),
     GetPage(
       name: myHomePage,
