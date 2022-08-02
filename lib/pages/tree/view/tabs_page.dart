@@ -45,7 +45,7 @@ class _TabsPageState extends State<TabsPage>
             var value = _tabController.animation?.value;
 
             ///修复执行2次的BUG,增加条件
-            if (index == value) {
+            if (index == value && index == _tabController.length - 1) {
               if (!_alreadyRequestIndex.contains(index)) {
                 _alreadyRequestIndex.add(index);
                 _tabListControllers[index]
