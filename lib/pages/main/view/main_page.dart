@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_study/pages/home/view/home_page.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
-import 'package:getx_study/pages/project_public_number/view/project_page.dart';
-import 'package:getx_study/pages/project_public_number/view/public_number_page.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 

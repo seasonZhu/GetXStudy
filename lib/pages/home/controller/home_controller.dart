@@ -7,8 +7,6 @@ import 'package:getx_study/entity/banner_entity.dart';
 import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/enum/response_status.dart';
-import 'package:getx_study/entity/coin_rank_entity.dart';
-import 'package:getx_study/pages/coin_rank/repository/coin_rank_repository.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/pages/home/repository/home_repository.dart';
 import 'package:getx_study/routes/routes.dart';
@@ -24,7 +22,6 @@ class HomeController
     initPage = Get.find<int>(tag: HomeController.className);
     page = initPage;
     refreshController = Get.find(tag: HomeController.className);
-    onRefresh();
   }
 
   @override
@@ -64,9 +61,9 @@ class HomeController
         );
 
         if (result.length == 3) {
-          final bannerModels = result[0].data as List<BannerEntity> ?? [];
+          final bannerModels = result[0].data as List<BannerEntity>;
           final topArticleModels =
-              result[1].data as List<ArticleInfoDatas> ?? [];
+              result[1].data as List<ArticleInfoDatas>;
           response =
               result[2] as BaseEntity<PageEntity<List<ArticleInfoDatas>>>;
           final articleModels = response?.data?.dataSource ?? [];

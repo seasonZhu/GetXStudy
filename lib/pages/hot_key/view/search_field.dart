@@ -86,7 +86,7 @@ class SearchField extends StatelessWidget {
                     width: 1.0,
                   ),
                 ),
-                contentPadding: const EdgeInsets.all(4.0)),
+                contentPadding: EdgeInsets.all(4.0)),
             onEditingComplete: () {
               _inputComplete(context);
             },

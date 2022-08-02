@@ -9,7 +9,6 @@ import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
-import 'package:getx_study/pages/tree/controller/tabs_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
 
 class PublicNumberPage extends StatefulWidget {

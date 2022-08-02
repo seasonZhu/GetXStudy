@@ -22,9 +22,9 @@ class _TabsPageState extends State<TabsPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _tabsController = Get.find<TabsController>();
 
-  var _alreadyRequestIndex = Set<int>();
+  final _alreadyRequestIndex = Set<int>();
 
-  List<TabListController> _tabListControllers = [];
+  final _tabListControllers = [];
 
   late TabController _tabController;
 
