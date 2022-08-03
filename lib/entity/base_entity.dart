@@ -11,7 +11,7 @@ class BaseEntity<T> {
     errorCode = json[Constant.errorCode] as int?;
     errorMsg = json[Constant.errorMsg] as String?;
     if (json.containsKey(Constant.data)) {
-      data = _generateOBJ<T>(json[Constant.data] as Object);
+      data = _generateOBJ<T>(json[Constant.data] as Object?);
     }
   }
 
@@ -21,7 +21,7 @@ class BaseEntity<T> {
 
   bool get isSuccess => errorCode == 0;
 
-  T? _generateOBJ<O>(Object json) {
+  T? _generateOBJ<O>(Object? json) {
     if (T.toString() == 'String') {
       return json.toString() as T;
     } else if (T.toString() == 'Map<dynamic, dynamic>') {

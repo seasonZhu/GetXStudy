@@ -34,9 +34,44 @@ class MyPage extends GetView<MyController> {
                     title: Text(model.title),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () async {
-                      final result = await Get.toNamed(Routes.login);
-                      if (result != null) {
-                        _isLogin.value = result;
+                      if (model == my.My.login) {
+                        final result = await Get.toNamed(Routes.login);
+                        if (result != null) {
+                          _isLogin.value = result;
+                        }
+                      } else if (model == my.My.logout) {
+                        Get.dialog(
+                          AlertDialog(
+                            title: const Text("提示"),
+                            content: const Text("是否登出?"),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(
+                                  "取消",
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                                onPressed: () => Get.back(), //关闭对话框
+                              ),
+                              TextButton(
+                                child: Text(
+                                  "确定",
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  Get.back();
+                                  final result = await controller.logout();
+                                  _isLogin.value = result;
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        print(model.title);
                       }
                     },
                   );

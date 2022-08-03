@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import 'package:getx_study/account_manager/account_manager.dart';
@@ -21,25 +19,21 @@ class MyController
     isNowReqeust.value = false;
 
     String message;
-    bool isLogin;
     if (response.isSuccess == true && response.data != null) {
       AccountManager.shared
           .save(info: response.data!, isLogin: true, password: password);
-      isLogin = true;
       message = "登录成功";
     } else {
       message = "登录失败";
-      isLogin = false;
     }
     Get.snackbar(
       "",
       message,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       snackbarStatus: (status) {
         if (status == SnackbarStatus.CLOSED) {
           //Get.back();
-          //navigator?.pop(isLogin);
-          navigator?.popUntil(ModalRoute.withName(Routes.main),);
+          navigator?.pop(AccountManager.shared.isLogin);
         }
       },
     );
@@ -60,23 +54,38 @@ class MyController
     if (response.isSuccess == true && response.data != null) {
       AccountManager.shared
           .save(info: response.data!, isLogin: true, password: password);
-      isLogin = true;
       message = "注册成功";
     } else {
       message = "注册失败";
-      isLogin = false;
     }
     Get.snackbar(
       "",
       message,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       snackbarStatus: (status) {
         if (status == SnackbarStatus.CLOSED) {
-          navigator?.popUntil(ModalRoute.withName(Routes.main));
+          navigator?.popUntil(
+            (route) => route.settings.name == Routes.main,
+          );
         }
       },
     );
   }
 
-  void logout() {}
+  Future<bool> logout() async {
+    final response = await request.logout();
+    String message;
+    if (response.isSuccess) {
+      message = "登出成功";
+      AccountManager.shared.clear();
+    } else {
+      message = "登出失败";
+    }
+    Get.snackbar(
+      "",
+      message,
+      duration: const Duration(seconds: 1),
+    );
+    return AccountManager.shared.isLogin;
+  }
 }

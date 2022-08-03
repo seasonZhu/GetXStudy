@@ -63,7 +63,7 @@ class InfoCell extends StatelessWidget {
               style: const TextStyle(fontSize: 15),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,13 +95,15 @@ class InfoCell extends StatelessWidget {
                 ),
               ],
             ),
-            Row(children: [
-              const Spacer(),
-              Text(
-              _model.niceShareDate ?? "",
-              style: const TextStyle(color: Colors.grey),
-            ),
-            ],)
+            Row(
+              children: [
+                const Spacer(),
+                Text(
+                  _model.niceShareDate ?? "",
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ],
+            )
           ],
         ),
       ),

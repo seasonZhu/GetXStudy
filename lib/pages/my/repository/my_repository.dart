@@ -23,5 +23,5 @@ class MyRepository extends IRepository {
     return await http.Request.post(api: Api.postRegister, params: params);
   }
 
-  static Future<BaseEntity<dynamic>> logout() => http.Request.get(api: Api.getLogout);
+ Future<BaseEntity<Object?>> logout() => http.Request.get(api: Api.getLogout);
 }
