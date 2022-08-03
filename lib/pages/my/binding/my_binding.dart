@@ -7,9 +7,11 @@ class MyBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(
+      fenix: true,
       () => MyRepository(),
     );
     Get.lazyPut(
+      fenix: true,
       () => MyController(),
     );
   }

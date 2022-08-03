@@ -16,7 +16,7 @@ class MainPage extends GetView<MainController> {
         return Scaffold(
           body: IndexedStack(
             index: controller.selectedIndex,
-            children: const [
+            children: [
               HomePage(),
               TabsPage(),
               TreePage(),

@@ -32,7 +32,7 @@ abstract class BaseRefreshController<R extends IRepository, T>
   @override
   void onClose() {
     super.onClose();
-    refreshController.dispose();
+    //refreshController.dispose();
   }
 
   Future<void> onRefresh() async {}

@@ -9,6 +9,8 @@ import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
 import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
 import 'package:getx_study/pages/my/binding/my_binding.dart';
+import 'package:getx_study/pages/my/view/login_page.dart';
+import 'package:getx_study/pages/my/view/register_page.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
@@ -30,6 +32,10 @@ abstract class Routes {
   static const publicNumber = "/publicNumber";
 
   static const main = "/main";
+
+  static const login = "/login";
+
+  static const register = "/register";
 
   static const myHomePage = "/myHomePage";
 
@@ -78,6 +84,15 @@ abstract class Routes {
         MyBinding(),
       ],
     ),
+    GetPage(
+      name: login,
+      page: () => LoginPage(),
+    ),
+    GetPage(
+      name: register,
+      page: () => RegisterPage(),
+    ),
+
     /// 以下是测试路由
     GetPage(
       name: myHomePage,
