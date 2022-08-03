@@ -63,7 +63,7 @@ class InfoCell extends StatelessWidget {
               style: const TextStyle(fontSize: 15),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,18 +85,23 @@ class InfoCell extends StatelessWidget {
                     (_model.author.toString().isNotEmpty) ||
                             (_model.shareUser.toString().isNotEmpty)
                         ? Text(
-                            _model.author.toString(),
+                            _model.author ?? _model.shareUser.toString(),
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
                             style: const TextStyle(color: Colors.grey),
                           )
                         : Container(),
                   ],
                 ),
-                Text(
-                  _model.niceShareDate ?? "",
-                  style: const TextStyle(color: Colors.grey),
-                ),
               ],
-            )
+            ),
+            Row(children: [
+              const Spacer(),
+              Text(
+              _model.niceShareDate ?? "",
+              style: const TextStyle(color: Colors.grey),
+            ),
+            ],)
           ],
         ),
       ),
