@@ -71,7 +71,7 @@ class MyPage extends GetView<MyController> {
                           ),
                         );
                       } else {
-                        print(model.title);
+                        Get.toNamed(model.path);
                       }
                     },
                   );

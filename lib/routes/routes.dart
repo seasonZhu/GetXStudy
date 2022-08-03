@@ -3,6 +3,7 @@ import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/my_home_page.dart';
 import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
 import 'package:getx_study/pages/coin_rank/view/coin_rank_page.dart';
+import 'package:getx_study/pages/common/unknow_page.dart';
 import 'package:getx_study/pages/home/binding/home_binding.dart';
 import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
@@ -36,6 +37,8 @@ abstract class Routes {
   static const login = "/login";
 
   static const register = "/register";
+
+  static const unknown = "/unknown";
 
   static const myHomePage = "/myHomePage";
 
@@ -91,6 +94,10 @@ abstract class Routes {
     GetPage(
       name: register,
       page: () => RegisterPage(),
+    ),
+    GetPage(
+      name: unknown,
+      page: () => const UnknownPage(),
     ),
 
     /// 以下是测试路由

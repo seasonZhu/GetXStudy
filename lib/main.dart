@@ -8,6 +8,7 @@ import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 
 import 'package:getx_study/http_util/api.dart';
+import 'package:getx_study/pages/common/unknow_page.dart';
 import 'http_util/request.dart' as http;
 import 'entity/base_entity.dart';
 import 'routes/routes.dart';
@@ -25,8 +26,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'GetX Study',
       navigatorObservers: [GetXRouterObserver()],
-
       /// 通过使用initialRoute来保证绑定的操作
+      unknownRoute: GetPage(
+        name: Routes.unknown,
+        page: () => const UnknownPage(),
+      ),
       initialRoute: Routes.main,
       getPages: Routes.routePage,
       theme: ThemeData(

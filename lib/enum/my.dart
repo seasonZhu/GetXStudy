@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getx_study/routes/routes.dart';
 
 enum My {
   header,
@@ -34,7 +35,24 @@ extension Ext on My {
   }
 
   String get path {
-    return "";
+    switch (this) {
+      case My.header:
+        return "";
+      case My.login:
+        return Routes.login;
+      case My.logout:
+        return "登出";
+      case My.myCoin:
+        return "我的积分";
+      case My.myCollect:
+        return "我的收藏";
+      case My.myGitHub:
+        return "我的GitHub";
+      case My.myJueJin:
+        return "我的掘金";
+      case My.ranking:
+        return Routes.coinRink;
+    }
   }
 
   IconData get icon {
