@@ -43,7 +43,7 @@ extension Ext on My {
       case My.logout:
         return "登出";
       case My.myCoin:
-        return "我的积分";
+        return Routes.myCoinHistory;
       case My.myCollect:
         return "我的收藏";
       case My.myGitHub:

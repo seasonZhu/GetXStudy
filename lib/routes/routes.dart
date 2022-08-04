@@ -10,7 +10,9 @@ import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
 import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
 import 'package:getx_study/pages/my/binding/my_binding.dart';
+import 'package:getx_study/pages/my/binding/my_coin_history_binding.dart';
 import 'package:getx_study/pages/my/view/login_page.dart';
+import 'package:getx_study/pages/my/view/my_coin_history_page.dart';
 import 'package:getx_study/pages/my/view/register_page.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
@@ -20,6 +22,8 @@ import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 
 abstract class Routes {
+  Routes._();
+
   static const coinRink = '/coinRink';
 
   static const hotKey = "/hotKey";
@@ -37,6 +41,8 @@ abstract class Routes {
   static const login = "/login";
 
   static const register = "/register";
+
+  static const myCoinHistory = "/myCoinHistory";
 
   static const unknown = "/unknown";
 
@@ -94,6 +100,11 @@ abstract class Routes {
     GetPage(
       name: register,
       page: () => RegisterPage(),
+    ),
+    GetPage(
+      name: myCoinHistory,
+      page: () => const MyCoinHistoryPage(),
+      binding: MyCoinHistoryBinding(),
     ),
     GetPage(
       name: unknown,
