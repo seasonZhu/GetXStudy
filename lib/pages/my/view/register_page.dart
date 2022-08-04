@@ -10,11 +10,17 @@ class RegisterPage extends GetView<MyController> {
 
   final _passwordTextFiledController = TextEditingController(text: "");
 
+  final _rePasswordTextFiledController = TextEditingController(text: "");
+
   final _userNameIsNotEmpty = false.obs;
 
-  final _passwordIsNotEmpty = false.obs;
+  final _password = "".obs;
+
+  final _rePassword = "".obs;
 
   final _obscureText = true.obs;
+
+  final _reObscureText = true.obs;
 
   RegisterPage({Key? key}) : super(key: key);
 
@@ -22,7 +28,7 @@ class RegisterPage extends GetView<MyController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("登录", style: TextStyle(color: Colors.white)),
+        title: const Text("注册", style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0.1,
       ),
@@ -77,8 +83,7 @@ class RegisterPage extends GetView<MyController> {
                               prefixIcon: Icon(Icons.lock),
                             ),
                             obscureText: _obscureText.value,
-                            onChanged: (value) =>
-                                _passwordIsNotEmpty.value = value.isNotEmpty,
+                            onChanged: (value) => _password.value = value,
                           ),
                         ),
                       ),
@@ -97,17 +102,31 @@ class RegisterPage extends GetView<MyController> {
                   ),
                   Row(
                     children: <Widget>[
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20, right: 15),
-                        child: GestureDetector(
-                          child: Text(
-                            "还没有注册?",
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 15),
+                      Expanded(
+                        child: Obx(
+                          () => TextField(
+                            enabled: _userNameIsNotEmpty.value &&
+                                _password.value.isNotEmpty,
+                            controller: _rePasswordTextFiledController,
+                            decoration: const InputDecoration(
+                              hintText: '确认密码',
+                              labelText: '确认密码',
+                              prefixIcon: Icon(Icons.lock),
+                            ),
+                            obscureText: _reObscureText.value,
+                            onChanged: (value) => _rePassword.value = value,
                           ),
-                          onTap: () {},
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                        width: 38,
+                        child: InkWell(
+                          child: const Icon(Icons.security),
+                          onTap: () {
+                            final value = _reObscureText.value;
+                            _reObscureText.value = !value;
+                          },
                         ),
                       ),
                     ],
@@ -121,29 +140,33 @@ class RegisterPage extends GetView<MyController> {
                       height: 44,
                       child: Obx(
                         () => Visibility(
-                          visible: _userNameIsNotEmpty.value &&
-                              _passwordIsNotEmpty.value,
+                          visible: (_userNameIsNotEmpty.value &&
+                                  _password.value.isNotEmpty &&
+                                  _rePassword.value.isNotEmpty) &&
+                              (_password == _rePassword),
                           child: TextButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Theme.of(context).primaryColor),
-                            ),
-                            child: const Text(
-                              "登录",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            ),
-                            onPressed: () => controller.login(
-                                username: _userNameTextFiledController.text,
-                                password: _passwordTextFiledController.text),
-                          ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    Theme.of(context).primaryColor),
+                              ),
+                              child: const Text(
+                                "注册",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                              onPressed: () => controller.register(
+                                    username: _userNameTextFiledController.text,
+                                    password: _passwordTextFiledController.text,
+                                    rePassword:
+                                        _rePasswordTextFiledController.text,
+                                  )),
                         ),
                       ),
                     ),
                   ),
                   Obx(
                     () => Visibility(
-                      visible: controller.isNowReqeust.value,
+                      visible: controller.isNowRequest.value,
                       child: Container(
                         padding: const EdgeInsets.only(top: 20),
                         child: const LoadingView(message: "正在注册..."),

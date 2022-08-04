@@ -9,14 +9,14 @@ import 'package:getx_study/routes/routes.dart';
 
 class MyController
     extends BaseRequestController<MyRepository, AccountInfoEntity> {
-  final isNowReqeust = false.obs;
+  final isNowRequest = false.obs;
 
   void login({required String username, required String password}) async {
     ResignFirstResponder.unfocus();
-    isNowReqeust.value = true;
+    isNowRequest.value = true;
     final response =
         await request.login(username: username, password: password);
-    isNowReqeust.value = false;
+    isNowRequest.value = false;
 
     String message;
     if (response.isSuccess == true && response.data != null) {
@@ -34,6 +34,11 @@ class MyController
         if (status == SnackbarStatus.CLOSED) {
           //Get.back();
           navigator?.pop(AccountManager.shared.isLogin);
+
+          // navigator?.popUntil(
+          //   (route) => route.settings.name == Routes.main,
+          // );
+
         }
       },
     );
@@ -44,13 +49,12 @@ class MyController
       required String password,
       required String rePassword}) async {
     ResignFirstResponder.unfocus();
-    isNowReqeust.value = true;
+    isNowRequest.value = true;
     final response = await request.register(
         username: username, password: password, rePassword: rePassword);
-    isNowReqeust.value = false;
+    isNowRequest.value = false;
 
     String message;
-    bool isLogin;
     if (response.isSuccess == true && response.data != null) {
       AccountManager.shared
           .save(info: response.data!, isLogin: true, password: password);
@@ -64,8 +68,9 @@ class MyController
       duration: const Duration(seconds: 1),
       snackbarStatus: (status) {
         if (status == SnackbarStatus.CLOSED) {
-          navigator?.popUntil(
-            (route) => route.settings.name == Routes.main,
+          Future.delayed(
+            const Duration(seconds: 0),
+            () => navigator?.pop(AccountManager.shared.isLogin),
           );
         }
       },

@@ -108,7 +108,12 @@ class LoginPage extends GetView<MyController> {
                                 color: Theme.of(context).primaryColor,
                                 fontSize: 15),
                           ),
-                          onTap: () => Get.toNamed(Routes.register),
+                          onTap: () async {
+                            final result = await Get.toNamed(Routes.register);
+                            if (result != null) {
+                              navigator?.pop(result);
+                            }
+                          },
                         ),
                       ),
                     ],
@@ -144,7 +149,7 @@ class LoginPage extends GetView<MyController> {
                   ),
                   Obx(
                     () => Visibility(
-                      visible: controller.isNowReqeust.value,
+                      visible: controller.isNowRequest.value,
                       child: Container(
                         padding: const EdgeInsets.only(top: 20),
                         child: const LoadingView(message: "正在登录..."),
