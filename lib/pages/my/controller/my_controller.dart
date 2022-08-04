@@ -99,15 +99,37 @@ class MyController
     return AccountManager.shared.isLogin;
   }
 
-  Future<void> getUserCoinInfo() async {
+  Future<String> getUserCoinInfo() async {
     final response = await request.getUserCoinInfo();
     final userInfo =
         "等级 ${response.data?.level ?? "--"}  排名 ${response.data?.rank ?? "--"}  积分 ${response.data?.coinCount ?? "--"}";
     this.userInfo = userInfo;
     AccountManager.shared.myCoinInfo = userInfo;
+    return userInfo;
   }
 
   Future<void> autoLogin() async {
+    final username = await AccountManager.shared.getLastLoginUserName();
+    final password = await AccountManager.shared.getLastLoginPassword();
 
+    if (username.isNotEmpty && password.isNotEmpty) {
+      final response =
+          await request.login(username: username, password: password);
+
+      String message;
+      if (response.isSuccess == true && response.data != null) {
+        await AccountManager.shared
+            .save(info: response.data!, isLogin: true, password: password);
+        message = "登录成功";
+        await getUserCoinInfo();
+      } else {
+        message = "登录失败";
+      }
+      Get.snackbar(
+        "",
+        message,
+        duration: const Duration(seconds: 1),
+      );
+    }
   }
 }
