@@ -8,7 +8,7 @@ abstract class IClassName {
 
 abstract class IRequestController extends GetxController {}
 
-abstract class WebLoadInfo {
+abstract class IWebLoadInfo {
   int? id;
   int? originId;
   String? title;

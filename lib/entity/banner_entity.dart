@@ -4,7 +4,7 @@ import 'package:getx_study/generated/json/banner_entity.g.dart';
 import 'dart:convert';
 
 @JsonSerializable()
-class BannerEntity implements WebLoadInfo {
+class BannerEntity implements IWebLoadInfo {
   String? desc;
   @override
   int? id;

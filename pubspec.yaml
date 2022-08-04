@@ -8,27 +8,28 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  rxdart: null
-  get: null
-  card_swiper: null
+  rxdart: ^0.27.5
+  get: ^4.6.5
+  card_swiper: ^2.0.4
   webview_flutter: ^3.0.4
-  pull_to_refresh: null
-  flutter_slidable: null
-  image_picker: null
-  cached_network_image: null
-  lpinyin: null
-  shared_preferences: null
-  path_provider: null
-  event_bus: null
-  dio: null
-  url_launcher: null
-  image_gallery_saver: null
-  open_file: null
-  pretty_dio_logger: null
+  pull_to_refresh: ^2.0.0
+  flutter_slidable: ^2.0.0
+  image_picker: ^0.8.5+3
+  cached_network_image: ^3.2.1
+  lpinyin: ^2.0.3
+  shared_preferences: ^2.0.15
+  path_provider: ^2.0.11
+  event_bus: ^2.0.0
+  dio: ^4.0.6
+  url_launcher: ^6.1.5
+  image_gallery_saver: ^1.7.1
+  open_file: ^3.2.1
+  pretty_dio_logger: ^1.1.1
+  marquee: ^2.2.3
   r_dart_library:
     git:
       url: 'https://github.com/YK-Unit/r_dart_library.git'
-      ref: 0.2.1
+      ref: 0.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

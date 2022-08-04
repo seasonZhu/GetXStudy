@@ -105,7 +105,14 @@ packages:
       name: event_bus
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.1"
+    version: "2.0.0"
+  fading_edge_scrollview:
+    dependency: transitive
+    description:
+      name: fading_edge_scrollview
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -166,14 +173,14 @@ packages:
       name: flutter_slidable
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.0"
+    version: "2.0.0"
   flutter_svg:
     dependency: transitive
     description:
       name: flutter_svg
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.23.0+1"
+    version: "1.1.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -218,7 +225,14 @@ packages:
       name: image_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.7.5+4"
+    version: "0.8.5+3"
+  image_picker_android:
+    dependency: transitive
+    description:
+      name: image_picker_android
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.8.5+1"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -226,6 +240,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.8"
+  image_picker_ios:
+    dependency: transitive
+    description:
+      name: image_picker_ios
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.8.5+6"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -254,6 +275,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.3"
+  marquee:
+    dependency: "direct main"
+    description:
+      name: marquee
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.2.3"
   matcher:
     dependency: transitive
     description:
@@ -302,14 +330,14 @@ packages:
       name: path_drawing
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.1+1"
+    version: "1.0.1"
   path_parsing:
     dependency: transitive
     description:
       name: path_parsing
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.1"
+    version: "1.0.1"
   path_provider:
     dependency: "direct main"
     description:
@@ -412,11 +440,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0.2.1"
-      resolved-ref: "392a91ab9eadf3b83dc230ef19a7ea1fdc964917"
+      ref: "0.4.1"
+      resolved-ref: "96791ca4fa180a8f76ffc224a7497780ca6686f8"
       url: "https://github.com/YK-Unit/r_dart_library.git"
     source: git
-    version: "0.2.1"
+    version: "0.4.1"
   rxdart:
     dependency: "direct main"
     description:
@@ -673,7 +701,7 @@ packages:
       name: xml
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.4.1"
+    version: "6.1.0"
 sdks:
   dart: ">=2.17.6 <3.0.0"
   flutter: ">=3.0.0"

@@ -27,7 +27,7 @@ class ArticleInfoEntity {
 }
 
 @JsonSerializable()
-class ArticleInfoDatas implements WebLoadInfo {
+class ArticleInfoDatas implements IWebLoadInfo {
   String? apkLink;
   int? audit;
   String? author;
