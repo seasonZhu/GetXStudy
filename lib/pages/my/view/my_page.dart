@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/enum/my.dart' as my;
 import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class MyPage extends GetView<MyController> {
-  final _isLogin = false.obs;
+  final _isLogin = AccountManager.shared.isLogin.obs;
 
-  final _userInfo = "等级 --  排名 --  积分 --".obs;
+  final _userInfo = AccountManager.shared.myCoinInfo.obs;
 
   MyPage({Key? key}) : super(key: key);
 

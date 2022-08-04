@@ -46,7 +46,7 @@ extension Ext on My {
       case My.myCoin:
         return Routes.myCoinHistory;
       case My.myCollect:
-        return "我的收藏";
+        return Routes.myCollect;
       case My.myGitHub:
         return Routes.web;
       case My.myJueJin:
@@ -58,7 +58,8 @@ extension Ext on My {
 
   WebLoadInfoEntity? get entity {
     if (this == My.myJueJin) {
-      return WebLoadInfoEntity("我的掘金", "https://juejin.cn/user/4353721778057997");
+      return WebLoadInfoEntity(
+          "我的掘金", "https://juejin.cn/user/4353721778057997");
     } else if (this == My.myGitHub) {
       return WebLoadInfoEntity("我的GitHub", "https://github.com/seasonZhu");
     } else {
@@ -79,7 +80,7 @@ extension Ext on My {
       case My.myCollect:
         return Icons.collections;
       case My.myGitHub:
-        return Icons.web;
+        return Icons.gite;
       case My.myJueJin:
         return Icons.abc;
       case My.ranking:

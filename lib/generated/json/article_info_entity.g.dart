@@ -100,6 +100,10 @@ ArticleInfoDatas $ArticleInfoDatasFromJson(Map<String, dynamic> json) {
 	if (id != null) {
 		articleInfoDatas.id = id;
 	}
+  final int? originId = jsonConvert.convert<int>(json['originId']);
+	if (originId != null) {
+		articleInfoDatas.originId = originId;
+	}
 	final String? link = jsonConvert.convert<String>(json['link']);
 	if (link != null) {
 		articleInfoDatas.link = link;

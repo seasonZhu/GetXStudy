@@ -22,6 +22,8 @@ class AccountManager {
 
   var isLogin = false;
 
+  var myCoinInfo = "等级 --  排名 --  积分 --";
+
   // 只读计算属性
   String get cookieHeaderValue {
     if (info?.username != null && info?.password != null) {
@@ -94,6 +96,7 @@ class AccountManager {
 
   void clear() {
     info = null;
+    myCoinInfo = "等级 --  排名 --  积分 --";
     isLogin = false;
   }
 
