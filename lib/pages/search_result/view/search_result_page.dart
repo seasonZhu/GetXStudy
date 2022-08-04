@@ -32,10 +32,7 @@ class SearchResultPage extends GetView<SearchResultController> {
                 final model = controller.dataSource[index];
                 return InfoCell(
                   model: model,
-                  callback: (value) {
-                    print(value.toString());
-                    Get.toNamed(Routes.tree);
-                  },
+                  callback: (_) => Get.toNamed(Routes.web, arguments: model),
                 );
               },
             ),

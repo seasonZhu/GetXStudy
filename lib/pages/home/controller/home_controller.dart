@@ -87,9 +87,5 @@ class HomeController
     update();
   }
 
-  void pushToHotKeyPage() {
-    Get.toNamed(Routes.hotKey);
-  }
-
   static String? get className => (HomeController).toString();
 }

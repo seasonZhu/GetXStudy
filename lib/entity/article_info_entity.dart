@@ -1,21 +1,22 @@
+import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/generated/json/base/json_field.dart';
 import 'package:getx_study/generated/json/article_info_entity.g.dart';
 import 'dart:convert';
 
 @JsonSerializable()
 class ArticleInfoEntity {
+  int? curPage;
+  List<ArticleInfoDatas>? datas;
+  int? offset;
+  bool? over;
+  int? pageCount;
+  int? size;
+  int? total;
 
-	int? curPage;
-	List<ArticleInfoDatas>? datas;
-	int? offset;
-	bool? over;
-	int? pageCount;
-	int? size;
-	int? total;
-  
   ArticleInfoEntity();
 
-  factory ArticleInfoEntity.fromJson(Map<String, dynamic> json) => $ArticleInfoEntityFromJson(json);
+  factory ArticleInfoEntity.fromJson(Map<String, dynamic> json) =>
+      $ArticleInfoEntityFromJson(json);
 
   Map<String, dynamic> toJson() => $ArticleInfoEntityToJson(this);
 
@@ -26,43 +27,48 @@ class ArticleInfoEntity {
 }
 
 @JsonSerializable()
-class ArticleInfoDatas {
+class ArticleInfoDatas implements WebLoadInfo {
+  String? apkLink;
+  int? audit;
+  String? author;
+  bool? canEdit;
+  int? chapterId;
+  String? chapterName;
+  bool? collect;
+  int? courseId;
+  String? desc;
+  String? descMd;
+  String? envelopePic;
+  bool? fresh;
+  @override
+  int? id;
+  @override
+  String? link;
+  String? niceDate;
+  String? niceShareDate;
+  String? origin;
+  String? prefix;
+  String? projectLink;
+  int? publishTime;
+  int? selfVisible;
+  int? shareDate;
+  String? shareUser;
+  int? superChapterId;
+  String? superChapterName;
+  List<ArticleInfoDatasTags>? tags;
+  @override
+  String? title;
+  int? type;
+  int? userId;
+  int? visible;
+  int? zan;
+  @override
+  int? originId;
 
-	String? apkLink;
-	int? audit;
-	String? author;
-	bool? canEdit;
-	int? chapterId;
-	String? chapterName;
-	bool? collect;
-	int? courseId;
-	String? desc;
-	String? descMd;
-	String? envelopePic;
-	bool? fresh;
-	int? id;
-	String? link;
-	String? niceDate;
-	String? niceShareDate;
-	String? origin;
-	String? prefix;
-	String? projectLink;
-	int? publishTime;
-	int? selfVisible;
-	int? shareDate;
-	String? shareUser;
-	int? superChapterId;
-	String? superChapterName;
-	List<ArticleInfoDatasTags>? tags;
-	String? title;
-	int? type;
-	int? userId;
-	int? visible;
-	int? zan;
-  
   ArticleInfoDatas();
 
-  factory ArticleInfoDatas.fromJson(Map<String, dynamic> json) => $ArticleInfoDatasFromJson(json);
+  factory ArticleInfoDatas.fromJson(Map<String, dynamic> json) =>
+      $ArticleInfoDatasFromJson(json);
 
   Map<String, dynamic> toJson() => $ArticleInfoDatasToJson(this);
 
@@ -74,13 +80,13 @@ class ArticleInfoDatas {
 
 @JsonSerializable()
 class ArticleInfoDatasTags {
+  String? name;
+  String? url;
 
-	String? name;
-	String? url;
-  
   ArticleInfoDatasTags();
 
-  factory ArticleInfoDatasTags.fromJson(Map<String, dynamic> json) => $ArticleInfoDatasTagsFromJson(json);
+  factory ArticleInfoDatasTags.fromJson(Map<String, dynamic> json) =>
+      $ArticleInfoDatasTagsFromJson(json);
 
   Map<String, dynamic> toJson() => $ArticleInfoDatasTagsToJson(this);
 

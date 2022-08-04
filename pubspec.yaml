@@ -11,7 +11,7 @@ dependencies:
   rxdart: null
   get: null
   card_swiper: null
-  webview_flutter: null
+  webview_flutter: ^3.0.4
   pull_to_refresh: null
   flutter_slidable: null
   image_picker: null

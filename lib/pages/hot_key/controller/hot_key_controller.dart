@@ -22,9 +22,4 @@ class HotKeyController
     status = response?.responseStatus ?? ResponseStatus.loading;
     update();
   }
-
-  void pushToSearchPage({required String keyword}) {
-    ResignFirstResponder.unfocus();
-    Get.toNamed(Routes.searchResult, arguments: keyword);
-  }
 }

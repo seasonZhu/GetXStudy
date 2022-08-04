@@ -631,7 +631,28 @@ packages:
       name: webview_flutter
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.7"
+    version: "3.0.4"
+  webview_flutter_android:
+    dependency: transitive
+    description:
+      name: webview_flutter_android
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.9.3"
+  webview_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: webview_flutter_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.9.1"
+  webview_flutter_wkwebview:
+    dependency: transitive
+    description:
+      name: webview_flutter_wkwebview
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.9.2"
   win32:
     dependency: transitive
     description:

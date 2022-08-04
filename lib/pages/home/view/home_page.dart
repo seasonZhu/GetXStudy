@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:getx_study/routes/routes.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
@@ -33,8 +34,8 @@ class _HomePageState extends State<HomePage>
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: _controller.pushToHotKeyPage,
-          )
+            onPressed: (() => Get.toNamed(Routes.hotKey)),
+          ),
         ],
       ),
       body: RefreshStatusView(
@@ -53,27 +54,35 @@ class _HomePageState extends State<HomePage>
                   return AspectRatio(
                     aspectRatio: 16.0 / 9.0,
                     child: Swiper(
-                        itemBuilder: (BuildContext itemContext, int index) {
-                          return CachedNetworkImage(
-                            fit: BoxFit.fitWidth,
-                            imageUrl: _controller.banners[index].imagePath,
-                            placeholder: (context, url) => Image.asset(
-                              "assets/images/placeholder.png",
-                            ),
-                          );
-                        },
-                        itemCount: _controller.banners.length,
-                        pagination: const SwiperPagination(),
-                        autoplay: true,
-                        autoplayDisableOnInteraction: true,
-                        onTap: (index) {}),
+                      itemBuilder: (BuildContext itemContext, int index) {
+                        return CachedNetworkImage(
+                          fit: BoxFit.fitWidth,
+                          imageUrl: _controller.banners[index].imagePath,
+                          placeholder: (context, url) => Image.asset(
+                            "assets/images/placeholder.png",
+                          ),
+                        );
+                      },
+                      itemCount: _controller.banners.length,
+                      pagination: const SwiperPagination(),
+                      autoplay: true,
+                      autoplayDisableOnInteraction: true,
+                      onTap: (index) {
+                        print(index);
+                        Get.toNamed(Routes.web,
+                            arguments: _controller.banners[index]);
+                      },
+                    ),
                   );
                 } else {
                   final model = _controller.dataSource[index - 1];
 
                   return InfoCell(
                     model: model,
-                    callback: (_) {},
+                    callback: (_) {
+                      print("点击了");
+                      Get.toNamed(Routes.web, arguments: model);
+                    },
                   );
                 }
               },

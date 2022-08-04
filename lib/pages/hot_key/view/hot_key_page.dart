@@ -2,8 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/base/resign_first_responder.dart';
 
+import 'package:getx_study/base/resign_first_responder.dart';
+import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/hot_key/controller/hot_key_controller.dart';
 import 'search_field.dart';
@@ -21,7 +22,8 @@ class HotKeyPage extends GetView<HotKeyController> {
             height: 33,
             child: SearchField(
               keywordCallback: (keyword) {
-                controller.pushToSearchPage(keyword: keyword);
+                ResignFirstResponder.unfocus();
+                Get.toNamed(Routes.searchResult, arguments: keyword);
               },
             ),
           ),
@@ -49,8 +51,10 @@ class HotKeyPage extends GetView<HotKeyController> {
                         ),
                       ),
                       child: Text(model.name.toString()),
-                      onPressed: () => controller.pushToSearchPage(
-                          keyword: model.name.toString()),
+                      onPressed: () {
+                        ResignFirstResponder.unfocus();
+                        Get.toNamed(Routes.searchResult, arguments: model.name.toString());
+                      },
                     ),
                   );
                 },
