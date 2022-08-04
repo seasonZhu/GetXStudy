@@ -154,12 +154,16 @@ class RegisterPage extends GetView<MyController> {
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 18),
                               ),
-                              onPressed: () => controller.register(
+                              onPressed: () {
+                                if (!controller.isNowRequest.value) {
+                                  controller.register(
                                     username: _userNameTextFiledController.text,
                                     password: _passwordTextFiledController.text,
                                     rePassword:
                                         _rePasswordTextFiledController.text,
-                                  )),
+                                  );
+                                }
+                              }),
                         ),
                       ),
                     ),

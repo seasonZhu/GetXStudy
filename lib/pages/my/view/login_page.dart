@@ -130,19 +130,24 @@ class LoginPage extends GetView<MyController> {
                           visible: _userNameIsNotEmpty.value &&
                               _passwordIsNotEmpty.value,
                           child: TextButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Theme.of(context).primaryColor),
-                            ),
-                            child: const Text(
-                              "登录",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            ),
-                            onPressed: () => controller.login(
-                                username: _userNameTextFiledController.text,
-                                password: _passwordTextFiledController.text),
-                          ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    Theme.of(context).primaryColor),
+                              ),
+                              child: const Text(
+                                "登录",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                              onPressed: () {
+                                if (!controller.isNowRequest.value) {
+                                  controller.login(
+                                      username:
+                                          _userNameTextFiledController.text,
+                                      password:
+                                          _passwordTextFiledController.text);
+                                }
+                              }),
                         ),
                       ),
                     ),

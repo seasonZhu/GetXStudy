@@ -5,6 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
+import 'package:getx_study/routes/routes.dart';
 
 class TabListPage extends StatefulWidget {
   final TabListController _controller;
@@ -45,8 +46,9 @@ class _TabListPageState extends State<TabListPage>
               final model = widget._controller.dataSource[index];
               return InfoCell(
                 model: model,
-                callback: (value) {
-                  print(value.toString());
+                callback: (_) {
+                  Get.toNamed(Routes.web,
+                            arguments: model);
                 },
               );
             },

@@ -7,7 +7,6 @@ import 'package:marquee/marquee.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
-import 'package:getx_study/pages/common/marquee_label.dart';
 
 class WebPage extends StatelessWidget {
   final Completer<WebViewController> _controller =
