@@ -21,17 +21,17 @@ class LoginPage extends GetView<MyController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("登录", style: TextStyle(color: Colors.white)),
-        iconTheme: const IconThemeData(color: Colors.white),
-        elevation: 0.1,
-      ),
-      body: GestureDetector(
-        onTap: () {
-          ResignFirstResponder.unfocus();
-        },
-        child: Padding(
+    return GestureDetector(
+      onTap: () {
+        ResignFirstResponder.unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("登录", style: TextStyle(color: Colors.white)),
+          iconTheme: const IconThemeData(color: Colors.white),
+          elevation: 0.1,
+        ),
+        body: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: SingleChildScrollView(
             child: Padding(
