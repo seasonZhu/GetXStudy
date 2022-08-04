@@ -8,6 +8,8 @@ import 'package:getx_study/routes/routes.dart';
 class MyPage extends GetView<MyController> {
   final _isLogin = false.obs;
 
+  final _userInfo = "等级 --  排名 --  积分 --".obs;
+
   MyPage({Key? key}) : super(key: key);
 
   @override
@@ -25,7 +27,9 @@ class MyPage extends GetView<MyController> {
                 if (index == 0) {
                   return AspectRatio(
                     aspectRatio: 16.0 / 9.0,
-                    child: Container(),
+                    child: Center(
+                      child: Text(_userInfo.value),
+                    ),
                   );
                 } else {
                   final model = dataSource[index];
@@ -38,6 +42,7 @@ class MyPage extends GetView<MyController> {
                         final result = await Get.toNamed(Routes.login);
                         if (result != null) {
                           _isLogin.value = result;
+                          _userInfo.value = controller.userInfo;
                         }
                       } else if (model == my.My.logout) {
                         Get.dialog(

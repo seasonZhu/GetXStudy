@@ -5,26 +5,29 @@ import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
 import 'package:getx_study/pages/my/repository/my_repository.dart';
-import 'package:getx_study/routes/routes.dart';
 
 class MyController
     extends BaseRequestController<MyRepository, AccountInfoEntity> {
   final isNowRequest = false.obs;
+
+  var userInfo = "等级 --  排名 --  积分 --";
 
   void login({required String username, required String password}) async {
     ResignFirstResponder.unfocus();
     isNowRequest.value = true;
     final response =
         await request.login(username: username, password: password);
-    isNowRequest.value = false;
 
     String message;
     if (response.isSuccess == true && response.data != null) {
-      AccountManager.shared
+      await AccountManager.shared
           .save(info: response.data!, isLogin: true, password: password);
+      await getUserCoinInfo();
       message = "登录成功";
+      isNowRequest.value = false;
     } else {
       message = "登录失败";
+      isNowRequest.value = false;
     }
     Get.snackbar(
       "",
@@ -52,15 +55,17 @@ class MyController
     isNowRequest.value = true;
     final response = await request.register(
         username: username, password: password, rePassword: rePassword);
-    isNowRequest.value = false;
 
     String message;
     if (response.isSuccess == true && response.data != null) {
-      AccountManager.shared
+      await AccountManager.shared
           .save(info: response.data!, isLogin: true, password: password);
+      await getUserCoinInfo();
       message = "注册成功";
+      isNowRequest.value = false;
     } else {
       message = "注册失败";
+      isNowRequest.value = false;
     }
     Get.snackbar(
       "",
@@ -92,5 +97,12 @@ class MyController
       duration: const Duration(seconds: 1),
     );
     return AccountManager.shared.isLogin;
+  }
+
+  Future<void> getUserCoinInfo() async {
+    final response = await request.getUserCoinInfo();
+    final userInfo =
+        "等级 ${response.data?.level ?? "--"}  排名 ${response.data?.rank ?? "--"}  积分 ${response.data?.coinCount ?? "--"}";
+    this.userInfo = userInfo;
   }
 }

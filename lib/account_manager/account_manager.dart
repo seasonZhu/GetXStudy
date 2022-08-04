@@ -31,7 +31,7 @@ class AccountManager {
     }
   }
 
-  void save(
+  Future<void> save(
       {required AccountInfoEntity info,
       required bool isLogin,
       required String password}) async {

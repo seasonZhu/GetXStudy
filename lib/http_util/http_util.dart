@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'api.dart';
+import 'package:getx_study/account_manager/account_manager.dart';
 
 // 这个是用来判断是否是生产环境
 const bool inProduction = bool.fromEnvironment("dart.vm.product");
@@ -53,7 +54,7 @@ abstract class HttpUtils {
   }
 
   static Options getCookieHeaderOptions() {
-    var value = {}; //AccountManager.getInstance().cookieHeaderValue;
+    var value = AccountManager.shared.cookieHeaderValue;
     Options options = Options(headers: {HttpHeaders.cookieHeader: value});
     return options;
   }
