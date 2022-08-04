@@ -76,7 +76,11 @@ class MyPage extends GetView<MyController> {
                           ),
                         );
                       } else {
-                        Get.toNamed(model.path);
+                        if (model.entity != null) {
+                          Get.toNamed(model.path, arguments: model.entity);
+                        } else {
+                          Get.toNamed(model.path);
+                        }
                       }
                     },
                   );

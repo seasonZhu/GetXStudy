@@ -20,17 +20,18 @@ class WebPage extends StatelessWidget {
     IWebLoadInfo webLoadInfo = Get.arguments;
     return Scaffold(
       appBar: AppBar(
-        // 参考了微信的做法,直接就没有标题,这个title有h5元素,
-        //用Text或者框架Html都不能很好解决,加上跑马灯的问题
-        title: SizedBox(
-          height: 44,
-          child: Marquee(
-            text: webLoadInfo.title.toString().replaceHtmlElement,
-          ),
-        ),
+        title: _title(webLoadInfo),
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0.1,
-        actions: const <Widget>[],
+        actions: <Widget>[
+          Visibility(
+            visible: webLoadInfo.id != null,
+            child: IconButton(
+              icon: const Icon(Icons.share),
+              onPressed: () => print("分享"),
+            ),
+          ),
+        ],
       ),
       // We're using a Builder here so we have a context that is below the Scaffold
       // to allow calling Scaffold.of(context) so we can show a snackbar.
@@ -63,5 +64,18 @@ class WebPage extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  Widget _title(IWebLoadInfo webLoadInfo) {
+    if (webLoadInfo.id != null) {
+      return SizedBox(
+        height: 44,
+        child: Marquee(
+            text: webLoadInfo.title.toString().replaceHtmlElement,
+            showFadingOnlyWhenScrolling: true),
+      );
+    } else {
+      return Text(webLoadInfo.title.toString());
+    }
   }
 }

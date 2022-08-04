@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/routes/routes.dart';
 
 enum My {
@@ -41,17 +42,27 @@ extension Ext on My {
       case My.login:
         return Routes.login;
       case My.logout:
-        return "登出";
+        return Routes.unknown;
       case My.myCoin:
         return Routes.myCoinHistory;
       case My.myCollect:
         return "我的收藏";
       case My.myGitHub:
-        return "我的GitHub";
+        return Routes.web;
       case My.myJueJin:
-        return "我的掘金";
+        return Routes.web;
       case My.ranking:
         return Routes.coinRink;
+    }
+  }
+
+  WebLoadInfoEntity? get entity {
+    if (this == My.myJueJin) {
+      return WebLoadInfoEntity("我的掘金", "https://juejin.cn/user/4353721778057997");
+    } else if (this == My.myGitHub) {
+      return WebLoadInfoEntity("我的GitHub", "https://github.com/seasonZhu");
+    } else {
+      return null;
     }
   }
 
@@ -93,4 +104,16 @@ extension Ext on My {
     My.myCollect,
     My.logout,
   ];
+}
+
+class WebLoadInfoEntity implements IWebLoadInfo {
+  WebLoadInfoEntity(this.title, this.link);
+  @override
+  int? id;
+  @override
+  int? originId;
+  @override
+  String? title;
+  @override
+  String? link;
 }
