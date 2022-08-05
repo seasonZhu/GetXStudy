@@ -24,7 +24,7 @@ class _TabsPageState extends State<TabsPage>
 
   final _alreadyRequestIndex = Set<int>();
 
-  final _tabListControllers = [];
+  final _tabListControllers = <TabListController>[];
 
   late TabController _tabController;
 

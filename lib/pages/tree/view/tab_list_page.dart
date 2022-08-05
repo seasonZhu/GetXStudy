@@ -58,3 +58,45 @@ class _TabListPageState extends State<TabListPage>
     );
   }
 }
+
+// class TabListPage extends StatelessWidget {
+//   final TabListController _controller;
+
+//   const TabListPage({Key? key, required TabListController controller})
+//       : _controller = controller,
+//         super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetBuilder<TabListController>(
+//       tag: _controller.id,
+//       builder: ((_) {
+//         return SmartRefresher(
+//           enablePullUp: true,
+//           controller: _controller.refreshController,
+//           onRefresh: _controller.onRefresh,
+//           onLoading: _controller.onLoadMore,
+//           child: ListView.builder(
+//             padding: EdgeInsets.zero,
+//             shrinkWrap: true,
+//             itemCount: _controller.dataSource.length,
+//             itemBuilder: (BuildContext context, int index) {
+//               if (_controller.dataSource.isEmpty) {
+//                 return Container();
+//               }
+
+//               final model = _controller.dataSource[index];
+//               return InfoCell(
+//                 model: model,
+//                 callback: (_) {
+//                   Get.toNamed(Routes.web,
+//                             arguments: model);
+//                 },
+//               );
+//             },
+//           ),
+//         );
+//       }),
+//     );
+//   }
+// }
