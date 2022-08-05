@@ -2,13 +2,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:marquee/marquee.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
 
-class WebPage extends StatelessWidget {
+class WebPage extends GetView<WebController> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
@@ -17,6 +19,7 @@ class WebPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IWebLoadInfo webLoadInfo = Get.arguments;
+    var isCollect = controller.isCollect(webLoadInfo).obs;
     return Scaffold(
       appBar: AppBar(
         title: _title(webLoadInfo),
@@ -30,6 +33,31 @@ class WebPage extends StatelessWidget {
               onPressed: () => print("分享"),
             ),
           ),
+          Visibility(
+              visible: webLoadInfo.id != null && AccountManager.shared.isLogin,
+              child: Obx(
+                () {
+                  return IconButton(
+                    icon: isCollect.value
+                        ? const Icon(Icons.collections_bookmark)
+                        : const Icon(Icons.collections_bookmark_outlined),
+                    onPressed: () async {
+                      final collectId = controller.realCollectId(webLoadInfo);
+                      if (collectId != null) {
+                        if (isCollect.value) {
+                          final result = await controller.unCollectAction(
+                              originId: collectId);
+                          isCollect.value = !result;
+                        } else {
+                          final result = await controller.collectAction(
+                              originId: collectId);
+                          isCollect.value = result;
+                        }
+                      }
+                    },
+                  );
+                },
+              )),
         ],
       ),
       // We're using a Builder here so we have a context that is below the Scaffold

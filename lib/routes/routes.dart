@@ -22,6 +22,7 @@ import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
 import 'package:getx_study/pages/tree/bindings/tree_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
+import 'package:getx_study/pages/web/binding/web_binding.dart';
 import 'package:getx_study/pages/web/view/web_page.dart';
 
 abstract class Routes {
@@ -121,6 +122,7 @@ abstract class Routes {
     GetPage(
       name: web,
       page: () => WebPage(),
+      binding: WebBinding(),
     ),
     GetPage(
       name: unknown,
