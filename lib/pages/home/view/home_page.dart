@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,11 +11,12 @@ import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/home/controller/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
-
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final myController = Get.find<MyController>();
+    myController.autoLogin();
     return Scaffold(
       appBar: AppBar(
         title: const Text("首页", style: TextStyle(color: Colors.white)),

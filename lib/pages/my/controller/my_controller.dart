@@ -12,6 +12,8 @@ class MyController
 
   var userInfo = "等级 --  排名 --  积分 --";
 
+  void Function()? autoLoginSuccessCallback;
+
   @override
   void onInit() {
     super.onInit();
@@ -125,10 +127,13 @@ class MyController
       if (response.isSuccess == true && response.data != null) {
         await AccountManager.shared
             .save(info: response.data!, isLogin: true, password: password);
-        message = "登录成功";
+        message = "自动登录成功";
         await getUserCoinInfo();
+        if (autoLoginSuccessCallback != null) {
+          autoLoginSuccessCallback!();
+        }
       } else {
-        message = "登录失败";
+        message = "自动登录失败";
       }
       Get.snackbar(
         "",

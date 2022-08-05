@@ -7,22 +7,28 @@ import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class MyPage extends GetView<MyController> {
-  final _isLogin = AccountManager.shared.isLogin.obs;
-
-  final _userInfo = AccountManager.shared.myCoinInfo.obs;
-
-  MyPage({Key? key}) : super(key: key);
+  const MyPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _isLogin = AccountManager.shared.isLogin.obs;
+
+    final _userInfo = AccountManager.shared.myCoinInfo.obs;
+
+    controller.autoLoginSuccessCallback = () {
+      _isLogin.value = AccountManager.shared.isLogin;
+      _userInfo.value = AccountManager.shared.myCoinInfo;
+    };
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("我的"),
       ),
       body: Obx(
         () {
-          final dataSource =
-              _isLogin.value ? my.Ext.userDataSource : my.Ext.visitorDataSource;
+          final dataSource = _isLogin.value
+              ? my.Extension.userDataSource
+              : my.Extension.visitorDataSource;
           return ListView.separated(
               itemBuilder: (context, index) {
                 if (index == 0) {

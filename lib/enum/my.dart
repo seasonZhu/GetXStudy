@@ -13,7 +13,7 @@ enum My {
   logout,
 }
 
-extension Ext on My {
+extension Extension on My {
   String get title {
     switch (this) {
       case My.header:
