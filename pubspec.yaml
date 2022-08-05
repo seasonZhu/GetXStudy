@@ -26,6 +26,7 @@ dependencies:
   open_file: ^3.2.1
   pretty_dio_logger: ^1.1.1
   marquee: ^2.2.3
+  share: ^2.0.4
   r_dart_library:
     git:
       url: 'https://github.com/YK-Unit/r_dart_library.git'

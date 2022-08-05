@@ -303,6 +303,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.7.0"
+  mime:
+    dependency: transitive
+    description:
+      name: mime
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.2"
   octo_image:
     dependency: transitive
     description:
@@ -452,6 +459,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.27.5"
+  share:
+    dependency: "direct main"
+    description:
+      name: share
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.4"
   shared_preferences:
     dependency: "direct main"
     description:

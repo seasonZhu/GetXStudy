@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:share/share.dart';
 import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -20,6 +21,14 @@ class WebPage extends GetView<WebController> {
   Widget build(BuildContext context) {
     IWebLoadInfo webLoadInfo = Get.arguments;
     var isCollect = controller.isCollect(webLoadInfo).obs;
+    var notShowCollectIcon = Get.parameters['notShowCollectIcon'];
+    bool isShowCollectIcon;
+    if (notShowCollectIcon == "true") {
+      isShowCollectIcon = false;
+    } else {
+      isShowCollectIcon =
+          webLoadInfo.id != null && AccountManager.shared.isLogin;
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -31,11 +40,15 @@ class WebPage extends GetView<WebController> {
             visible: webLoadInfo.id != null,
             child: IconButton(
               icon: const Icon(Icons.share),
-              onPressed: () => print("分享"),
+              onPressed: () {
+                if (webLoadInfo.link != null) {
+                  Share.share(webLoadInfo.link!);
+                }
+              },
             ),
           ),
           Visibility(
-            visible: webLoadInfo.id != null && AccountManager.shared.isLogin,
+            visible: isShowCollectIcon,
             child: IconButton(
               icon: Obx(
                 () {

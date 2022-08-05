@@ -50,7 +50,7 @@ abstract class Routes {
 
   static const myCollect = "/myCollect";
 
-  static const web = "/web";
+  static const web = "/web/:notShowCollectIcon";
 
   static const unknown = "/unknown";
 

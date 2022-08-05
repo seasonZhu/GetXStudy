@@ -60,7 +60,7 @@ class HomePage extends GetView<HomeController> {
                       autoplayDisableOnInteraction: true,
                       onTap: (index) {
                         print(index);
-                        Get.toNamed(Routes.web,
+                        Get.toNamed("/web/true",
                             arguments: controller.banners[index]);
                       },
                     ),
