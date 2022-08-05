@@ -9,23 +9,12 @@ import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/home/controller/home_controller.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends GetView<HomeController> {
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage>
-    with AutomaticKeepAliveClientMixin {
-  final _controller = Get.find<HomeController>();
-
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("首页", style: TextStyle(color: Colors.white)),
@@ -39,16 +28,16 @@ class _HomePageState extends State<HomePage>
         ],
       ),
       body: RefreshStatusView(
-        controller: _controller,
+        controller: controller,
         contentBuilder: (_) {
           return SmartRefresher(
             enablePullUp: true,
-            controller: _controller.refreshController,
-            onRefresh: _controller.onRefresh,
-            onLoading: _controller.onLoadMore,
+            controller: controller.refreshController,
+            onRefresh: controller.onRefresh,
+            onLoading: controller.onLoadMore,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: _controller.dataSource.length + 1,
+              itemCount: controller.dataSource.length + 1,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
                   return AspectRatio(
@@ -57,25 +46,25 @@ class _HomePageState extends State<HomePage>
                       itemBuilder: (BuildContext itemContext, int index) {
                         return CachedNetworkImage(
                           fit: BoxFit.fitWidth,
-                          imageUrl: _controller.banners[index].imagePath,
+                          imageUrl: controller.banners[index].imagePath,
                           placeholder: (context, url) => Image.asset(
                             "assets/images/placeholder.png",
                           ),
                         );
                       },
-                      itemCount: _controller.banners.length,
+                      itemCount: controller.banners.length,
                       pagination: const SwiperPagination(),
                       autoplay: true,
                       autoplayDisableOnInteraction: true,
                       onTap: (index) {
                         print(index);
                         Get.toNamed(Routes.web,
-                            arguments: _controller.banners[index]);
+                            arguments: controller.banners[index]);
                       },
                     ),
                   );
                 } else {
-                  final model = _controller.dataSource[index - 1];
+                  final model = controller.dataSource[index - 1];
 
                   return InfoCell(
                     model: model,

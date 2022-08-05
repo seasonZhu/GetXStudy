@@ -19,8 +19,6 @@ class TreePage extends GetView<TreeController> {
       body: StatusView(
         controller: controller,
         contentBuilder: (_) {
-          print(controller.data);
-          // return Container();
           return ListView.builder(
             shrinkWrap: true,
             itemCount: controller.data?.length ?? 0,

@@ -12,6 +12,11 @@ class MyController
 
   var userInfo = "等级 --  排名 --  积分 --";
 
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   void login({required String username, required String password}) async {
     ResignFirstResponder.unfocus();
     isNowRequest.value = true;
