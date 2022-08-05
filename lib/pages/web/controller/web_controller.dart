@@ -6,6 +6,8 @@ import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
 
 class WebController extends BaseRequestController<WebRepository, Object?> {
+  void Function()? hasActionCallback;
+
   Future<bool> unCollectAction({required int originId}) async {
     var model = await request.unCollectAction(originId: originId);
 
@@ -15,6 +17,9 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
         (AccountManager.shared.info?.collectIds ?? []).remove(originId);
       }
       message = "取消收藏成功";
+      if (hasActionCallback != null) {
+        hasActionCallback!();
+      }
     } else {
       message = model.errorMsg.toString();
     }
@@ -35,6 +40,9 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
     if (model.isSuccess) {
       (AccountManager.shared.info?.collectIds ?? []).add(originId);
       message = "收藏成功";
+      if (hasActionCallback != null) {
+        hasActionCallback!();
+      }
     } else {
       message = model.errorMsg.toString();
     }

@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
+import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -13,6 +14,11 @@ class MyCollectPage extends GetView<MyCollectController> {
 
   @override
   Widget build(BuildContext context) {
+    final webController = Get.find<WebController>();
+
+    webController.hasActionCallback =
+        () => controller.refreshController.requestRefresh();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("我的收藏"),

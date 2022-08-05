@@ -22,6 +22,7 @@ class WebPage extends GetView<WebController> {
     var isCollect = controller.isCollect(webLoadInfo).obs;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: _title(webLoadInfo),
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0.1,
@@ -34,30 +35,32 @@ class WebPage extends GetView<WebController> {
             ),
           ),
           Visibility(
-              visible: webLoadInfo.id != null && AccountManager.shared.isLogin,
-              child: Obx(
+            visible: webLoadInfo.id != null && AccountManager.shared.isLogin,
+            child: IconButton(
+              icon: Obx(
                 () {
-                  return IconButton(
-                    icon: isCollect.value
-                        ? const Icon(Icons.collections_bookmark)
-                        : const Icon(Icons.collections_bookmark_outlined),
-                    onPressed: () async {
-                      final collectId = controller.realCollectId(webLoadInfo);
-                      if (collectId != null) {
-                        if (isCollect.value) {
-                          final result = await controller.unCollectAction(
-                              originId: collectId);
-                          isCollect.value = !result;
-                        } else {
-                          final result = await controller.collectAction(
-                              originId: collectId);
-                          isCollect.value = result;
-                        }
-                      }
-                    },
-                  );
+                  final icon = isCollect.value
+                      ? Icons.collections_bookmark
+                      : Icons.collections_bookmark_outlined;
+                  return Icon(icon);
                 },
-              )),
+              ),
+              onPressed: () async {
+                final collectId = controller.realCollectId(webLoadInfo);
+                if (collectId != null) {
+                  if (isCollect.value) {
+                    final result =
+                        await controller.unCollectAction(originId: collectId);
+                    isCollect.value = !result;
+                  } else {
+                    final result =
+                        await controller.collectAction(originId: collectId);
+                    isCollect.value = result;
+                  }
+                }
+              },
+            ),
+          ),
         ],
       ),
       // We're using a Builder here so we have a context that is below the Scaffold
@@ -102,7 +105,9 @@ class WebPage extends GetView<WebController> {
             showFadingOnlyWhenScrolling: true),
       );
     } else {
-      return Text(webLoadInfo.title.toString());
+      return Text(
+        webLoadInfo.title.toString(),
+      );
     }
   }
 }

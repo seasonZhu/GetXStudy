@@ -117,7 +117,7 @@ abstract class Routes {
     GetPage(
       name: myCollect,
       page: () => const MyCollectPage(),
-      binding: MyCollectBinding(),
+      bindings: [MyCollectBinding(), WebBinding(),],
     ),
     GetPage(
       name: web,
