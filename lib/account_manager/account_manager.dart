@@ -94,10 +94,13 @@ class AccountManager {
     return userDefine.getBool(kIsFirstLaunch) ?? true;
   }
 
-  void clear() {
+  void clear() async {
     info = null;
     myCoinInfo = "等级 --  排名 --  积分 --";
     isLogin = false;
+    var userDefine = await SharedPreferences.getInstance();
+    userDefine.remove(kLastLoginUserName);
+    userDefine.remove(kLastLoginPassword);
   }
 
   // 单例模式写法

@@ -11,13 +11,13 @@ class MyPage extends GetView<MyController> {
 
   @override
   Widget build(BuildContext context) {
-    final _isLogin = AccountManager.shared.isLogin.obs;
+    final isLogin = AccountManager.shared.isLogin.obs;
 
-    final _userInfo = AccountManager.shared.myCoinInfo.obs;
+    final userInfo = AccountManager.shared.myCoinInfo.obs;
 
     controller.autoLoginSuccessCallback = () {
-      _isLogin.value = AccountManager.shared.isLogin;
-      _userInfo.value = AccountManager.shared.myCoinInfo;
+      isLogin.value = AccountManager.shared.isLogin;
+      userInfo.value = AccountManager.shared.myCoinInfo;
     };
 
     return Scaffold(
@@ -26,18 +26,26 @@ class MyPage extends GetView<MyController> {
       ),
       body: Obx(
         () {
-          final dataSource = _isLogin.value
+          final dataSource = isLogin.value
               ? my.Extension.userDataSource
               : my.Extension.visitorDataSource;
+          final icon = isLogin.value ? Icons.android : Icons.person;
           return ListView.separated(
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return AspectRatio(
-                    aspectRatio: 16.0 / 9.0,
-                    child: Center(
-                      child: Text(_userInfo.value),
-                    ),
-                  );
+                      aspectRatio: 16.0 / 9.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 66,
+                            height: 66,
+                            child: Icon(icon),
+                          ),
+                          Text(userInfo.value),
+                        ],
+                      ));
                 } else {
                   final model = dataSource[index];
                   return ListTile(
@@ -48,8 +56,8 @@ class MyPage extends GetView<MyController> {
                       if (model == my.My.login) {
                         final result = await Get.toNamed(Routes.login);
                         if (result != null) {
-                          _isLogin.value = result;
-                          _userInfo.value = controller.userInfo;
+                          isLogin.value = result;
+                          userInfo.value = controller.userInfo;
                         }
                       } else if (model == my.My.logout) {
                         Get.dialog(
@@ -76,7 +84,8 @@ class MyPage extends GetView<MyController> {
                                 onPressed: () async {
                                   Get.back();
                                   final result = await controller.logout();
-                                  _isLogin.value = result;
+                                  userInfo.value = AccountManager.shared.myCoinInfo;
+                                  isLogin.value = result;
                                 },
                               ),
                             ],
