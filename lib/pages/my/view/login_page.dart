@@ -27,9 +27,7 @@ class LoginPage extends GetView<MyController> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("登录", style: TextStyle(color: Colors.white)),
-          iconTheme: const IconThemeData(color: Colors.white),
-          elevation: 0.1,
+          title: const Text("登录"),
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 20),

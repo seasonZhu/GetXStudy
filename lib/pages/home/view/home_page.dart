@@ -20,9 +20,7 @@ class HomePage extends GetView<HomeController> {
     myController.autoLogin();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("首页", style: TextStyle(color: Colors.white)),
-        iconTheme: const IconThemeData(color: Colors.white),
-        elevation: 0.1,
+        title: const Text("首页"),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.search),

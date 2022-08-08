@@ -8,6 +8,7 @@ import 'package:getx_study/entity/coin_rank_entity.dart';
 import 'package:getx_study/entity/hot_key_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/entity/tab_entity.dart';
+import 'package:getx_study/extension/theme_data_extension.dart';
 
 import 'package:getx_study/http_util/api.dart';
 import 'package:getx_study/pages/common/unknow_page.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
 
   /// App运行过程中,如果在iOS的设置中更改了亮度模式,还是无法实时进行更改,只能下次运行的时候才能体现变化,体验不好
   ThemeData _getCurrentTheme() {
-    return SchedulerBinding.instance.window.platformBrightness == Brightness.dark ? ThemeData.dark() : ThemeData.light();
+    return SchedulerBinding.instance.window.platformBrightness.themeData;
   }
 }
 

@@ -25,7 +25,6 @@ class TreeCell extends StatelessWidget {
           children: _chipTitleItem(model),
         ),
         decoration: BoxDecoration(
-          color: Colors.white,
           border: Border(
             bottom: BorderSide(width: 0.33, color: Colors.grey[400]!),
           ),
@@ -42,7 +41,6 @@ class TreeCell extends StatelessWidget {
       model.name.toString(),
       style: const TextStyle(
         fontSize: 16,
-        color: Colors.black,
         fontWeight: FontWeight.bold,
       ),
     );

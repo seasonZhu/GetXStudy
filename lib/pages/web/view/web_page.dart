@@ -33,8 +33,6 @@ class WebPage extends GetView<WebController> {
       appBar: AppBar(
         centerTitle: true,
         title: _title(webLoadInfo),
-        iconTheme: const IconThemeData(color: Colors.white),
-        elevation: 0.1,
         actions: <Widget>[
           Visibility(
             visible: webLoadInfo.id != null,

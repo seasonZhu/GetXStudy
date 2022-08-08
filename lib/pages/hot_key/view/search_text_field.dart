@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
+import 'package:getx_study/extension/theme_data_extension.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
 
 class SearchTextField extends StatelessWidget {
@@ -23,10 +23,9 @@ class SearchTextField extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: CupertinoTextField(
-            //style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Theme.of(context).brightness.color),
             keyboardType: TextInputType.text,
             controller: searchKeyCtrl,
-            cursorColor: Colors.white,
             placeholder: "请输入搜索关键字",
             onEditingComplete: () {
               _inputComplete(context);
@@ -51,7 +50,7 @@ class SearchTextField extends StatelessWidget {
                   alignment: Alignment.center,
                   child: const Text(
                     '搜索',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
                 onTap: () {

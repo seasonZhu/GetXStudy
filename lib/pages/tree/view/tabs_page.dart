@@ -58,8 +58,6 @@ class _TabsPageState extends State<TabsPage>
           return Scaffold(
             appBar: AppBar(
               title: Text(_tabsController.type.title),
-              iconTheme: const IconThemeData(color: Colors.white),
-              elevation: 0.1,
               bottom: _tabBar(_tabController),
             ),
             body: TabBarView(

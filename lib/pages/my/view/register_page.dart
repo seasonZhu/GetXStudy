@@ -32,9 +32,7 @@ class RegisterPage extends GetView<MyController> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("注册", style: TextStyle(color: Colors.white)),
-          iconTheme: const IconThemeData(color: Colors.white),
-          elevation: 0.1,
+          title: const Text("注册"),
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 20),

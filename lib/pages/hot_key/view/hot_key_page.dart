@@ -32,8 +32,6 @@ class HotKeyPage extends GetView<HotKeyController> {
               ),
             ),
           ),
-          iconTheme: const IconThemeData(color: Colors.white),
-          elevation: 0.1,
         ),
         body: StatusView(
           controller: controller,
