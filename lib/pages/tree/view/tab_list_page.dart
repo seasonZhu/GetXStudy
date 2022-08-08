@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/pages/common/refresh_header_footer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
@@ -31,6 +33,8 @@ class _TabListPageState extends State<TabListPage>
       builder: ((_) {
         return SmartRefresher(
           enablePullUp: true,
+          header: const RefreshHeader(),
+          footer: const RefreshFooter(),
           controller: widget._controller.refreshController,
           onRefresh: widget._controller.onRefresh,
           onLoading: widget._controller.onLoadMore,
@@ -47,8 +51,7 @@ class _TabListPageState extends State<TabListPage>
               return InfoCell(
                 model: model,
                 callback: (_) {
-                  Get.toNamed(Routes.web,
-                            arguments: model);
+                  Get.toNamed(Routes.web, arguments: model);
                 },
               );
             },

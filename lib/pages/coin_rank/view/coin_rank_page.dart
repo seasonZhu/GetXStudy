@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getx_study/pages/common/refresh_header_footer.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/routes/routes.dart';
 
@@ -20,6 +21,8 @@ class CoinRankPage extends GetView<CoinRankController> {
         contentBuilder: (_) {
           return SmartRefresher(
             enablePullUp: true,
+            header: const RefreshHeader(), 
+            footer: const RefreshFooter(),
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,

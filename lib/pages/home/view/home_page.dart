@@ -10,6 +10,7 @@ import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/home/controller/home_controller.dart';
+import 'package:getx_study/pages/common/refresh_header_footer.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -33,6 +34,8 @@ class HomePage extends GetView<HomeController> {
         contentBuilder: (_) {
           return SmartRefresher(
             enablePullUp: true,
+            header: const RefreshHeader(),
+            footer: const RefreshFooter(),  
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,

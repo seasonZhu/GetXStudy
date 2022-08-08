@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 import 'package:share/share.dart';
@@ -50,14 +51,14 @@ class WebPage extends GetView<WebController> {
             child: IconButton(
               icon: Obx(
                 () {
-                  final icon = isCollect.value
-                      ? Icons.bookmark
-                      : Icons.bookmark_outline;
+                  final icon =
+                      isCollect.value ? Icons.bookmark : Icons.bookmark_outline;
                   return Icon(icon);
                 },
               ),
               onPressed: () async {
                 final collectId = controller.realCollectId(webLoadInfo);
+                EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.clear);
                 if (collectId != null) {
                   if (isCollect.value) {
                     final result =
@@ -69,6 +70,7 @@ class WebPage extends GetView<WebController> {
                     isCollect.value = result;
                   }
                 }
+                EasyLoading.dismiss();
               },
             ),
           ),

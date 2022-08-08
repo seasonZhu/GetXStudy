@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/my/controller/my_coin_history_controller.dart';
 import 'package:getx_study/routes/routes.dart';
+import 'package:getx_study/pages/common/refresh_header_footer.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
-import 'package:getx_study/pages/coin_rank/controller/coin_rank_controller.dart';
 
 class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
   const MyCoinHistoryPage({Key? key}) : super(key: key);
@@ -21,6 +21,8 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
         contentBuilder: (_) {
           return SmartRefresher(
             enablePullUp: true,
+            header: const RefreshHeader(),
+            footer: const RefreshFooter(), 
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,

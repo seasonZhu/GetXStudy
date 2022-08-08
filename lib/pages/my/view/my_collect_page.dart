@@ -5,6 +5,7 @@ import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:getx_study/routes/routes.dart';
+import 'package:getx_study/pages/common/refresh_header_footer.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,8 @@ class MyCollectPage extends GetView<MyCollectController> {
         contentBuilder: (_) {
           return SmartRefresher(
             enablePullUp: true,
+            header: const RefreshHeader(),
+            footer: const RefreshFooter(),  
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
