@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 import 'package:getx_study/base/getx_router_observer.dart';
@@ -33,14 +35,18 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: Routes.main,
       getPages: Routes.routePage,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      builder: EasyLoading.init(),
+      theme: _getCurrentTheme(),
 
       /// 一开始的时候,我在初始化页面的发现并不能很好的进行初始化页面的binding操作,
       /// 于是写了一个临时页面,便于路由进去操作,看完官方的example懂了
       // home: const TestHome(),
     );
+  }
+
+  /// App运行过程中,如果在iOS的设置中更改了亮度模式,还是无法实时进行更改,只能下次运行的时候才能体现变化,体验不好
+  ThemeData _getCurrentTheme() {
+    return SchedulerBinding.instance.window.platformBrightness == Brightness.dark ? ThemeData.dark() : ThemeData.light();
   }
 }
 

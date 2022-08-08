@@ -44,6 +44,8 @@ class MainPage extends GetView<MainController> {
             ],
             currentIndex: controller.selectedIndex, //默认选中的 index
             type: BottomNavigationBarType.fixed, //类型为 fixed
+            selectedFontSize: 12,
+            unselectedFontSize: 12,
             onTap: controller.onItemTapped,
           ),
         );

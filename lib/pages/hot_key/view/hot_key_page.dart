@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 
@@ -7,7 +8,7 @@ import 'package:getx_study/base/resign_first_responder.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/hot_key/controller/hot_key_controller.dart';
-import 'search_field.dart';
+import 'search_text_field.dart';
 
 class HotKeyPage extends GetView<HotKeyController> {
   const HotKeyPage({Key? key}) : super(key: key);
@@ -18,13 +19,17 @@ class HotKeyPage extends GetView<HotKeyController> {
       onTap: (() => ResignFirstResponder.unfocus()),
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: SizedBox(
-            height: 33,
-            child: SearchField(
-              keywordCallback: (keyword) {
-                ResignFirstResponder.unfocus();
-                Get.toNamed(Routes.searchResult, arguments: keyword);
-              },
+            height: 44,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: SearchTextField(
+                keywordCallback: (keyword) {
+                  ResignFirstResponder.unfocus();
+                  Get.toNamed(Routes.searchResult, arguments: keyword);
+                },
+              ),
             ),
           ),
           iconTheme: const IconThemeData(color: Colors.white),
@@ -53,7 +58,8 @@ class HotKeyPage extends GetView<HotKeyController> {
                       child: Text(model.name.toString()),
                       onPressed: () {
                         ResignFirstResponder.unfocus();
-                        Get.toNamed(Routes.searchResult, arguments: model.name.toString());
+                        Get.toNamed(Routes.searchResult,
+                            arguments: model.name.toString());
                       },
                     ),
                   );
