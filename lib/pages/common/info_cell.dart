@@ -20,33 +20,33 @@ class InfoCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          _cellTapCallback(_model);
-        },
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: _getRow(),
-        ),
+    return InkWell(
+      onTap: () {
+        _cellTapCallback(_model);
+      },
+      child: Padding(
+        padding:
+            const EdgeInsets.only(top: 10, left: 15, bottom: 10, right: 15),
+        child: _getRow(),
       ),
     );
   }
 
   Widget _imageView() {
-    return (_model.envelopePic?.isNotEmpty ?? false)
-        ? SizedBox(
-            width: 60,
-            height: 60,
-            child: CachedNetworkImage(
-              fit: BoxFit.fitHeight,
-              imageUrl: _model.envelopePic.toString(),
-              placeholder: (context, url) => Image.asset(
-                "assets/images/placeholder.png",
-              ),
-            ),
-          )
-        : Container();
+    return Visibility(
+      visible: _model.envelopePic.toString().isNotEmpty,
+      child: SizedBox(
+        width: 60,
+        height: 60,
+        child: CachedNetworkImage(
+          fit: BoxFit.fitHeight,
+          imageUrl: _model.envelopePic.toString(),
+          placeholder: (context, url) => Image.asset(
+            "assets/images/placeholder.png",
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _contentView() {
@@ -70,27 +70,30 @@ class InfoCell extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    (_model.fresh ?? false)
-                        ? const Text(
-                            "最新 ",
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        : Container(),
-                    _model.type != null && _model.type != 0
-                        ? const Text(
-                            "置顶 ",
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        : Container(),
-                    (_model.author.toString().isNotEmpty) ||
-                            (_model.shareUser.toString().isNotEmpty)
-                        ? Text(
-                            _model.author ?? _model.shareUser.toString(),
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: true,
-                            style: const TextStyle(color: Colors.grey),
-                          )
-                        : Container(),
+                    Visibility(
+                      visible: (_model.fresh ?? false),
+                      child: const Text(
+                        "最新 ",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                    Visibility(
+                      visible: (_model.type != null && _model.type != 0),
+                      child: const Text(
+                        "置顶 ",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                    Visibility(
+                      visible: ((_model.author.toString().isNotEmpty) ||
+                          (_model.shareUser.toString().isNotEmpty)),
+                      child: Text(
+                        _model.author ?? _model.shareUser.toString(),
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -111,10 +114,15 @@ class InfoCell extends StatelessWidget {
   }
 
   Widget _getRow() {
-    return Row(
-      children: <Widget>[
-        _imageView(),
-        _contentView(),
+    return Column(
+      children: [
+        Row(
+          children: <Widget>[
+            _imageView(),
+            _contentView(),
+          ],
+        ),
+        const Divider(),
       ],
     );
   }

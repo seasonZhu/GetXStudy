@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/routes/routes.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/home/controller/home_controller.dart';
@@ -37,22 +38,25 @@ class HomePage extends GetView<HomeController> {
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: controller.dataSource.length + 1,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
-                  return AspectRatio(
+            child: CustomScrollView(
+              slivers: <Widget>[
+                /// 随便把一个Widget放到CustomScrollView中的slivers它是不认识的,通过SliverToBoxAdapter适配器包裹就可以了
+                SliverToBoxAdapter(
+                  child: AspectRatio(
                     aspectRatio: 16.0 / 9.0,
                     child: Swiper(
                       itemBuilder: (BuildContext itemContext, int index) {
-                        return CachedNetworkImage(
-                          fit: BoxFit.fitWidth,
-                          imageUrl: controller.banners[index].imagePath,
-                          placeholder: (context, url) => Image.asset(
-                            "assets/images/placeholder.png",
-                          ),
-                        );
+                        if (controller.banners.length >= index) {
+                          return CachedNetworkImage(
+                            fit: BoxFit.fitWidth,
+                            imageUrl: controller.banners[index].imagePath,
+                            placeholder: (context, url) => Image.asset(
+                              "assets/images/placeholder.png",
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
                       },
                       itemCount: controller.banners.length,
                       pagination: const SwiperPagination(),
@@ -64,19 +68,21 @@ class HomePage extends GetView<HomeController> {
                             arguments: controller.banners[index]);
                       },
                     ),
-                  );
-                } else {
-                  final model = controller.dataSource[index - 1];
-
-                  return InfoCell(
-                    model: model,
-                    callback: (_) {
-                      print("点击了");
-                      Get.toNamed(Routes.web, arguments: model);
-                    },
-                  );
-                }
-              },
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate((content, index) {
+                    final model = controller.dataSource[index];
+                    return InfoCell(
+                      model: model,
+                      callback: (_) {
+                        print("点击了");
+                        Get.toNamed(Routes.web, arguments: model);
+                      },
+                    );
+                  }, childCount: controller.dataSource.length),
+                )
+              ],
             ),
           );
         },

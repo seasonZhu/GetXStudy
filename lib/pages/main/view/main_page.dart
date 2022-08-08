@@ -30,11 +30,11 @@ class MainPage extends GetView<MainController> {
                 label: "首页",
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.perm_contact_calendar),
+                icon: Icon(Icons.web),
                 label: "项目",
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.list),
                 label: "体系",
               ),
               BottomNavigationBarItem(

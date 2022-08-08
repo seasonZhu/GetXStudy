@@ -74,17 +74,17 @@ extension Extension on My {
       case My.login:
         return Icons.login;
       case My.logout:
-        return Icons.logout_outlined;
+        return Icons.logout;
       case My.myCoin:
-        return Icons.message;
+        return Icons.trending_up;
       case My.myCollect:
-        return Icons.collections;
+        return Icons.local_offer;
       case My.myGitHub:
-        return Icons.gite;
+        return Icons.link;
       case My.myJueJin:
-        return Icons.abc;
+        return Icons.looks;
       case My.ranking:
-        return Icons.kayaking;
+        return Icons.poll;
     }
   }
 

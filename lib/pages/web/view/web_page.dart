@@ -39,7 +39,7 @@ class WebPage extends GetView<WebController> {
           Visibility(
             visible: webLoadInfo.id != null,
             child: IconButton(
-              icon: const Icon(Icons.share),
+              icon: const Icon(Icons.open_in_new),
               onPressed: () {
                 if (webLoadInfo.link != null) {
                   Share.share(webLoadInfo.link!);
@@ -53,8 +53,8 @@ class WebPage extends GetView<WebController> {
               icon: Obx(
                 () {
                   final icon = isCollect.value
-                      ? Icons.collections_bookmark
-                      : Icons.collections_bookmark_outlined;
+                      ? Icons.bookmark
+                      : Icons.bookmark_outline;
                   return Icon(icon);
                 },
               ),
