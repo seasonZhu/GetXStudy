@@ -58,7 +58,8 @@ class WebPage extends GetView<WebController> {
               ),
               onPressed: () async {
                 final collectId = controller.realCollectId(webLoadInfo);
-                EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.clear);
+                EasyLoading.show(
+                    status: 'loading...', maskType: EasyLoadingMaskType.clear);
                 if (collectId != null) {
                   if (isCollect.value) {
                     final result =
@@ -98,9 +99,11 @@ class WebPage extends GetView<WebController> {
             },
             onPageStarted: (String url) {
               print('Page started loading: $url');
+              EasyLoading.show(status: "loading...", maskType: EasyLoadingMaskType.clear);
             },
             onPageFinished: (String url) {
               print('Page finished loading: $url');
+              EasyLoading.dismiss();
             },
             gestureNavigationEnabled: true,
           );
