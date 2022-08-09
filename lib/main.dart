@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       getPages: Routes.routePage,
       builder: EasyLoading.init(),
       //theme: _getCurrentTheme(),
-
+      theme: const CupertinoThemeData(barBackgroundColor: Colors.white, brightness: Brightness.light),
       /// 一开始的时候,我在初始化页面的发现并不能很好的进行初始化页面的binding操作,
       /// 于是写了一个临时页面,便于路由进去操作,看完官方的example懂了
       //home: CupertinoSimpleHomePage(),
