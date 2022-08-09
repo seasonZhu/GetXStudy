@@ -62,8 +62,10 @@ class WebPage extends GetView<WebController> {
                 onPressed: () async {
                   final collectId = controller.realCollectId(webLoadInfo);
                   EasyLoading.show(
-                      status: 'loading...',
-                      maskType: EasyLoadingMaskType.clear);
+                    status: 'loading...',
+                    maskType: EasyLoadingMaskType.none,
+                    dismissOnTap: true
+                  );
                   if (collectId != null) {
                     if (isCollect.value) {
                       final result =

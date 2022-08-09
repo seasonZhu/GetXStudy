@@ -51,12 +51,15 @@ class TreeCell extends StatelessWidget {
             (topic) => Padding(
               padding: const EdgeInsets.all(3.0),
               child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 color: _getChipBgColor(topic.name.toString()),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Container(
+                  padding: const EdgeInsets.only(left: 5, right: 5),
                   child: Text(
                     topic.name.toString(),
-                    style: const TextStyle(fontSize: 20.0),
+                    style: const TextStyle(fontSize: 17.0),
                   ),
                 ),
               ),
