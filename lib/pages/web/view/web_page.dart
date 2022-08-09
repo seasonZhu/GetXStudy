@@ -33,51 +33,54 @@ class WebPage extends GetView<WebController> {
     }
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Expanded(child: _title(webLoadInfo),),
-        trailing: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-          Visibility(
-            visible: webLoadInfo.id != null,
-            child: IconButton(
-              icon: const Icon(Icons.open_in_new),
-              onPressed: () {
-                if (webLoadInfo.link != null) {
-                  Share.share(webLoadInfo.link!);
-                }
-              },
-            ),
-          ),
-          Visibility(
-            visible: isShowCollectIcon,
-            child: IconButton(
-              icon: Obx(
-                () {
-                  final icon =
-                      isCollect.value ? Icons.bookmark : Icons.bookmark_outline;
-                  return Icon(icon);
+        middle: _title(webLoadInfo),
+        trailing: SizedBox(
+          width: 100,
+          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+            Visibility(
+              visible: webLoadInfo.id != null,
+              child: IconButton(
+                icon: const Icon(Icons.open_in_new),
+                onPressed: () {
+                  if (webLoadInfo.link != null) {
+                    Share.share(webLoadInfo.link!);
+                  }
                 },
               ),
-              onPressed: () async {
-                final collectId = controller.realCollectId(webLoadInfo);
-                EasyLoading.show(
-                    status: 'loading...', maskType: EasyLoadingMaskType.clear);
-                if (collectId != null) {
-                  if (isCollect.value) {
-                    final result =
-                        await controller.unCollectAction(originId: collectId);
-                    isCollect.value = !result;
-                  } else {
-                    final result =
-                        await controller.collectAction(originId: collectId);
-                    isCollect.value = result;
-                  }
-                }
-                EasyLoading.dismiss();
-              },
             ),
-          ),
-        ]),
+            Visibility(
+              visible: isShowCollectIcon,
+              child: IconButton(
+                icon: Obx(
+                  () {
+                    final icon = isCollect.value
+                        ? Icons.bookmark
+                        : Icons.bookmark_outline;
+                    return Icon(icon);
+                  },
+                ),
+                onPressed: () async {
+                  final collectId = controller.realCollectId(webLoadInfo);
+                  EasyLoading.show(
+                      status: 'loading...',
+                      maskType: EasyLoadingMaskType.clear);
+                  if (collectId != null) {
+                    if (isCollect.value) {
+                      final result =
+                          await controller.unCollectAction(originId: collectId);
+                      isCollect.value = !result;
+                    } else {
+                      final result =
+                          await controller.collectAction(originId: collectId);
+                      isCollect.value = result;
+                    }
+                  }
+                  EasyLoading.dismiss();
+                },
+              ),
+            ),
+          ]),
+        ),
       ),
       // We're using a Builder here so we have a context that is below the Scaffold
       // to allow calling Scaffold.of(context) so we can show a snackbar.
