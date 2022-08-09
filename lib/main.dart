@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -12,6 +13,8 @@ import 'package:getx_study/extension/theme_data_extension.dart';
 
 import 'package:getx_study/http_util/api.dart';
 import 'package:getx_study/pages/common/unknow_page.dart';
+import 'package:getx_study/pages/home/view/home_page.dart';
+import 'package:getx_study/pages/my/view/my_page.dart';
 import 'http_util/request.dart' as http;
 import 'entity/base_entity.dart';
 import 'routes/routes.dart';
@@ -26,9 +29,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return GetCupertinoApp(
       title: 'GetX Study',
-      navigatorObservers: [GetXRouterObserver()],
+      //navigatorObservers: [GetXRouterObserver()],
+
       /// 通过使用initialRoute来保证绑定的操作
       unknownRoute: GetPage(
         name: Routes.unknown,
@@ -37,11 +41,11 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.main,
       getPages: Routes.routePage,
       builder: EasyLoading.init(),
-      theme: _getCurrentTheme(),
+      //theme: _getCurrentTheme(),
 
       /// 一开始的时候,我在初始化页面的发现并不能很好的进行初始化页面的binding操作,
       /// 于是写了一个临时页面,便于路由进去操作,看完官方的example懂了
-      // home: const TestHome(),
+      //home: CupertinoSimpleHomePage(),
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,11 +13,11 @@ class TreePage extends GetView<TreeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(controller.type.title),
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text(controller.type.title),
       ),
-      body: StatusView(
+      child: StatusView(
         controller: controller,
         contentBuilder: (_) {
           return ListView.builder(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
@@ -20,11 +21,11 @@ class MyCollectPage extends GetView<MyCollectController> {
     webController.hasActionCallback =
         () => controller.refreshController.requestRefresh();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("我的收藏"),
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text("我的收藏"),
       ),
-      body: RefreshStatusView(
+      child: RefreshStatusView(
         controller: controller,
         contentBuilder: (_) {
           return SmartRefresher(

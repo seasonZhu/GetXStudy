@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
@@ -14,11 +15,11 @@ class SearchResultPage extends GetView<SearchResultController> {
   @override
   Widget build(BuildContext context) {
     String title = Get.arguments;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text(title),
       ),
-      body: RefreshStatusView(
+      child: RefreshStatusView(
         controller: controller,
         contentBuilder: (_) {
           return SmartRefresher(

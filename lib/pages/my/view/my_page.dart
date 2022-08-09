@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -20,11 +21,11 @@ class MyPage extends GetView<MyController> {
       userInfo.value = AccountManager.shared.myCoinInfo;
     };
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("我的"),
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text("我的"),
       ),
-      body: Obx(
+      child: Obx(
         () {
           final dataSource = isLogin.value
               ? my.Extension.userDataSource
@@ -60,36 +61,40 @@ class MyPage extends GetView<MyController> {
                           userInfo.value = controller.userInfo;
                         }
                       } else if (model == my.My.logout) {
-                        Get.dialog(
-                          AlertDialog(
-                            title: const Text("提示"),
-                            content: const Text("是否登出?"),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(
-                                  "取消",
-                                  style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
+                        showCupertinoDialog(
+                          context: context,
+                          builder: ((context) {
+                            return CupertinoAlertDialog(
+                              title: const Text("提示"),
+                              content: const Text("是否登出?"),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text(
+                                    "取消",
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                   ),
+                                  onPressed: () => Get.back(), //关闭对话框
                                 ),
-                                onPressed: () => Get.back(), //关闭对话框
-                              ),
-                              TextButton(
-                                child: Text(
-                                  "确定",
-                                  style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
+                                TextButton(
+                                  child: Text(
+                                    "确定",
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                   ),
+                                  onPressed: () async {
+                                    Get.back();
+                                    final result = await controller.logout();
+                                    userInfo.value =
+                                        AccountManager.shared.myCoinInfo;
+                                    isLogin.value = result;
+                                  },
                                 ),
-                                onPressed: () async {
-                                  Get.back();
-                                  final result = await controller.logout();
-                                  userInfo.value = AccountManager.shared.myCoinInfo;
-                                  isLogin.value = result;
-                                },
-                              ),
-                            ],
-                          ),
+                              ],
+                            );
+                          }),
                         );
                       } else {
                         if (model.entity != null) {

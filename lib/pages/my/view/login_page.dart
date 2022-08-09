@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -21,16 +22,16 @@ class LoginPage extends GetView<MyController> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return SafeArea(child: GestureDetector(
       onTap: () {
         ResignFirstResponder.unfocus();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("登录"),
+      child: CupertinoPageScaffold(
+        navigationBar: const CupertinoNavigationBar(
+          middle:  Text("登录"),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 20),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 60),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -40,13 +41,13 @@ class LoginPage extends GetView<MyController> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: TextField(
+                        child: CupertinoTextField(
                           controller: _userNameTextFiledController,
-                          decoration: const InputDecoration(
-                            hintText: '手机号',
-                            labelText: '用户名',
-                            prefixIcon: Icon(Icons.person),
-                          ),
+                          // decoration: const InputDecoration(
+                          //   hintText: '手机号',
+                          //   labelText: '用户名',
+                          //   prefixIcon: Icon(Icons.person),
+                          // ),
                           onChanged: (value) =>
                               _userNameIsNotEmpty.value = value.isNotEmpty,
                         ),
@@ -67,14 +68,14 @@ class LoginPage extends GetView<MyController> {
                     children: <Widget>[
                       Expanded(
                         child: Obx(
-                          () => TextField(
+                          () => CupertinoTextField(
                             enabled: _userNameIsNotEmpty.value,
                             controller: _passwordTextFiledController,
-                            decoration: const InputDecoration(
-                              hintText: '密码',
-                              labelText: '密码',
-                              prefixIcon: Icon(Icons.lock),
-                            ),
+                            // decoration: const InputDecoration(
+                            //   hintText: '密码',
+                            //   labelText: '密码',
+                            //   prefixIcon: Icon(Icons.lock),
+                            // ),
                             obscureText: _obscureText.value,
                             onChanged: (value) =>
                                 _passwordIsNotEmpty.value = value.isNotEmpty,
@@ -165,6 +166,6 @@ class LoginPage extends GetView<MyController> {
           ),
         ),
       ),
-    );
+    ),);
   }
 }

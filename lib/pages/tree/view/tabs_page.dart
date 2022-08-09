@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -34,8 +35,8 @@ class _TabsPageState extends State<TabsPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-      body: StatusView<TabsController>(
+    return CupertinoPageScaffold(
+      child: StatusView<TabsController>(
         controller: _tabsController,
         contentBuilder: (_) {
           _tabController = TabController(
@@ -55,12 +56,12 @@ class _TabsPageState extends State<TabsPage>
               }
             }
           });
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(_tabsController.type.title),
-              bottom: _tabBar(_tabController),
+          return CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: Text(_tabsController.type.title),
+              //bottom: _tabBar(_tabController),
             ),
-            body: TabBarView(
+            child: TabBarView(
               controller: _tabController,
               children: _createTabsPage(),
             ),

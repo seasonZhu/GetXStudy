@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/my/controller/my_coin_history_controller.dart';
@@ -12,11 +13,11 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("我的积分"),
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text("我的积分"),
       ),
-      body: RefreshStatusView(
+      child: RefreshStatusView(
         controller: controller,
         contentBuilder: (_) {
           return SmartRefresher(

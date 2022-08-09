@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,10 +18,9 @@ class HotKeyPage extends GetView<HotKeyController> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() => ResignFirstResponder.unfocus()),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: SizedBox(
+      child: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: SizedBox(
             height: 44,
             child: Padding(
               padding: const EdgeInsets.only(right: 20),
@@ -33,7 +33,7 @@ class HotKeyPage extends GetView<HotKeyController> {
             ),
           ),
         ),
-        body: StatusView(
+        child: StatusView(
           controller: controller,
           contentBuilder: (_) {
             return Wrap(

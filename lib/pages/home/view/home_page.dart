@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -19,17 +20,16 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final myController = Get.find<MyController>();
     myController.autoLogin();
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("首页"),
-        actions: <Widget>[
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: const Text("首页"),
+        trailing:
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: (() => Get.toNamed(Routes.hotKey)),
           ),
-        ],
       ),
-      body: RefreshStatusView(
+      child: RefreshStatusView(
         controller: controller,
         contentBuilder: (_) {
           return SmartRefresher(

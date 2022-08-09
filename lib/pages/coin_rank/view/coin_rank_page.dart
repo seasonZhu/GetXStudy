@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
@@ -12,11 +13,11 @@ class CoinRankPage extends GetView<CoinRankController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("积分排名"),
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text("积分排名"),
       ),
-      body: RefreshStatusView(
+      child: RefreshStatusView(
         controller: controller,
         contentBuilder: (_) {
           return SmartRefresher(

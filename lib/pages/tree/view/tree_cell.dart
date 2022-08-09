@@ -10,8 +10,8 @@ class TreeCell extends StatelessWidget {
   final TabEntity model;
 
   static const space = SizedBox(
-      height: 10,
-    );
+    height: 10,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +50,14 @@ class TreeCell extends StatelessWidget {
           .map(
             (topic) => Padding(
               padding: const EdgeInsets.all(3.0),
-              child: Chip(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                key: ValueKey<String>(topic.name.toString()),
-                backgroundColor: _getChipBgColor(topic.name.toString()),
-                label: Text(
-                  topic.name.toString(),
-                  style: const TextStyle(fontSize: 14.0),
+              child: Card(
+                color: _getChipBgColor(topic.name.toString()),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Text(
+                    topic.name.toString(),
+                    style: const TextStyle(fontSize: 20.0),
+                  ),
                 ),
               ),
             ),

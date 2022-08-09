@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -30,11 +31,12 @@ class WebPage extends GetView<WebController> {
       isShowCollectIcon =
           webLoadInfo.id != null && AccountManager.shared.isLogin;
     }
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: _title(webLoadInfo),
-        actions: <Widget>[
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Expanded(child: _title(webLoadInfo),),
+        trailing: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
           Visibility(
             visible: webLoadInfo.id != null,
             child: IconButton(
@@ -75,11 +77,11 @@ class WebPage extends GetView<WebController> {
               },
             ),
           ),
-        ],
+        ]),
       ),
       // We're using a Builder here so we have a context that is below the Scaffold
       // to allow calling Scaffold.of(context) so we can show a snackbar.
-      body: SafeArea(
+      child: SafeArea(
         child: Builder(builder: (BuildContext context) {
           return WebView(
             initialUrl: webLoadInfo.link,
@@ -99,7 +101,8 @@ class WebPage extends GetView<WebController> {
             },
             onPageStarted: (String url) {
               print('Page started loading: $url');
-              EasyLoading.show(status: "loading...", maskType: EasyLoadingMaskType.clear);
+              EasyLoading.show(
+                  status: "loading...", maskType: EasyLoadingMaskType.clear);
             },
             onPageFinished: (String url) {
               print('Page finished loading: $url');
@@ -118,6 +121,7 @@ class WebPage extends GetView<WebController> {
         height: 44,
         child: Marquee(
             text: webLoadInfo.title.toString().replaceHtmlElement,
+            style: TextStyle(color: Colors.black),
             showFadingOnlyWhenScrolling: true),
       );
     } else {
