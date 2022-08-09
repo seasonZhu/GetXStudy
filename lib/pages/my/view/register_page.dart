@@ -37,7 +37,7 @@ class RegisterPage extends GetView<MyController> {
             middle: Text("注册"),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 60),
+            padding: const EdgeInsets.only(top: 20),
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -49,11 +49,7 @@ class RegisterPage extends GetView<MyController> {
                         Expanded(
                           child: CupertinoTextField(
                             controller: _userNameTextFiledController,
-                            // decoration: const InputDecoration(
-                            //   hintText: '手机号',
-                            //   labelText: '用户名',
-                            //   prefixIcon: Icon(Icons.person),
-                            // ),
+                            placeholder: "手机号",
                             onChanged: (value) =>
                                 _userNameIsNotEmpty.value = value.isNotEmpty,
                           ),
@@ -70,6 +66,7 @@ class RegisterPage extends GetView<MyController> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 20,),
                     Row(
                       children: <Widget>[
                         Expanded(
@@ -77,11 +74,7 @@ class RegisterPage extends GetView<MyController> {
                             () => CupertinoTextField(
                               enabled: _userNameIsNotEmpty.value,
                               controller: _passwordTextFiledController,
-                              // decoration: const InputDecoration(
-                              //   hintText: '密码',
-                              //   labelText: '密码',
-                              //   prefixIcon: Icon(Icons.lock),
-                              // ),
+                              placeholder: "密码",
                               obscureText: _obscureText.value,
                               onChanged: (value) => _password.value = value,
                             ),
@@ -100,6 +93,7 @@ class RegisterPage extends GetView<MyController> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 20,),
                     Row(
                       children: <Widget>[
                         Expanded(
@@ -108,11 +102,7 @@ class RegisterPage extends GetView<MyController> {
                               enabled: _userNameIsNotEmpty.value &&
                                   _password.value.isNotEmpty,
                               controller: _rePasswordTextFiledController,
-                              // decoration: const InputDecoration(
-                              //   hintText: '确认密码',
-                              //   labelText: '确认密码',
-                              //   prefixIcon: Icon(Icons.lock),
-                              // ),
+                              placeholder: "确认密码",
                               obscureText: _reObscureText.value,
                               onChanged: (value) => _rePassword.value = value,
                             ),

@@ -31,7 +31,7 @@ class LoginPage extends GetView<MyController> {
           middle:  Text("登录"),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 60),
+          padding: const EdgeInsets.only(top: 20),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -43,11 +43,7 @@ class LoginPage extends GetView<MyController> {
                       Expanded(
                         child: CupertinoTextField(
                           controller: _userNameTextFiledController,
-                          // decoration: const InputDecoration(
-                          //   hintText: '手机号',
-                          //   labelText: '用户名',
-                          //   prefixIcon: Icon(Icons.person),
-                          // ),
+                          placeholder: "手机号",
                           onChanged: (value) =>
                               _userNameIsNotEmpty.value = value.isNotEmpty,
                         ),
@@ -64,6 +60,7 @@ class LoginPage extends GetView<MyController> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 20,),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -71,11 +68,7 @@ class LoginPage extends GetView<MyController> {
                           () => CupertinoTextField(
                             enabled: _userNameIsNotEmpty.value,
                             controller: _passwordTextFiledController,
-                            // decoration: const InputDecoration(
-                            //   hintText: '密码',
-                            //   labelText: '密码',
-                            //   prefixIcon: Icon(Icons.lock),
-                            // ),
+                            placeholder: "密码",
                             obscureText: _obscureText.value,
                             onChanged: (value) =>
                                 _passwordIsNotEmpty.value = value.isNotEmpty,
