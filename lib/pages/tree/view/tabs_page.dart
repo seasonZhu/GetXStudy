@@ -57,8 +57,8 @@ class _TabsPageState extends State<TabsPage>
           });
           return Scaffold(
             appBar: AppBar(
-              title: Text(_tabsController.type.title),
-              bottom: _tabBar(_tabController),
+              //title: Text(_tabsController.type.title),
+              title: _tabBar(_tabController),
             ),
             body: TabBarView(
               controller: _tabController,

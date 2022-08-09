@@ -26,7 +26,7 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
-            child: ListView.builder(
+            child: ListView.separated(
               shrinkWrap: true,
               itemCount: controller.dataSource.length,
               itemBuilder: (BuildContext context, int index) {
@@ -39,6 +39,7 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
                   onTap: () => Get.toNamed(Routes.hotKey),
                 );
               },
+              separatorBuilder: ((context, index) => const Divider()),
             ),
           );
         },

@@ -26,7 +26,7 @@ class CoinRankPage extends GetView<CoinRankController> {
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
-            child: ListView.builder(
+            child: ListView.separated(
               shrinkWrap: true,
               itemCount: controller.dataSource.length,
               itemBuilder: (BuildContext context, int index) {
@@ -39,6 +39,7 @@ class CoinRankPage extends GetView<CoinRankController> {
                   onTap: () => Get.toNamed(Routes.hotKey),
                 );
               },
+              separatorBuilder: ((context, index) => const Divider()),
             ),
           );
         },
