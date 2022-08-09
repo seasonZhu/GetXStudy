@@ -20,6 +20,8 @@ samples, guidance on mobile development, and a full API reference.
 
 [Flutter应用框架搭建(一)GetX集成及使用详解](https://juejin.cn/post/7039637076962181157)
 
+[Flutter iOS风格中Widget内容滑到了顶部导航栏后面与其重叠](https://blog.csdn.net/ww897532167/article/details/111093988)
+
 ## 没有使用const页面无法加载
 
 TabsPage没有使用const进行修饰,结果无法加载页面

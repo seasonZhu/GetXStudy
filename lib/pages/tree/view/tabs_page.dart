@@ -58,7 +58,10 @@ class _TabsPageState extends State<TabsPage>
           });
           return CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
-              middle: MaterialApp(home: _tabBar(_tabController)),//_segmentedControl(), //Text(_tabsController.type.title),
+              middle: MaterialApp(
+                home: _tabBar(_tabController),
+                debugShowCheckedModeBanner: false,
+              ), //_segmentedControl(), //Text(_tabsController.type.title),
               //bottom: _tabBar(_tabController),
             ),
             child: TabBarView(
