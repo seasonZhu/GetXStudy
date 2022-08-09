@@ -28,6 +28,7 @@ dependencies:
   marquee: ^2.2.3
   flutter_easyloading: ^3.0.5
   share: ^2.0.4
+  permission_handler: ^10.0.0
   r_dart_library:
     git:
       url: 'https://github.com/YK-Unit/r_dart_library.git'
@@ -42,9 +43,6 @@ flutter:
   - assets/images/ic_head.jpeg
   - assets/images/ic_eye.png
   - assets/images/placeholder.png
-  - assets/images/saber.jpg
-  - assets/images/season_ali_pay.jpg
-  - assets/images/saber_logo.jpg
   - assets/images/welcome_1.png
   - assets/images/welcome_2.jpg
   - assets/images/launchImage.png
