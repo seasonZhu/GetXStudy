@@ -58,7 +58,7 @@ class _TabsPageState extends State<TabsPage>
           });
           return CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
-              middle: Text(_tabsController.type.title),
+              middle: MaterialApp(home: _tabBar(_tabController)),//_segmentedControl(), //Text(_tabsController.type.title),
               //bottom: _tabBar(_tabController),
             ),
             child: TabBarView(
@@ -85,15 +85,15 @@ class _TabsPageState extends State<TabsPage>
       ).toList(),
       controller: controller,
       isScrollable: true,
-      indicatorColor: Colors.white,
+      indicatorColor: Theme.of(context).primaryColor,
       indicatorSize: TabBarIndicatorSize.tab,
-      labelStyle: const TextStyle(color: Colors.white, fontSize: 20),
-      unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 18),
-      labelColor: Colors.white,
+      labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+      unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 16),
+      labelColor: Colors.black,
       labelPadding: const EdgeInsets.all(0.0),
       indicatorPadding: const EdgeInsets.all(0.0),
       indicatorWeight: 2.3,
-      unselectedLabelColor: Colors.white,
+      unselectedLabelColor: Colors.grey,
     );
   }
 
@@ -112,6 +112,35 @@ class _TabsPageState extends State<TabsPage>
         controller: controller,
       );
     }).toList();
+  }
+
+  Widget _segmentedControl() {
+    final array = _tabsController.data ?? [];
+
+    if (array.isEmpty) {
+      return Container();
+    }
+
+    var map = Map<int, Widget>();
+    for (var i = 0; i < array.length; i++) {
+      final model = array[i];
+      final widget = Container(
+        padding: const EdgeInsets.all(10),
+        child: Text(model.name.toString().replaceHtmlElement),
+      );
+      map[i] = widget;
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: CupertinoSegmentedControl<int>(
+        groupValue: _tabController.animation?.value.toInt(),
+        children: map,
+        onValueChanged: ((value) {
+          _tabController.animateTo(value);
+        }),
+      ),
+    );
   }
 
   @override
