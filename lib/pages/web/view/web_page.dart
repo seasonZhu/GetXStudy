@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -24,6 +25,9 @@ class WebPage extends GetView<WebController> {
     IWebLoadInfo webLoadInfo = Get.arguments;
     var isCollect = controller.isCollect(webLoadInfo).obs;
     var notShowCollectIcon = Get.parameters['notShowCollectIcon'];
+    if (Platform.isAndroid) {
+      WebView.platform = AndroidWebView();
+    }
     bool isShowCollectIcon;
     if (notShowCollectIcon == "true") {
       isShowCollectIcon = false;
@@ -40,7 +44,7 @@ class WebPage extends GetView<WebController> {
             Visibility(
               visible: webLoadInfo.id != null,
               child: IconButton(
-                icon: const Icon(Icons.open_in_new),
+                icon: const Icon(CupertinoIcons.share),
                 onPressed: () {
                   if (webLoadInfo.link != null) {
                     Share.share(webLoadInfo.link!);
@@ -54,8 +58,8 @@ class WebPage extends GetView<WebController> {
                 icon: Obx(
                   () {
                     final icon = isCollect.value
-                        ? Icons.bookmark
-                        : Icons.bookmark_outline;
+                        ? CupertinoIcons.heart_fill
+                        : CupertinoIcons.heart;
                     return Icon(icon);
                   },
                 ),

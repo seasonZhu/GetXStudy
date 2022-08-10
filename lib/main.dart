@@ -34,10 +34,7 @@ class MyApp extends StatelessWidget {
       //navigatorObservers: [GetXRouterObserver()],
 
       /// 通过使用initialRoute来保证绑定的操作
-      unknownRoute: GetPage(
-        name: Routes.unknown,
-        page: () => const UnknownPage(),
-      ),
+      unknownRoute: Routes.unknownPage,
       initialRoute: Routes.main,
       getPages: Routes.routePage,
       builder: EasyLoading.init(),

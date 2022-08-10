@@ -117,7 +117,10 @@ abstract class Routes {
     GetPage(
       name: myCollect,
       page: () => const MyCollectPage(),
-      bindings: [MyCollectBinding(), WebBinding(),],
+      bindings: [
+        MyCollectBinding(),
+        WebBinding(),
+      ],
     ),
     GetPage(
       name: web,
@@ -141,4 +144,9 @@ abstract class Routes {
       binding: MyNextBindings(),
     ),
   ];
+
+  static final unknownPage = GetPage(
+    name: Routes.unknown,
+    page: () => const UnknownPage(),
+  );
 }

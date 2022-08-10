@@ -25,7 +25,7 @@ class HomePage extends GetView<HomeController> {
         middle: const Text("首页"),
         trailing:
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(CupertinoIcons.search),
             onPressed: (() => Get.toNamed(Routes.hotKey)),
           ),
       ),
