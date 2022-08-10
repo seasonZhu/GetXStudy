@@ -7,23 +7,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  rxdart: ^0.27.5
+  cupertino_icons: ^1.0.5
   get: ^4.6.5
   card_swiper: ^2.0.4
   webview_flutter: ^3.0.4
   pull_to_refresh: ^2.0.0
   flutter_slidable: ^2.0.0
-  image_picker: ^0.8.5+3
   cached_network_image: ^3.2.1
   lpinyin: ^2.0.3
   shared_preferences: ^2.0.15
-  path_provider: ^2.0.11
-  event_bus: ^2.0.0
   dio: ^4.0.6
-  url_launcher: ^6.1.5
-  image_gallery_saver: ^1.7.1
-  open_file: ^3.2.1
   pretty_dio_logger: ^1.1.1
   marquee: ^2.2.3
   flutter_easyloading: ^3.0.5
@@ -32,6 +25,13 @@ dependencies:
     git:
       url: 'https://github.com/YK-Unit/r_dart_library.git'
       ref: 0.4.1
+  rxdart: ^0.27.5
+  image_picker: ^0.8.5+3
+  url_launcher: ^6.1.5
+  image_gallery_saver: ^1.7.1
+  path_provider: ^2.0.11
+  event_bus: ^2.0.0
+  open_file: ^3.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

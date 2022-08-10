@@ -66,10 +66,9 @@ class WebPage extends GetView<WebController> {
                 onPressed: () async {
                   final collectId = controller.realCollectId(webLoadInfo);
                   EasyLoading.show(
-                    status: 'loading...',
-                    maskType: EasyLoadingMaskType.none,
-                    dismissOnTap: true
-                  );
+                      status: 'loading...',
+                      maskType: EasyLoadingMaskType.none,
+                      dismissOnTap: true);
                   if (collectId != null) {
                     if (isCollect.value) {
                       final result =
@@ -111,7 +110,10 @@ class WebPage extends GetView<WebController> {
             onPageStarted: (String url) {
               print('Page started loading: $url');
               EasyLoading.show(
-                  status: "loading...", maskType: EasyLoadingMaskType.clear);
+                  indicator: const CupertinoActivityIndicator(
+                    color: Colors.white,
+                  ),
+                  maskType: EasyLoadingMaskType.clear);
             },
             onPageFinished: (String url) {
               print('Page finished loading: $url');
