@@ -24,6 +24,8 @@ class AccountManager {
 
   var myCoinInfo = "等级 --  排名 --  积分 --";
 
+  Future<SharedPreferences> get userDefine async => await SharedPreferences.getInstance();
+
   // 只读计算属性
   String get cookieHeaderValue {
     if (info?.username != null && info?.password != null) {
