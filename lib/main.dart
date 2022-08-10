@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/base/getx_router_observer.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
 import 'routes/routes.dart';
+import 'package:getx_study/r.g.dart';
 
 void main() {
   runApp(const MyApp());

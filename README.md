@@ -24,6 +24,8 @@ samples, guidance on mobile development, and a full API reference.
 
 [CupertinoIcons图标示例](https://api.flutter.dev/flutter/cupertino/CupertinoIcons-class.html#constants)
 
+[flr自动化集成](https://github.com/Fly-Mix/flr-cli/blob/master/README.zh-cn.md)
+
 ## 没有使用const页面无法加载
 
 TabsPage没有使用const进行修饰,结果无法加载页面
