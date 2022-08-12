@@ -24,3 +24,5 @@ class Box<T extends Object> {
 extension Extension<T extends Object> on T {
   Box<T> get box => Box<T>(this);
 }
+
+String typeName(Type type) => type.toString();

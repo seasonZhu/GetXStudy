@@ -56,10 +56,10 @@ class TreeCell extends StatelessWidget {
                 ),
                 color: _getChipBgColor(topic.name.toString()),
                 child: Container(
-                  padding: const EdgeInsets.only(left: 5, right: 5),
+                  padding: const EdgeInsets.all(5),
                   child: Text(
                     topic.name.toString(),
-                    style: const TextStyle(fontSize: 17.0),
+                    style: const TextStyle(fontSize: 14.0),
                   ),
                 ),
               ),
