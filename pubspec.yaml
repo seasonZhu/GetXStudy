@@ -32,6 +32,7 @@ dependencies:
   path_provider: ^2.0.11
   event_bus: ^2.0.0
   open_file: ^3.2.1
+  permission_handler: ^10.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

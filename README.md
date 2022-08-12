@@ -4,7 +4,7 @@
 
 在编写完RxSwift的wanandroid客户端之后，我一直都在犹豫是否需要将Flutter的wanandroid客户端进行重构。
 
-我早在19年的时候就开始接触Flutter，但是还在不停的CV与照葫芦画瓢。比较系统的学习Flutter应该在20年的疫情期间，之后我通过网上的例子编写了这个项目——[FlutterPlayAndroid](https://github.com/seasonZhu/FlutterPlayAndroid)。
+我早在19年的时候就开始接触Flutter，但是还停留在CV与照葫芦画瓢。比较系统的学习Flutter应该在20年的疫情期间，之后我通过网上的例子编写了这个项目——[FlutterPlayAndroid](https://github.com/seasonZhu/FlutterPlayAndroid)。
 
 刚开始的时候学习Flutter，基本上都是很粗暴的使用setState进行页面刷新，UI与逻辑也是乱七八糟，不尽人意。
 
@@ -16,6 +16,16 @@
 
 **注意，本项目目前只在iOS侧编译运行成功，Android端的情况目前还在调试，如果有问题，还欢迎大家指点一二。**
 
+#### 界面截图
+
+**Cupertino风格**
+
+| ![](ScreenShots/1.PNG) | ![](ScreenShots/2.PNG) | ![](ScreenShots/3.PNG) | ![](ScreenShots/4.PNG) |
+| --- | --- | --- | --- |
+
+**Material风格**
+| ![](ScreenShots/5.PNG) | ![](ScreenShots/6.PNG) | ![](ScreenShots/7.PNG) | ![](ScreenShots/8.PNG) |  
+| --- | --- | --- | --- |
 ### 功能说明
 
 * 首页、项目、体系、我的，四大模块
@@ -64,13 +74,23 @@ r_dart_library:
     url: 'https://github.com/YK-Unit/r_dart_library.git'
     ref: 0.4.1
 # 暂时没有使用的库
+
+# RxDart，感觉有GetX这个库没啥用
 rxdart: ^0.27.5
+# 图片选择器
 image_picker: ^0.8.5+3
+# URL跳转
 url_launcher: ^6.1.5
+# 图片保存
 image_gallery_saver: ^1.7.1
+# App沙盒路径
 path_provider: ^2.0.11
+# 总线，类似iOS的NotificationCenter，有了GetX之后，跨页面通信可以不用总线了
 event_bus: ^2.0.0
+# 通过原生打开文件
 open_file: ^3.2.1
+# 隐私权限
+permission_handler: ^10.0.0
 ```
 
 ## GetX的感受
@@ -85,9 +105,15 @@ GetX很好的完成了任务，GetX其实更像一个全家桶，里面不仅仅
 
 当然使用GetX里面也有很多奇奇怪怪的坑，我遇到最多的就是GetXController要么没有创建，有么没有找到，但是GetX的好用也是显而易见的，它让你摆脱了context。
 
+总之，GetX是一个有点不太符合Flutter风格的插件，摒弃了自顶而下的管理思路（需要注意的是，自顶而下这种思路其实普遍见于前端），通过Map形式保存Widget与对应的GetXController，其实并不算太新颖的思路，但是它的好处就是，即便你Flutter使用的不够溜，用GetX写逻辑很快就会找到熟悉的感觉，Get.put与Get.find简直就是召之即来挥之即去，使用是简单了，同时也需要小心翼翼，理解背后的原理。
+
+说实话，Provider我觉得其实还是挺不错的，但是如BLoc、Redux，在我看来有的时候真的是异常复杂，理解不难，写起来贼费劲。
+
 所以如果你还在入门Flutter，我觉得，从StatefullWidget到Provider，这才是一个正常的循序渐进的过程，响应式固然好，但是也是需要一步一个台阶向上的。
 
 最后，你再来学习GetX，才会懂的其中的精妙。
+
+**所谓一通百通，我也通过RxSwift与Vue尝试写了wanandroid客户端，也欢迎大家一起学习。**
 
 ## Swift版wanandroid客户端
 
