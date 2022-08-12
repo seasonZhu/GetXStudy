@@ -20,14 +20,16 @@ class InfoCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        _cellTapCallback(_model);
-      },
-      child: Padding(
-        padding:
-            const EdgeInsets.only(top: 10, left: 15, bottom: 10, right: 15),
-        child: _getRow(),
+    return Card(
+      child: InkWell(
+        onTap: () {
+          _cellTapCallback(_model);
+        },
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 10, left: 15, bottom: 10, right: 15),
+          child: _getRow(),
+        ),
       ),
     );
   }
@@ -114,15 +116,10 @@ class InfoCell extends StatelessWidget {
   }
 
   Widget _getRow() {
-    return Column(
-      children: [
-        Row(
-          children: <Widget>[
-            _imageView(),
-            _contentView(),
-          ],
-        ),
-        const Divider(),
+    return Row(
+      children: <Widget>[
+        _imageView(),
+        _contentView(),
       ],
     );
   }
