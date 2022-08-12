@@ -52,6 +52,5 @@ flutter:
 flr:
   core_version: 3.1.0
   dartfmt_line_length: 80
-  assets:
-  - assets/images
+  assets: []
   fonts: []
