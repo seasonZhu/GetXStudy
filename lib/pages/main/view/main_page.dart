@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/instance_manager.dart';
+import 'package:getx_study/account_manager/account_controller.dart';
 import 'package:getx_study/pages/home/view/home_page.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
 import 'package:getx_study/pages/my/view/my_page.dart';
@@ -13,6 +15,8 @@ class MainPage extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
+    final accountController = Get.find<AccountController>();
+    print(accountController);
     return GetBuilder<MainController>(
       builder: ((controller) {
         return CupertinoTabScaffold(
