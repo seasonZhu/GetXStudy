@@ -22,6 +22,14 @@ class MyPage extends GetView<MyController> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.brightness_6,
+            color: Colors.white,
+          ),
+          onPressed: () => Get.changeTheme(
+              Get.isDarkMode ? ThemeData.light() : ThemeData.dark()),
+        ),
         title: const Text("我的"),
       ),
       body: Obx(
@@ -84,7 +92,8 @@ class MyPage extends GetView<MyController> {
                                 onPressed: () async {
                                   Get.back();
                                   final result = await controller.logout();
-                                  userInfo.value = AccountManager.shared.myCoinInfo;
+                                  userInfo.value =
+                                      AccountManager.shared.myCoinInfo;
                                   isLogin.value = result;
                                 },
                               ),

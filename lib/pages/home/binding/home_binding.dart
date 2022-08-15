@@ -18,7 +18,7 @@ class HomeBinding extends Bindings {
     );
     Get.lazyPut<int>(
       tag: HomeController.className,
-      () => 1,
+      () => -1,
     );
     Get.lazyPut(
       () => HomeController(),
