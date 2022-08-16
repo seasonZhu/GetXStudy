@@ -40,3 +40,16 @@ enum Water {
   @override
   String toString() => 'The $name water is $temperature';
 }
+
+/// 有关于枚举里面加泛型
+enum Season<T extends Object> {
+  spring("好"),
+  summer(true),
+  autumn(100),
+  winter([]);
+
+  final T temperature;
+  const Season(this.temperature);
+}
+
+final s = Season.spring.temperature;
