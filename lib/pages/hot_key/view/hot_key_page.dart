@@ -24,7 +24,7 @@ class HotKeyPage extends GetView<HotKeyController> {
             height: 44,
             child: Padding(
               padding: const EdgeInsets.only(right: 20),
-              child: SearchTextField(
+              child: SearchValueField(
                 keywordCallback: (keyword) {
                   ResignFirstResponder.unfocus();
                   Get.toNamed(Routes.searchResult, arguments: keyword);

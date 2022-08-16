@@ -73,3 +73,68 @@ class SearchTextField extends StatelessWidget {
     _keywordCallback(searchKeyCtrl.text.trim());
   }
 }
+
+/// Obx与ObxValue的使用区别
+class SearchValueField extends StatelessWidget {
+  final _searchKeyCtrl = TextEditingController(text: '');
+
+  final ValueChanged<String> _keywordCallback;
+
+  SearchValueField({Key? key, required ValueChanged<String> keywordCallback})
+      : _keywordCallback = keywordCallback,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ObxValue<RxBool>(
+      (visibleRelay) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: CupertinoTextField(
+                style: TextStyle(color: Theme.of(context).brightness.color),
+                keyboardType: TextInputType.text,
+                controller: _searchKeyCtrl,
+                placeholder: "请输入搜索关键字",
+                onEditingComplete: () {
+                  _inputComplete(context);
+                },
+                onSubmitted: (input) {
+                  print(input);
+                },
+                onChanged: (value) {
+                  visibleRelay.value = value.isNotEmpty;
+                },
+              ),
+            ),
+            Visibility(
+              visible: visibleRelay.value,
+              child: InkWell(
+                child: Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  // width: 50,
+                  // height: 30,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    '搜索',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                onTap: () {
+                  _inputComplete(context);
+                },
+              ),
+            ),
+          ],
+        );
+      },
+      false.obs,
+    );
+  }
+
+  void _inputComplete(BuildContext context) {
+    ResignFirstResponder.unfocus();
+    _keywordCallback(_searchKeyCtrl.text.trim());
+  }
+}
