@@ -23,11 +23,10 @@ class HomePage extends GetView<HomeController> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: const Text("首页"),
-        trailing:
-          IconButton(
-            icon: const Icon(CupertinoIcons.search),
-            onPressed: (() => Get.toNamed(Routes.hotKey)),
-          ),
+        trailing: IconButton(
+          icon: const Icon(CupertinoIcons.search),
+          onPressed: (() => Get.toNamed(Routes.hotKey)),
+        ),
       ),
       child: RefreshStatusView(
         controller: controller,
@@ -35,7 +34,7 @@ class HomePage extends GetView<HomeController> {
           return SmartRefresher(
             enablePullUp: true,
             header: const RefreshHeader(),
-            footer: const RefreshFooter(),  
+            footer: const RefreshFooter(),
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
