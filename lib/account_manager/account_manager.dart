@@ -109,6 +109,14 @@ class AccountManager {
   // 类名._() 是将初始化方法私有化
   AccountManager._();
 
-  /// 类似Swift的单例写法
+  /// 类Swift的单例写法
   static final shared = AccountManager._();
+
+  /// 普通的单例写法
+  static AccountManager? _instance;
+
+  static AccountManager get instance => _instance ??= AccountManager._();
+
+  /// GetX的单例写法
+  factory AccountManager() => _instance ??= AccountManager._();
 }
