@@ -30,7 +30,7 @@ class RefreshStatusView<T extends BaseRefreshController> extends StatelessWidget
           index: value,
           children: [
             const LoadingView(),
-            const ErrorView(),
+            ErrorView(retryAction: controller.request.retry,),
             contentBuilder(controller),
             const EmptyView(),
           ],

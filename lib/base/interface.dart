@@ -2,7 +2,10 @@ import 'package:get/get.dart';
 
 typedef GetPage<T> = GetView<T>;
 
-abstract class IRepository {}
+abstract class IRepository {
+  /// 重试机制
+  void retry() {}
+}
 
 abstract class IClassName {
   static String? className;
