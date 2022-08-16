@@ -15,19 +15,19 @@ import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
 
 class WebPage extends GetView<WebController> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
-
   WebPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    IWebLoadInfo webLoadInfo = Get.arguments;
-    var isCollect = controller.isCollect(webLoadInfo).obs;
-    var notShowCollectIcon = Get.parameters['notShowCollectIcon'];
+    /// 平台判断
     if (Platform.isAndroid) {
       WebView.platform = AndroidWebView();
     }
+
+    IWebLoadInfo webLoadInfo = Get.arguments;
+    var isCollect = controller.isCollect(webLoadInfo).obs;
+    var notShowCollectIcon = Get.parameters['notShowCollectIcon'];
+
     bool isShowCollectIcon;
     if (notShowCollectIcon == "true") {
       isShowCollectIcon = false;
@@ -64,22 +64,12 @@ class WebPage extends GetView<WebController> {
                   },
                 ),
                 onPressed: () async {
-                  final collectId = controller.realCollectId(webLoadInfo);
                   EasyLoading.show(
                       status: 'loading...',
                       maskType: EasyLoadingMaskType.none,
                       dismissOnTap: true);
-                  if (collectId != null) {
-                    if (isCollect.value) {
-                      final result =
-                          await controller.unCollectAction(originId: collectId);
-                      isCollect.value = !result;
-                    } else {
-                      final result =
-                          await controller.collectAction(originId: collectId);
-                      isCollect.value = result;
-                    }
-                  }
+                  isCollect.value = await controller.collectOrUnCollectAction(
+                      webLoadInfo: webLoadInfo, isCollect: isCollect.value);
                   EasyLoading.dismiss();
                 },
               ),
@@ -95,7 +85,7 @@ class WebPage extends GetView<WebController> {
             initialUrl: webLoadInfo.link,
             javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (WebViewController webViewController) {
-              _controller.complete(webViewController);
+              controller.webViewController = webViewController;
             },
             // Remove this when collection literals makes it to stable.
             // ignore: prefer_collection_literals
@@ -132,7 +122,7 @@ class WebPage extends GetView<WebController> {
         height: 44,
         child: Marquee(
             text: webLoadInfo.title.toString().replaceHtmlElement,
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
             showFadingOnlyWhenScrolling: true),
       );
     } else {

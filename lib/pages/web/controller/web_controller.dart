@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
 
-class WebController extends BaseRequestController<WebRepository, Object?> {
+class WebController extends BaseRequestController<WebRepository, Object?>
+    with IClassName {
   void Function()? hasActionCallback;
+
+  WebViewController? webViewController;
 
   Future<bool> unCollectAction({required int originId}) async {
     var model = await request.unCollectAction(originId: originId);
@@ -57,7 +61,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
   }
 
   bool isCollect(IWebLoadInfo webLoadInfo) {
-    final collectId = realCollectId(webLoadInfo);
+    final collectId = _realCollectId(webLoadInfo);
     final collectIds = AccountManager.shared.info?.collectIds;
     if (collectIds != null && collectId != null) {
       if (collectIds.contains(collectId)) {
@@ -70,7 +74,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
     }
   }
 
-  int? realCollectId(IWebLoadInfo webLoadInfo) {
+  int? _realCollectId(IWebLoadInfo webLoadInfo) {
     final id = webLoadInfo.id;
     final collectId = webLoadInfo.originId;
     if (collectId == null && id != null) {
@@ -79,4 +83,24 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
       return collectId;
     }
   }
+
+  void onRefresh() => webViewController?.reload();
+
+  Future<bool> collectOrUnCollectAction(
+      {required IWebLoadInfo webLoadInfo, required bool isCollect}) async {
+    final collectId = _realCollectId(webLoadInfo);
+    if (collectId != null) {
+      if (isCollect) {
+        final result = await unCollectAction(originId: collectId);
+        return !result;
+      } else {
+        final result = await collectAction(originId: collectId);
+        return result;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static String? get className => (WebController).toString();
 }

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+typedef GetPage<T> = GetView<T>;
+
 abstract class IRepository {}
 
 abstract class IClassName {
