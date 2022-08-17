@@ -42,8 +42,8 @@ enum Season<T extends Object> {
   autumn(100),
   winter([]);
 
-  final T temperature;
-  const Season(this.temperature);
+  final T value;
+  const Season(this.value);
 }
 
-final s = Season.spring.temperature;
+final season = Season.spring.value;

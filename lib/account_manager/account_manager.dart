@@ -24,7 +24,8 @@ class AccountManager {
 
   var myCoinInfo = "等级 --  排名 --  积分 --";
 
-  Future<SharedPreferences> get userDefine async => await SharedPreferences.getInstance();
+  Future<SharedPreferences> get userDefine async =>
+      await SharedPreferences.getInstance();
 
   // 只读计算属性
   String get cookieHeaderValue {
@@ -61,7 +62,7 @@ class AccountManager {
     return userDefine.setBool(kOpenDarkMode, isOpenDarkMode);
   }
 
-  Future<bool> saveNotFirstLanuch() async {
+  Future<bool> saveNotFirstLaunch() async {
     var userDefine = await SharedPreferences.getInstance();
     return userDefine.setBool(kIsFirstLaunch, false);
   }
@@ -86,7 +87,7 @@ class AccountManager {
     return userDefine.getString(kLastLoginPassword) ?? "";
   }
 
-  Future<bool> getIsOpenDardMode() async {
+  Future<bool> getIsOpenDarkMode() async {
     var userDefine = await SharedPreferences.getInstance();
     return userDefine.getBool(kOpenDarkMode) ?? false;
   }
@@ -96,7 +97,7 @@ class AccountManager {
     return userDefine.getBool(kIsFirstLaunch) ?? true;
   }
 
-  void clear() async {
+  Future<void> clear() async {
     info = null;
     myCoinInfo = "等级 --  排名 --  积分 --";
     isLogin = false;
@@ -109,7 +110,7 @@ class AccountManager {
   // 类名._() 是将初始化方法私有化
   AccountManager._();
 
-  /// 类Swift的单例写法
+  /// 类Swift的单例写法,这种写法的劣势是无法进行销毁,所以才有了clear方法
   static final shared = AccountManager._();
 
   /// 普通的单例写法
@@ -119,4 +120,7 @@ class AccountManager {
 
   /// GetX的单例写法
   factory AccountManager() => _instance ??= AccountManager._();
+
+  /// 销毁单例
+  static void destroyInstance() => _instance = null;
 }
