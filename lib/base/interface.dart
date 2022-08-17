@@ -20,6 +20,8 @@ abstract class IWebLoadInfo {
   String? link;
 }
 
+String typeName(Type type) => type.toString();
+
 class Box<T extends Object> {
   T value;
 
@@ -29,5 +31,3 @@ class Box<T extends Object> {
 extension Extension<T extends Object> on T {
   Box<T> get box => Box<T>(this);
 }
-
-String typeName(Type type) => type.toString();

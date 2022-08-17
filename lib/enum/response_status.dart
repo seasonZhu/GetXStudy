@@ -1,34 +1,28 @@
-enum SuccessStatus { empty, hasContent }
+enum SuccessStatus {
+  hasContent(2),
+  empty(3);
 
-extension SuccessValue on SuccessStatus {
-  get value {
-    switch (this) {
-      case SuccessStatus.hasContent:
-        return 2;
-      case SuccessStatus.empty:
-        return 3;
-    }
-  }
+  final int value;
+  const SuccessStatus(this.value);
+
+  @override
+  String toString() => 'The $name value is $value';
 }
 
-enum ResponseStatus { successHasContent, successNoData, loading, fail }
+enum ResponseStatus {
+  loading(0),
+  fail(1),
+  successHasContent(2),
+  successNoData(3);
 
-extension Value on ResponseStatus {
-  get value {
-    switch (this) {
-      case ResponseStatus.successHasContent:
-        return 2;
-      case ResponseStatus.successNoData:
-        return 3;
-      case ResponseStatus.loading:
-        return 0;
-      case ResponseStatus.fail:
-        return 1;
-    }
-  }
+  final int value;
+  const ResponseStatus(this.value);
+
+  @override
+  String toString() => 'The $name value is $value';
 }
 
-/// 这是例子
+/// 这是Dart新特性的例子
 enum Water {
   frozen(0),
   lukewarm(40),
