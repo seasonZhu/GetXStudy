@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 //import 'package:marquee_flutter/marquee_flutter.dart'; 参考这个写的,改了一些
 
+/// 没有使用
 class MarqueeLabel extends StatefulWidget {
   final String text;
   final TextStyle? textStyle;
