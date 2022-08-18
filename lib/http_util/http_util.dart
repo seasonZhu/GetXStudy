@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'api.dart';
+import 'http_status.dart' as season;
 import 'package:getx_study/account_manager/account_manager.dart';
 
 // 这个是用来判断是否是生产环境
@@ -26,11 +27,10 @@ abstract class HttpUtils {
   ).addPrettyPrint;
 
   // Get请求
-  static Future<Map<String, dynamic>> get({
-    required String api, 
-    Map<String, dynamic> params = const {},
-    Map<String, dynamic> headers = const {}
-    }) async {
+  static Future<Map<String, dynamic>> get(
+      {required String api,
+      Map<String, dynamic> params = const {},
+      Map<String, dynamic> headers = const {}}) async {
     getCookieHeaderOptions().headers?.addAll(headers);
     Response response = await _dio.get(api,
         queryParameters: params, options: getCookieHeaderOptions());
@@ -39,11 +39,10 @@ abstract class HttpUtils {
   }
 
   // Post请求
-  static Future<Map<String, dynamic>> post({
-    required String api, 
-    Map<String, dynamic> params = const {},
-    Map<String, dynamic> headers = const {}
-    }) async {
+  static Future<Map<String, dynamic>> post(
+      {required String api,
+      Map<String, dynamic> params = const {},
+      Map<String, dynamic> headers = const {}}) async {
     getCookieHeaderOptions().headers?.addAll(headers);
 
     /// 这个地方必须用queryParameters,用data传入就报错了
@@ -57,6 +56,20 @@ abstract class HttpUtils {
     var value = AccountManager.shared.cookieHeaderValue;
     Options options = Options(headers: {HttpHeaders.cookieHeader: value});
     return options;
+  }
+
+  Future<Response<T>> request<T>(String api,
+      {required HTTPMethod method,
+      dynamic data,
+      Map<String, dynamic>? queryParameters,
+      Map<String, dynamic> headers = const {}}) async {
+    Response response = await _dio.request(
+      api,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(headers: headers, method: method.string),
+    );
+    return response.data;
   }
 }
 
@@ -73,4 +86,23 @@ extension AddPrettyPrint on Dio {
     );
     return this;
   }
+}
+
+enum HTTPMethod {
+  get("GET"),
+  post("POST"),
+  delete("DELETE"),
+  put("PUT"),
+  patch("PATCH"),
+  head("HEAD");
+
+  final String string;
+
+  const HTTPMethod(this.string);
+}
+
+extension EnumStatus on Response {
+  season.HttpStatus get status =>
+      season.HttpStatus.mappingTable[statusCode] ??
+      season.HttpStatus.connectionError;
 }
