@@ -12,6 +12,8 @@
 
 这个项目我主要是通过GetX框架进行搭建，通过[WanAndroid开放API](https://www.wanandroid.com/)制作。
 
+![](ScreenShots/9.PNG)
+
 本次重构，很多代码部分还是沿用之前的Flutter项目的逻辑，同时因为有RxSwift的使用经验，使得我在本次开发中对于响应式理解更加轻车熟路。
 
 **注意，本项目目前只在iOS侧编译运行成功，Android端的情况目前还在调试，如果有问题，还欢迎大家指点一二。**
