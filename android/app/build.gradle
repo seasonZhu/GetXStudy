@@ -27,9 +27,9 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     defaultConfig {
-        minSdkVersion 20
+        minSdkVersion 19
     }
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33//flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
