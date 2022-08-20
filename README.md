@@ -40,7 +40,7 @@
 * 文章列表
 * Tab切换功能
 * 自动轮播图
-* 下拉刷新，无感知上拉加载更多
+* 下拉刷新，上拉加载更多
 * dio的使用，pretty_dio_logger进行漂亮的网络请求打印
 * GetX的响应式编程，GetXController统和逻辑，Bindings进行统一注入
 * Material和Cupertino两种风格切换，切换分支main与develop_cupertino即可
