@@ -9,6 +9,11 @@ abstract class IRepository {
 
 abstract class IClassName {
   static String? className;
+
+  /// 协议的类方法只能返回可选类型,
+  // static String? Some();
+
+  // String some();
 }
 
 abstract class IRequestController extends GetxController {}

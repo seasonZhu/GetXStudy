@@ -21,6 +21,8 @@ class TreePage extends GetView<TreeController> {
         controller: controller,
         contentBuilder: (_) {
           return ListView.builder(
+            /// 通过ScrollMixin的scoll,可以监听滑动到顶部与滑动到底部
+            controller: controller.scroll,
             shrinkWrap: true,
             itemCount: controller.data?.length ?? 0,
             itemBuilder: ((context, index) {
