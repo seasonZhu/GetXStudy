@@ -71,16 +71,19 @@ class HomePage extends GetView<HomeController> {
                   ),
                 ),
                 SliverList(
-                  delegate: SliverChildBuilderDelegate((content, index) {
-                    final model = controller.dataSource[index];
-                    return InfoCell(
-                      model: model,
-                      callback: (_) {
-                        print("点击了");
-                        Get.toNamed(Routes.web, arguments: model);
-                      },
-                    );
-                  }, childCount: controller.dataSource.length),
+                  delegate: SliverChildBuilderDelegate(
+                    (content, index) {
+                      final model = controller.dataSource[index];
+                      return InfoCell(
+                        model: model,
+                        callback: (_) {
+                          print("点击了");
+                          Get.toNamed(Routes.web, arguments: model);
+                        },
+                      );
+                    },
+                    childCount: controller.dataSource.length,
+                  ),
                 )
               ],
             ),

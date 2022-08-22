@@ -12,6 +12,7 @@ class HomeBinding extends Bindings {
     );
 
     /// 需要通过tag来进行区分,避免RefreshController反复使用导致的内存泄露与崩溃
+    /// 其实后来想想,其实把page与RefreshController在这里进行put,直接在onInit里面初始化反而逻辑更加简单
     Get.lazyPut(
       tag: HomeController.className,
       () => RefreshController(initialRefresh: true),
