@@ -96,7 +96,9 @@ class MyNextPage extends GetView<CountRxController> {
                 return Text(controller.message);
               },
             ),
-            ElevatedButton(onPressed: controller.pushToCoinRankPage, child: const Text("下一页"))
+            ElevatedButton(
+                onPressed: controller.pushToCoinRankPage,
+                child: const Text("下一页"))
           ],
         ),
       ),
