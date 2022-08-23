@@ -12,6 +12,11 @@ class MyPage extends GetView<MyController> {
 
   @override
   Widget build(BuildContext context) {
+    /*
+     为了避免这种问题，_observable_的第一次变化将总是触发一个事件，即使它包含相同的.value。
+     如果你想删除这种行为，你可以使用： isLogin.firstRebuild = false;。
+     */
+
     final isLogin = AccountManager.shared.isLogin.obs;
 
     final userInfo = AccountManager.shared.myCoinInfo.obs;
