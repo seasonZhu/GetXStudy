@@ -66,6 +66,10 @@ class WebPage extends GetView<WebController> {
                 onPressed: () async {
                   EasyLoading.show(
                       status: 'loading...',
+                      indicator: const CupertinoActivityIndicator(
+                        color: Colors.white,
+                        radius: 15,
+                      ),
                       maskType: EasyLoadingMaskType.none,
                       dismissOnTap: true);
                   isCollect.value = await controller.collectOrUnCollectAction(
@@ -102,8 +106,9 @@ class WebPage extends GetView<WebController> {
               EasyLoading.show(
                   indicator: const CupertinoActivityIndicator(
                     color: Colors.white,
+                    radius: 15,
                   ),
-                  maskType: EasyLoadingMaskType.clear);
+                  maskType: EasyLoadingMaskType.none);
             },
             onPageFinished: (String url) {
               print('Page finished loading: $url');

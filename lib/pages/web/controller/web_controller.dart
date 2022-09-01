@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -11,6 +12,12 @@ class WebController extends BaseRequestController<WebRepository, Object?>
   void Function()? hasActionCallback;
 
   WebViewController? webViewController;
+
+  @override
+  void onClose() {
+    super.onClose();
+    EasyLoading.dismiss();
+  }
 
   Future<bool> unCollectAction({required int originId}) async {
     final model = await request.unCollectAction(originId: originId);
