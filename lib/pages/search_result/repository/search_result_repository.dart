@@ -8,7 +8,7 @@ import 'package:getx_study/http_util/api.dart';
 class SearchResultRepository extends IRepository {
   Future<BaseEntity<PageEntity<List<ArticleInfoDatas>>>> searchKeyword(
       {required int page, required String keyword}) async {
-    var params = <String, String>{};
+    final params = <String, String>{};
     params["k"] = keyword;
     return await http.Request.post(
         api: Api.postQueryKey + page.toString() + "/json", params: params);

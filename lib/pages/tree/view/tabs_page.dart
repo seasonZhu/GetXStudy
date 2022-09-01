@@ -42,8 +42,8 @@ class _TabsPageState extends State<TabsPage>
           _tabController = TabController(
               length: _tabsController.data?.length ?? 0, vsync: this);
           _tabController.addListener(() {
-            var index = _tabController.index;
-            var value = _tabController.animation?.value;
+            final index = _tabController.index;
+            final value = _tabController.animation?.value;
 
             ///修复执行2次的BUG,增加条件
             if (index == value && index == _tabController.length - 1) {
@@ -124,7 +124,7 @@ class _TabsPageState extends State<TabsPage>
       return Container();
     }
 
-    var map = Map<int, Widget>();
+    final map = Map<int, Widget>();
     for (var i = 0; i < array.length; i++) {
       final model = array[i];
       final widget = Container(

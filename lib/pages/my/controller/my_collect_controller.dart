@@ -57,7 +57,7 @@ class MyCollectController
   }
 
   Future<void> unCollectAction({required int index}) async {
-    var model = await request.unCollectAction(
+    final model = await request.unCollectAction(
         originId: dataSource[index].originId ?? 0);
 
     String message;

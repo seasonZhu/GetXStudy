@@ -69,7 +69,7 @@ class _GetBindWidgetState extends State<GetBindWidget> {
       return;
     }
 
-    var key = widget.bind.runtimeType.toString() + (widget.tag ?? '');
+    final key = widget.bind.runtimeType.toString() + (widget.tag ?? '');
     GetInstance().delete(key: key);
   }
 
@@ -80,12 +80,12 @@ class _GetBindWidgetState extends State<GetBindWidget> {
     }
 
     for (var i = 0; i < widget.binds!.length; i++) {
-      var type = widget.binds![i].runtimeType.toString();
+      final type = widget.binds![i].runtimeType.toString();
 
       if (widget.tags == null) {
         GetInstance().delete(key: type);
       } else {
-        var key = type + (widget.tags?[i] ?? '');
+        final key = type + (widget.tags?[i] ?? '');
         GetInstance().delete(key: key);
       }
     }

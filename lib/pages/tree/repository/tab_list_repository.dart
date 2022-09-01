@@ -11,7 +11,7 @@ class TabListRepository extends IRepository {
       {required int page, required String id, required TagType tagType}) async {
     switch (tagType) {
       case TagType.project:
-        var params = <String, String>{};
+        final params = <String, String>{};
         params["cid"] = id.toString();
         final api = "${Api.getProjectClassifyList}${page.toString()}/json";
         return await http.Request.get(api: api, params: params);

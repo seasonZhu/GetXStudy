@@ -13,7 +13,7 @@ class WebController extends BaseRequestController<WebRepository, Object?>
   WebViewController? webViewController;
 
   Future<bool> unCollectAction({required int originId}) async {
-    var model = await request.unCollectAction(originId: originId);
+    final model = await request.unCollectAction(originId: originId);
 
     String message;
     if (model.isSuccess) {
@@ -38,7 +38,7 @@ class WebController extends BaseRequestController<WebRepository, Object?>
   }
 
   Future<bool> collectAction({required int originId}) async {
-    var model = await request.collectAction(originId: originId);
+    final model = await request.collectAction(originId: originId);
 
     String message;
     if (model.isSuccess) {

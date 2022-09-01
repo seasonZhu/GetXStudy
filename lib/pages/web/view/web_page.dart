@@ -25,8 +25,8 @@ class WebPage extends GetView<WebController> {
     }
 
     IWebLoadInfo webLoadInfo = Get.arguments;
-    var isCollect = controller.isCollect(webLoadInfo).obs;
-    var notShowCollectIcon = Get.parameters['notShowCollectIcon'];
+    final isCollect = controller.isCollect(webLoadInfo).obs;
+    final notShowCollectIcon = Get.parameters['notShowCollectIcon'];
 
     bool isShowCollectIcon;
     if (notShowCollectIcon == "true") {

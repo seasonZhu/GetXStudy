@@ -9,7 +9,7 @@ import 'package:getx_study/entity/account_info_entity.dart';
 class MyRepository extends IRepository {
   Future<BaseEntity<AccountInfoEntity>> login(
       {required String username, required String password}) async {
-    var params = <String, String>{};
+    final params = <String, String>{};
     params["username"] = username;
     params["password"] = password;
     return await http.Request.post(api: Api.postLogin, params: params);
@@ -19,7 +19,7 @@ class MyRepository extends IRepository {
       {required String username,
       required String password,
       required String rePassword}) async {
-    var params = <String, String>{};
+    final params = <String, String>{};
     params["username"] = username;
     params["password"] = password;
     params["repassword"] = rePassword;

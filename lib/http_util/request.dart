@@ -9,8 +9,8 @@ extension Request on HttpUtils {
   static Future<BaseEntity<T>> get<T>(
       {required String api, Map<String, 
       dynamic> params = const {}}) async {
-    var data = await HttpUtils.get(api: api, params: params);
-    var model = BaseEntity<T>.fromJson(data);
+    final data = await HttpUtils.get(api: api, params: params);
+    final model = BaseEntity<T>.fromJson(data);
     return model;
   }
 
@@ -18,8 +18,8 @@ extension Request on HttpUtils {
   static Future<BaseEntity<T>> post<T>(
       {required String api, Map<String, 
       dynamic> params = const {}}) async {
-    var data = await HttpUtils.post(api: api, params: params);
-    var model = BaseEntity<T>.fromJson(data);
+    final data = await HttpUtils.post(api: api, params: params);
+    final model = BaseEntity<T>.fromJson(data);
     return model;
   }
 }

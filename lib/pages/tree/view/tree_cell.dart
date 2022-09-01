@@ -34,7 +34,7 @@ class TreeCell extends StatelessWidget {
   }
 
   List<Widget> _chipTitleItem(TabEntity model) {
-    var list = <Widget>[];
+    final list = <Widget>[];
 
     // 从这里看出,final已经非常接近let了
     final text = Text(

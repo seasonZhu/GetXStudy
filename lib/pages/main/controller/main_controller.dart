@@ -8,7 +8,7 @@ class MainController extends GetxController {
     selectedIndex = index;
 
     /// Get.putAsyn使用的时候要稍微注意,避免先find后put
-    var prefs = Get.find<SharedPreferences>();
+    final prefs = Get.find<SharedPreferences>();
     int? count = prefs.getInt('counter');
     print(count);
 

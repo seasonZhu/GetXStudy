@@ -10,7 +10,7 @@ class SearchTextField extends StatelessWidget {
 
   final ValueChanged<String> _keywordCallback;
 
-  var changeString = "".obs;
+  final changeString = "".obs;
 
   SearchTextField({Key? key, required ValueChanged<String> keywordCallback})
       : _keywordCallback = keywordCallback,

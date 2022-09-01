@@ -28,15 +28,15 @@ class BaseEntity<T> extends IEntity<T> {
       return ResponseStatus.loading;
     } else if (errorCode == 0) {
       if (data is List) {
-        var listData = data as List;
+        final listData = data as List;
         if (listData.isNotEmpty) {
           return ResponseStatus.successHasContent;
         } else {
           return ResponseStatus.successNoData;
         }
       } else if (data is PageEntity ) {
-        var pageEntity = data as PageEntity;
-        var dataSource = pageEntity.dataSource as List;
+        final pageEntity = data as PageEntity;
+        final dataSource = pageEntity.dataSource as List;
         if (dataSource.isNotEmpty) {
           return ResponseStatus.successHasContent;
         } else {

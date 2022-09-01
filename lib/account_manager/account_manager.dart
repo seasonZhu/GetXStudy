@@ -44,56 +44,56 @@ class AccountManager {
     this.isLogin = true;
     this.info?.password = password;
 
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     userDefine.setString(kLastLoginUserName, info.username ?? "");
     userDefine.setString(kLastLoginPassword, password);
     // 本来想尝试保存一个字典的,结果没这个方法,只有List<String>,但是我可以将Map转为String在存呀
-    var infoJsonString = json.encode(info.toJson());
+    final infoJsonString = json.encode(info.toJson());
     userDefine.setString(kAccountInfo, infoJsonString);
   }
 
   Future<bool> saveLastThemeSettingIndex(int index) async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.setInt(kLastThemeSettingIndex, index);
   }
 
   Future<bool> saveOpenDarkMode(bool isOpenDarkMode) async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.setBool(kOpenDarkMode, isOpenDarkMode);
   }
 
   Future<bool> saveNotFirstLaunch() async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.setBool(kIsFirstLaunch, false);
   }
 
   Future<String> getLastLoginUserName() async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.getString(kLastLoginUserName) ?? "";
   }
 
   Future<String> getLastAccountInfo() async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.getString(kAccountInfo) ?? "";
   }
 
   Future<int> getLastThemeSettingIndex() async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.getInt(kLastThemeSettingIndex) ?? 0;
   }
 
   Future<String> getLastLoginPassword() async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.getString(kLastLoginPassword) ?? "";
   }
 
   Future<bool> getIsOpenDarkMode() async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.getBool(kOpenDarkMode) ?? false;
   }
 
   Future<bool> getIsFirstLaunch() async {
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     return userDefine.getBool(kIsFirstLaunch) ?? true;
   }
 
@@ -101,7 +101,7 @@ class AccountManager {
     info = null;
     myCoinInfo = "等级 --  排名 --  积分 --";
     isLogin = false;
-    var userDefine = await SharedPreferences.getInstance();
+    final userDefine = await this.userDefine;
     userDefine.remove(kLastLoginUserName);
     userDefine.remove(kLastLoginPassword);
   }
