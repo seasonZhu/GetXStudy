@@ -82,7 +82,7 @@ class HomePage extends GetView<HomeController> {
                           print("点击了");
                           if (model.id == 24742) {
                             if (model.link != null) {
-                              final Uri url = Uri.parse(
+                              final url = Uri.parse(
                                   model.link.toString().replaceHtmlElement);
                               if (await canLaunchUrl(url)) {
                                 launchUrl(url,
