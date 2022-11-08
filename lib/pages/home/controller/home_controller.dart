@@ -14,7 +14,7 @@ import 'package:getx_study/routes/routes.dart';
 class HomeController
     extends BaseRefreshController<HomeRepository, ArticleInfoDatas>
     implements IClassName {
-  final banners = [];
+  var banners = [];
 
   @override
   void onInit() {
@@ -48,9 +48,6 @@ class HomeController
 
     switch (type) {
       case ScrollViewActionType.refresh:
-        dataSource.clear();
-        banners.clear();
-
         final result = await Future.wait(
           [
             request.getBanner(),
@@ -62,14 +59,15 @@ class HomeController
 
         if (result.length == 3) {
           final bannerModels = result[0].data as List<BannerEntity>;
-          final topArticleModels =
-              result[1].data as List<ArticleInfoDatas>;
+          final topArticleModels = result[1].data as List<ArticleInfoDatas>;
           response =
               result[2] as BaseEntity<PageEntity<List<ArticleInfoDatas>>>;
           final articleModels = response?.data?.dataSource ?? [];
 
-          banners.addAll(bannerModels);
-          dataSource.addAll(topArticleModels);
+          /// 轮播图赋值
+          banners = bannerModels;
+          /// 列表赋值
+          dataSource = topArticleModels;
           dataSource.addAll(articleModels);
         } else {
           response = BaseEntity(null, null, null);
