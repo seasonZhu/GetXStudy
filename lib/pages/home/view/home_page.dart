@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:getx_study/pages/my/controller/my_controller.dart';
+import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
@@ -76,9 +78,26 @@ class HomePage extends GetView<HomeController> {
                       final model = controller.dataSource[index];
                       return InfoCell(
                         model: model,
-                        callback: (_) {
+                        callback: (_) async {
                           print("点击了");
-                          Get.toNamed(Routes.web, arguments: model);
+                          if (model.id == 24742) {
+                            if (model.link != null) {
+                              final Uri url = Uri.parse(
+                                  model.link.toString().replaceHtmlElement);
+                              if (await canLaunchUrl(url)) {
+                                launchUrl(url,
+                                    mode: LaunchMode.externalApplication);
+                              } else {
+                                Get.snackbar(
+                                  "",
+                                  "请安装手机QQ",
+                                  duration: const Duration(seconds: 1),
+                                );
+                              }
+                            }
+                          } else {
+                            Get.toNamed(Routes.web, arguments: model);
+                          }
                         },
                       );
                     },
