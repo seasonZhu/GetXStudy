@@ -6,10 +6,10 @@ class CountdownCircle extends StatefulWidget {
     Key? key,
     this.countdownSeconds = 5,
     this.ringBackgroundColor = Colors.transparent,
-    this.ringColor = Colors.deepOrange,
+    this.ringColor = Colors.white,
     this.ringStrokeWidth = 3.0,
     this.text = "跳过",
-    this.textStyle = const TextStyle(color: Colors.black),
+    this.textStyle = const TextStyle(color: Colors.grey),
     this.finished,
   })  : assert(countdownSeconds > 0),
         assert(ringStrokeWidth > 0),
@@ -35,7 +35,7 @@ class CountdownCircle extends StatefulWidget {
 
   /// 点击或倒计时结束后的回调
   /// [byUserClick] 为 true，是用户点击，否则是倒计时结束
-  final Function({required bool byUserClick})? finished;
+  final void Function(bool)? finished;
 
   @override
   State<CountdownCircle> createState() => _CountdownCircleState();
@@ -101,7 +101,7 @@ class _CountdownCircleState extends State<CountdownCircle> {
 
   void _didFinished({required bool byUserClick}) {
     if (widget.finished != null) {
-      widget.finished!(byUserClick: byUserClick);
+      widget.finished!(byUserClick);
     }
     _timer?.cancel();
     _isVisible.value = false;
