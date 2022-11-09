@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:getx_study/account_manager/account_binding.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/my_home_page.dart';
 import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
@@ -7,6 +8,8 @@ import 'package:getx_study/pages/common/unknow_page.dart';
 import 'package:getx_study/pages/home/binding/home_binding.dart';
 import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
+import 'package:getx_study/pages/launch/splash_page.dart';
+import 'package:getx_study/pages/launch/welcom_page.dart';
 import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
 import 'package:getx_study/pages/my/binding/my_binding.dart';
@@ -58,6 +61,10 @@ abstract class Routes {
 
   static const myNextPage = "/myNextPage";
 
+  static const welcome = "/welcome";
+
+  static const splash = "/splash";
+
   ///页面合集
   static final routePage = [
     GetPage(
@@ -99,6 +106,7 @@ abstract class Routes {
         TabsBinding(TagType.project),
         TreeBinding(TagType.tree),
         MyBinding(),
+        AccountBinding(),
       ],
     ),
     GetPage(
@@ -130,6 +138,15 @@ abstract class Routes {
     GetPage(
       name: unknown,
       page: () => const UnknownPage(),
+    ),
+
+    GetPage(
+      name: welcome,
+      page: () => WelcomePage(),
+    ),
+    GetPage(
+      name: splash,
+      page: () => SplashPage()
     ),
 
     /// 以下是测试路由
