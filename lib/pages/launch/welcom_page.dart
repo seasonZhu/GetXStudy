@@ -12,21 +12,18 @@ class WelcomePage extends StatelessWidget {
       body: PageView(
         physics: const ClampingScrollPhysics(),
         children: [
-          _welcomeView(context, "welcome_2.jpg", false),
-          _welcomeView(context, "welcome_1.png", true),
+          _welcomeView("welcome_2.jpg", false),
+          _welcomeView("welcome_1.png", true),
         ],
       ),
     );
   }
 
-  Widget _welcomeView(BuildContext context, String imageName, bool visible) {
-    var size = MediaQuery.of(context).size;
+  Widget _welcomeView(String imageName, bool visible) {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: <Widget>[
         Container(
-          width: size.width,
-          height: size.height,
           decoration: BoxDecoration(
             //设置背景图片
             image: DecorationImage(

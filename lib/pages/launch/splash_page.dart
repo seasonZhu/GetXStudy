@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 import 'package:get/get.dart';
 
@@ -11,13 +10,10 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: <Widget>[
         Container(
-          width: size.width,
-          height: size.height,
           decoration: const BoxDecoration(
             //设置背景图片
             image: DecorationImage(
@@ -28,7 +24,7 @@ class SplashPage extends StatelessWidget {
         ),
         Positioned(
           right: 20,
-          top: 40,
+          top: 88,
           child: CountdownCircle(finished: (byUserClick) {
             Get.offAllNamed(Routes.main);
           },),
