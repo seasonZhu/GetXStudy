@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
       /// 通过使用initialRoute来保证绑定的操作
       initialRoute: isFirst ? Routes.welcome : Routes.splash,
       getPages: Routes.routePage,
+      onGenerateRoute: (settings) {
+        print(settings.name);
+      },
 
       /// 经过初始化的binding,
       initialBinding: AccountBinding(),
