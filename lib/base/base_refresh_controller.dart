@@ -8,7 +8,7 @@ import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 
 abstract class BaseRefreshController<R extends IRepository, T>
-    extends GetxController {
+    extends GetxController implements IRetry {
   late R request;
 
   late RefreshController refreshController;
@@ -68,5 +68,24 @@ abstract class BaseRefreshController<R extends IRepository, T>
     if (status == ResponseStatus.successNoData && dataSource.isNotEmpty) {
       status = ResponseStatus.successHasContent;
     }
+
+    if (status == ResponseStatus.fail && dataSource.isNotEmpty) {
+      status = ResponseStatus.successHasContent;
+    }
+  }
+
+  void failHandle(ScrollViewActionType type) {
+    if (type == ScrollViewActionType.loadMore) {
+      page = page - 1;
+    }
+
+    status = ResponseStatus.fail;
+
+    refreshControllerStatusUpdate(type);
+  }
+
+  @override
+  void retry() {
+    onRefresh();
   }
 }

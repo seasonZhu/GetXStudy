@@ -30,7 +30,7 @@ class StatusView<T extends BaseRequestController> extends StatelessWidget {
           index: value,
           children: [
             const LoadingView(),
-            ErrorView(retryAction: controller.request.retry,),
+            ErrorView(retryAction: controller.retry,),
             contentBuilder(controller),
             const EmptyView(),
           ],

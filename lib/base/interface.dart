@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 
 typedef GetPage<T> = GetView<T>;
 
-abstract class IRepository {
+abstract class IRepository {}
+
+abstract class IRetry {
   /// 重试机制
   void retry() {}
 }
