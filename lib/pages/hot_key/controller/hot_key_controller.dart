@@ -13,7 +13,9 @@ class HotKeyController
 
   @override
   Future<void> aRequest({Map<String, dynamic>? parameters}) async {
-    response = await request.getHotKey();
+    response = await request.getHotKey().catchError((_) {
+      status = ResponseStatus.fail;
+    });
     data = response?.data ?? [];
     status = response?.responseStatus ?? ResponseStatus.loading;
     update();

@@ -20,7 +20,9 @@ class TabsController
 
   @override
   Future<void> aRequest({Map<String, dynamic>? parameters}) async {
-    response = await request.getTab();
+    response = await request.getTab().catchError((_) {
+      status = ResponseStatus.fail;
+    });
     data = response?.data ?? [];
     status = response?.responseStatus ?? ResponseStatus.loading;
     update();
