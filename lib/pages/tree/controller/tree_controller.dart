@@ -22,6 +22,7 @@ class TreeController
   Future<void> aRequest({Map<String, dynamic>? parameters}) async {
     response = await request.getTab().catchError((_) {
       status = ResponseStatus.fail;
+      update();
     });
     data = response?.data ?? [];
     status = response?.responseStatus ?? ResponseStatus.loading;
