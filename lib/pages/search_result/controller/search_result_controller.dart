@@ -37,7 +37,12 @@ class SearchResultController
   }) async {
     String keyword = Get.arguments;
 
-    response = await request.searchKeyword(page: page, keyword: keyword);
+    response = await request.searchKeyword(page: page, keyword: keyword).catchError((_) {
+      /// 异常场景
+      failHandle(type);
+
+      update();
+    });
     status = response?.responseStatus ?? ResponseStatus.loading;
 
     final models = response?.data?.dataSource ?? [];

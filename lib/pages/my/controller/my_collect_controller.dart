@@ -36,7 +36,12 @@ class MyCollectController
     required ScrollViewActionType type,
     Map<String, dynamic>? parameters,
   }) async {
-    response = await request.getCollectArticleList(page: page);
+    response = await request.getCollectArticleList(page: page).catchError((_) {
+      /// 异常场景
+      failHandle(type);
+
+      update();
+    });
     status = response?.responseStatus ?? ResponseStatus.loading;
 
     final models = response?.data?.dataSource ?? [];

@@ -32,7 +32,12 @@ class TabListController
     Map<String, dynamic>? parameters,
   }) async {
 
-    response = await request.getList(page: page, id: id, tagType: tagType);
+    response = await request.getList(page: page, id: id, tagType: tagType).catchError((_) {
+      /// 异常场景
+      failHandle(type);
+
+      update();
+    });
     status = response?.responseStatus ?? ResponseStatus.loading;
 
     final models = response?.data?.dataSource ?? [];
