@@ -16,6 +16,8 @@ class HomeController
     implements IClassName {
   var banners = [];
 
+  var swiperAutoPlay = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -71,11 +73,15 @@ class HomeController
 
           /// 轮播图赋值
           banners = bannerModels;
+          swiperAutoPlay.value = true;
+
           /// 列表赋值
           dataSource = topArticleModels;
           dataSource.addAll(articleModels);
         } else {
           response = BaseEntity(null, null, null);
+
+          swiperAutoPlay.value = false;
         }
 
         break;
