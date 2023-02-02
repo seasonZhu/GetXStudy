@@ -9,21 +9,21 @@ import 'package:share/share.dart';
 import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:marquee/marquee.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
 
 class WebPage extends GetView<WebController> {
+  late final WebViewController _controller;
+
   WebPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     /// 平台判断
-    if (Platform.isAndroid) {
-      WebView.platform = AndroidWebView();
-    }
-
     IWebLoadInfo webLoadInfo = Get.arguments;
     final isCollect = controller.isCollect(webLoadInfo).obs;
     final notShowCollectIcon = Get.parameters['notShowCollectIcon'];
@@ -35,6 +35,69 @@ class WebPage extends GetView<WebController> {
       isShowCollectIcon =
           webLoadInfo.id != null && AccountManager.shared.isLogin;
     }
+
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+      );
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
+
+    final WebViewController webController =
+        WebViewController.fromPlatformCreationParams(params);
+
+    webController
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            debugPrint('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            print('Page started loading: $url');
+            EasyLoading.show(
+                indicator: const CupertinoActivityIndicator(
+                  color: Colors.white,
+                  radius: 15,
+                ),
+                maskType: EasyLoadingMaskType.none);
+          },
+          onPageFinished: (String url) {
+            print('Page finished loading: $url');
+            EasyLoading.dismiss();
+          },
+          onWebResourceError: (WebResourceError error) {
+            debugPrint('''
+                Page resource error:
+                  code: ${error.errorCode}
+                  description: ${error.description}
+                  errorType: ${error.errorType}
+                  isForMainFrame: ${error.isForMainFrame}
+                          ''');
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              debugPrint('blocking navigation to ${request.url}');
+              return NavigationDecision.prevent;
+            }
+            debugPrint('allowing navigation to ${request.url}');
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(webLoadInfo.link.toString()));
+
+    if (webController.platform is AndroidWebViewController) {
+      AndroidWebViewController.enableDebugging(true);
+      (webController.platform as AndroidWebViewController)
+          .setMediaPlaybackRequiresUserGesture(false);
+    }
+    _controller = webController;
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: _title(webLoadInfo),
@@ -85,37 +148,7 @@ class WebPage extends GetView<WebController> {
       // to allow calling Scaffold.of(context) so we can show a snackbar.
       child: SafeArea(
         child: Builder(builder: (BuildContext context) {
-          return WebView(
-            initialUrl: webLoadInfo.link,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController webViewController) {
-              controller.webViewController = webViewController;
-            },
-            // Remove this when collection literals makes it to stable.
-            // ignore: prefer_collection_literals
-            navigationDelegate: (NavigationRequest request) {
-              if (request.url.startsWith('https://www.youtube.com/')) {
-                print('blocking navigation to $request}');
-                return NavigationDecision.prevent;
-              }
-              print('allowing navigation to $request');
-              return NavigationDecision.navigate;
-            },
-            onPageStarted: (String url) {
-              print('Page started loading: $url');
-              EasyLoading.show(
-                  indicator: const CupertinoActivityIndicator(
-                    color: Colors.white,
-                    radius: 15,
-                  ),
-                  maskType: EasyLoadingMaskType.none);
-            },
-            onPageFinished: (String url) {
-              print('Page finished loading: $url');
-              EasyLoading.dismiss();
-            },
-            gestureNavigationEnabled: true,
-          );
+          return WebViewWidget(controller: _controller,);
         }),
       ),
     );
@@ -136,4 +169,6 @@ class WebPage extends GetView<WebController> {
       );
     }
   }
+
+  void flutterWebViewSetting() {}
 }

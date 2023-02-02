@@ -10,7 +10,7 @@ dependencies:
   cupertino_icons: ^1.0.5
   get: ^4.6.5
   card_swiper: ^2.0.4
-  webview_flutter: ^3.0.4
+  webview_flutter: ^4.0.2
   pull_to_refresh: ^2.0.0
   flutter_slidable: ^2.0.0
   cached_network_image: ^3.2.1
