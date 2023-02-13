@@ -19,6 +19,8 @@ import 'package:getx_study/pages/my/view/login_page.dart';
 import 'package:getx_study/pages/my/view/my_coin_history_page.dart';
 import 'package:getx_study/pages/my/view/my_collect_page.dart';
 import 'package:getx_study/pages/my/view/register_page.dart';
+import 'package:getx_study/pages/project_public_number/binding/project_binding.dart';
+import 'package:getx_study/pages/project_public_number/binding/public_number_binding.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
@@ -105,6 +107,8 @@ abstract class Routes {
         HomeBinding(),
         TabsBinding(TagType.project),
         TreeBinding(TagType.tree),
+        ProjectBinding(),
+        PublicNumberBinding(),
         MyBinding(),
         AccountBinding(),
       ],

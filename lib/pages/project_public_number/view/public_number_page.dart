@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
@@ -55,12 +56,15 @@ class _PublicNumberPageState extends State<PublicNumberPage>
               }
             }
           });
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(_tabsController.type.title),
-              bottom: _tabBar(_tabController),
+          return CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: MaterialApp(
+                home: _tabBar(_tabController),
+                debugShowCheckedModeBanner: false,
+              ), //_segmentedControl(), //Text(_tabsController.type.title),
+              //bottom: _tabBar(_tabController),
             ),
-            body: TabBarView(
+            child: TabBarView(
               controller: _tabController,
               children: _createPublicNumberPage(),
             ),
@@ -84,15 +88,15 @@ class _PublicNumberPageState extends State<PublicNumberPage>
       ).toList(),
       controller: controller,
       isScrollable: true,
-      indicatorColor: Colors.white,
+      indicatorColor: Theme.of(context).primaryColor,
       indicatorSize: TabBarIndicatorSize.tab,
-      labelStyle: const TextStyle(color: Colors.white, fontSize: 20),
-      unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 18),
-      labelColor: Colors.white,
+      labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+      unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 16),
+      labelColor: Colors.black,
       labelPadding: const EdgeInsets.all(0.0),
       indicatorPadding: const EdgeInsets.all(0.0),
       indicatorWeight: 2.3,
-      unselectedLabelColor: Colors.white,
+      unselectedLabelColor: Colors.grey,
     );
   }
 
