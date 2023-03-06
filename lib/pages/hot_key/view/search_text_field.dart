@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
+import 'package:getx_study/logger/logger.dart';
 
 class SearchTextField extends StatelessWidget {
   final searchKeyCtrl = TextEditingController(text: '');
@@ -31,7 +32,7 @@ class SearchTextField extends StatelessWidget {
               _inputComplete(context);
             },
             onSubmitted: (input) {
-              print(input);
+              logger.d(input);
             },
             onChanged: (value) {
               changeString.value = value;

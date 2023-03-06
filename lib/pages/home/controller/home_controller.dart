@@ -8,6 +8,7 @@ import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
+import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/pages/home/repository/home_repository.dart';
 
 class HomeController
@@ -60,7 +61,7 @@ class HomeController
             request.getTopArticleList(),
             request.getArticleList(page: page),
           ],
-          cleanUp: (successValue) => print(successValue),
+          cleanUp: (successValue) => logger.d(successValue),
         );
 
         if (result.length == 3) {

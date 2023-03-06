@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:getx_study/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainController extends GetxController {
@@ -10,7 +11,7 @@ class MainController extends GetxController {
     /// Get.putAsyn使用的时候要稍微注意,避免先find后put
     final prefs = Get.find<SharedPreferences>();
     int? count = prefs.getInt('counter');
-    print(count);
+    logger.d(count);
 
     update();
   }

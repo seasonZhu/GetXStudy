@@ -33,6 +33,7 @@ dependencies:
   event_bus: ^2.0.0
   open_file: ^3.2.1
   permission_handler: ^10.0.0
+  logger: ^1.2.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

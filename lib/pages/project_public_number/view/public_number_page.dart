@@ -52,7 +52,7 @@ class _PublicNumberPageState extends State<PublicNumberPage>
                 _tabListControllers[index]
                     .aRequest(type: ScrollViewActionType.refresh);
               } else {
-                print("已经包含不用请求");
+                debugPrint("已经包含不用请求");
               }
             }
           });

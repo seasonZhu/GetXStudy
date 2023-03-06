@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/logger/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -65,7 +66,7 @@ class HomePage extends GetView<HomeController> {
                       autoplay: controller.swiperAutoPlay.value,
                       autoplayDisableOnInteraction: true,
                       onTap: (index) {
-                        print(index);
+                        logger.d(index);
                         Get.toNamed("/web/true",
                             arguments: controller.banners[index]);
                       },
@@ -79,7 +80,7 @@ class HomePage extends GetView<HomeController> {
                       return InfoCell(
                         model: model,
                         callback: (_) async {
-                          print("点击了");
+                          logger.d("点击了");
                           if (model.id == 24742) {
                             if (model.link != null) {
                               final url = Uri.parse(
