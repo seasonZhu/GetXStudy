@@ -1,16 +1,14 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
-import 'package:get/get.dart';
-import 'package:share/share.dart';
-import 'package:getx_study/account_manager/account_manager.dart';
-import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+import 'package:get/get.dart';
+import 'package:share/share.dart';
+
+import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:marquee/marquee.dart';
 
 import 'package:getx_study/base/interface.dart';
