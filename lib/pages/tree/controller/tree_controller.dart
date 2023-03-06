@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/base/base_request_controller.dart';
@@ -31,11 +32,11 @@ class TreeController
 
   @override
   Future<void> onTopScroll() async {
-    print("滑到了顶部");
+    debugPrint("滑到了顶部");
   }
 
   @override
   Future<void> onEndScroll() async {
-    print("滑到了底部");
+    debugPrint("滑到了底部");
   }
 }

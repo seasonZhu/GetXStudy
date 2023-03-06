@@ -8,6 +8,8 @@ import 'package:getx_study/pages/common/countdown_circle.dart';
 /// 模拟的一个广告页面
 class SplashPage extends StatelessWidget {
 
+  const SplashPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Stack(

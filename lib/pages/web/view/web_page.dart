@@ -133,7 +133,7 @@ class WebPage extends GetView<WebController> {
             debugPrint('WebView is loading (progress : $progress%)');
           },
           onPageStarted: (String url) {
-            print('Page started loading: $url');
+            debugPrint('Page started loading: $url');
             EasyLoading.show(
                 indicator: const CupertinoActivityIndicator(
                   color: Colors.white,
@@ -142,7 +142,7 @@ class WebPage extends GetView<WebController> {
                 maskType: EasyLoadingMaskType.none);
           },
           onPageFinished: (String url) {
-            print('Page finished loading: $url');
+            debugPrint('Page finished loading: $url');
             EasyLoading.dismiss();
           },
           onWebResourceError: (WebResourceError error) {

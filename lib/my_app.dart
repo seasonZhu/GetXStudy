@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
       initialRoute: isFirst ? Routes.welcome : Routes.splash,
       getPages: Routes.routePage,
       onGenerateRoute: (settings) {
-        print(settings.name);
+        debugPrint(settings.name);
+        return null;
       },
 
       /// 经过初始化的binding,

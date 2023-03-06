@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -32,7 +33,7 @@ abstract class BaseRefreshController<R extends IRepository, T>
   @override
   void onClose() {
     super.onClose();
-    //refreshController.dispose();
+    debugPrint("onClose");
   }
 
   Future<void> onRefresh() async {}

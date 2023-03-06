@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
-  VoidCallback? retryAction;
+  final VoidCallback? retryAction;
 
-  ErrorView({Key? key, this.retryAction}) : super(key: key);
+  const ErrorView({Key? key, this.retryAction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

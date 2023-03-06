@@ -46,7 +46,7 @@ class GetBindWidget extends StatefulWidget {
   final Widget child;
 
   @override
-  _GetBindWidgetState createState() => _GetBindWidgetState();
+  State<GetBindWidget> createState() => _GetBindWidgetState();
 }
 
 class _GetBindWidgetState extends State<GetBindWidget> {
@@ -132,7 +132,7 @@ class AutoDisposePage extends StatefulWidget {
   const AutoDisposePage({Key? key}) : super(key: key);
 
   @override
-  _AutoDisposePageState createState() => _AutoDisposePageState();
+  State<AutoDisposePage> createState() => _AutoDisposePageState();
 }
 
 class _AutoDisposePageState extends State<AutoDisposePage> {

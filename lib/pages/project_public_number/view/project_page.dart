@@ -23,9 +23,9 @@ class _ProjectPageState extends State<ProjectPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _tabsController = Get.find<ProjectController>();
 
-  final _alreadyRequestIndex = Set<int>();
+  final _alreadyRequestIndex = <int>{};
 
-  List<TabListController> _tabListControllers = [];
+  final List<TabListController> _tabListControllers = [];
 
   late TabController _tabController;
 
@@ -52,7 +52,7 @@ class _ProjectPageState extends State<ProjectPage>
                 _tabListControllers[index]
                     .aRequest(type: ScrollViewActionType.refresh);
               } else {
-                print("已经包含不用请求");
+                debugPrint("已经包含不用请求");
               }
             }
           });

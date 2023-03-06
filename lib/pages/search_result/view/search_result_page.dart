@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';

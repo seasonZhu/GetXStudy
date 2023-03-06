@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_study/account_manager/account_manager.dart';
@@ -17,6 +18,7 @@ class MyController
   @override
   void onInit() {
     super.onInit();
+    debugPrint("onInit");
   }
 
   void login({required String username, required String password}) async {
@@ -48,7 +50,6 @@ class MyController
           // navigator?.popUntil(
           //   (route) => route.settings.name == Routes.main,
           // );
-
         }
       },
     );

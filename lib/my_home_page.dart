@@ -25,7 +25,7 @@ class MyHomePage extends GetView<CountEasyController> {
               builder: ((controller) {
                 return Text(
                   controller.count.toString(),
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 );
               }),
             ),
@@ -88,7 +88,7 @@ class MyNextPage extends GetView<CountRxController> {
             Obx(() {
               return Text(
                 controller.count.value.toString(),
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headlineMedium,
               );
             }),
             GetBuilder<CountRxController>(

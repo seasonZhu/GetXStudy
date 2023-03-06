@@ -9,7 +9,7 @@ import 'package:getx_study/pages/home/binding/home_binding.dart';
 import 'package:getx_study/pages/hot_key/bindings/hot_key_binding.dart';
 import 'package:getx_study/pages/hot_key/view/hot_key_page.dart';
 import 'package:getx_study/pages/launch/splash_page.dart';
-import 'package:getx_study/pages/launch/welcom_page.dart';
+import 'package:getx_study/pages/launch/welcome_page.dart';
 import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
 import 'package:getx_study/pages/my/binding/my_binding.dart';
@@ -146,11 +146,11 @@ abstract class Routes {
 
     GetPage(
       name: welcome,
-      page: () => WelcomePage(),
+      page: () => const WelcomePage(),
     ),
     GetPage(
       name: splash,
-      page: () => SplashPage()
+      page: () => const SplashPage()
     ),
 
     /// 以下是测试路由

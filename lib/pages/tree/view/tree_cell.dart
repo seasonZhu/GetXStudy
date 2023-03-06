@@ -19,15 +19,15 @@ class TreeCell extends StatelessWidget {
       onTap: () {},
       child: Container(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: _chipTitleItem(model),
-        ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(width: 0.33, color: Colors.grey[400]!),
           ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: _chipTitleItem(model),
         ),
       ),
     );

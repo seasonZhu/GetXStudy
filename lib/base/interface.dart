@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 
-typedef GetPage<T> = GetView<T>;
-
 abstract class IRepository {}
 
 abstract class IRetry {
@@ -18,8 +16,6 @@ abstract class IClassName {
   // String some();
 }
 
-abstract class IRequestController extends GetxController {}
-
 abstract class IWebLoadInfo {
   int? id;
   int? originId;
@@ -28,7 +24,13 @@ abstract class IWebLoadInfo {
 }
 
 /// 以下代码没有使用,是思考
-String typeName(Type type) => type.toString();
+
+abstract class IRequestController extends GetxController {}
+
+/// 危险,不要定义这个类
+/// typedef GetPage<T> = GetView<T>;
+
+String typeName(Type type) => (type).toString();
 
 class Box<T extends Object> {
   T value;

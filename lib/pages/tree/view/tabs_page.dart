@@ -23,7 +23,7 @@ class _TabsPageState extends State<TabsPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _tabsController = Get.find<TabsController>();
 
-  final _alreadyRequestIndex = Set<int>();
+  final _alreadyRequestIndex = <int>{};
 
   final _tabListControllers = <TabListController>[];
 
@@ -52,7 +52,7 @@ class _TabsPageState extends State<TabsPage>
                 _tabListControllers[index]
                     .aRequest(type: ScrollViewActionType.refresh);
               } else {
-                print("已经包含不用请求");
+                debugPrint("已经包含不用请求");
               }
             }
           });
@@ -124,7 +124,7 @@ class _TabsPageState extends State<TabsPage>
       return Container();
     }
 
-    final map = Map<int, Widget>();
+    final map = <int, Widget>{};
     for (var i = 0; i < array.length; i++) {
       final model = array[i];
       final widget = Container(

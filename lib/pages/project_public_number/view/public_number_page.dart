@@ -23,9 +23,9 @@ class _PublicNumberPageState extends State<PublicNumberPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _tabsController = Get.find<PublicNumberController>();
 
-  var _alreadyRequestIndex = Set<int>();
+  final _alreadyRequestIndex = <int>{};
 
-  List<TabListController> _tabListControllers = [];
+  final List<TabListController> _tabListControllers = [];
 
   late TabController _tabController;
 

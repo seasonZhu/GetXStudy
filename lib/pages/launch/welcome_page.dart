@@ -6,6 +6,8 @@ import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class WelcomePage extends StatelessWidget {
+  const WelcomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
