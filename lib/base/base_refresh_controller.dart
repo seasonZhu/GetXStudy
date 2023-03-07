@@ -89,4 +89,10 @@ abstract class BaseRefreshController<R extends IRepository, T>
   void retry() {
     onRefresh();
   }
+
+  processError({required ScrollViewActionType type, required dynamic error}) {
+    failHandle(type);
+    update();
+    return error;
+  }
 }

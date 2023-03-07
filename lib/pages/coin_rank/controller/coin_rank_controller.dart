@@ -34,11 +34,8 @@ class CoinRankController
     required ScrollViewActionType type,
     Map<String, dynamic>? parameters,
   }) async {
-    response = await request.getCoinRankList(page).catchError((_) {
-      /// 异常场景
-      failHandle(type);
-
-      update();
+    response = await request.getCoinRankList(page).catchError((error) {
+      return processError(type: type, error: error);
     });
 
     /// 正常场景

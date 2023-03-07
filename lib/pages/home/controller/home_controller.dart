@@ -42,11 +42,8 @@ class HomeController
     required ScrollViewActionType type,
     Map<String, dynamic>? parameters,
   }) async {
-    response = await request.getArticleList(page: page).catchError((_) {
-      /// 异常场景
-      failHandle(type);
-
-      update();
+    response = await request.getArticleList(page: page).catchError((error) {
+      return processError(type: type, error: error);
     });
     status = response?.responseStatus ?? ResponseStatus.loading;
 

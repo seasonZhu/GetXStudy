@@ -2,11 +2,13 @@ import 'package:get/get.dart';
 
 abstract class IRepository {}
 
+/// 重试机制
 abstract class IRetry {
-  /// 重试机制,这里写不写方法的实现好像并不影响代码编译与逻辑
+  /// 这里写不写方法的实现好像并不影响代码编译与逻辑
   void retry();
 }
 
+/// 跳转Web的模型基类
 abstract class IWebLoadInfo {
   int? id;
   int? originId;
@@ -32,12 +34,4 @@ abstract class IClassName {
   // String some();
 }
 */
-class Box<T extends Object> {
-  T value;
 
-  Box(this.value);
-}
-
-extension Extension<T extends Object> on T {
-  Box<T> get box => Box<T>(this);
-}
