@@ -4,19 +4,19 @@ import 'package:getx_study/base/base_refresh_controller.dart';
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
+import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/pages/my/repository/my_collect_repository.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/account_manager/account_manager.dart';
 
 class MyCollectController
-    extends BaseRefreshController<MyCollectRepository, ArticleInfoDatas>
-    implements IClassName {
+    extends BaseRefreshController<MyCollectRepository, ArticleInfoDatas> {
   @override
   void onInit() {
     super.onInit();
-    initPage = Get.find(tag: MyCollectController.className);
+    initPage = Get.find(tag: className(MyCollectController));
     page = initPage;
-    refreshController = Get.find(tag: MyCollectController.className);
+    refreshController = Get.find(tag: className(MyCollectController));
   }
 
   @override
@@ -86,6 +86,4 @@ class MyCollectController
 
     update();
   }
-
-  static String? get className => (MyCollectController).toString();
 }

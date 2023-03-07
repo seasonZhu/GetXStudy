@@ -7,8 +7,7 @@ import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
 
-class WebController extends BaseRequestController<WebRepository, Object?>
-    with IClassName {
+class WebController extends BaseRequestController<WebRepository, Object?> {
   void Function()? hasActionCallback;
 
   WebViewController? webViewController;
@@ -108,6 +107,4 @@ class WebController extends BaseRequestController<WebRepository, Object?>
       return false;
     }
   }
-
-  static String? get className => (WebController).toString();
 }

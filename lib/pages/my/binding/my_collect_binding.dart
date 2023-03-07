@@ -1,3 +1,4 @@
+import 'package:getx_study/logger/class_name.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 
@@ -11,11 +12,11 @@ class MyCollectBinding extends Bindings {
       () => MyCollectRepository(),
     );
     Get.lazyPut(
-      tag: MyCollectController.className,
+      tag: className(MyCollectController),
       () => RefreshController(initialRefresh: true),
     );
     Get.lazyPut<int>(
-      tag: MyCollectController.className,
+      tag: className(MyCollectController),
       () => 0,
     );
     Get.lazyPut(

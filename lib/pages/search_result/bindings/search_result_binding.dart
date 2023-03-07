@@ -1,3 +1,4 @@
+import 'package:getx_study/logger/class_name.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 
@@ -11,11 +12,11 @@ class SearchResultBinding extends Bindings {
       () => SearchResultRepository(),
     );
     Get.lazyPut(
-      tag: SearchResultController.className,
+      tag: className(SearchResultController),
       () => RefreshController(initialRefresh: true),
     );
     Get.lazyPut<int>(
-      tag: SearchResultController.className,
+      tag: className(SearchResultController),
       () => 1,
     );
     Get.lazyPut(

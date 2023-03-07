@@ -1,3 +1,4 @@
+import 'package:getx_study/logger/class_name.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/pages/coin_rank/controller/coin_rank_controller.dart';
@@ -12,11 +13,11 @@ class CoinRankBinding extends Bindings {
 
     /// 需要通过tag来进行区分,避免RefreshController反复使用导致的内存泄露与崩溃
     Get.lazyPut(
-      tag: CoinRankController.className,
+      tag: className(CoinRankController),
       () => RefreshController(initialRefresh: true),
     );
     Get.lazyPut<int>(
-      tag: CoinRankController.className,
+      tag: className(CoinRankController),
       () => 1,
     );
     Get.lazyPut(

@@ -18,4 +18,3 @@ run() async {
   final isFirst = await AccountManager().getIsFirstLaunch();
   runApp(MyApp(isFirst: isFirst));
 }
-

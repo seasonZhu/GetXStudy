@@ -1,19 +1,18 @@
 import 'package:get/get.dart';
 
 import 'package:getx_study/base/base_refresh_controller.dart';
-import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/entity/banner_entity.dart';
 import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
+import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/pages/home/repository/home_repository.dart';
 
 class HomeController
-    extends BaseRefreshController<HomeRepository, ArticleInfoDatas>
-    implements IClassName {
+    extends BaseRefreshController<HomeRepository, ArticleInfoDatas> {
   var banners = [];
 
   var swiperAutoPlay = false.obs;
@@ -21,9 +20,9 @@ class HomeController
   @override
   void onInit() {
     super.onInit();
-    initPage = Get.find<int>(tag: HomeController.className);
+    initPage = Get.find<int>(tag: className(HomeController));
     page = initPage;
-    refreshController = Get.find(tag: HomeController.className);
+    refreshController = Get.find(tag: className(HomeController));
   }
 
   @override
@@ -95,6 +94,4 @@ class HomeController
 
     update();
   }
-
-  static String? get className => (HomeController).toString();
 }

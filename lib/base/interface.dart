@@ -7,15 +7,6 @@ abstract class IRetry {
   void retry();
 }
 
-abstract class IClassName {
-  static String? className;
-
-  /// 协议的类方法必须要进行实现,否则就会报错
-  // static String? Some();
-
-  // String some();
-}
-
 abstract class IWebLoadInfo {
   int? id;
   int? originId;
@@ -30,8 +21,17 @@ abstract class IRequestController extends GetxController {}
 /// 危险,不要定义这个类
 /// typedef GetPage<T> = GetView<T>;
 
-String typeName(Type type) => (type).toString();
+///  下面这个类在使用上没有意义
+/*
+abstract class IClassName {
+  static String? className;
 
+  /// 协议的类方法必须要进行实现,否则就会报错
+  // static String? Some();
+
+  // String some();
+}
+*/
 class Box<T extends Object> {
   T value;
 

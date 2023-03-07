@@ -5,17 +5,17 @@ import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/entity/my_coin_history_entity.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
+import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/pages/my/repository/my_coin_history_repository.dart';
 
 class MyCoinHistoryController
-    extends BaseRefreshController<MyCoinHistoryRepository, MyCoinHistoryDatas>
-    implements IClassName {
+    extends BaseRefreshController<MyCoinHistoryRepository, MyCoinHistoryDatas> {
   @override
   void onInit() {
     super.onInit();
-    initPage = Get.find<int>(tag: MyCoinHistoryController.className);
+    initPage = Get.find<int>(tag: className(MyCoinHistoryController));
     page = initPage;
-    refreshController = Get.find(tag: MyCoinHistoryController.className);
+    refreshController = Get.find(tag: className(MyCoinHistoryController));
   }
 
   @override
@@ -59,6 +59,4 @@ class MyCoinHistoryController
 
     update();
   }
-
-  static String? get className => (MyCoinHistoryController).toString();
 }

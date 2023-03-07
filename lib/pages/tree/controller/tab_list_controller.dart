@@ -1,5 +1,4 @@
 import 'package:getx_study/base/base_refresh_controller.dart';
-import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
@@ -7,8 +6,7 @@ import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/pages/tree/repository/tab_list_repository.dart';
 
 class TabListController
-    extends BaseRefreshController<TabListRepository, ArticleInfoDatas>
-    implements IClassName {
+    extends BaseRefreshController<TabListRepository, ArticleInfoDatas> {
 
   late TagType tagType;
 
@@ -56,6 +54,4 @@ class TabListController
 
     update();
   }
-
-  static String? get className => (TabListController).toString();
 }
