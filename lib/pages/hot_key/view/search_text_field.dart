@@ -102,7 +102,7 @@ class SearchValueField extends StatelessWidget {
                   _inputComplete(context);
                 },
                 onSubmitted: (input) {
-                  print(input);
+                  logger.d(input);
                 },
                 onChanged: (value) {
                   visibleRelay.value = value.isNotEmpty;

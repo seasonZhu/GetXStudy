@@ -11,6 +11,6 @@ class SearchResultRepository extends IRepository {
     final params = <String, String>{};
     params["k"] = keyword;
     return await http.Request.post(
-        api: Api.postQueryKey + page.toString() + "/json", params: params);
+        api: "${Api.postQueryKey}${page.toString()}/json", params: params);
   }
 }

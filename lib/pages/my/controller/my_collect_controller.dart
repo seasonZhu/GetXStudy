@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 import 'package:getx_study/base/base_refresh_controller.dart';
-import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/logger/class_name.dart';

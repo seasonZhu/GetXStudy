@@ -6,8 +6,8 @@ import 'package:getx_study/http_util/api.dart';
 class WebRepository extends IRepository {
   Future<BaseEntity<Object?>> unCollectAction({required int originId}) =>
       http.Request.post(
-          api: Api.postUnCollectArticle + originId.toString() + "/json");
+          api: "${Api.postUnCollectArticle}${originId.toString()}/json");
 
   Future<BaseEntity<Object?>> collectAction({required int originId}) =>
-      http.Request.post(api: Api.postCollectArticle + originId.toString() + "/json");
+      http.Request.post(api: "${Api.postCollectArticle}${originId.toString()}/json");
 }
