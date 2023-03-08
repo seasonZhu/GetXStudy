@@ -8,8 +8,15 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'api.dart';
 
 /// 白名单
-const kWhiteList = [Api.postLogin, Api.postRegister];
+const kWhiteList = [
+  Api.postLogin,
+  Api.postRegister,
+  Api.getLogout,
+  Api.postCollectArticle,
+  Api.postUnCollectArticle,
+];
 
+/// 网络请求日志插件
 final loggerPlugin = PrettyDioLogger(
   requestHeader: false,
   requestBody: true,
@@ -18,10 +25,12 @@ final loggerPlugin = PrettyDioLogger(
   compact: false,
 );
 
+/// 网络请求loading与dismiss插件
 final networkActivityPlugin = NetworkActivityInterceptor(
   changeTypeCallback: (change, options) {
-    print("path: ${options.path}");
-    if (kWhiteList.contains(options.path)) {
+    final result =
+        kWhiteList.where((element) => options.path.contains(element));
+    if (result.isNotEmpty) {
       switch (change) {
         case NetworkActivityChangeType.began:
           EasyLoading.show(

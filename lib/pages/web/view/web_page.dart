@@ -65,17 +65,8 @@ class WebPage extends GetView<WebController> {
                   },
                 ),
                 onPressed: () async {
-                  EasyLoading.show(
-                      status: 'loading...',
-                      indicator: const CupertinoActivityIndicator(
-                        color: Colors.white,
-                        radius: 15,
-                      ),
-                      maskType: EasyLoadingMaskType.none,
-                      dismissOnTap: true);
                   isCollect.value = await controller.collectOrUnCollectAction(
                       webLoadInfo: webLoadInfo, isCollect: isCollect.value);
-                  EasyLoading.dismiss();
                 },
               ),
             ),
