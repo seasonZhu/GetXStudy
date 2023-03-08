@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:getx_study/http_util/network_activity_interceptor.dart';
+import 'package:getx_study/http_util/network_activity_plugin.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'api.dart';
@@ -26,8 +26,8 @@ final loggerPlugin = PrettyDioLogger(
 );
 
 /// 网络请求loading与dismiss插件
-final networkActivityPlugin = NetworkActivityInterceptor(
-  changeTypeCallback: (change, options) {
+final networkActivityPlugin = NetworkActivityPlugin(
+  networkActivityCallback: (change, options) {
     final result =
         kWhiteList.where((element) => options.path.contains(element));
     if (result.isNotEmpty) {
