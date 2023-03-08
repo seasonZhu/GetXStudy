@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'api.dart';
 import 'http_status.dart' as season;
+import 'plugin.dart';
 import 'package:getx_study/account_manager/account_manager.dart';
 
-// 这个是用来判断是否是生产环境
+/// 这个是用来判断是否是生产环境
 const bool inProduction = bool.fromEnvironment("dart.vm.product");
 
 abstract class HttpUtils {
@@ -24,7 +24,7 @@ abstract class HttpUtils {
       receiveTimeout: timeout,
       headers: {},
     ),
-  ).addPrettyPrint;
+  ).addPlugins;
 
   // Get请求
   static Future<Map<String, dynamic>> get(
@@ -73,17 +73,12 @@ abstract class HttpUtils {
   }
 }
 
-extension AddPrettyPrint on Dio {
-  Dio get addPrettyPrint {
-    interceptors.add(
-      PrettyDioLogger(
-        requestHeader: false,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        compact: false,
-      ),
-    );
+extension Plugs on Dio {
+  Dio get addPlugins {
+    interceptors.addAll([
+      loggerPlugin,
+      networkActivityPlugin,
+    ]);
     return this;
   }
 }
