@@ -9,7 +9,6 @@ import 'package:getx_study/pages/my/repository/my_repository.dart';
 
 class MyController
     extends BaseRequestController<MyRepository, AccountInfoEntity> {
-  final isNowRequest = false.obs;
 
   var userInfo = "等级 --  排名 --  积分 --";
 
@@ -23,7 +22,6 @@ class MyController
 
   void login({required String username, required String password}) async {
     ResignFirstResponder.unfocus();
-    isNowRequest.value = true;
     final response =
         await request.login(username: username, password: password);
 
@@ -33,10 +31,8 @@ class MyController
           .save(info: response.data!, isLogin: true, password: password);
       await getUserCoinInfo();
       message = "登录成功";
-      isNowRequest.value = false;
     } else {
       message = "登录失败";
-      isNowRequest.value = false;
     }
     Get.snackbar(
       "",
@@ -60,7 +56,6 @@ class MyController
       required String password,
       required String rePassword}) async {
     ResignFirstResponder.unfocus();
-    isNowRequest.value = true;
     final response = await request.register(
         username: username, password: password, rePassword: rePassword);
 
@@ -70,10 +65,8 @@ class MyController
           .save(info: response.data!, isLogin: true, password: password);
       await getUserCoinInfo();
       message = "注册成功";
-      isNowRequest.value = false;
     } else {
       message = "注册失败";
-      isNowRequest.value = false;
     }
     Get.snackbar(
       "",

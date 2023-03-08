@@ -136,24 +136,13 @@ class LoginPage extends GetView<MyController> {
                                       color: Colors.white, fontSize: 18),
                                 ),
                                 onPressed: () {
-                                  if (!controller.isNowRequest.value) {
-                                    controller.login(
+                                  controller.login(
                                         username:
                                             _userNameTextFiledController.text,
                                         password:
                                             _passwordTextFiledController.text);
-                                  }
                                 }),
                           ),
-                        ),
-                      ),
-                    ),
-                    Obx(
-                      () => Visibility(
-                        visible: controller.isNowRequest.value,
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: const LoadingView(message: "正在登录..."),
                         ),
                       ),
                     ),
