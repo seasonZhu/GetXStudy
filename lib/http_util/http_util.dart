@@ -53,7 +53,7 @@ abstract class HttpUtils {
   }
 
   static Options getCookieHeaderOptions() {
-    final value = AccountManager.shared.cookieHeaderValue;
+    final value = AccountManager().cookieHeaderValue;
     Options options = Options(headers: {HttpHeaders.cookieHeader: value});
     return options;
   }

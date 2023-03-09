@@ -23,8 +23,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
     String message;
     if (model.isSuccess) {
-      if ((AccountManager.shared.info?.collectIds ?? []).contains(originId)) {
-        (AccountManager.shared.info?.collectIds ?? []).remove(originId);
+      if ((AccountManager().info?.collectIds ?? []).contains(originId)) {
+        (AccountManager().info?.collectIds ?? []).remove(originId);
       }
       message = "取消收藏成功";
       if (hasActionCallback != null) {
@@ -48,7 +48,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
     String message;
     if (model.isSuccess) {
-      (AccountManager.shared.info?.collectIds ?? []).add(originId);
+      (AccountManager().info?.collectIds ?? []).add(originId);
       message = "收藏成功";
       if (hasActionCallback != null) {
         hasActionCallback!();
@@ -68,7 +68,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
   bool isCollect(IWebLoadInfo webLoadInfo) {
     final collectId = _realCollectId(webLoadInfo);
-    final collectIds = AccountManager.shared.info?.collectIds;
+    final collectIds = AccountManager().info?.collectIds;
     if (collectIds != null && collectId != null) {
       if (collectIds.contains(collectId)) {
         return true;

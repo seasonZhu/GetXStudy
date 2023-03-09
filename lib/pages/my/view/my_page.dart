@@ -17,13 +17,13 @@ class MyPage extends GetView<MyController> {
      如果你想删除这种行为，你可以使用： isLogin.firstRebuild = false;。
      */
 
-    final isLogin = AccountManager.shared.isLogin.obs;
+    final isLogin = AccountManager().isLogin.obs;
 
-    final userInfo = AccountManager.shared.myCoinInfo.obs;
+    final userInfo = AccountManager().myCoinInfo.obs;
 
     controller.autoLoginSuccessCallback = () {
-      isLogin.value = AccountManager.shared.isLogin;
-      userInfo.value = AccountManager.shared.myCoinInfo;
+      isLogin.value = AccountManager().isLogin;
+      userInfo.value = AccountManager().myCoinInfo;
     };
 
     return CupertinoPageScaffold(
@@ -93,7 +93,7 @@ class MyPage extends GetView<MyController> {
                                     Get.back();
                                     final result = await controller.logout();
                                     userInfo.value =
-                                        AccountManager.shared.myCoinInfo;
+                                        AccountManager().myCoinInfo;
                                     isLogin.value = result;
                                   },
                                 ),
