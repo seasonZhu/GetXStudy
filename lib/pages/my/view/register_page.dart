@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/base/resign_first_responder.dart';
-import 'package:getx_study/pages/common/loading_view.dart';
+
+import 'package:getx_study/base/resign_first_view.dart';
 import 'package:getx_study/pages/my/controller/my_controller.dart';
 
 class RegisterPage extends GetView<MyController> {
@@ -28,10 +28,7 @@ class RegisterPage extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GestureDetector(
-        onTap: () {
-          ResignFirstResponder.unfocus();
-        },
+      child: ResignFirstView(
         child: CupertinoPageScaffold(
           navigationBar: const CupertinoNavigationBar(
             middle: Text("注册"),
