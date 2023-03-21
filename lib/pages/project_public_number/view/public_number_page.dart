@@ -11,6 +11,7 @@ import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
+import 'package:getx_study/logger/logger.dart';
 
 class PublicNumberPage extends StatefulWidget {
   const PublicNumberPage({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class _PublicNumberPageState extends State<PublicNumberPage>
                 _tabListControllers[index]
                     .aRequest(type: ScrollViewActionType.refresh);
               } else {
-                debugPrint("已经包含不用请求");
+                logger.d("已经包含不用请求");
               }
             }
           });

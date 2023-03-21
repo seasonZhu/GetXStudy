@@ -13,6 +13,7 @@ import 'package:marquee/marquee.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
+import 'package:getx_study/logger/logger.dart';
 
 class WebPage extends GetView<WebController> {
   late final WebViewController _controller;
@@ -120,10 +121,10 @@ class WebPage extends GetView<WebController> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-            debugPrint('WebView is loading (progress : $progress%)');
+            logger.d('WebView is loading (progress : $progress%)');
           },
           onPageStarted: (String url) {
-            debugPrint('Page started loading: $url');
+            logger.d('Page started loading: $url');
             EasyLoading.show(
                 indicator: const CupertinoActivityIndicator(
                   color: Colors.white,
@@ -132,11 +133,11 @@ class WebPage extends GetView<WebController> {
                 maskType: EasyLoadingMaskType.none);
           },
           onPageFinished: (String url) {
-            debugPrint('Page finished loading: $url');
+            logger.d('Page finished loading: $url');
             EasyLoading.dismiss();
           },
           onWebResourceError: (WebResourceError error) {
-            debugPrint('''
+            logger.d('''
                 Page resource error:
                   code: ${error.errorCode}
                   description: ${error.description}
@@ -146,10 +147,10 @@ class WebPage extends GetView<WebController> {
           },
           onNavigationRequest: (NavigationRequest request) {
             if (request.url.startsWith('https://www.youtube.com/')) {
-              debugPrint('blocking navigation to ${request.url}');
+              logger.d('blocking navigation to ${request.url}');
               return NavigationDecision.prevent;
             }
-            debugPrint('allowing navigation to ${request.url}');
+            logger.d('allowing navigation to ${request.url}');
             return NavigationDecision.navigate;
           },
         ),

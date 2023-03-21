@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -7,6 +6,7 @@ import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
+import 'package:getx_study/logger/logger.dart';
 
 abstract class BaseRefreshController<R extends IRepository, T>
     extends GetxController implements IRetry {
@@ -33,7 +33,7 @@ abstract class BaseRefreshController<R extends IRepository, T>
   @override
   void onClose() {
     super.onClose();
-    debugPrint("onClose");
+    logger.d("onClose");
   }
 
   Future<void> onRefresh() async {}

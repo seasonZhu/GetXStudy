@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/account_manager/account_binding.dart';
 import 'package:getx_study/base/getx_router_observer.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
+import 'package:getx_study/logger/logger.dart';
 import 'routes/routes.dart';
 
 class MyApp extends StatelessWidget {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       initialRoute: isFirst ? Routes.welcome : Routes.splash,
       getPages: Routes.routePage,
       onGenerateRoute: (settings) {
-        debugPrint(settings.name);
+        logger.d(settings.name);
         return null;
       },
 

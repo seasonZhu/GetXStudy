@@ -11,6 +11,7 @@ import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
+import 'package:getx_study/logger/logger.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key}) : super(key: key);
@@ -52,11 +53,11 @@ class _ProjectPageState extends State<ProjectPage>
                 _tabListControllers[index]
                     .aRequest(type: ScrollViewActionType.refresh);
               } else {
-                debugPrint("已经包含不用请求");
+                logger.d("已经包含不用请求");
               }
             }
           });
-           return CupertinoPageScaffold(
+          return CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
               middle: MaterialApp(
                 home: _tabBar(_tabController),

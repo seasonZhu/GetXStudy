@@ -5,6 +5,7 @@ import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/pages/tree/repository/tree_repository.dart';
+import 'package:getx_study/logger/logger.dart';
 
 class TreeController
     extends BaseRequestController<TreeRepository, List<TabEntity>>
@@ -33,11 +34,11 @@ class TreeController
 
   @override
   Future<void> onTopScroll() async {
-    debugPrint("滑到了顶部");
+    logger.d("滑到了顶部");
   }
 
   @override
   Future<void> onEndScroll() async {
-    debugPrint("滑到了底部");
+    logger.d("滑到了底部");
   }
 }
