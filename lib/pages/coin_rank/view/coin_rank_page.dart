@@ -37,7 +37,7 @@ class CoinRankPage extends GetView<CoinRankController> {
                   leading: Text(model.rank.toString()),
                   title: Text(model.username.toString()),
                   trailing: Text('积分:${model.level.toString()}'),
-                  onTap: () => Get.toNamed(Routes.hotKey),
+                  onTap: () => Get.toNamed(Routes.appH5Page),
                 );
               },
             ),

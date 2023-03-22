@@ -28,6 +28,7 @@ import 'package:getx_study/pages/tree/bindings/tree_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 import 'package:getx_study/pages/web/binding/web_binding.dart';
+import 'package:getx_study/pages/web/view/app_h5_page.dart';
 import 'package:getx_study/pages/web/view/web_page.dart';
 
 abstract class Routes {
@@ -57,15 +58,17 @@ abstract class Routes {
 
   static const web = "/web/:notShowCollectIcon";
 
+  static const welcome = "/welcome";
+
+  static const splash = "/splash";
+
   static const unknown = "/unknown";
 
   static const myHomePage = "/myHomePage";
 
   static const myNextPage = "/myNextPage";
 
-  static const welcome = "/welcome";
-
-  static const splash = "/splash";
+  static const appH5Page = "/appH5Page";
 
   ///页面合集
   static final routePage = [
@@ -163,6 +166,10 @@ abstract class Routes {
       name: myNextPage,
       page: () => MyNextPage(title: "响应式计数器"),
       binding: MyNextBindings(),
+    ),
+    GetPage(
+      name: appH5Page,
+      page: () => AppH5Page()
     ),
   ];
 

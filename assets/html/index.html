@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no minimal-ui"/>
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache,no-store, must-revalidate">
+        <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+        <meta HTTP-EQUIV="expires" CONTENT="0">
+        <title>Webview页面标题</title>
+        <script type="text/javascript">
+            
+            let u = navigator.userAgent;
+            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+            let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+            
+            function jsCallNative() {
+                var message = {
+                    "type":"reply",
+                    "message": "this is a message from js"
+                };
+
+                var jsonString = JSON.stringify(message);
+                
+                if (isIOS) {
+                    console.log("调用iOS的句柄");
+                    window.webkit.messageHandlers.handleMessageFromJS.postMessage(jsonString);
+                }
+                
+                if (isAndroid) {
+                    console.log("调用Android的句柄");
+                    // .android是指安卓那边定义的类，必须和安卓统一，也有可能.xxx,这个可以随便定义
+                    // webView.addJavascriptInterface(javaMethod,"android");
+                    // 目前像下面这样写,安卓端是能够响应的
+                    window.handleMessageFromJS.postMessage(jsonString);
+                }
+            }
+            
+            function sendMessageToDiscussList(object) {
+                var model = JSON.parse(object);
+                document.getElementById("result").innerText = model.message;
+                return "Hello,Native!";
+            }
+            
+        </script>
+    </head>
+
+    <body>
+        Hello,world!<br />
+        <span id="result">
+            
+        </span><br />
+        <button onclick="jsCallNative()">JS call Native</button><br />
+    </body>
+</html>

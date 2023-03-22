@@ -51,6 +51,7 @@ flutter:
   - assets/images/upgrade.png
   - assets/images/welcome_1.png
   - assets/images/welcome_2.jpg
+  - assets/html/index.html
 flr:
   core_version: 3.1.0
   dartfmt_line_length: 80
