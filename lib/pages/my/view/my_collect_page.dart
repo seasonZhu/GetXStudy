@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:getx_study/enum/collect_action_type.dart';
+import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
@@ -16,11 +18,6 @@ class MyCollectPage extends GetView<MyCollectController> {
 
   @override
   Widget build(BuildContext context) {
-    final webController = Get.find<WebController>();
-
-    webController.hasActionCallback =
-        () => controller.refreshController.requestRefresh();
-
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text("我的收藏"),
@@ -31,7 +28,7 @@ class MyCollectPage extends GetView<MyCollectController> {
           return SmartRefresher(
             enablePullUp: true,
             header: const RefreshHeader(),
-            footer: const RefreshFooter(),  
+            footer: const RefreshFooter(),
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
@@ -62,7 +59,8 @@ class MyCollectPage extends GetView<MyCollectController> {
                   // component is not dragged.
                   child: InfoCell(
                     model: model,
-                    callback: (_) => Get.toNamed(Routes.web, arguments: model),
+                    callback: (_) => Get.toNamed(Routes.web,
+                        arguments: model, parameters: {"className": className(this)}),
                   ),
                 );
               },

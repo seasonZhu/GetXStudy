@@ -16,7 +16,7 @@ import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/logger/logger.dart';
 
 class WebPage extends GetView<WebController> {
-  late final WebViewController _controller;
+  late final WebViewController _webViewController;
 
   WebPage({Key? key}) : super(key: key);
 
@@ -26,7 +26,8 @@ class WebPage extends GetView<WebController> {
     IWebLoadInfo webLoadInfo = Get.arguments;
     final isCollect = controller.isCollect(webLoadInfo).obs;
     final notShowCollectIcon = Get.parameters['notShowCollectIcon'];
-
+    final className = Get.parameters['className'];
+    controller.className = className;
     bool isShowCollectIcon;
     if (notShowCollectIcon == "true") {
       isShowCollectIcon = false;
@@ -78,7 +79,7 @@ class WebPage extends GetView<WebController> {
       child: SafeArea(
         child: Builder(builder: (BuildContext context) {
           return WebViewWidget(
-            controller: _controller,
+            controller: _webViewController,
           );
         }),
       ),
@@ -112,10 +113,10 @@ class WebPage extends GetView<WebController> {
       params = const PlatformWebViewControllerCreationParams();
     }
 
-    final WebViewController webController =
+    final WebViewController webViewController =
         WebViewController.fromPlatformCreationParams(params);
 
-    webController
+    webViewController
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
@@ -157,11 +158,11 @@ class WebPage extends GetView<WebController> {
       )
       ..loadRequest(Uri.parse(webLoadInfo.link.toString()));
 
-    if (webController.platform is AndroidWebViewController) {
+    if (webViewController.platform is AndroidWebViewController) {
       AndroidWebViewController.enableDebugging(true);
-      (webController.platform as AndroidWebViewController)
+      (webViewController.platform as AndroidWebViewController)
           .setMediaPlaybackRequiresUserGesture(false);
     }
-    _controller = webController;
+    _webViewController = webViewController;
   }
 }

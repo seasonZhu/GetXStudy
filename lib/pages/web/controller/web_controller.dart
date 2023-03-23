@@ -1,21 +1,33 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:getx_study/logger/logger.dart';
+import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
+import 'package:getx_study/enum/collect_action_type.dart';
 
 class WebController extends BaseRequestController<WebRepository, Object?> {
-  void Function()? hasActionCallback;
+  void Function(CollectActionType, IWebLoadInfo)? collectActionCallback;
 
   WebViewController? webViewController;
+
+  var _actionTag = 0;
+
+  IWebLoadInfo? _webLoadInfo;
+
+  CollectActionType? _type;
+
+  String? className;
 
   @override
   void onClose() {
     super.onClose();
     EasyLoading.dismiss();
+    doCollectAction();
   }
 
   Future<bool> unCollectAction({required int originId}) async {
@@ -27,9 +39,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
         (AccountManager().info?.collectIds ?? []).remove(originId);
       }
       message = "取消收藏成功";
-      if (hasActionCallback != null) {
-        hasActionCallback!();
-      }
+      _actionTag = _actionTag - 1;
+      _type = CollectActionType.unCollect;
     } else {
       message = model.errorMsg.toString();
     }
@@ -50,9 +61,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
     if (model.isSuccess) {
       (AccountManager().info?.collectIds ?? []).add(originId);
       message = "收藏成功";
-      if (hasActionCallback != null) {
-        hasActionCallback!();
-      }
+      _actionTag = _actionTag + 1;
+      _type = CollectActionType.collect;
     } else {
       message = model.errorMsg.toString();
     }
@@ -95,6 +105,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
   Future<bool> collectOrUnCollectAction(
       {required IWebLoadInfo webLoadInfo, required bool isCollect}) async {
     final collectId = _realCollectId(webLoadInfo);
+    _webLoadInfo = webLoadInfo;
     if (collectId != null) {
       if (isCollect) {
         final result = await unCollectAction(originId: collectId);
@@ -105,6 +116,25 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
       }
     } else {
       return false;
+    }
+  }
+
+  void doCollectAction() {
+    if (className == "MyCollectPage") {
+      if (_actionTag != 0) {
+        if (_webLoadInfo != null && _type != null) {
+          final myCollectController = Get.find<MyCollectController>();
+          switch (_type!) {
+            case CollectActionType.unCollect:
+              myCollectController.removeUnCollectItem(_webLoadInfo!);
+              break;
+            case CollectActionType.collect:
+              break;
+          }
+        }
+      }
+    } else {
+      logger.d("do nothing");
     }
   }
 }
