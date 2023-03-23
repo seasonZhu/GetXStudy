@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
@@ -13,12 +13,9 @@ import 'package:marquee/marquee.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
-import 'package:getx_study/logger/logger.dart';
 
 class WebPage extends GetView<WebController> {
-  late final WebViewController _webViewController;
-
-  WebPage({Key? key}) : super(key: key);
+  const WebPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,7 @@ class WebPage extends GetView<WebController> {
       isShowCollectIcon = webLoadInfo.id != null && AccountManager().isLogin;
     }
 
-    _flutterWebViewSetting(webLoadInfo);
+    controller.flutterWebViewSetting(webLoadInfo);
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
@@ -78,8 +75,9 @@ class WebPage extends GetView<WebController> {
       // to allow calling Scaffold.of(context) so we can show a snackbar.
       child: SafeArea(
         child: Builder(builder: (BuildContext context) {
+          /// 这里没有使用下拉刷新组件,是因为SmartRefresh+WebViewWidget会导致底部显示异常
           return WebViewWidget(
-            controller: _webViewController,
+            controller: controller.webViewController,
           );
         }),
       ),
@@ -100,69 +98,5 @@ class WebPage extends GetView<WebController> {
         webLoadInfo.title.toString(),
       );
     }
-  }
-
-  void _flutterWebViewSetting(IWebLoadInfo webLoadInfo) {
-    late final PlatformWebViewControllerCreationParams params;
-    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
-      params = WebKitWebViewControllerCreationParams(
-        allowsInlineMediaPlayback: true,
-        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
-      );
-    } else {
-      params = const PlatformWebViewControllerCreationParams();
-    }
-
-    final WebViewController webViewController =
-        WebViewController.fromPlatformCreationParams(params);
-
-    webViewController
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            logger.d('WebView is loading (progress : $progress%)');
-          },
-          onPageStarted: (String url) {
-            logger.d('Page started loading: $url');
-            EasyLoading.show(
-                indicator: const CupertinoActivityIndicator(
-                  color: Colors.white,
-                  radius: 15,
-                ),
-                maskType: EasyLoadingMaskType.none);
-          },
-          onPageFinished: (String url) {
-            logger.d('Page finished loading: $url');
-            EasyLoading.dismiss();
-          },
-          onWebResourceError: (WebResourceError error) {
-            logger.d('''
-                Page resource error:
-                  code: ${error.errorCode}
-                  description: ${error.description}
-                  errorType: ${error.errorType}
-                  isForMainFrame: ${error.isForMainFrame}
-                          ''');
-          },
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
-              logger.d('blocking navigation to ${request.url}');
-              return NavigationDecision.prevent;
-            }
-            logger.d('allowing navigation to ${request.url}');
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse(webLoadInfo.link.toString()));
-
-    if (webViewController.platform is AndroidWebViewController) {
-      AndroidWebViewController.enableDebugging(true);
-      (webViewController.platform as AndroidWebViewController)
-          .setMediaPlaybackRequiresUserGesture(false);
-    }
-    _webViewController = webViewController;
   }
 }
