@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/base/base_request_controller.dart';

@@ -105,7 +105,7 @@ class AppH5Page extends StatelessWidget {
       ..addJavaScriptChannel("handleMessageFromJS",
           onMessageReceived: (javaScriptMessage) {
         final dict = convert.jsonDecode(javaScriptMessage.message);
-        final string = "message from js: ${dict}";
+        final string = "message from js: $dict";
         logger.d(string);
         EasyLoading.showToast(string);
       })

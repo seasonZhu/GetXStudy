@@ -3,7 +3,7 @@ extension Ex on String {
   String get replaceHtmlElement {
     return replaceAll(RegExp("(<em[^>]*>)|(</em>)"), "")
         .replaceAll(RegExp("\n{2,}"), "\n")
-        .replaceAll(RegExp("\s{2,}"), " ")
+        .replaceAll(RegExp("s{2,}"), " ")
         .replaceAll("&ndash;", "–")
         .replaceAll("&mdash;", "—")
         .replaceAll("&lsquo;", "‘")

@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:getx_study/enum/collect_action_type.dart';
 import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_status_view.dart';
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
-import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 

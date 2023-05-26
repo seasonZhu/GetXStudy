@@ -139,7 +139,7 @@ abstract class Routes {
     ),
     GetPage(
       name: web,
-      page: () => WebPage(),
+      page: () => const WebPage(),
       binding: WebBinding(),
     ),
     GetPage(

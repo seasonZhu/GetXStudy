@@ -15,7 +15,6 @@ import 'package:getx_study/pages/web/repository/web_repository.dart';
 import 'package:getx_study/enum/collect_action_type.dart';
 import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
-import 'package:getx_study/logger/class_name.dart' as class_name;
 
 class WebController extends BaseRequestController<WebRepository, Object?> {
   void Function(CollectActionType, IWebLoadInfo)? collectActionCallback;
@@ -32,11 +31,6 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
   String? className;
 
-  @override
-  void onInit() {
-    super.onInit();
-    //refreshController = Get.find(tag: class_name.className(WebController));
-  }
 
   @override
   void onClose() {
@@ -75,16 +69,12 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
                   radius: 15,
                 ),
                 maskType: EasyLoadingMaskType.none);
-            if (refreshController != null) {
-              refreshController.requestRefresh();
-            }
+            refreshController.requestRefresh();
           },
           onPageFinished: (String url) {
             logger.d('Page finished loading: $url');
             EasyLoading.dismiss();
-            if (refreshController != null) {
-              refreshController.refreshCompleted();
-            }
+            refreshController.refreshCompleted();
           },
           onWebResourceError: (WebResourceError error) {
             logger.d('''
