@@ -19,8 +19,7 @@ class SearchResultPage extends GetView<SearchResultController> {
       navigationBar: CupertinoNavigationBar(
         middle: Text(title),
       ),
-      child: RefreshStatusView(
-        controller: controller,
+      child: RefreshStatusView<SearchResultController>(
         contentBuilder: (_) {
           return SmartRefresher(
             enablePullUp: true,

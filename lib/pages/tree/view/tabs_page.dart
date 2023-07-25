@@ -38,8 +38,7 @@ class _TabsPageState extends State<TabsPage>
     super.build(context);
     return CupertinoPageScaffold(
       child: StatusView<TabsController>(
-        controller: _tabsController,
-        contentBuilder: (_) {
+        contentBuilder: (controller) {
           _tabController = TabController(
               length: _tabsController.data?.length ?? 0, vsync: this);
           _tabController.addListener(() {

@@ -31,9 +31,8 @@ class HomePage extends GetView<HomeController> {
           onPressed: (() => Get.toNamed(Routes.hotKey)),
         ),
       ),
-      child: RefreshStatusView(
-        controller: controller,
-        contentBuilder: (_) {
+      child: RefreshStatusView<HomeController>(
+        contentBuilder: (controller) {
           return SmartRefresher(
             enablePullUp: true,
             header: const RefreshHeader(),

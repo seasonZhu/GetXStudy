@@ -31,9 +31,8 @@ class HotKeyPage extends GetView<HotKeyController> {
             ),
           ),
         ),
-        child: StatusView(
-          controller: controller,
-          contentBuilder: (_) {
+        child: StatusView<HotKeyController>(
+          contentBuilder: (controller) {
             return Wrap(
               children: (controller.data ?? []).map(
                 (model) {

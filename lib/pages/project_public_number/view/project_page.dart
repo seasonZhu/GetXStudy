@@ -38,8 +38,7 @@ class _ProjectPageState extends State<ProjectPage>
     super.build(context);
     return Scaffold(
       body: StatusView<ProjectController>(
-        controller: _tabsController,
-        contentBuilder: (_) {
+        contentBuilder: (controller) {
           _tabController = TabController(
               length: _tabsController.data?.length ?? 0, vsync: this);
           _tabController.addListener(() {

@@ -38,8 +38,7 @@ class _PublicNumberPageState extends State<PublicNumberPage>
     super.build(context);
     return Scaffold(
       body: StatusView<PublicNumberController>(
-        controller: _tabsController,
-        contentBuilder: (_) {
+        contentBuilder: (controller) {
           _tabController = TabController(
               length: _tabsController.data?.length ?? 0, vsync: this);
           _tabController.addListener(() {

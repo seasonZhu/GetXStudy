@@ -12,7 +12,7 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:getx_study/logger/logger.dart';
 
 class AppH5Page extends StatelessWidget {
-  late final WebViewController _controller;
+  late WebViewController _controller;
 
   AppH5Page({Key? key}) : super(key: key);
 

@@ -16,9 +16,8 @@ class TreePage extends GetView<TreeController> {
       navigationBar: CupertinoNavigationBar(
         middle: Text(controller.type.title),
       ),
-      child: StatusView(
-        controller: controller,
-        contentBuilder: (_) {
+      child: StatusView<TreeController>(
+        contentBuilder: (controller) {
           return ListView.builder(
             /// 通过ScrollMixin的scoll,可以监听滑动到顶部与滑动到底部
             controller: controller.scroll,

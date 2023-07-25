@@ -17,9 +17,8 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("我的积分"),
       ),
-      child: RefreshStatusView(
-        controller: controller,
-        contentBuilder: (_) {
+      child: RefreshStatusView<MyCoinHistoryController>(
+        contentBuilder: (controller) {
           return SmartRefresher(
             enablePullUp: true,
             header: const RefreshHeader(),

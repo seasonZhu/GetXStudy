@@ -20,9 +20,8 @@ class MyCollectPage extends GetView<MyCollectController> {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("我的收藏"),
       ),
-      child: RefreshStatusView(
-        controller: controller,
-        contentBuilder: (_) {
+      child: RefreshStatusView<MyCollectController>(
+        contentBuilder: (controller) {
           return SmartRefresher(
             enablePullUp: true,
             header: const RefreshHeader(),

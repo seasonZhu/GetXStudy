@@ -11,14 +11,10 @@ typedef WidgetCallback<T extends BaseRequestController>  = Widget Function(T);
 
 /// 响应View,这个view和网络请求的回调紧密联系,是我经过几次思考后得出的方案
 class StatusView<T extends BaseRequestController> extends StatelessWidget {
-  final T controller;
-
-  final WidgetCallback contentBuilder;
-
-  get value => controller.status.value;
+  final WidgetCallback<T> contentBuilder;
 
   const StatusView(
-      {Key? key, required this.controller, required this.contentBuilder})
+      {Key? key, required this.contentBuilder})
       : super(key: key);
 
   @override
@@ -26,7 +22,7 @@ class StatusView<T extends BaseRequestController> extends StatelessWidget {
     return GetBuilder<T>(
       builder: ((controller) {
         return IndexedStack(
-          index: value,
+          index: controller.status.value,
           children: [
             const LoadingView(),
             ErrorView(retryAction: controller.retry,),

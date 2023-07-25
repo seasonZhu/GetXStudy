@@ -17,9 +17,8 @@ class CoinRankPage extends GetView<CoinRankController> {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("积分排名"),
       ),
-      child: RefreshStatusView(
-        controller: controller,
-        contentBuilder: (_) {
+      child: RefreshStatusView<CoinRankController>(
+        contentBuilder: (controller) {
           return SmartRefresher(
             enablePullUp: true,
             header: const RefreshHeader(), 

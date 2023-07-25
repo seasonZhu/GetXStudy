@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/pages/common/empty_view.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -30,24 +31,24 @@ class _TabListPageState extends State<TabListPage>
     super.build(context);
     return GetBuilder<TabListController>(
       tag: widget._controller.id,
-      builder: ((_) {
+      builder: ((controller) {
         return SmartRefresher(
           enablePullUp: true,
           header: const RefreshHeader(),
           footer: const RefreshFooter(),
-          controller: widget._controller.refreshController,
-          onRefresh: widget._controller.onRefresh,
-          onLoading: widget._controller.onLoadMore,
+          controller: controller.refreshController,
+          onRefresh: controller.onRefresh,
+          onLoading: controller.onLoadMore,
           child: ListView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
-            itemCount: widget._controller.dataSource.length,
+            itemCount: controller.dataSource.length,
             itemBuilder: (BuildContext context, int index) {
-              if (widget._controller.dataSource.isEmpty) {
-                return Container();
+              if (controller.dataSource.isEmpty) {
+                return const EmptyView();
               }
 
-              final model = widget._controller.dataSource[index];
+              final model = controller.dataSource[index];
               return InfoCell(
                 model: model,
                 callback: (_) {
