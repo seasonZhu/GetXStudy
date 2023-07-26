@@ -1,15 +1,13 @@
 import 'package:get/get.dart';
+
+import "package:getx_study/base/base_controller.dart";
 import 'package:getx_study/base/interface.dart';
-import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/entity/base_entity.dart';
 
-abstract class BaseRequestController<R extends IRepository, T>
-    extends GetxController implements IRetry {
+abstract class BaseRequestController<R extends IRepository, T> extends BaseController {
   late R request;
 
   BaseEntity<T>? response;
-
-  ResponseStatus status = ResponseStatus.loading;
 
   T? data;
 
@@ -25,6 +23,11 @@ abstract class BaseRequestController<R extends IRepository, T>
 
   @override
   void retry() {
+    aRequest();
+  }
+
+  @override
+  void emptyTap() {
     aRequest();
   }
 }

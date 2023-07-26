@@ -12,7 +12,7 @@ import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
-import 'package:getx_study/pages/common/refresh_status_view.dart';
+import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/home/controller/home_controller.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 
@@ -31,7 +31,7 @@ class HomePage extends GetView<HomeController> {
           onPressed: (() => Get.toNamed(Routes.hotKey)),
         ),
       ),
-      child: RefreshStatusView<HomeController>(
+      child: StatusView<HomeController>(
         contentBuilder: (controller) {
           return SmartRefresher(
             enablePullUp: true,

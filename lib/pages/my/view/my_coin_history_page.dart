@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getx_study/pages/common/refresh_status_view.dart';
+import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/my/controller/my_coin_history_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
@@ -17,7 +17,7 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("我的积分"),
       ),
-      child: RefreshStatusView<MyCoinHistoryController>(
+      child: StatusView<MyCoinHistoryController>(
         contentBuilder: (controller) {
           return SmartRefresher(
             enablePullUp: true,

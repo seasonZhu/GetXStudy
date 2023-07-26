@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
-import 'package:getx_study/pages/common/refresh_status_view.dart';
+import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/search_result/controller/search_result_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
@@ -19,7 +19,7 @@ class SearchResultPage extends GetView<SearchResultController> {
       navigationBar: CupertinoNavigationBar(
         middle: Text(title),
       ),
-      child: RefreshStatusView<SearchResultController>(
+      child: StatusView<SearchResultController>(
         contentBuilder: (_) {
           return SmartRefresher(
             enablePullUp: true,

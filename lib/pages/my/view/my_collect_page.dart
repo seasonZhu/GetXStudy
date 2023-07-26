@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
-import 'package:getx_study/pages/common/refresh_status_view.dart';
+import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
@@ -20,7 +20,7 @@ class MyCollectPage extends GetView<MyCollectController> {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("我的收藏"),
       ),
-      child: RefreshStatusView<MyCollectController>(
+      child: StatusView<MyCollectController>(
         contentBuilder: (controller) {
           return SmartRefresher(
             enablePullUp: true,
