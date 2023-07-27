@@ -78,6 +78,7 @@ extension Plugs on Dio {
     interceptors.addAll([
       loggerPlugin,
       networkActivityPlugin,
+      responseInterceptorPlugin,
     ]);
     return this;
   }
