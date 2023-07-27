@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/enum/scroll_view_action_type.dart';
-import 'package:getx_study/pages/project_public_number/controller/project_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/enum/tag_type.dart';
@@ -11,7 +9,7 @@ import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
-import 'package:getx_study/logger/logger.dart';
+import 'package:getx_study/pages/project_public_number/controller/project_controller.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key}) : super(key: key);
@@ -23,10 +21,6 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _tabsController = Get.find<ProjectController>();
-
-  final _alreadyRequestIndex = <int>{};
-
-  final List<TabListController> _tabListControllers = [];
 
   late TabController _tabController;
 
@@ -40,22 +34,7 @@ class _ProjectPageState extends State<ProjectPage>
       body: StatusView<ProjectController>(
         contentBuilder: (controller) {
           _tabController = TabController(
-              length: _tabsController.data?.length ?? 0, vsync: this);
-          _tabController.addListener(() {
-            final index = _tabController.index;
-            final value = _tabController.animation?.value;
-
-            ///修复执行2次的BUG,增加条件
-            if (index == value) {
-              if (!_alreadyRequestIndex.contains(index)) {
-                _alreadyRequestIndex.add(index);
-                _tabListControllers[index]
-                    .aRequest(type: ScrollViewActionType.refresh);
-              } else {
-                logger.d("已经包含不用请求");
-              }
-            }
-          });
+              length: controller.data?.length ?? 0, vsync: this);
           return CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
               middle: MaterialApp(
@@ -110,7 +89,6 @@ class _ProjectPageState extends State<ProjectPage>
       controller.page = _tabsController.type.pageNum;
       controller.initPage = _tabsController.type.pageNum;
       Get.put(controller, tag: model.id.toString());
-      _tabListControllers.add(controller);
       return TabListPage(
         controller: controller,
       );
