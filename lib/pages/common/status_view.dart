@@ -13,13 +13,16 @@ typedef WidgetCallback<T extends BaseController>  = Widget Function(T);
 class StatusView<T extends BaseController> extends StatelessWidget {
   final WidgetCallback<T> contentBuilder;
 
+  final String? tag;
+
   const StatusView(
-      {Key? key, required this.contentBuilder})
+      {Key? key, required this.contentBuilder, this.tag})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<T>(
+      tag: tag,
       builder: ((controller) {
         return IndexedStack(
           index: controller.status.value,
