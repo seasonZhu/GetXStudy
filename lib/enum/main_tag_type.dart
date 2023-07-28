@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:getx_study/enum/tag_type.dart';
 
 import 'package:getx_study/pages/home/view/home_page.dart';
 import 'package:getx_study/pages/my/view/my_page.dart';
-import 'package:getx_study/pages/project_public_number/view/project_page.dart';
-import 'package:getx_study/pages/project_public_number/view/public_number_page.dart';
+import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 
 enum MainTagType { home, project, publicNumber, tree, my }
@@ -44,9 +44,9 @@ extension MainTagTypeExt on MainTagType {
       case MainTagType.home:
         return const HomePage();
       case MainTagType.project:
-        return const ProjectPage();
+        return const TabsPage(type: TagType.project);
       case MainTagType.publicNumber:
-        return const PublicNumberPage();
+        return const TabsPage(type: TagType.publicNumber);
       case MainTagType.tree:
         return const TreePage();
       case MainTagType.my:

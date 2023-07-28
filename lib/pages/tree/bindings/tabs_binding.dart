@@ -14,9 +14,11 @@ class TabsBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(
       () => TabsRepository(type),
+      tag: type.toString()
     );
     Get.lazyPut(
       () => TabsController(type),
+      tag: type.toString()
     );
     Get.lazyPut(
       () => TabListRepository(),

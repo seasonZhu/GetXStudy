@@ -1,11 +1,15 @@
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/pages/tree/repository/tabs_repository.dart';
+import 'package:getx_study/logger/logger.dart';
 
 class TabsController
-    extends BaseRequestController<TabsRepository, List<TabEntity>> {
+    extends BaseRequestController<TabsRepository, List<TabEntity>> with ScrollMixin {
   TabsController(this.type);
 
   TagType type;
@@ -13,6 +17,7 @@ class TabsController
   @override
   void onInit() async {
     super.onInit();
+    request = Get.find(tag: type.toString());
     aRequest();
   }
 
@@ -26,5 +31,15 @@ class TabsController
     data = response?.data ?? [];
     status = response?.responseStatus ?? ResponseStatus.loading;
     update();
+  }
+
+  @override
+  Future<void> onTopScroll() async {
+    logger.d("滑到了顶部");
+  }
+
+  @override
+  Future<void> onEndScroll() async {
+    logger.d("滑到了底部");
   }
 }

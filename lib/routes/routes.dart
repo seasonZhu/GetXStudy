@@ -19,12 +19,9 @@ import 'package:getx_study/pages/my/view/login_page.dart';
 import 'package:getx_study/pages/my/view/my_coin_history_page.dart';
 import 'package:getx_study/pages/my/view/my_collect_page.dart';
 import 'package:getx_study/pages/my/view/register_page.dart';
-import 'package:getx_study/pages/project_public_number/binding/project_binding.dart';
-import 'package:getx_study/pages/project_public_number/binding/public_number_binding.dart';
 import 'package:getx_study/pages/search_result/bindings/search_result_binding.dart';
 import 'package:getx_study/pages/search_result/view/search_result_page.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
-import 'package:getx_study/pages/tree/bindings/tree_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 import 'package:getx_study/pages/web/binding/web_binding.dart';
@@ -90,16 +87,16 @@ abstract class Routes {
     GetPage(
       name: tree,
       page: () => const TreePage(),
-      binding: TreeBinding(TagType.tree),
+      binding: TabsBinding(TagType.tree),
     ),
     GetPage(
       name: project,
-      page: () => const TabsPage(),
+      page: () => const TabsPage(type: TagType.project,),
       binding: TabsBinding(TagType.project),
     ),
     GetPage(
       name: publicNumber,
-      page: () => const TabsPage(),
+      page: () => const TabsPage(type: TagType.publicNumber,),
       binding: TabsBinding(TagType.publicNumber),
     ),
     GetPage(
@@ -109,9 +106,8 @@ abstract class Routes {
         MainBinding(),
         HomeBinding(),
         TabsBinding(TagType.project),
-        TreeBinding(TagType.tree),
-        ProjectBinding(),
-        PublicNumberBinding(),
+        TabsBinding(TagType.publicNumber),
+        TabsBinding(TagType.tree),
         MyBinding(),
         AccountBinding(),
       ],

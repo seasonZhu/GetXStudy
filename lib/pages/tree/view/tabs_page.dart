@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/enum/tag_type.dart';
@@ -11,10 +10,11 @@ import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/controller/tabs_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
-import 'package:getx_study/logger/logger.dart';
 
 class TabsPage extends StatefulWidget {
-  const TabsPage({Key? key}) : super(key: key);
+  final TagType type;
+
+  const TabsPage({Key? key, required this.type}) : super(key: key);
 
   @override
   State<TabsPage> createState() => _TabsPageState();
@@ -22,11 +22,7 @@ class TabsPage extends StatefulWidget {
 
 class _TabsPageState extends State<TabsPage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  final _tabsController = Get.find<TabsController>();
-
-  final _alreadyRequestIndex = <int>{};
-
-  final _tabListControllers = <TabListController>[];
+  late TabsController _tabsController;
 
   late TabController _tabController;
 
@@ -34,28 +30,20 @@ class _TabsPageState extends State<TabsPage>
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    super.initState();
+    _tabsController = Get.find<TabsController>(tag: widget.type.toString());
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return CupertinoPageScaffold(
       child: StatusView<TabsController>(
+        tag: widget.type.toString(),
         contentBuilder: (controller) {
           _tabController = TabController(
-              length: _tabsController.data?.length ?? 0, vsync: this);
-          _tabController.addListener(() {
-            final index = _tabController.index;
-            final value = _tabController.animation?.value;
-
-            ///修复执行2次的BUG,增加条件
-            if (index == value && index == _tabController.length - 1) {
-              if (!_alreadyRequestIndex.contains(index)) {
-                _alreadyRequestIndex.add(index);
-                _tabListControllers[index]
-                    .aRequest(type: ScrollViewActionType.refresh);
-              } else {
-                logger.d("已经包含不用请求");
-              }
-            }
-          });
+              length: controller.data?.length ?? 0, vsync: this);
           return CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
               middle: MaterialApp(
@@ -74,7 +62,7 @@ class _TabsPageState extends State<TabsPage>
     );
   }
 
-  TabBar _tabBar(TabController controller) {
+  TabBar _tabBar(TabController tabController) {
     return TabBar(
       tabs: (_tabsController.data ?? []).map(
         (model) {
@@ -86,7 +74,7 @@ class _TabsPageState extends State<TabsPage>
           );
         },
       ).toList(),
-      controller: controller,
+      controller: tabController,
       isScrollable: true,
       indicatorColor: Theme.of(context).primaryColor,
       indicatorSize: TabBarIndicatorSize.tab,
@@ -110,7 +98,6 @@ class _TabsPageState extends State<TabsPage>
       controller.page = _tabsController.type.pageNum;
       controller.initPage = _tabsController.type.pageNum;
       Get.put(controller, tag: model.id.toString());
-      _tabListControllers.add(controller);
       return TabListPage(
         controller: controller,
       );
