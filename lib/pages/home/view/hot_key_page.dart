@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/status_view.dart';
-import 'package:getx_study/pages/hot_key/controller/hot_key_controller.dart';
+import 'package:getx_study/pages/home/controller/hot_key_controller.dart';
 import 'search_text_field.dart';
 
 class HotKeyPage extends GetView<HotKeyController> {

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 import 'package:getx_study/pages/common/status_view.dart';
-import 'package:getx_study/pages/search_result/controller/search_result_controller.dart';
+import 'package:getx_study/pages/home/controller/search_result_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
