@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 
 import 'package:getx_study/http_util/network_activity_plugin.dart';
 import 'package:getx_study/resource/constant.dart';
+import 'package:getx_study/routes/routes.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'api.dart';
@@ -34,6 +36,11 @@ final networkActivityPlugin = NetworkActivityPlugin(
     final result =
         kWhiteList.where((element) => options.path.contains(element));
     if (result.isNotEmpty) {
+      /// 通过当前路由,获取当前页面,main页面会调用登录接口,会loading,这段逻辑优化处理
+      if (Get.currentRoute == Routes.main) {
+        return;
+      }
+
       switch (change) {
         case NetworkActivityChangeType.began:
           EasyLoading.show(
