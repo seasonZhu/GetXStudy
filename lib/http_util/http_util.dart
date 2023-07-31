@@ -13,7 +13,7 @@ const bool inProduction = bool.fromEnvironment("dart.vm.product");
 
 abstract class HttpUtils {
   // 超时时间 1min dio中是以毫秒计算的
-  static const timeout = 60000000;
+  static const timeout = Duration(seconds: 60);
 
   HttpUtils._();
 

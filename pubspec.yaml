@@ -9,31 +9,32 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.5
   get: ^4.6.5
-  card_swiper: ^2.0.4
-  webview_flutter: ^4.0.2
-  pull_to_refresh: ^2.0.0
-  flutter_slidable: ^2.0.0
-  cached_network_image: ^3.2.1
-  lpinyin: ^2.0.3
-  shared_preferences: ^2.0.15
-  dio: ^4.0.6
-  pretty_dio_logger: ^1.1.1
-  marquee: ^2.2.3
+  dio: ^5.2.0+1
+  pretty_dio_logger: ^1.3.1
+  cached_network_image: ^3.2.3
+  shared_preferences: ^2.1.1
   flutter_easyloading: ^3.0.5
+  pull_to_refresh: ^2.0.0
+  card_swiper: ^3.0.1
+  webview_flutter: ^4.2.2
+  flutter_slidable: ^3.0.0
+  lpinyin: ^2.0.3
+  marquee: ^2.2.3
   share: ^2.0.4
   r_dart_library:
     git:
       url: 'https://github.com/YK-Unit/r_dart_library.git'
       ref: 0.4.1
-  rxdart: ^0.27.5
-  image_picker: ^0.8.5+3
+  rxdart: ^0.27.7
+  image_picker: ^1.0.1
   url_launcher: ^6.1.5
-  image_gallery_saver: ^1.7.1
+  image_gallery_saver: ^2.0.3
   path_provider: ^2.0.11
   event_bus: ^2.0.0
   open_file: ^3.2.1
-  permission_handler: ^10.0.0
-  logger: ^1.2.2
+  permission_handler: ^10.4.3
+  logger: ^1.4.0
+  device_info_plus: ^9.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

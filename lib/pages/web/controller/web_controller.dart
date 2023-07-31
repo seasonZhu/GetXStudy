@@ -14,6 +14,7 @@ import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
 import 'package:getx_study/enum/collect_action_type.dart';
 import 'package:getx_study/logger/logger.dart';
+import 'package:getx_study/logger/class_name.dart' as Func;
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
 
 class WebController extends BaseRequestController<WebRepository, Object?> {
@@ -31,6 +32,11 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
   String? className;
 
+  @override
+  void onInit() {
+    super.onInit();
+    refreshController = Get.find(tag: Func.className(WebController));
+  }
 
   @override
   void onClose() {
@@ -60,21 +66,17 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
         NavigationDelegate(
           onProgress: (int progress) {
             logger.d('WebView is loading (progress : $progress%)');
+            EasyLoading.showProgress((progress / 100).toDouble(),
+                maskType: EasyLoadingMaskType.none);
           },
           onPageStarted: (String url) {
             logger.d('Page started loading: $url');
-            EasyLoading.show(
-                indicator: const CupertinoActivityIndicator(
-                  color: Colors.white,
-                  radius: 15,
-                ),
-                maskType: EasyLoadingMaskType.none);
-            refreshController.requestRefresh();
+            //refreshController.requestRefresh();
           },
           onPageFinished: (String url) {
             logger.d('Page finished loading: $url');
             EasyLoading.dismiss();
-            refreshController.refreshCompleted();
+            //refreshController.refreshCompleted();
           },
           onWebResourceError: (WebResourceError error) {
             logger.d('''
@@ -86,7 +88,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
                           ''');
           },
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
+            if (request.url.startsWith('https://www.baidu.com/')) {
               logger.d('blocking navigation to ${request.url}');
               return NavigationDecision.prevent;
             }
