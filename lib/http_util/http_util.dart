@@ -104,7 +104,7 @@ enum HTTPMethod {
   final String string;
 
   const HTTPMethod(this.string);
-}
+} 
 
 extension EnumStatus on Response {
   season.HttpStatus get status =>

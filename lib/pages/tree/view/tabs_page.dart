@@ -7,6 +7,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
+import 'package:getx_study/pages/common/keep_alive_wrapper.dart';
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/controller/tabs_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
@@ -42,8 +43,8 @@ class _TabsPageState extends State<TabsPage>
       child: StatusView<TabsController>(
         tag: widget.type.toString(),
         contentBuilder: (controller) {
-          _tabController = TabController(
-              length: controller.data?.length ?? 0, vsync: this);
+          _tabController =
+              TabController(length: controller.data?.length ?? 0, vsync: this);
           return CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
               middle: MaterialApp(
@@ -98,8 +99,10 @@ class _TabsPageState extends State<TabsPage>
       controller.page = _tabsController.type.pageNum;
       controller.initPage = _tabsController.type.pageNum;
       Get.put(controller, tag: model.id.toString());
-      return TabListPage(
-        controller: controller,
+      return KeepAliveWrapper(
+        child: TabListPage(
+          controller: controller,
+        ),
       );
     }).toList();
   }
