@@ -40,8 +40,9 @@ class MyController
       snackbarStatus: (status) {
         if (status == SnackbarStatus.CLOSED) {
           //Get.back();
-          navigator?.pop(AccountManager().isLogin);
-
+          if (response.isSuccess) {
+            navigator?.pop(AccountManager().isLogin);
+          }
           // navigator?.popUntil(
           //   (route) => route.settings.name == Routes.main,
           // );

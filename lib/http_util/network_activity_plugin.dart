@@ -21,7 +21,7 @@ class NetworkActivityPlugin extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     networkActivityCallback(
         NetworkActivityChangeType.ended, err.requestOptions);
     super.onError(err, handler);

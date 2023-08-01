@@ -46,6 +46,7 @@ abstract class HttpUtils {
     getCookieHeaderOptions().headers?.addAll(headers);
 
     /// 这个地方必须用queryParameters,用data传入就报错了
+    /// 这个地方其实是玩安卓的API比较奇葩,一般post请求,参数都是放到request的body中,而它的还是拼接到网址后面
     Response response = await _dio.post(api,
         queryParameters: params, options: getCookieHeaderOptions());
     Map<String, dynamic> json = response.data;
