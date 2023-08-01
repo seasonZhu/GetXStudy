@@ -79,12 +79,16 @@ class LoginPage extends GetView<MyController> {
                         SizedBox(
                           height: 20,
                           width: 38,
-                          child: InkWell(
-                            child: const Icon(Icons.security),
-                            onTap: () {
-                              final value = _obscureText.value;
-                              _obscureText.value = !value;
-                            },
+                          child: Obx(
+                            () => InkWell(
+                              child: _obscureText.value
+                                  ? const Icon(Icons.remove_red_eye)
+                                  : const Icon(Icons.security),
+                              onTap: () {
+                                final value = _obscureText.value;
+                                _obscureText.value = !value;
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -134,10 +138,10 @@ class LoginPage extends GetView<MyController> {
                                 ),
                                 onPressed: () {
                                   controller.login(
-                                        username:
-                                            _userNameTextFiledController.text,
-                                        password:
-                                            _passwordTextFiledController.text);
+                                      username:
+                                          _userNameTextFiledController.text,
+                                      password:
+                                          _passwordTextFiledController.text);
                                 }),
                           ),
                         ),

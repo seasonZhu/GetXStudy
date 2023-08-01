@@ -74,10 +74,12 @@ class MyController
       duration: const Duration(seconds: 1),
       snackbarStatus: (status) {
         if (status == SnackbarStatus.CLOSED) {
-          Future.delayed(
-            const Duration(seconds: 0),
-            () => navigator?.pop(AccountManager().isLogin),
-          );
+          if (response.isSuccess) {
+            Future.delayed(
+              const Duration(seconds: 0),
+              () => navigator?.pop(AccountManager().isLogin),
+            );
+          }
         }
       },
     );
