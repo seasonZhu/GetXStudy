@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:native_dio_adapter/native_dio_adapter.dart';
 
 import 'api.dart';
 import 'http_status.dart' as season;
@@ -81,6 +82,13 @@ extension Plugs on Dio {
       networkActivityPlugin,
       responseInterceptorPlugin,
     ]);
+    return this;
+  }
+
+  Dio get addNativeAdapter {
+    if (Platform.isIOS || Platform.isMacOS || Platform.isAndroid) {
+      httpClientAdapter = NativeAdapter();
+    }
     return this;
   }
 }
