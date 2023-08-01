@@ -9,6 +9,6 @@ abstract class BaseController extends GetxController implements IRetry, IEmptyTa
 }
 
 /// 要不要with是个问题
-mixin HttpResponseStatus on GetxController {
+mixin ResponseStatusMixin on GetxController {
   ResponseStatus status = ResponseStatus.loading;
 }
