@@ -15,7 +15,7 @@ class HomeController
     extends BaseRefreshController<HomeRepository, ArticleInfoDatas> {
   var banners = [];
 
-  var swiperAutoPlay = false.obs;
+  var swiperAutoPlay = false;
 
   @override
   void onInit() {
@@ -69,7 +69,7 @@ class HomeController
 
           /// 轮播图赋值
           banners = bannerModels;
-          swiperAutoPlay.value = true;
+          swiperAutoPlay = banners.length > 1 ? true : false;
 
           /// 列表赋值
           dataSource = topArticleModels;
@@ -77,7 +77,7 @@ class HomeController
         } else {
           response = BaseEntity(null, null, null);
 
-          swiperAutoPlay.value = false;
+          swiperAutoPlay = false;
         }
 
         break;

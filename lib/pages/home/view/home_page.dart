@@ -62,7 +62,7 @@ class HomePage extends GetView<HomeController> {
                       },
                       itemCount: controller.banners.length,
                       pagination: const SwiperPagination(),
-                      autoplay: controller.swiperAutoPlay.value,
+                      autoplay: controller.swiperAutoPlay,
                       autoplayDisableOnInteraction: true,
                       onTap: (index) {
                         logger.d(index);
