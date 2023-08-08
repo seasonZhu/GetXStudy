@@ -5,20 +5,15 @@ import 'package:rxdart/rxdart.dart';
 class RxDartApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: RxDartExamplePage(),
     );
   }
 }
 
-class RxDartExamplePage extends StatefulWidget {
-  const RxDartExamplePage({Key? key}) : super(key: key);
+class RxDartExamplePage extends StatelessWidget {
+  RxDartExamplePage({Key? key}) : super(key: key);
 
-  @override
-  State<RxDartExamplePage> createState() => _RxDartExamplePageState();
-}
-
-class _RxDartExamplePageState extends State<RxDartExamplePage> {
   final _relay = CounterRelay();
 
   @override
@@ -34,17 +29,13 @@ class _RxDartExamplePageState extends State<RxDartExamplePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            StreamBuilder(
+            StreamBuilder<int>(
               stream: _relay.stream,
-              builder: (context, AsyncSnapshot<int> snapshot) {
-                if (snapshot.hasData) {
-                  return Text(
-                    snapshot.data.toString(),
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  );
-                } else {
-                  return Container();
-                }
+              builder: (context, snapshot) {
+                return Text(
+                  _relay.stream.value.toString(),
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
               },
             )
           ],
@@ -56,12 +47,6 @@ class _RxDartExamplePageState extends State<RxDartExamplePage> {
         child: const Icon(Icons.add),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _relay.dispose();
-    super.dispose();
   }
 }
 
