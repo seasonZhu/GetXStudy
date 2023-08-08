@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:rxdart/rxdart.dart';
@@ -58,6 +60,22 @@ class RxDartExampleViewModel {
 
   void increment() {
     _subject.add(_subject.value + 1);
+  }
+
+  void dispose() {
+    _subject.close();
+  }
+}
+
+class RxDartExampleViewModel2 {
+  final _subject = PublishSubject<int>();
+
+  Stream<int> get stream => _subject.stream;
+
+  StreamSink<int> get sink => _subject.sink;
+
+  void increment() {
+    sink.add(1);
   }
 
   void dispose() {
