@@ -67,15 +67,23 @@ class RxDartExampleViewModel {
   }
 }
 
+/// 尝试使用了PublishSubject,但是感觉和BehaviorSubject差不多
 class RxDartExampleViewModel2 {
   final _subject = PublishSubject<int>();
+
+  var _count = 0;
 
   Stream<int> get stream => _subject.stream;
 
   StreamSink<int> get sink => _subject.sink;
 
+  RxDartExampleViewModel2() {
+    _subject.startWith(_count);
+  }
+
   void increment() {
-    sink.add(1);
+    _count++;
+    _subject.add(_count);
   }
 
   void dispose() {
