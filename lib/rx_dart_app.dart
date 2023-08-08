@@ -14,7 +14,7 @@ class RxDartApp extends StatelessWidget {
 class RxDartExamplePage extends StatelessWidget {
   RxDartExamplePage({Key? key}) : super(key: key);
 
-  final _relay = CounterRelay();
+  final _viewModel = RxDartExampleViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,11 @@ class RxDartExamplePage extends StatelessWidget {
               'You have pushed the button this many times:',
             ),
             StreamBuilder<int>(
-              stream: _relay.stream,
+              stream: _viewModel.stream,
               builder: (context, snapshot) {
                 return Text(
-                  _relay.stream.value.toString(),
+                  snapshot.data.toString(),
+                  //_viewModel.stream.value.toString(),
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
               },
@@ -42,7 +43,7 @@ class RxDartExamplePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _relay.increment,
+        onPressed: _viewModel.increment,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
@@ -50,7 +51,7 @@ class RxDartExamplePage extends StatelessWidget {
   }
 }
 
-class CounterRelay {
+class RxDartExampleViewModel {
   final _subject = BehaviorSubject.seeded(0);
 
   ValueStream<int> get stream => _subject.stream;
