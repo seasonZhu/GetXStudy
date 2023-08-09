@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:getx_study/account_manager/account_binding.dart';
 import 'package:getx_study/enum/tag_type.dart';
-import 'package:getx_study/my_home_page.dart';
 import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
 import 'package:getx_study/pages/coin_rank/view/coin_rank_page.dart';
 import 'package:getx_study/pages/common/unknown_page.dart';
@@ -25,7 +24,6 @@ import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 import 'package:getx_study/pages/web/binding/web_binding.dart';
-import 'package:getx_study/pages/web/view/app_h5_page.dart';
 import 'package:getx_study/pages/web/view/web_page.dart';
 
 abstract class Routes {
@@ -60,12 +58,6 @@ abstract class Routes {
   static const splash = "/splash";
 
   static const unknown = "/unknown";
-
-  static const myHomePage = "/myHomePage";
-
-  static const myNextPage = "/myNextPage";
-
-  static const appH5Page = "/appH5Page";
 
   ///页面合集
   static final routePage = [
@@ -150,22 +142,6 @@ abstract class Routes {
     GetPage(
       name: splash,
       page: () => const SplashPage()
-    ),
-
-    /// 以下是测试路由
-    GetPage(
-      name: myHomePage,
-      page: () => const MyHomePage(title: "普通计数器"),
-      binding: MyHomeBindings(),
-    ),
-    GetPage(
-      name: myNextPage,
-      page: () => MyNextPage(title: "响应式计数器"),
-      binding: MyNextBindings(),
-    ),
-    GetPage(
-      name: appH5Page,
-      page: () => AppH5Page()
     ),
   ];
 

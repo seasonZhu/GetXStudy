@@ -11,6 +11,16 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:getx_study/logger/logger.dart';
 
+class H5JSChannelApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      builder: EasyLoading.init(),
+      home: AppH5Page(),
+    );
+  }
+}
+
 class AppH5Page extends StatelessWidget {
   late WebViewController _controller;
 
@@ -20,10 +30,10 @@ class AppH5Page extends StatelessWidget {
   Widget build(BuildContext context) {
     _flutterWebViewSetting(context);
 
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text("Flutter与JS交互"),
-        trailing: IconButton(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Flutter与JS交互"),
+        actions: [IconButton(
           icon: const Icon(CupertinoIcons.share),
           onPressed: () async {
             var flutterMap = {
@@ -41,11 +51,11 @@ class AppH5Page extends StatelessWidget {
             logger.d(string);
             EasyLoading.showToast(string);
           },
-        ),
+        ),],
       ),
       // We're using a Builder here so we have a context that is below the Scaffold
       // to allow calling Scaffold.of(context) so we can show a snackbar.
-      child: SafeArea(
+      body: SafeArea(
         child: Builder(builder: (BuildContext context) {
           return WebViewWidget(
             controller: _controller,

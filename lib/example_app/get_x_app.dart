@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'routes/routes.dart';
+import 'example_routes.dart';
 
-class MyHomePage extends GetView<CountEasyController> {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class GetXApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      getPages: Routes.routePage,
+      initialBinding: GetXExampleBindings(),
+      home: const GetXExamplePage(),
+    );
+  }
+}
 
-  final String title;
+class GetXExamplePage extends GetView<GetXExampleController> {
+  const GetXExamplePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: const Text("GetX编写计数器"),
       ),
       body: Center(
         child: Column(
@@ -21,7 +30,7 @@ class MyHomePage extends GetView<CountEasyController> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            GetBuilder<CountEasyController>(
+            GetBuilder<GetXExampleController>(
               builder: ((controller) {
                 return Text(
                   controller.count.toString(),
@@ -45,7 +54,7 @@ class MyHomePage extends GetView<CountEasyController> {
   }
 }
 
-class CountEasyController extends GetxController {
+class GetXExampleController extends GetxController {
   var count = 0;
 
   void increment() {
@@ -54,29 +63,29 @@ class CountEasyController extends GetxController {
   }
 
   void pushToNextPage() {
-    Get.toNamed(Routes.myNextPage, arguments: {"message": "我是MyHomePage传来的数据"});
+    Get.toNamed(Routes.getxRxExamplePage, arguments: {"message": "我是GetXExamplePage传来的数据"});
   }
 }
 
-class MyHomeBindings extends Bindings {
+class GetXExampleBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => CountEasyController());
+    Get.lazyPut(() => GetXExampleController());
   }
 }
 
-class MyNextPage extends GetView<CountRxController> {
-  MyNextPage({Key? key, required this.title}) : super(key: key);
+class GetxRxExamplePage extends GetView<GetxRxExampleController> {
+  GetxRxExamplePage({Key? key}) : super(key: key);
 
-  final String title;
-
-  final _easyController = Get.find<CountEasyController>();
+  final _easyController = Get.find<GetXExampleController>();
 
   @override
   Widget build(BuildContext context) {
+    final map = Get.arguments;
+    final message = map["message"];
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: const Text("GetX响应式编写计数器"),
       ),
       body: Center(
         child: Column(
@@ -91,11 +100,7 @@ class MyNextPage extends GetView<CountRxController> {
                 style: Theme.of(context).textTheme.headlineMedium,
               );
             }),
-            GetBuilder<CountRxController>(
-              builder: (controller) {
-                return Text(controller.message);
-              },
-            ),
+            Text(message),
             ElevatedButton(
                 onPressed: controller.pushToCoinRankPage,
                 child: const Text("下一页"))
@@ -114,32 +119,21 @@ class MyNextPage extends GetView<CountRxController> {
   }
 }
 
-class MyNextBindings extends Bindings {
+class GetxRxExampleBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => CountRxController());
+    Get.lazyPut(() => GetxRxExampleController());
   }
 }
 
-class CountRxController extends GetxController {
+class GetxRxExampleController extends GetxController {
   var count = 0.obs;
-
-  var message = "";
-
-  @override
-  void onReady() {
-    final map = Get.arguments;
-    message = map["message"];
-    update();
-
-    super.onReady();
-  }
 
   void increment() {
     ++count;
   }
 
   void pushToCoinRankPage() {
-    Get.toNamed(Routes.coinRink);
+    Get.toNamed(Routes.getXExamplePage);
   }
 }

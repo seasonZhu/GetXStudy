@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 
 import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/my_app.dart';
+import 'package:getx_study/example_app/get_x_app.dart';
+import 'package:getx_study/example_app/rx_dart_app.dart';
+import 'package:getx_study/example_app/h5_js_channel_app.dart';
 
 void main() => run();
 
@@ -16,7 +19,10 @@ run() async {
   ]);
 
   final isFirst = await AccountManager().getIsFirstLaunch();
-  runApp(MyApp(isFirst: isFirst));
+  //runApp(MyApp(isFirst: isFirst));
+  //runApp(RxDartApp());
+  //runApp(GetXApp());
+  runApp(H5JSChannelApp());
 
   if (Platform.isAndroid) {
     // 以下两行 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
