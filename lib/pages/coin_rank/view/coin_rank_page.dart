@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 import 'package:getx_study/pages/common/status_view.dart';
-import 'package:getx_study/routes/routes.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';

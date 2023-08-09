@@ -19,10 +19,17 @@ run() async {
   ]);
 
   final isFirst = await AccountManager().getIsFirstLaunch();
-  //runApp(MyApp(isFirst: isFirst));
+  /// 玩安卓App的进这个
+  runApp(MyApp(isFirst: isFirst));
+
+  /// 使用RxDart与StreamBuilder构建页面的进这个
   //runApp(RxDartApp());
+
+  /// 使用GetX构建页面的进这个
   //runApp(GetXApp());
-  runApp(H5JSChannelApp());
+
+  /// Flutter与JS通信的进这个
+  //runApp(H5JSChannelApp());
 
   if (Platform.isAndroid) {
     // 以下两行 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
