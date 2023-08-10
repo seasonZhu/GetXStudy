@@ -40,7 +40,7 @@ class RxDartExamplePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
               },
-            )
+            ),
           ],
         ),
       ),

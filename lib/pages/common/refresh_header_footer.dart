@@ -22,20 +22,25 @@ class RefreshFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomFooter(
       builder: (context, mode) {
-        Widget body;
-        if (mode == LoadStatus.idle) {
-          body = const Text("上拉加载");
-        } else if (mode == LoadStatus.loading) {
-          body = const CupertinoActivityIndicator();
-        } else if (mode == LoadStatus.failed) {
-          body = const Text("加载失败！点击重试！");
-        } else if (mode == LoadStatus.canLoading) {
-          body = const Text("松手,加载更多!");
-        } else {
-          body = const Text("没有更多数据了!");
-        }
-        return Center(child: body);
+        return Center(child: mode?.statusBody);
       },
     );
+  }
+}
+
+extension on LoadStatus {
+  Widget get statusBody {
+    switch (this) {
+      case LoadStatus.idle:
+        return const Text("上拉加载");
+      case LoadStatus.canLoading:
+        return const Text("松手,加载更多!");
+      case LoadStatus.loading:
+        return const CupertinoActivityIndicator();
+      case LoadStatus.noMore:
+        return const Text("没有更多数据了!");
+      case LoadStatus.failed:
+        return Container();
+    }
   }
 }

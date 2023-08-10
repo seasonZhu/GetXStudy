@@ -1,5 +1,5 @@
 // 用于String替换掉Html元素的分类
-extension Ex on String {
+extension Extension on String {
   String get replaceHtmlElement {
     return replaceAll(RegExp("(<em[^>]*>)|(</em>)"), "")
         .replaceAll(RegExp("\n{2,}"), "\n")
