@@ -36,10 +36,15 @@ dependencies:
   permission_handler: ^10.4.3
   logger: ^1.4.0
   device_info_plus: ^9.0.2
+  retrofit: '>=4.0.0 <5.0.0'
+  json_annotation: ^4.8.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  retrofit_generator: '>=7.0.0 <8.0.0'
+  build_runner: '>=2.3.0 <4.0.0'
+  json_serializable: ^6.6.2
 flutter:
   uses-material-design: true
   assets:
