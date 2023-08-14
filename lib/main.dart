@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/example_app/stream_app.dart';
 import 'package:getx_study/my_app.dart';
 import 'package:getx_study/example_app/get_x_app.dart';
 import 'package:getx_study/example_app/rx_dart_app.dart';
@@ -19,8 +20,12 @@ run() async {
   ]);
 
   final isFirst = await AccountManager().getIsFirstLaunch();
+
   /// 玩安卓App的进这个
   runApp(MyApp(isFirst: isFirst));
+
+  /// 使用StreamController与StreamBuilder构建页面的进这个
+  //runApp(StreamApp());
 
   /// 使用RxDart与StreamBuilder构建页面的进这个
   //runApp(RxDartApp());
