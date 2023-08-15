@@ -121,6 +121,22 @@ GetX很好的完成了任务，GetX其实更像一个全家桶，里面不仅仅
 
 **所谓一通百通，我也通过RxSwift与Vue尝试写了wanandroid客户端，也欢迎大家一起学习。**
 
+## 2023年8月15日更新
+
+最近这一个月GetXStudy更新的比较频繁，别人的项目都是越写越复杂，我这个项目嘛,删除了不少模块，比如项目和公众号模块完全就被tree模块复用了，也让我在思考同一个controller如何在不同业务页面实施的问题，理顺对应的tag，如何正确的获取到对应的controller。
+
+RefreshStateView和StateView也只保留了一个，我太过自信的认为Dart的泛型会和Swift的泛型一样会智能推断，才导致了之前有两个差不多的Widget。
+
+尽量将Page层从StatefullWidget转到StatelessWidget，TabListPage就是一个生动的例子。
+
+对于响应式、RxDart、GetX以及Stream多了那么一点理解。
+
+使用了Dart版本的Retrofit，真香，目前正在考虑是否将网络请求层进行替换。
+
+将MyController的业务拆分的更为细化，对于Mixin的使用也有了更多理解，感谢更像Swift中Protocol的Extension，同时可以mixin不仅可以增加方法，而且可以定义属性，同时如果申明是基于某个类的mixin，甚至可以对某个类的方法与属性都能操作，灵活度非常的大。
+
+明明最近大半年都没有怎么写Flutter，结果折腾起来的都是大刀阔斧的进行，可能因为都是表层Api吧。
+
 ## Swift版wanandroid客户端
 
 [项目地址](https://github.com/seasonZhu/RxStudy)
