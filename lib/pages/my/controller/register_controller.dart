@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
 import 'package:getx_study/account_manager/account_manager.dart';
@@ -6,6 +8,14 @@ import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/logger/logger.dart';
 
 class RegisterController extends LoginController {
+
+  final rePasswordTextFiledController = TextEditingController(text: "");
+
+  final password = "".obs;
+
+  final rePassword = "".obs;
+
+  final reObscureText = true.obs;
 
   @override
   void onInit() {

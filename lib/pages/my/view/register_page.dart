@@ -7,23 +7,7 @@ import 'package:getx_study/base/resign_first_view.dart';
 import 'package:getx_study/pages/my/controller/register_controller.dart';
 
 class RegisterPage extends GetView<RegisterController> {
-  final _userNameTextFiledController = TextEditingController(text: "");
-
-  final _passwordTextFiledController = TextEditingController(text: "");
-
-  final _rePasswordTextFiledController = TextEditingController(text: "");
-
-  final _userNameIsNotEmpty = false.obs;
-
-  final _password = "".obs;
-
-  final _rePassword = "".obs;
-
-  final _obscureText = true.obs;
-
-  final _reObscureText = true.obs;
-
-  RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +29,10 @@ class RegisterPage extends GetView<RegisterController> {
                       children: <Widget>[
                         Expanded(
                           child: CupertinoTextField(
-                            controller: _userNameTextFiledController,
+                            controller: controller.userNameTextFiledController,
                             placeholder: "手机号",
-                            onChanged: (value) =>
-                                _userNameIsNotEmpty.value = value.isNotEmpty,
+                            onChanged: (value) => controller
+                                .userNameIsNotEmpty.value = value.isNotEmpty,
                           ),
                         ),
                         SizedBox(
@@ -57,63 +41,79 @@ class RegisterPage extends GetView<RegisterController> {
                           child: InkWell(
                             child: const Icon(Icons.clear),
                             onTap: () {
-                              _userNameTextFiledController.text = "";
+                              controller.userNameTextFiledController.text = "";
                             },
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: Obx(
                             () => CupertinoTextField(
-                              enabled: _userNameIsNotEmpty.value,
-                              controller: _passwordTextFiledController,
+                              enabled: controller.userNameIsNotEmpty.value,
+                              controller:
+                                  controller.passwordTextFiledController,
                               placeholder: "密码",
-                              obscureText: _obscureText.value,
-                              onChanged: (value) => _password.value = value,
+                              obscureText: controller.obscureText.value,
+                              onChanged: (value) =>
+                                  controller.password.value = value,
                             ),
                           ),
                         ),
                         SizedBox(
                           height: 20,
                           width: 38,
-                          child: InkWell(
-                            child: const Icon(Icons.security),
-                            onTap: () {
-                              final value = _obscureText.value;
-                              _obscureText.value = !value;
-                            },
+                          child: Obx(
+                            () => InkWell(
+                              child: controller.obscureText.value
+                                  ? const Icon(Icons.remove_red_eye)
+                                  : const Icon(Icons.security),
+                              onTap: () {
+                                final value = controller.obscureText.value;
+                                controller.obscureText.value = !value;
+                              },
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: Obx(
                             () => CupertinoTextField(
-                              enabled: _userNameIsNotEmpty.value &&
-                                  _password.value.isNotEmpty,
-                              controller: _rePasswordTextFiledController,
+                              enabled: controller.userNameIsNotEmpty.value &&
+                                  controller.password.value.isNotEmpty,
+                              controller:
+                                  controller.rePasswordTextFiledController,
                               placeholder: "确认密码",
-                              obscureText: _reObscureText.value,
-                              onChanged: (value) => _rePassword.value = value,
+                              obscureText: controller.reObscureText.value,
+                              onChanged: (value) =>
+                                  controller.rePassword.value = value,
                             ),
                           ),
                         ),
                         SizedBox(
                           height: 20,
                           width: 38,
-                          child: InkWell(
-                            child: const Icon(Icons.security),
-                            onTap: () {
-                              final value = _reObscureText.value;
-                              _reObscureText.value = !value;
-                            },
+                          child: Obx(
+                            () => InkWell(
+                              child: controller.reObscureText.value
+                                  ? const Icon(Icons.remove_red_eye)
+                                  : const Icon(Icons.security),
+                              onTap: () {
+                                final value = controller.reObscureText.value;
+                                controller.reObscureText.value = !value;
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -127,10 +127,10 @@ class RegisterPage extends GetView<RegisterController> {
                         height: 44,
                         child: Obx(
                           () => Visibility(
-                            visible: (_userNameIsNotEmpty.value &&
-                                    _password.value.isNotEmpty &&
-                                    _rePassword.value.isNotEmpty) &&
-                                (_password == _rePassword),
+                            visible: (controller.userNameIsNotEmpty.value &&
+                                    controller.password.value.isNotEmpty &&
+                                    controller.rePassword.value.isNotEmpty) &&
+                                (controller.password == controller.rePassword),
                             child: TextButton(
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
@@ -143,13 +143,13 @@ class RegisterPage extends GetView<RegisterController> {
                                 ),
                                 onPressed: () {
                                   controller.register(
-                                      username:
-                                          _userNameTextFiledController.text,
-                                      password:
-                                          _passwordTextFiledController.text,
-                                      rePassword:
-                                          _rePasswordTextFiledController.text,
-                                    );
+                                    username: controller
+                                        .userNameTextFiledController.text,
+                                    password: controller
+                                        .passwordTextFiledController.text,
+                                    rePassword: controller
+                                        .rePasswordTextFiledController.text,
+                                  );
                                 }),
                           ),
                         ),

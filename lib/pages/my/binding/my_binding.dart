@@ -11,7 +11,6 @@ class MyBinding extends Bindings {
       () => MyRepository(),
     );
     Get.lazyPut(
-      fenix: true,
       () => MyController(),
     );
   }

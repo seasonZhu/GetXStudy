@@ -8,18 +8,8 @@ import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class LoginPage extends GetView<LoginController> {
-  /// 其实可以将TextEditingController移植到MyController,但是考虑到登录与注册都复用了MyController,所以没有复用
-  final _userNameTextFiledController = TextEditingController(text: "");
 
-  final _passwordTextFiledController = TextEditingController(text: "");
-
-  final _userNameIsNotEmpty = false.obs;
-
-  final _passwordIsNotEmpty = false.obs;
-
-  final _obscureText = true.obs;
-
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +31,10 @@ class LoginPage extends GetView<LoginController> {
                       children: <Widget>[
                         Expanded(
                           child: CupertinoTextField(
-                            controller: _userNameTextFiledController,
+                            controller: controller.userNameTextFiledController,
                             placeholder: "手机号",
                             onChanged: (value) =>
-                                _userNameIsNotEmpty.value = value.isNotEmpty,
+                                controller.userNameIsNotEmpty.value = value.isNotEmpty,
                           ),
                         ),
                         SizedBox(
@@ -53,7 +43,7 @@ class LoginPage extends GetView<LoginController> {
                           child: InkWell(
                             child: const Icon(Icons.clear),
                             onTap: () {
-                              _userNameTextFiledController.text = "";
+                              controller.userNameTextFiledController.text = "";
                             },
                           ),
                         ),
@@ -67,12 +57,12 @@ class LoginPage extends GetView<LoginController> {
                         Expanded(
                           child: Obx(
                             () => CupertinoTextField(
-                              enabled: _userNameIsNotEmpty.value,
-                              controller: _passwordTextFiledController,
+                              enabled: controller.userNameIsNotEmpty.value,
+                              controller: controller.passwordTextFiledController,
                               placeholder: "密码",
-                              obscureText: _obscureText.value,
+                              obscureText: controller.obscureText.value,
                               onChanged: (value) =>
-                                  _passwordIsNotEmpty.value = value.isNotEmpty,
+                                  controller.passwordIsNotEmpty.value = value.isNotEmpty,
                             ),
                           ),
                         ),
@@ -81,12 +71,12 @@ class LoginPage extends GetView<LoginController> {
                           width: 38,
                           child: Obx(
                             () => InkWell(
-                              child: _obscureText.value
+                              child: controller.obscureText.value
                                   ? const Icon(Icons.remove_red_eye)
                                   : const Icon(Icons.security),
                               onTap: () {
-                                final value = _obscureText.value;
-                                _obscureText.value = !value;
+                                final value = controller.obscureText.value;
+                                controller.obscureText.value = !value;
                               },
                             ),
                           ),
@@ -124,8 +114,8 @@ class LoginPage extends GetView<LoginController> {
                         height: 44,
                         child: Obx(
                           () => Visibility(
-                            visible: _userNameIsNotEmpty.value &&
-                                _passwordIsNotEmpty.value,
+                            visible: controller.userNameIsNotEmpty.value &&
+                                controller.passwordIsNotEmpty.value,
                             child: TextButton(
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
@@ -139,9 +129,9 @@ class LoginPage extends GetView<LoginController> {
                                 onPressed: () {
                                   controller.login(
                                       username:
-                                          _userNameTextFiledController.text,
+                                          controller.userNameTextFiledController.text,
                                       password:
-                                          _passwordTextFiledController.text);
+                                          controller.passwordTextFiledController.text);
                                 }),
                           ),
                         ),

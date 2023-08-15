@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
 import 'package:getx_study/account_manager/account_manager.dart';
@@ -10,6 +12,16 @@ import 'package:getx_study/logger/logger.dart';
 
 class LoginController
     extends BaseRequestController<MyRepository, AccountInfoEntity> with GetUserInfoMixin {
+  
+  final userNameTextFiledController = TextEditingController(text: "");
+
+  final passwordTextFiledController = TextEditingController(text: "");
+
+  final userNameIsNotEmpty = false.obs;
+
+  final passwordIsNotEmpty = false.obs;
+
+  final obscureText = true.obs;
 
   @override
   void onInit() {

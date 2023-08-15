@@ -108,12 +108,12 @@ abstract class Routes {
     ),
     GetPage(
       name: login,
-      page: () => LoginPage(),
+      page: () => const LoginPage(),
       binding: LoginBinding(),
     ),
     GetPage(
       name: register,
-      page: () => RegisterPage(),
+      page: () => const RegisterPage(),
       binding: RegisterBinding(),
     ),
     GetPage(
