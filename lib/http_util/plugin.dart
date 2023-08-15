@@ -12,7 +12,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'api.dart';
 
-/// 白名单
+/// 白名单,就是需要进行loading和dismiss的页面
 const kWhiteList = [
   Api.postLogin,
   Api.postRegister,
@@ -37,7 +37,8 @@ final networkActivityPlugin = NetworkActivityPlugin(
         kWhiteList.where((element) => options.path.contains(element));
     if (result.isNotEmpty) {
       /// 通过当前路由,获取当前页面,main页面会调用登录接口,会loading,这段逻辑优化处理
-      if (Get.currentRoute == Routes.main) {
+      /// 同时登出的时候,需要loading,也要进行优化
+      if (Get.currentRoute == Routes.main && options.path != Api.getLogout) {
         return;
       }
 
