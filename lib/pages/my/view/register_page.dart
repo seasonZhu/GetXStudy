@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_study/base/resign_first_view.dart';
-import 'package:getx_study/pages/my/controller/my_controller.dart';
+import 'package:getx_study/pages/my/controller/register_controller.dart';
 
-class RegisterPage extends GetView<MyController> {
+class RegisterPage extends GetView<RegisterController> {
   final _userNameTextFiledController = TextEditingController(text: "");
 
   final _passwordTextFiledController = TextEditingController(text: "");

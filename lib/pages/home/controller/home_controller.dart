@@ -10,6 +10,7 @@ import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/pages/home/repository/home_repository.dart';
+import 'package:getx_study/pages/my/controller/my_controller.dart';
 
 class HomeController
     extends BaseRefreshController<HomeRepository, ArticleInfoDatas> {
@@ -23,6 +24,9 @@ class HomeController
     initPage = Get.find<int>(tag: className(HomeController));
     page = initPage;
     refreshController = Get.find(tag: className(HomeController));
+
+    final myController = Get.find<MyController>();
+    myController.autoLogin();
   }
 
   @override

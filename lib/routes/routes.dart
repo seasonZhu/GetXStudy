@@ -11,9 +11,11 @@ import 'package:getx_study/pages/launch/splash_page.dart';
 import 'package:getx_study/pages/launch/welcome_page.dart';
 import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
+import 'package:getx_study/pages/my/binding/login_binding.dart';
 import 'package:getx_study/pages/my/binding/my_binding.dart';
 import 'package:getx_study/pages/my/binding/my_coin_history_binding.dart';
 import 'package:getx_study/pages/my/binding/my_collect_binding.dart';
+import 'package:getx_study/pages/my/binding/register_binding.dart';
 import 'package:getx_study/pages/my/view/login_page.dart';
 import 'package:getx_study/pages/my/view/my_coin_history_page.dart';
 import 'package:getx_study/pages/my/view/my_collect_page.dart';
@@ -107,10 +109,12 @@ abstract class Routes {
     GetPage(
       name: login,
       page: () => LoginPage(),
+      binding: LoginBinding(),
     ),
     GetPage(
       name: register,
       page: () => RegisterPage(),
+      binding: RegisterBinding(),
     ),
     GetPage(
       name: myCoinHistory,

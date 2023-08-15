@@ -8,7 +8,6 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
@@ -21,8 +20,6 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final myController = Get.find<MyController>();
-    myController.autoLogin();
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: const Text("首页"),

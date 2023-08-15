@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_study/base/resign_first_view.dart';
-import 'package:getx_study/pages/my/controller/my_controller.dart';
+import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
-class LoginPage extends GetView<MyController> {
+class LoginPage extends GetView<LoginController> {
   /// 其实可以将TextEditingController移植到MyController,但是考虑到登录与注册都复用了MyController,所以没有复用
   final _userNameTextFiledController = TextEditingController(text: "");
 
