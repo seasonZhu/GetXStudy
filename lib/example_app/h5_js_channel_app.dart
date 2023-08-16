@@ -33,25 +33,12 @@ class AppH5Page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Flutter与JS交互"),
-        actions: [IconButton(
-          icon: const Icon(CupertinoIcons.share),
-          onPressed: () async {
-            var flutterMap = {
-              "type": "commit",
-              "message": "this is a message from Flutter"
-            };
-
-            var jsonString = convert.jsonEncode(flutterMap);
-
-            /// dart调用js,js方法入参,这是我目前可以传参成功的方式,直接传字符串目前怎么传都不对
-            final javaScriptCallbackResult =
-                await _controller.runJavaScriptReturningResult(
-                    "sendMessageToDiscussList('$jsonString')");
-            final string = javaScriptCallbackResult as String;
-            logger.d(string);
-            EasyLoading.showToast(string);
-          },
-        ),],
+        actions: [
+          IconButton(
+            icon: const Icon(CupertinoIcons.share),
+            onPressed: _flutterCallJS,
+          ),
+        ],
       ),
       // We're using a Builder here so we have a context that is below the Scaffold
       // to allow calling Scaffold.of(context) so we can show a snackbar.
@@ -138,5 +125,22 @@ class AppH5Page extends StatelessWidget {
             encoding: convert.Encoding.getByName('utf-8'))
         .toString());
     logger.d(fileText);
+  }
+
+  void _flutterCallJS() async {
+    var flutterMap = {
+      "type": "commit",
+      "message": "this is a message from Flutter"
+    };
+
+    var jsonString = convert.jsonEncode(flutterMap);
+
+    /// dart调用js,js方法入参,使用html中注释的方法,基本上所有的类型都可以传
+    final javaScriptCallbackResult =
+        await _controller.runJavaScriptReturningResult(
+            "sendMessageToDiscussList('$jsonString')");
+    final string = javaScriptCallbackResult as String;
+    logger.d(string);
+    EasyLoading.showToast(string);
   }
 }
