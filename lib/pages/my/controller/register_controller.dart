@@ -8,7 +8,6 @@ import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/logger/logger.dart';
 
 class RegisterController extends LoginController {
-
   final rePasswordTextFiledController = TextEditingController(text: "");
 
   final password = "".obs;
@@ -56,4 +55,10 @@ class RegisterController extends LoginController {
       },
     );
   }
+
+  bool get isShowRegisterButton =>
+      (userNameIsNotEmpty.value &&
+          password.value.isNotEmpty &&
+          rePassword.value.isNotEmpty) &&
+      (password == rePassword);
 }
