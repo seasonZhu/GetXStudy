@@ -24,7 +24,7 @@ class MyCoinEntity {
   }
 
   /// Dart的可选类型没有解包运算符https://cloud.tencent.com/developer/ask/sof/1357979/answer/1869854
-  String get myCoinInfo {
+  String get userInfo {
     if (rank != null && level != null && coinCount != null) {
       return "排名: $rank! 等级: $level 积分: $coinCount";
     } else {

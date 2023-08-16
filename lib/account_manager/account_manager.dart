@@ -22,7 +22,7 @@ class AccountManager {
 
   var isLogin = false;
 
-  var myCoinInfo = "等级 --  排名 --  积分 --";
+  var userInfo = "等级 --  排名 --  积分 --";
 
   Future<SharedPreferences> get userDefine async =>
       await SharedPreferences.getInstance();
@@ -99,7 +99,7 @@ class AccountManager {
 
   Future<void> clear() async {
     info = null;
-    myCoinInfo = "等级 --  排名 --  积分 --";
+    userInfo = "等级 --  排名 --  积分 --";
     isLogin = false;
     final userDefine = await this.userDefine;
     userDefine.remove(kLastLoginUserName);

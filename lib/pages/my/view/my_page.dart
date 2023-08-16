@@ -19,11 +19,11 @@ class MyPage extends GetView<MyController> {
 
     final isLogin = AccountManager().isLogin.obs;
 
-    final userInfo = AccountManager().myCoinInfo.obs;
+    final userInfo = AccountManager().userInfo.obs;
 
     controller.autoLoginSuccessCallback = () {
       isLogin.value = AccountManager().isLogin;
-      userInfo.value = AccountManager().myCoinInfo;
+      userInfo.value = AccountManager().userInfo;
     };
 
     return CupertinoPageScaffold(
@@ -92,8 +92,7 @@ class MyPage extends GetView<MyController> {
                                   onPressed: () async {
                                     Get.back();
                                     final result = await controller.logout();
-                                    userInfo.value =
-                                        AccountManager().myCoinInfo;
+                                    userInfo.value = AccountManager().userInfo;
                                     isLogin.value = result;
                                   },
                                 ),
