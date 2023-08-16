@@ -12,19 +12,7 @@ class MyPage extends GetView<MyController> {
 
   @override
   Widget build(BuildContext context) {
-    /*
-     为了避免这种问题，_observable_的第一次变化将总是触发一个事件，即使它包含相同的.value。
-     如果你想删除这种行为，你可以使用： isLogin.firstRebuild = false;。
-     */
-
-    final isLogin = AccountManager().isLogin.obs;
-
-    final userInfo = AccountManager().userInfo.obs;
-
-    controller.autoLoginSuccessCallback = () {
-      isLogin.value = AccountManager().isLogin;
-      userInfo.value = AccountManager().userInfo;
-    };
+    
 
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
@@ -32,10 +20,10 @@ class MyPage extends GetView<MyController> {
       ),
       child: Obx(
         () {
-          final dataSource = isLogin.value
+          final dataSource = controller.isLogin.value
               ? my.Extension.userDataSource
               : my.Extension.visitorDataSource;
-          final icon = isLogin.value ? Icons.android : Icons.person;
+          final icon = controller.isLogin.value ? Icons.android : Icons.person;
           return ListView.separated(
               itemBuilder: (context, index) {
                 if (index == 0) {
@@ -49,7 +37,7 @@ class MyPage extends GetView<MyController> {
                             height: 66,
                             child: Icon(icon),
                           ),
-                          Text(userInfo.value),
+                          Text(controller.rxUserInfo.value),
                         ],
                       ));
                 } else {
@@ -62,8 +50,8 @@ class MyPage extends GetView<MyController> {
                       if (model == my.My.login) {
                         final result = await Get.toNamed(Routes.login);
                         if (result != null) {
-                          isLogin.value = result;
-                          userInfo.value = controller.userInfo;
+                          controller.isLogin.value = result;
+                          controller.rxUserInfo.value = controller.userInfo;
                         }
                       } else if (model == my.My.logout) {
                         showCupertinoDialog(
@@ -92,8 +80,8 @@ class MyPage extends GetView<MyController> {
                                   onPressed: () async {
                                     Get.back();
                                     final result = await controller.logout();
-                                    userInfo.value = AccountManager().userInfo;
-                                    isLogin.value = result;
+                                    controller.rxUserInfo.value = AccountManager().userInfo;
+                                    controller.isLogin.value = result;
                                   },
                                 ),
                               ],

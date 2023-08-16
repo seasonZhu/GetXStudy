@@ -7,9 +7,16 @@ import 'package:getx_study/pages/my/controller/mixin_get_user_info.dart';
 import 'package:getx_study/pages/my/repository/my_repository.dart';
 import 'package:getx_study/logger/logger.dart';
 
-class MyController extends BaseRequestController<MyRepository, AccountInfoEntity> with GetUserInfoMixin {
+class MyController
+    extends BaseRequestController<MyRepository, AccountInfoEntity>
+    with GetUserInfoMixin {
+  /*
+     为了避免这种问题，_observable_的第一次变化将总是触发一个事件，即使它包含相同的.value。
+     如果你想删除这种行为，你可以使用： isLogin.firstRebuild = false;。
+     */
+  final isLogin = AccountManager().isLogin.obs;
 
-  void Function()? autoLoginSuccessCallback;
+  final rxUserInfo = AccountManager().userInfo.obs;
 
   @override
   void onInit() {
@@ -47,10 +54,12 @@ class MyController extends BaseRequestController<MyRepository, AccountInfoEntity
         await AccountManager()
             .save(info: response.data!, isLogin: true, password: password);
         message = "自动登录成功";
+
         await getUserCoinInfo();
-        if (autoLoginSuccessCallback != null) {
-          autoLoginSuccessCallback!();
-        }
+
+        isLogin.value = AccountManager().isLogin;
+        rxUserInfo.value = AccountManager().userInfo;
+        
       } else {
         message = "自动登录失败";
       }
