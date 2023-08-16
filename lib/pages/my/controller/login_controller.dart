@@ -6,7 +6,7 @@ import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
-import 'package:getx_study/pages/my/controller/mixin_get_user_info.dart';
+import 'package:getx_study/pages/my/controller/get_user_info_mixin.dart';
 import 'package:getx_study/pages/my/repository/my_repository.dart';
 import 'package:getx_study/logger/logger.dart';
 

@@ -137,6 +137,8 @@ RefreshStateView和StateView也只保留了一个，我太过自信的认为Dart
 
 明明最近大半年都没有怎么写Flutter，结果折腾起来的都是大刀阔斧的进行，可能因为都是表层Api吧。
 
+其实很想把AccountManager的逻辑写到AccountController里面去，不过看了一下逻辑和操作，本质上面没有变化就算了。
+
 ## Swift版wanandroid客户端
 
 [项目地址](https://github.com/seasonZhu/RxStudy)
