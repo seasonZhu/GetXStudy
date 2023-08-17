@@ -11,6 +11,8 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:getx_study/logger/logger.dart';
 
+import 'js_bridge.dart';
+
 class H5JSChannelApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,8 @@ class H5JSChannelApp extends StatelessWidget {
 
 class AppH5Page extends StatelessWidget {
   late WebViewController _controller;
+
+  final jsBridge = JSBridge();
 
   AppH5Page({Key? key}) : super(key: key);
 
@@ -114,6 +118,8 @@ class AppH5Page extends StatelessWidget {
           .setMediaPlaybackRequiresUserGesture(false);
     }
     _controller = webController;
+
+    _jsBridgeSetting();
   }
 
   Future<void> _loadHtmlFromAssets() async {
@@ -142,5 +148,21 @@ class AppH5Page extends StatelessWidget {
     final string = javaScriptCallbackResult as String;
     logger.d(string);
     EasyLoading.showToast(string);
+  }
+
+  void _jsBridgeSetting() {
+    jsBridge
+      ..setWebViewController(_controller)
+      ..addJavaScriptChannel()
+      ..registerResponse('/test', (value, next) {
+        next('flutter响应消息');
+      });
+
+    Function? unsubscribe;
+    unsubscribe = jsBridge.subscribe('test', (value) {
+      unsubscribe?.call(); // 取消订阅
+      /// 6、发布消息事件："test"
+      jsBridge.publisher('test', '这是一条订阅消息');
+    });
   }
 }
