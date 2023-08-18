@@ -1,4 +1,3 @@
-import { v1 as uuid } from 'uuid';
 export type SubscribeCallback = (params?: any) => void;
  
 const MESSAGE_TYPE_REQUEST = 'request';
@@ -40,7 +39,7 @@ class JSBridge {
   // 请求响应
   request = (eventName: string, params: any, timeout = REQUEST_TIME_OUT): Promise<any> => {
     return new Promise((resolve: any) => {
-      const id: string = uuid();
+      const id: string = generateRandomString(36);
       let timer;
       this.requestCallbackMap[id] = (params) => {
         clearTimeout(timer);
@@ -86,6 +85,14 @@ class JSBridge {
 }
  
 export default JSBridge;
+
+function generateRandomString(length:number): string {
+  return new Array(length)
+    .fill(0)
+    .map(() => Math.floor(Math.random() * 36).toString(36))
+    .join('')
+    .toUpperCase();
+}
 
 /**
 import React, { useEffect } from 'react';
