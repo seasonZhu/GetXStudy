@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:webview_flutter_jsbridge/webview_flutter_jsbridge.dart';
+
 import 'package:getx_study/account_manager/account_manager.dart';
 import 'package:getx_study/example_app/stream_app.dart';
 import 'package:getx_study/my_app.dart';

@@ -45,6 +45,9 @@ dev_dependencies:
   retrofit_generator: '>=7.0.0 <8.0.0'
   build_runner: '>=2.3.0 <4.0.0'
   json_serializable: ^6.6.2
+  webview_flutter_jsbridge:
+    git:
+      url: 'https://github.com/seasonZhu/webview_flutter_jsbridge'
 flutter:
   uses-material-design: true
   assets:
