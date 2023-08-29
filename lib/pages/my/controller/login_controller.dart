@@ -11,8 +11,8 @@ import 'package:getx_study/pages/my/repository/my_repository.dart';
 import 'package:getx_study/logger/logger.dart';
 
 class LoginController
-    extends BaseRequestController<MyRepository, AccountInfoEntity> with GetUserInfoMixin {
-  
+    extends BaseRequestController<MyRepository, AccountInfoEntity>
+    with GetUserInfoMixin {
   final userNameTextFiledController = TextEditingController(text: "");
 
   final passwordTextFiledController = TextEditingController(text: "");
@@ -43,13 +43,17 @@ class LoginController
     } else {
       message = "登录失败";
     }
+    /// 在这里可以跳转
+    // Get.back();
+    // return;
     Get.snackbar(
       "",
       message,
       duration: const Duration(seconds: 1),
       snackbarStatus: (status) {
         if (status == SnackbarStatus.CLOSED) {
-          //Get.back();
+          /// 在这里不能跳转,目前还没找到原因
+          // Get.back();
           if (response.isSuccess) {
             navigator?.pop(AccountManager().isLogin);
           }

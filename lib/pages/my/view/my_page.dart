@@ -12,8 +12,6 @@ class MyPage extends GetView<MyController> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text("我的"),
@@ -28,18 +26,19 @@ class MyPage extends GetView<MyController> {
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return AspectRatio(
-                      aspectRatio: 16.0 / 9.0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 66,
-                            height: 66,
-                            child: Icon(icon),
-                          ),
-                          Text(controller.rxUserInfo.value),
-                        ],
-                      ));
+                    aspectRatio: 16.0 / 9.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 66,
+                          height: 66,
+                          child: Icon(icon),
+                        ),
+                        Text(controller.rxUserInfo.value),
+                      ],
+                    ),
+                  );
                 } else {
                   final model = dataSource[index];
                   return ListTile(
@@ -80,7 +79,8 @@ class MyPage extends GetView<MyController> {
                                   onPressed: () async {
                                     Get.back();
                                     final result = await controller.logout();
-                                    controller.rxUserInfo.value = AccountManager().userInfo;
+                                    controller.rxUserInfo.value =
+                                        AccountManager().userInfo;
                                     controller.isLogin.value = result;
                                   },
                                 ),
