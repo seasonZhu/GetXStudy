@@ -43,6 +43,7 @@ class LoginController
     } else {
       message = "登录失败";
     }
+
     /// 在这里可以跳转
     // Get.back();
     // return;
@@ -55,7 +56,11 @@ class LoginController
           /// 在这里不能跳转,目前还没找到原因
           // Get.back();
           if (response.isSuccess) {
-            navigator?.pop(AccountManager().isLogin);
+            final params = {
+              "isLogin": AccountManager().isLogin,
+              "userInfo": userInfo,
+            };
+            navigator?.pop(params);
           }
           // navigator?.popUntil(
           //   (route) => route.settings.name == Routes.main,

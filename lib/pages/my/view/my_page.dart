@@ -22,6 +22,7 @@ class MyPage extends GetView<MyController> {
               ? my.Extension.userDataSource
               : my.Extension.visitorDataSource;
           final icon = controller.isLogin.value ? Icons.android : Icons.person;
+
           return ListView.separated(
               itemBuilder: (context, index) {
                 if (index == 0) {
@@ -47,11 +48,10 @@ class MyPage extends GetView<MyController> {
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () async {
                       if (model == my.My.login) {
-                        final result = await Get.toNamed(Routes.login);
-                        if (result != null) {
-                          controller.isLogin.value = result;
-                          controller.rxUserInfo.value = controller.userInfo;
-                        }
+                        final result = await Get.toNamed(Routes.login)
+                            as Map<String, dynamic>;
+                        controller.isLogin.value = result["isLogin"];
+                        controller.rxUserInfo.value = result["userInfo"];
                       } else if (model == my.My.logout) {
                         showCupertinoDialog(
                           context: context,
