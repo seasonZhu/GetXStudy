@@ -20,6 +20,7 @@ mixin ResponseStatusMixin on GetxController {
 /// 这里考虑用的mixin的方式,这样的好处的是,有些页面根本就不需要检查是否登录,也就减少了继承的成本
 /// 但是用mixin的问题是,很多页面又都需要写with
 /// 先with然后再extends?
+/// 本质上GetMiddleware的中间件已经做了这个事情,详细看LoginMiddleware,但是如何去拦截点击事情还没想好
 mixin CheckIsLoginMixin on BaseController {
   bool checkIsLogin() {
     if (!AccountManager().isLogin) {
