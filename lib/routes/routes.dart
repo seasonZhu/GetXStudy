@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:getx_study/account_manager/account_binding.dart';
+import 'package:getx_study/base/state_mixin_controller.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
 import 'package:getx_study/pages/coin_rank/view/coin_rank_page.dart';
@@ -63,6 +64,8 @@ abstract class Routes {
 
   static const unknown = "/unknown";
 
+  static const stateMixinExample = "/stateMixinExample";
+
   ///页面合集
   static final routePage = [
     GetPage(
@@ -88,12 +91,16 @@ abstract class Routes {
     ),
     GetPage(
       name: project,
-      page: () => const TabsPage(type: TagType.project,),
+      page: () => const TabsPage(
+        type: TagType.project,
+      ),
       binding: TabsBinding(TagType.project),
     ),
     GetPage(
       name: publicNumber,
-      page: () => const TabsPage(type: TagType.publicNumber,),
+      page: () => const TabsPage(
+        type: TagType.publicNumber,
+      ),
       binding: TabsBinding(TagType.publicNumber),
     ),
     GetPage(
@@ -139,18 +146,19 @@ abstract class Routes {
       middlewares: [WebMiddleware()],
     ),
     GetPage(
+      name: stateMixinExample,
+      page: () => const StateMixinExamplePage(),
+      binding: StateMixinBinding(),
+    ),
+    GetPage(
       name: unknown,
       page: () => const UnknownPage(),
     ),
-
     GetPage(
       name: welcome,
       page: () => const WelcomePage(),
     ),
-    GetPage(
-      name: splash,
-      page: () => const SplashPage()
-    ),
+    GetPage(name: splash, page: () => const SplashPage()),
   ];
 
   static final unknownPage = GetPage(

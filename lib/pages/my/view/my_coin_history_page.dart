@@ -36,7 +36,7 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
                   leading: Text(model.reason.toString()),
                   title: Text(model.desc.toString()),
                   trailing: Text(model.coinCount.toString()),
-                  onTap: () => Get.toNamed(Routes.hotKey),
+                  onTap: () => Get.toNamed(Routes.stateMixinExample),
                 );
               },
             ),
