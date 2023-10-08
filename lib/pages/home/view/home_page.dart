@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:getx_study/logger/logger.dart';
+import 'package:getx_study/pages/common/my_list_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -106,6 +107,64 @@ class HomePage extends GetView<HomeController> {
           );
         },
       ),
+    );
+  }
+
+  /// 使用自定义的MyListView进行布局
+  Widget _myListView() {
+    return MyListView(
+      banner: AspectRatio(
+        aspectRatio: 16.0 / 9.0,
+        child: Swiper(
+          itemBuilder: (BuildContext itemContext, int index) {
+            if (controller.banners.length >= index) {
+              return CachedNetworkImage(
+                fit: BoxFit.fitWidth,
+                imageUrl: controller.banners[index].imagePath,
+                placeholder: (context, url) => Image.asset(
+                  "assets/images/placeholder.png",
+                ),
+              );
+            } else {
+              return Container();
+            }
+          },
+          itemCount: controller.banners.length,
+          pagination: const SwiperPagination(),
+          autoplay: controller.swiperAutoPlay,
+          autoplayDisableOnInteraction: true,
+          onTap: (index) {
+            logger.d(index);
+            Get.toNamed("/web/true", arguments: controller.banners[index]);
+          },
+        ),
+      ),
+      itemBuilder: (context, index) {
+        final model = controller.dataSource[index];
+        return InfoCell(
+          model: model,
+          callback: (_) async {
+            logger.d("点击了");
+            if (model.id == 24742) {
+              if (model.link != null) {
+                final url = Uri.parse(model.link.toString().replaceHtmlElement);
+                if (await canLaunchUrl(url)) {
+                  launchUrl(url, mode: LaunchMode.externalApplication);
+                } else {
+                  Get.snackbar(
+                    "",
+                    "请安装手机QQ",
+                    duration: const Duration(seconds: 1),
+                  );
+                }
+              }
+            } else {
+              Get.toNamed(Routes.web, arguments: model);
+            }
+          },
+        );
+      },
+      itemCount: controller.dataSource.length,
     );
   }
 }
