@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:getx_study/entity/hot_key_entity.dart';
 
 /// 这地方感觉特别像一个页面的生命周期
 class WebMiddleware extends GetMiddleware {

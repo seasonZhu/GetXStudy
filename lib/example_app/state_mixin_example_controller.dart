@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+
 import 'package:getx_study/pages/home/repository/hot_key_repository.dart';
 import 'package:getx_study/entity/hot_key_entity.dart';
+
+/// 在这里我使用Getx自带的StateMixin在Controller层改变状态,在Page层通过状态改变页面展示
 
 class StateMixinBinding extends Bindings {
   @override
@@ -16,7 +19,9 @@ class StateMixinBinding extends Bindings {
 
 class StateMixinController extends GetxController
     with StateMixin<List<HotKeyEntity>> {
+
   late HotKeyRepository request;
+  
   @override
   void onInit() async {
     super.onInit();
@@ -32,10 +37,14 @@ class StateMixinController extends GetxController
       return error;
     });
     final data = response.data ?? [];
-    if (data.isEmpty) {
-      change(data, status: RxStatus.empty());
+    if (response.isSuccess) {
+      if (data.isEmpty) {
+        change(data, status: RxStatus.empty());
+      } else {
+        change(data, status: RxStatus.success());
+      }
     } else {
-      change(data, status: RxStatus.success());
+      change(data, status: RxStatus.error(response.errorMsg));
     }
   }
 }

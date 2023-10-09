@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:getx_study/account_manager/account_binding.dart';
-import 'package:getx_study/base/state_mixin_controller.dart';
+import 'package:getx_study/example_app/state_mixin_example_controller.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
 import 'package:getx_study/pages/coin_rank/view/coin_rank_page.dart';
