@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'example_routes.dart';
+import 'package:getx_study/extension/theme_data_extension.dart';
 
 class GetXApp extends StatelessWidget {
   @override
@@ -63,7 +64,8 @@ class GetXExampleController extends GetxController {
   }
 
   void pushToNextPage() {
-    Get.toNamed(Routes.getxRxExamplePage, arguments: {"message": "我是GetXExamplePage传来的数据"});
+    Get.toNamed(Routes.getxRxExamplePage,
+        arguments: {"message": "我是GetXExamplePage传来的数据"});
   }
 }
 
@@ -84,6 +86,7 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
     final map = Get.arguments;
     final message = map["message"];
     return Scaffold(
+      backgroundColor: const Color(0xFFE0E5EC),
       appBar: AppBar(
         title: const Text("GetX响应式编写计数器"),
       ),
@@ -102,8 +105,28 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
             }),
             Text(message),
             ElevatedButton(
-                onPressed: controller.pushToCoinRankPage,
-                child: const Text("下一页"))
+              onPressed: controller.pushToCoinRankPage,
+              child: const Text("下一页"),
+            ),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: const Color(0xFFE0E5EC),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(Icons.share),
+                    SizedBox(width: 12),
+                    Text("Share")
+                  ])
+            ).addNeumorphism(
+                bottomShadowColor: const Color(0xFFA3B1C6),
+                topShadowColor: Colors.white,
+              ),
           ],
         ),
       ),
