@@ -133,7 +133,9 @@ RefreshStateView和StateView也只保留了一个，我太过自信的认为Dart
 
 使用了Dart版本的Retrofit，真香，目前正在考虑是否将网络请求层进行替换。
 
-将MyController的业务拆分的更为细化，对于Mixin的使用也有了更多理解，感谢更像Swift中Protocol的Extension，同时可以mixin不仅可以增加方法，而且可以定义属性，同时如果申明是基于某个类的mixin，甚至可以对某个类的方法与属性都能操作，灵活度非常的大。
+将MyController的业务拆分的更为细化。
+
+对于Mixin的使用也有了更多理解，感觉更像Swift中Protocol的Extension，同时可以mixin不仅可以增加方法，而且可以定义属性，同时如果申明是基于某个类的mixin，甚至可以对某个类的方法与属性都能操作，灵活度非常的大。
 
 明明最近大半年都没有怎么写Flutter，结果折腾起来的都是大刀阔斧的进行，可能因为都是表层Api吧。
 

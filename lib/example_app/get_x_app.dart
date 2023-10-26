@@ -149,7 +149,8 @@ class GetxRxExampleBindings extends Bindings {
   }
 }
 
-class GetxRxExampleController extends GetxController {
+/// 响应式不用继承GetxController: https://juejin.cn/post/7204854015463997496
+class GetxRxExampleController {
   var count = 0.obs;
 
   void increment() {
