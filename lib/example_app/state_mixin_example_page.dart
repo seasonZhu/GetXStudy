@@ -19,9 +19,8 @@ class StateMixinBinding extends Bindings {
 
 class StateMixinController extends GetxController
     with StateMixin<List<HotKeyEntity>> {
-
   late HotKeyRepository request;
-  
+
   @override
   void onInit() async {
     super.onInit();
@@ -90,4 +89,26 @@ class StateMixinExamplePage extends GetView<StateMixinController> {
       ),
     );
   }
+}
+
+/*
+/// 一般情况做动画需要这样
+class _MyState extends State<MynPage> with TickerProviderStateMixin {
+ */
+
+class MyAnimationPresenter extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  final int durationInMs;
+  late AnimationController animCtrl;
+
+  MyAnimationPresenter({required this.durationInMs}) {
+    animCtrl = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: durationInMs),
+    );
+  }
+}
+
+class SomeRepository extends GetxService {
+  
 }

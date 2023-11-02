@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:getx_study/account_manager/account_controller.dart';
 
 import 'package:webview_flutter_jsbridge/webview_flutter_jsbridge.dart';
 
@@ -20,6 +22,9 @@ run() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  /// 把初始化服务放到runApp之前
+  Get.put(AccountService());
 
   final isFirst = await AccountManager().getIsFirstLaunch();
 
