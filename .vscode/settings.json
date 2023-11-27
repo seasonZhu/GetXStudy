@@ -1,5 +1,6 @@
 {
     "todo-tree.tree.disableCompactFolders": true,
     "editor.formatOnSave":true,
-    "dart.previewFlutterUiGuides":true
+    "dart.previewFlutterUiGuides": true,
+    "editor.inlineSuggest.showToolbar": "onHover"
 }

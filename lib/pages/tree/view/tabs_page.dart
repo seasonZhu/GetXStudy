@@ -77,7 +77,7 @@ class _TabsPageState extends State<TabsPage>
       ).toList(),
       controller: tabController,
       isScrollable: true,
-      indicatorColor: Theme.of(context).primaryColor,
+      indicatorColor: Colors.blue,
       indicatorSize: TabBarIndicatorSize.tab,
       labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
       unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 16),
