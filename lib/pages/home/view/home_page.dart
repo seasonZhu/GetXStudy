@@ -60,7 +60,11 @@ class HomePage extends GetView<HomeController> {
                         }
                       },
                       itemCount: controller.banners.length,
-                      pagination: const SwiperPagination(),
+                      pagination: const SwiperPagination(
+                        builder: DotSwiperPaginationBuilder(
+                            color: Colors.grey,
+                            activeColor: Colors.blue),
+                      ),
                       autoplay: controller.swiperAutoPlay,
                       autoplayDisableOnInteraction: true,
                       onTap: (index) {

@@ -40,6 +40,7 @@ class MyCollectPage extends GetView<MyCollectController> {
                   // The end action pane is the one at the right or the bottom side.
                   endActionPane: ActionPane(
                     motion: const ScrollMotion(),
+                    extentRatio: 0.3,
                     children: [
                       SlidableAction(
                         onPressed: (_) {
@@ -57,7 +58,8 @@ class MyCollectPage extends GetView<MyCollectController> {
                   child: InfoCell(
                     model: model,
                     callback: (_) => Get.toNamed(Routes.web,
-                        arguments: model, parameters: {"className": className(this)}),
+                        arguments: model,
+                        parameters: {"className": className(this)}),
                   ),
                 );
               },
