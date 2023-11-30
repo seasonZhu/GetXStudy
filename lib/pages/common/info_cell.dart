@@ -11,12 +11,16 @@ class InfoCell extends StatelessWidget {
 
   final ValueChanged<ArticleInfoDatas> _cellTapCallback;
 
+  final bool _isNeedBottomLine;
+
   const InfoCell(
       {Key? key,
       required ArticleInfoDatas model,
-      required ValueChanged<ArticleInfoDatas> callback})
+      required ValueChanged<ArticleInfoDatas> callback,
+      bool isNeedBottomLine = true})
       : _model = model,
         _cellTapCallback = callback,
+        _isNeedBottomLine = isNeedBottomLine,
         super(key: key);
 
   @override
@@ -123,7 +127,7 @@ class InfoCell extends StatelessWidget {
             _contentView(),
           ],
         ),
-        const Divider(),
+        _isNeedBottomLine ? const Divider() : Container()
       ],
     );
   }

@@ -29,9 +29,16 @@ class MyCollectPage extends GetView<MyCollectController> {
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
-            child: ListView.builder(
+            child: ListView.separated(
               shrinkWrap: true,
               itemCount: controller.dataSource.length,
+              separatorBuilder: (context, index) {
+                return const Divider(
+                  indent: 15,
+                  endIndent: 15,
+                  height: 0.1,
+                );
+              },
               itemBuilder: (BuildContext context, int index) {
                 final model = controller.dataSource[index];
                 return Slidable(
@@ -60,6 +67,7 @@ class MyCollectPage extends GetView<MyCollectController> {
                     callback: (_) => Get.toNamed(Routes.web,
                         arguments: model,
                         parameters: {"className": className(this)}),
+                    isNeedBottomLine: false,
                   ),
                 );
               },
