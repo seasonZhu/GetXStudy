@@ -42,7 +42,7 @@ class MyPage extends GetView<MyController> {
                   );
                 } else {
                   final model = dataSource[index];
-                  return ListTile(
+                  return ListTile(       
                     leading: Icon(model.icon),
                     title: Text(model.title),
                     trailing: const Icon(Icons.arrow_forward_ios),
@@ -61,19 +61,19 @@ class MyPage extends GetView<MyController> {
                               content: const Text("是否登出?"),
                               actions: <Widget>[
                                 TextButton(
-                                  child: Text(
+                                  child: const Text(
                                     "取消",
                                     style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Colors.red,
                                     ),
                                   ),
                                   onPressed: () => Get.back(), //关闭对话框
                                 ),
                                 TextButton(
-                                  child: Text(
+                                  child: const Text(
                                     "确定",
                                     style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Colors.blue,
                                     ),
                                   ),
                                   onPressed: () async {
@@ -101,7 +101,8 @@ class MyPage extends GetView<MyController> {
               },
               separatorBuilder: (context, index) {
                 return const Divider(
-                  height: 1.0,
+                  indent: 15,
+                  height: 0.5,
                 );
               },
               itemCount: dataSource.length);

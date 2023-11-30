@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/generated/assets.dart';
 import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/pages/common/my_list_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -51,7 +52,7 @@ class HomePage extends GetView<HomeController> {
                             fit: BoxFit.fitWidth,
                             imageUrl: controller.banners[index].imagePath,
                             placeholder: (context, url) => Image.asset(
-                              "assets/images/placeholder.png",
+                              Assets.assetsImagesPlaceholder,
                             ),
                           );
                         } else {
@@ -122,7 +123,7 @@ class HomePage extends GetView<HomeController> {
                 fit: BoxFit.fitWidth,
                 imageUrl: controller.banners[index].imagePath,
                 placeholder: (context, url) => Image.asset(
-                  "assets/images/placeholder.png",
+                  Assets.assetsImagesPlaceholder,
                 ),
               );
             } else {

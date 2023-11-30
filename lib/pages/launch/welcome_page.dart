@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/generated/assets.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -14,8 +15,8 @@ class WelcomePage extends StatelessWidget {
       body: PageView(
         physics: const ClampingScrollPhysics(),
         children: [
-          _welcomeView("welcome_2.jpg", false),
-          _welcomeView("welcome_1.png", true),
+          _welcomeView(Assets.assetsImagesWelcome1, false),
+          _welcomeView(Assets.assetsImagesWelcome2, true),
         ],
       ),
     );
@@ -29,7 +30,7 @@ class WelcomePage extends StatelessWidget {
           decoration: BoxDecoration(
             //设置背景图片
             image: DecorationImage(
-              image: AssetImage("assets/images/$imageName"),
+              image: AssetImage(imageName),
               fit: BoxFit.cover,
             ),
           ),

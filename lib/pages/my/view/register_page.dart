@@ -128,8 +128,8 @@ class RegisterPage extends GetView<RegisterController> {
                           visible: controller.isShowRegisterButton,
                           child: TextButton(
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Theme.of(context).primaryColor),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.blue),
                               ),
                               child: const Text(
                                 "注册",

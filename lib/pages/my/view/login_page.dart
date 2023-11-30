@@ -87,11 +87,9 @@ class LoginPage extends GetView<LoginController> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20, right: 15),
                         child: GestureDetector(
-                          child: Text(
+                          child: const Text(
                             "还没有注册?",
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 15),
+                            style: TextStyle(color: Colors.blue, fontSize: 15),
                           ),
                           onTap: () async {
                             final result = await Get.toNamed(Routes.register);
@@ -116,8 +114,8 @@ class LoginPage extends GetView<LoginController> {
                               controller.passwordIsNotEmpty.value,
                           child: TextButton(
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Theme.of(context).primaryColor),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.blue),
                               ),
                               child: const Text(
                                 "登录",

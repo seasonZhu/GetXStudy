@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/generated/assets.dart';
 
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/countdown_circle.dart';
@@ -19,7 +20,7 @@ class SplashPage extends StatelessWidget {
           decoration: const BoxDecoration(
             //设置背景图片
             image: DecorationImage(
-              image: AssetImage("assets/images/launchImage.png"),
+              image: AssetImage(Assets.assetsImagesLaunchImage),
               fit: BoxFit.cover,
             ),
           ),

@@ -22,10 +22,6 @@ dependencies:
   lpinyin: ^2.0.3
   marquee: ^2.2.3
   share: ^2.0.4
-  r_dart_library:
-    git:
-      url: 'https://github.com/YK-Unit/r_dart_library.git'
-      ref: 0.4.1
   rxdart: ^0.27.7
   image_picker: ^1.0.1
   url_launcher: ^6.1.5

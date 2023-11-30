@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/extension/string_extension.dart';
+import 'package:getx_study/generated/assets.dart';
 
 class InfoCell extends StatelessWidget {
   final ArticleInfoDatas _model;
@@ -42,7 +43,7 @@ class InfoCell extends StatelessWidget {
           fit: BoxFit.fitHeight,
           imageUrl: _model.envelopePic.toString(),
           placeholder: (context, url) => Image.asset(
-            "assets/images/placeholder.png",
+            Assets.assetsImagesPlaceholder,
           ),
         ),
       ),

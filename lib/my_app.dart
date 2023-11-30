@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
   }
 
   CupertinoThemeData _getCupertinoCurrentTheme() {
-    return const CupertinoThemeData(
+    return const CupertinoThemeData(primaryColor: Colors.blue,
         barBackgroundColor: Colors.white, brightness: Brightness.light);
   }
 }
