@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 abstract class ResignFirstResponder {
   ResignFirstResponder._();
@@ -11,5 +12,9 @@ abstract class ResignFirstResponder {
   /// 推荐下面的方法
   static unfocus() {
     FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+  static hideKeyboard() {
+    SystemChannels.textInput.invokeMethod("TextInput.hide");
   }
 }
