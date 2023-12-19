@@ -42,16 +42,19 @@ class MyPage extends GetView<MyController> {
                   );
                 } else {
                   final model = dataSource[index];
-                  return ListTile(       
+                  return ListTile(
                     leading: Icon(model.icon),
                     title: Text(model.title),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () async {
                       if (model == my.My.login) {
-                        final result = await Get.toNamed(Routes.login)
-                            as Map<String, dynamic>;
-                        controller.isLogin.value = result["isLogin"];
-                        controller.rxUserInfo.value = result["userInfo"];
+                        final result = await Get.toNamed(Routes.login);
+
+                        if (result != null) {
+                          final map = result as Map<String, dynamic>;
+                          controller.isLogin.value = map["isLogin"];
+                          controller.rxUserInfo.value = map["userInfo"];
+                        }
                       } else if (model == my.My.logout) {
                         showCupertinoDialog(
                           context: context,

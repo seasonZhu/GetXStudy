@@ -46,7 +46,17 @@ class MyApp extends StatelessWidget {
   }
 
   CupertinoThemeData _getCupertinoCurrentTheme() {
-    return const CupertinoThemeData(primaryColor: Colors.blue,
-        barBackgroundColor: Colors.white, brightness: Brightness.light);
+    return const CupertinoThemeData(
+        primaryColor: Colors.blue,
+        barBackgroundColor: Colors.white,
+        brightness: Brightness.light);
+  }
+
+  /// 悼念模式
+  void _changeColorModel({required Color color,  required Widget widget }) {
+    ColorFiltered(
+      colorFilter: ColorFilter.mode(color, BlendMode.color),
+      child: widget
+    );
   }
 }

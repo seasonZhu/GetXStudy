@@ -23,6 +23,10 @@ class LoginController
 
   final obscureText = true.obs;
 
+  final userNameFocusNode = FocusNode();
+
+  final passwordFocusNode = FocusNode();
+
   @override
   void onInit() {
     super.onInit();
@@ -68,5 +72,17 @@ class LoginController
         }
       },
     );
+  }
+
+  void userNameTextFieldOnSubmitted(BuildContext context) {
+    userNameFocusNode.unfocus();
+    FocusScope.of(context).requestFocus(passwordFocusNode);
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    userNameFocusNode.dispose();
+    passwordFocusNode.dispose();
   }
 }

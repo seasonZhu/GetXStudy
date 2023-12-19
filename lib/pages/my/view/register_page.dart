@@ -29,9 +29,12 @@ class RegisterPage extends GetView<RegisterController> {
                       Expanded(
                         child: CupertinoTextField(
                           controller: controller.userNameTextFiledController,
+                          focusNode: controller.userNameFocusNode,
                           placeholder: "手机号",
+                          textInputAction: TextInputAction.next,
                           onChanged: (value) => controller
                               .userNameIsNotEmpty.value = value.isNotEmpty,
+                          onSubmitted: (_) => controller.userNameTextFieldOnSubmitted(context),
                         ),
                       ),
                       SizedBox(
@@ -56,10 +59,13 @@ class RegisterPage extends GetView<RegisterController> {
                           () => CupertinoTextField(
                             enabled: controller.userNameIsNotEmpty.value,
                             controller: controller.passwordTextFiledController,
+                            focusNode: controller.passwordFocusNode,
                             placeholder: "密码",
+                            textInputAction: TextInputAction.next,
                             obscureText: controller.obscureText.value,
                             onChanged: (value) =>
                                 controller.password.value = value,
+                            onSubmitted: (_) => controller.passwordTextFieldOnSubmitted(context),
                           ),
                         ),
                       ),
@@ -92,7 +98,9 @@ class RegisterPage extends GetView<RegisterController> {
                                 controller.password.value.isNotEmpty,
                             controller:
                                 controller.rePasswordTextFiledController,
+                            focusNode: controller.rePasswordFocusNode,
                             placeholder: "确认密码",
+                            textInputAction: TextInputAction.done,
                             obscureText: controller.reObscureText.value,
                             onChanged: (value) =>
                                 controller.rePassword.value = value,

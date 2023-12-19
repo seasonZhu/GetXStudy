@@ -30,9 +30,12 @@ class LoginPage extends GetView<LoginController> {
                       Expanded(
                         child: CupertinoTextField(
                           controller: controller.userNameTextFiledController,
+                          focusNode: controller.userNameFocusNode,
                           placeholder: "手机号",
+                          textInputAction: TextInputAction.next,
                           onChanged: (value) => controller
                               .userNameIsNotEmpty.value = value.isNotEmpty,
+                          onSubmitted: (_) => controller.userNameTextFieldOnSubmitted(context),
                         ),
                       ),
                       SizedBox(
@@ -57,7 +60,9 @@ class LoginPage extends GetView<LoginController> {
                           () => CupertinoTextField(
                             enabled: controller.userNameIsNotEmpty.value,
                             controller: controller.passwordTextFiledController,
+                            focusNode: controller.passwordFocusNode,
                             placeholder: "密码",
+                            textInputAction: TextInputAction.done,
                             obscureText: controller.obscureText.value,
                             onChanged: (value) => controller
                                 .passwordIsNotEmpty.value = value.isNotEmpty,

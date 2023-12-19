@@ -16,6 +16,8 @@ class RegisterController extends LoginController {
 
   final reObscureText = true.obs;
 
+  final rePasswordFocusNode = FocusNode();
+
   @override
   void onInit() {
     super.onInit();
@@ -54,6 +56,17 @@ class RegisterController extends LoginController {
         }
       },
     );
+  }
+
+  void passwordTextFieldOnSubmitted(BuildContext context) {
+    passwordFocusNode.unfocus();
+    FocusScope.of(context).requestFocus(rePasswordFocusNode);
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    rePasswordFocusNode.dispose();
   }
 
   bool get isShowRegisterButton =>
