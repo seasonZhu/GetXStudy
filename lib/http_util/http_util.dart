@@ -75,7 +75,7 @@ abstract class HttpUtils {
   }
 }
 
-extension Plugs on Dio {
+extension Plugins on Dio {
   Dio get addPlugins {
     interceptors.addAll([
       loggerPlugin,

@@ -35,7 +35,8 @@ class LoginPage extends GetView<LoginController> {
                           textInputAction: TextInputAction.next,
                           onChanged: (value) => controller
                               .userNameIsNotEmpty.value = value.isNotEmpty,
-                          onSubmitted: (_) => controller.userNameTextFieldOnSubmitted(context),
+                          onSubmitted: (_) =>
+                              controller.userNameTextFieldOnSubmitted(context),
                         ),
                       ),
                       SizedBox(
