@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
@@ -40,7 +40,7 @@ class LoginController
 
     String message;
     if (response.isSuccess == true && response.data != null) {
-      await AccountManager()
+      await AccountService()
           .save(info: response.data!, isLogin: true, password: password);
       await getUserCoinInfo();
       message = "登录成功";
@@ -61,7 +61,7 @@ class LoginController
           // Get.back();
           if (response.isSuccess) {
             final params = {
-              "isLogin": AccountManager().isLogin,
+              "isLogin": AccountService().isLogin,
               "userInfo": userInfo,
             };
             navigator?.pop(params);

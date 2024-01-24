@@ -10,7 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/base/base_request_controller.dart';
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
 import 'package:getx_study/enum/collect_action_type.dart';
 import 'package:getx_study/logger/logger.dart';
@@ -112,8 +112,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
     String message;
     if (model.isSuccess) {
-      if ((AccountManager().info?.collectIds ?? []).contains(originId)) {
-        (AccountManager().info?.collectIds ?? []).remove(originId);
+      if ((AccountService().info?.collectIds ?? []).contains(originId)) {
+        (AccountService().info?.collectIds ?? []).remove(originId);
       }
       message = "取消收藏成功";
       _actionTag = _actionTag - 1;
@@ -136,7 +136,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
     String message;
     if (model.isSuccess) {
-      (AccountManager().info?.collectIds ?? []).add(originId);
+      (AccountService().info?.collectIds ?? []).add(originId);
       message = "收藏成功";
       _actionTag = _actionTag + 1;
       _type = CollectActionType.collect;
@@ -155,7 +155,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
   bool isCollect(IWebLoadInfo webLoadInfo) {
     final collectId = _realCollectId(webLoadInfo);
-    final collectIds = AccountManager().info?.collectIds;
+    final collectIds = AccountService().info?.collectIds;
     if (collectIds != null && collectId != null) {
       if (collectIds.contains(collectId)) {
         return true;

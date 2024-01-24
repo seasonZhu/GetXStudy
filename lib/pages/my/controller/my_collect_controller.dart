@@ -7,7 +7,7 @@ import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/pages/my/repository/my_collect_repository.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 
 class MyCollectController
     extends BaseRefreshController<MyCollectRepository, ArticleInfoDatas> {
@@ -65,9 +65,9 @@ class MyCollectController
 
     String message;
     if (model.isSuccess) {
-      if ((AccountManager().info?.collectIds ?? [])
+      if ((AccountService().info?.collectIds ?? [])
           .contains(dataSource[index].originId)) {
-        (AccountManager().info?.collectIds ?? [])
+        (AccountService().info?.collectIds ?? [])
             .remove(dataSource[index].originId);
       }
       dataSource.removeAt(index);

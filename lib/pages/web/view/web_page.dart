@@ -5,7 +5,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:marquee/marquee.dart';
 
@@ -27,7 +27,7 @@ class WebPage extends GetView<WebController> {
     if (notShowCollectIcon == "true") {
       isShowCollectIcon = false;
     } else {
-      isShowCollectIcon = webLoadInfo.id != null && AccountManager().isLogin;
+      isShowCollectIcon = webLoadInfo.id != null && AccountService().isLogin;
     }
 
     controller.flutterWebViewSetting(webLoadInfo);

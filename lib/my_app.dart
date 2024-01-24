@@ -4,7 +4,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/account_manager/account_binding.dart';
 import 'package:getx_study/base/getx_router_observer.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
 import 'package:getx_study/logger/logger.dart';
@@ -30,10 +29,6 @@ class MyApp extends StatelessWidget {
         logger.d(settings.name);
         return null;
       },
-
-      /// 经过初始化的binding,
-      initialBinding: AccountBinding(),
-
       /// 使用toast
       builder: EasyLoading.init(),
       theme: _getCupertinoCurrentTheme(),

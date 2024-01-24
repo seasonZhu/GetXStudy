@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/base/base_controller.dart';
-import 'package:getx_study/base/base_refresh_controller.dart';
 import 'example_routes.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
 

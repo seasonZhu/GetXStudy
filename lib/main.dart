@@ -2,13 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:getx_study/account_manager/account_controller.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 
-import 'package:webview_flutter_jsbridge/webview_flutter_jsbridge.dart';
-
-import 'package:getx_study/account_manager/account_manager.dart';
-import 'package:getx_study/example_app/stream_app.dart';
 import 'package:getx_study/my_app.dart';
+import 'package:getx_study/example_app/stream_app.dart';
 import 'package:getx_study/example_app/get_x_app.dart';
 import 'package:getx_study/example_app/rx_dart_app.dart';
 import 'package:getx_study/example_app/h5_js_channel_app.dart';
@@ -24,9 +21,9 @@ run() async {
   ]);
 
   /// 把初始化服务放到runApp之前
-  Get.put(AccountService());
+  final accountService = Get.put(AccountService());
 
-  final isFirst = await AccountManager().getIsFirstLaunch();
+  final isFirst = await accountService.getIsFirstLaunch();
 
   /// 玩安卓App的进这个
   runApp(MyApp(isFirst: isFirst));

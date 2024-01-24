@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/http_util/http_util.dart';
 
 import 'package:getx_study/http_util/api.dart';
@@ -27,7 +27,7 @@ final _dio = Dio(
     baseUrl: Api.baseUrl,
     connectTimeout: timeout,
     receiveTimeout: timeout,
-    headers: {HttpHeaders.cookieHeader: AccountManager().cookieHeaderValue},
+    headers: {HttpHeaders.cookieHeader: AccountService().cookieHeaderValue},
   ),
 ).addPlugins;
 

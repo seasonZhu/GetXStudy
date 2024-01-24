@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
 import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/logger/logger.dart';
@@ -34,7 +34,7 @@ class RegisterController extends LoginController {
 
     String message;
     if (response.isSuccess == true && response.data != null) {
-      await AccountManager()
+      await AccountService()
           .save(info: response.data!, isLogin: true, password: password);
       await getUserCoinInfo();
       message = "注册成功";
@@ -50,7 +50,7 @@ class RegisterController extends LoginController {
           if (response.isSuccess) {
             Future.delayed(
               const Duration(seconds: 0),
-              () => navigator?.pop(AccountManager().isLogin),
+              () => navigator?.pop(AccountService().isLogin),
             );
           }
         }

@@ -7,7 +7,7 @@ import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'api.dart';
 import 'http_status.dart' as season;
 import 'plugins.dart';
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 
 /// 这个是用来判断是否是生产环境
 const bool inProduction = bool.fromEnvironment("dart.vm.product");
@@ -55,7 +55,7 @@ abstract class HttpUtils {
   }
 
   static Options getCookieHeaderOptions() {
-    final value = AccountManager().cookieHeaderValue;
+    final value = AccountService().cookieHeaderValue;
     Options options = Options(headers: {HttpHeaders.cookieHeader: value});
     return options;
   }
@@ -104,7 +104,7 @@ enum HTTPMethod {
   final String string;
 
   const HTTPMethod(this.string);
-} 
+}
 
 extension EnumStatus on Response {
   season.HttpStatus get status =>

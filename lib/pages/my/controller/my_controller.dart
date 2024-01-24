@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
 import 'package:getx_study/pages/my/controller/get_user_info_mixin.dart';
@@ -14,9 +14,9 @@ class MyController
      为了避免这种问题，_observable_的第一次变化将总是触发一个事件，即使它包含相同的.value。
      如果你想删除这种行为，你可以使用： isLogin.firstRebuild = false;。
      */
-  final isLogin = AccountManager().isLogin.obs;
+  final isLogin = AccountService().isLogin.obs;
 
-  final rxUserInfo = AccountManager().userInfo.obs;
+  final rxUserInfo = AccountService().userInfo.obs;
 
   @override
   void onInit() {
@@ -29,7 +29,7 @@ class MyController
     String message;
     if (response.isSuccess) {
       message = "登出成功";
-      AccountManager().clear();
+      AccountService().clear();
     } else {
       message = "登出失败";
     }
@@ -38,12 +38,12 @@ class MyController
       message,
       duration: const Duration(seconds: 1),
     );
-    return AccountManager().isLogin;
+    return AccountService().isLogin;
   }
 
   Future<void> autoLogin() async {
-    final username = await AccountManager().getLastLoginUserName();
-    final password = await AccountManager().getLastLoginPassword();
+    final username = await AccountService().getLastLoginUserName();
+    final password = await AccountService().getLastLoginPassword();
 
     if (username.isNotEmpty && password.isNotEmpty) {
       final response =
@@ -51,15 +51,14 @@ class MyController
 
       String message;
       if (response.isSuccess == true && response.data != null) {
-        await AccountManager()
+        await AccountService()
             .save(info: response.data!, isLogin: true, password: password);
         message = "自动登录成功";
 
         await getUserCoinInfo();
 
-        isLogin.value = AccountManager().isLogin;
-        rxUserInfo.value = AccountManager().userInfo;
-        
+        isLogin.value = AccountService().isLogin;
+        rxUserInfo.value = AccountService().userInfo;
       } else {
         message = "自动登录失败";
       }

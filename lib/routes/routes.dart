@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:getx_study/account_manager/account_binding.dart';
 import 'package:getx_study/example_app/state_mixin_example_page.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/pages/coin_rank/bindings/coin_rank_binding.dart';
@@ -113,7 +112,6 @@ abstract class Routes {
         TabsBinding(TagType.publicNumber),
         TabsBinding(TagType.tree),
         MyBinding(),
-        AccountBinding(),
       ],
     ),
     GetPage(

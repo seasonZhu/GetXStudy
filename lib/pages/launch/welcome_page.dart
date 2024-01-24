@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:getx_study/account_manager/account_manager.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/generated/assets.dart';
 import 'package:getx_study/routes/routes.dart';
 
@@ -56,7 +56,7 @@ class WelcomePage extends StatelessWidget {
               ),
               child: const Text("点击进入"),
               onPressed: () {
-                AccountManager().saveNotFirstLaunch();
+                AccountService().saveNotFirstLaunch();
                 Get.offAllNamed(Routes.main);
               },
             ),
