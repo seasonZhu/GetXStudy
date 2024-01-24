@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 
 import 'package:getx_study/entity/account_info_entity.dart';
@@ -124,3 +125,4 @@ class AccountManager {
   /// 销毁单例
   static void destroyInstance() => _instance = null;
 }
+*/

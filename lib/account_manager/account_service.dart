@@ -7,19 +7,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// 这个类就像一个 "GetxController"，它共享相同的生命周期 （"onInit()"、"onReady()"、"onClose()"） 。 但里面没有 "逻辑"。它只是通知GetX的依赖注入系统，这个子类不能从内存中删除。
 /// 所以这对保持你的 "服务 "总是可以被Get.find()获取到并保持运行是超级有用的。比如 ApiService，StorageService，CacheService。
 class AccountService extends GetxService {
-  /// 以下字符串常量私有化比较好
 
-  final kLastLoginUserName = "kLastLoginUserName";
+  final _kLastLoginUserName = "kLastLoginUserName";
 
-  final kLastLoginPassword = "kLastLoginPassword";
+  final _kLastLoginPassword = "kLastLoginPassword";
 
-  final kLastThemeSettingIndex = "kLastThemeSettingIndex";
+  final _kLastThemeSettingIndex = "kLastThemeSettingIndex";
 
-  final kAccountInfo = "kAccountInfo";
+  final _kAccountInfo = "kAccountInfo";
 
-  final kOpenDarkMode = "kOpenDarkMode";
+  final _kOpenDarkMode = "kOpenDarkMode";
 
-  final kIsFirstLaunch = "kIsFirstLaunch";
+  final _kIsFirstLaunch = "kIsFirstLaunch";
 
   AccountInfoEntity? info;
 
@@ -50,56 +49,56 @@ class AccountService extends GetxService {
     this.info?.password = password;
 
     final userDefine = await this.userDefine;
-    userDefine.setString(kLastLoginUserName, info.username ?? "");
-    userDefine.setString(kLastLoginPassword, password);
+    userDefine.setString(_kLastLoginUserName, info.username ?? "");
+    userDefine.setString(_kLastLoginPassword, password);
     // 本来想尝试保存一个字典的,结果没这个方法,只有List<String>,但是我可以将Map转为String在存呀
     final infoJsonString = json.encode(info.toJson());
-    userDefine.setString(kAccountInfo, infoJsonString);
+    userDefine.setString(_kAccountInfo, infoJsonString);
   }
 
   Future<bool> saveLastThemeSettingIndex(int index) async {
     final userDefine = await this.userDefine;
-    return userDefine.setInt(kLastThemeSettingIndex, index);
+    return userDefine.setInt(_kLastThemeSettingIndex, index);
   }
 
   Future<bool> saveOpenDarkMode(bool isOpenDarkMode) async {
     final userDefine = await this.userDefine;
-    return userDefine.setBool(kOpenDarkMode, isOpenDarkMode);
+    return userDefine.setBool(_kOpenDarkMode, isOpenDarkMode);
   }
 
   Future<bool> saveNotFirstLaunch() async {
     final userDefine = await this.userDefine;
-    return userDefine.setBool(kIsFirstLaunch, false);
+    return userDefine.setBool(_kIsFirstLaunch, false);
   }
 
   Future<String> getLastLoginUserName() async {
     final userDefine = await this.userDefine;
-    return userDefine.getString(kLastLoginUserName) ?? "";
+    return userDefine.getString(_kLastLoginUserName) ?? "";
   }
 
   Future<String> getLastAccountInfo() async {
     final userDefine = await this.userDefine;
-    return userDefine.getString(kAccountInfo) ?? "";
+    return userDefine.getString(_kAccountInfo) ?? "";
   }
 
   Future<int> getLastThemeSettingIndex() async {
     final userDefine = await this.userDefine;
-    return userDefine.getInt(kLastThemeSettingIndex) ?? 0;
+    return userDefine.getInt(_kLastThemeSettingIndex) ?? 0;
   }
 
   Future<String> getLastLoginPassword() async {
     final userDefine = await this.userDefine;
-    return userDefine.getString(kLastLoginPassword) ?? "";
+    return userDefine.getString(_kLastLoginPassword) ?? "";
   }
 
   Future<bool> getIsOpenDarkMode() async {
     final userDefine = await this.userDefine;
-    return userDefine.getBool(kOpenDarkMode) ?? false;
+    return userDefine.getBool(_kOpenDarkMode) ?? false;
   }
 
   Future<bool> getIsFirstLaunch() async {
     final userDefine = await this.userDefine;
-    return userDefine.getBool(kIsFirstLaunch) ?? true;
+    return userDefine.getBool(_kIsFirstLaunch) ?? true;
   }
 
   Future<void> clear() async {
@@ -107,7 +106,7 @@ class AccountService extends GetxService {
     userInfo = "等级 --  排名 --  积分 --";
     isLogin = false;
     final userDefine = await this.userDefine;
-    userDefine.remove(kLastLoginUserName);
-    userDefine.remove(kLastLoginPassword);
+    userDefine.remove(_kLastLoginUserName);
+    userDefine.remove(_kLastLoginPassword);
   }
 }
