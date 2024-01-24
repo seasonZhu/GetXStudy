@@ -40,7 +40,7 @@ class LoginController
 
     String message;
     if (response.isSuccess == true && response.data != null) {
-      await AccountService()
+      await AccountService.find
           .save(info: response.data!, isLogin: true, password: password);
       await getUserCoinInfo();
       message = "登录成功";
@@ -61,7 +61,7 @@ class LoginController
           // Get.back();
           if (response.isSuccess) {
             final params = {
-              "isLogin": AccountService().isLogin,
+              "isLogin": AccountService.find.isLogin,
               "userInfo": userInfo,
             };
             navigator?.pop(params);

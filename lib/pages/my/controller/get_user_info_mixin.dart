@@ -12,7 +12,7 @@ mixin GetUserInfoMixin
     final userInfo =
         "等级 ${response.data?.level ?? "--"}  排名 ${response.data?.rank ?? "--"}  积分 ${response.data?.coinCount ?? "--"}";
     this.userInfo = userInfo;
-    AccountService().userInfo = userInfo;
+    AccountService.find.userInfo = userInfo;
     return userInfo;
   }
 }

@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
-import 'package:getx_study/account_manager/account_service.dart';
 
 import 'package:getx_study/my_app.dart';
+import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/example_app/stream_app.dart';
 import 'package:getx_study/example_app/get_x_app.dart';
 import 'package:getx_study/example_app/rx_dart_app.dart';

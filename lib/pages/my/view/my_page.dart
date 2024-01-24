@@ -83,7 +83,7 @@ class MyPage extends GetView<MyController> {
                                     Get.back();
                                     final result = await controller.logout();
                                     controller.rxUserInfo.value =
-                                        AccountService().userInfo;
+                                        AccountService.find.userInfo;
                                     controller.isLogin.value = result;
                                   },
                                 ),

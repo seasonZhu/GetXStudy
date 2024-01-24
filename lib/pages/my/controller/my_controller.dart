@@ -14,9 +14,9 @@ class MyController
      为了避免这种问题，_observable_的第一次变化将总是触发一个事件，即使它包含相同的.value。
      如果你想删除这种行为，你可以使用： isLogin.firstRebuild = false;。
      */
-  final isLogin = AccountService().isLogin.obs;
+  final isLogin = AccountService.find.isLogin.obs;
 
-  final rxUserInfo = AccountService().userInfo.obs;
+  final rxUserInfo = AccountService.find.userInfo.obs;
 
   @override
   void onInit() {
@@ -29,7 +29,7 @@ class MyController
     String message;
     if (response.isSuccess) {
       message = "登出成功";
-      AccountService().clear();
+      AccountService.find.clear();
     } else {
       message = "登出失败";
     }
@@ -38,12 +38,12 @@ class MyController
       message,
       duration: const Duration(seconds: 1),
     );
-    return AccountService().isLogin;
+    return AccountService.find.isLogin;
   }
 
   Future<void> autoLogin() async {
-    final username = await AccountService().getLastLoginUserName();
-    final password = await AccountService().getLastLoginPassword();
+    final username = await AccountService.find.getLastLoginUserName();
+    final password = await AccountService.find.getLastLoginPassword();
 
     if (username.isNotEmpty && password.isNotEmpty) {
       final response =
@@ -51,14 +51,14 @@ class MyController
 
       String message;
       if (response.isSuccess == true && response.data != null) {
-        await AccountService()
+        await AccountService.find
             .save(info: response.data!, isLogin: true, password: password);
         message = "自动登录成功";
 
         await getUserCoinInfo();
 
-        isLogin.value = AccountService().isLogin;
-        rxUserInfo.value = AccountService().userInfo;
+        isLogin.value = AccountService.find.isLogin;
+        rxUserInfo.value = AccountService.find.userInfo;
       } else {
         message = "自动登录失败";
       }

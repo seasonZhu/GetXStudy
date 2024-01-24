@@ -27,7 +27,7 @@ final _dio = Dio(
     baseUrl: Api.baseUrl,
     connectTimeout: timeout,
     receiveTimeout: timeout,
-    headers: {HttpHeaders.cookieHeader: AccountService().cookieHeaderValue},
+    headers: {HttpHeaders.cookieHeader: AccountService.find.cookieHeaderValue},
   ),
 ).addPlugins;
 

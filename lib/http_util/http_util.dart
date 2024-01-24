@@ -55,7 +55,7 @@ abstract class HttpUtils {
   }
 
   static Options getCookieHeaderOptions() {
-    final value = AccountService().cookieHeaderValue;
+    final value = AccountService.find.cookieHeaderValue;
     Options options = Options(headers: {HttpHeaders.cookieHeader: value});
     return options;
   }

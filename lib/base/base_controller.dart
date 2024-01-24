@@ -23,10 +23,10 @@ mixin ResponseStatusMixin on GetxController {
 /// 本质上GetMiddleware的中间件已经做了这个事情,详细看LoginMiddleware,但是如何去拦截点击事情还没想好
 mixin CheckIsLoginMixin on BaseController {
   bool checkIsLogin() {
-    if (!AccountService().isLogin) {
+    if (!AccountService.find.isLogin) {
       Get.toNamed(Routes.login);
     }
 
-    return AccountService().isLogin;
+    return AccountService.find.isLogin;
   }
 }

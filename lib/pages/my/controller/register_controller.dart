@@ -34,7 +34,7 @@ class RegisterController extends LoginController {
 
     String message;
     if (response.isSuccess == true && response.data != null) {
-      await AccountService()
+      await AccountService.find
           .save(info: response.data!, isLogin: true, password: password);
       await getUserCoinInfo();
       message = "注册成功";
@@ -50,7 +50,7 @@ class RegisterController extends LoginController {
           if (response.isSuccess) {
             Future.delayed(
               const Duration(seconds: 0),
-              () => navigator?.pop(AccountService().isLogin),
+              () => navigator?.pop(AccountService.find.isLogin),
             );
           }
         }

@@ -65,9 +65,9 @@ class MyCollectController
 
     String message;
     if (model.isSuccess) {
-      if ((AccountService().info?.collectIds ?? [])
+      if ((AccountService.find.info?.collectIds ?? [])
           .contains(dataSource[index].originId)) {
-        (AccountService().info?.collectIds ?? [])
+        (AccountService.find.info?.collectIds ?? [])
             .remove(dataSource[index].originId);
       }
       dataSource.removeAt(index);

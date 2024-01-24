@@ -56,7 +56,7 @@ class WelcomePage extends StatelessWidget {
               ),
               child: const Text("点击进入"),
               onPressed: () {
-                AccountService().saveNotFirstLaunch();
+                AccountService.find.saveNotFirstLaunch();
                 Get.offAllNamed(Routes.main);
               },
             ),

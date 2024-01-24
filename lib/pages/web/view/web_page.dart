@@ -27,7 +27,7 @@ class WebPage extends GetView<WebController> {
     if (notShowCollectIcon == "true") {
       isShowCollectIcon = false;
     } else {
-      isShowCollectIcon = webLoadInfo.id != null && AccountService().isLogin;
+      isShowCollectIcon = webLoadInfo.id != null && AccountService.find.isLogin;
     }
 
     controller.flutterWebViewSetting(webLoadInfo);

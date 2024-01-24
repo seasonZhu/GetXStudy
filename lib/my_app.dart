@@ -48,10 +48,9 @@ class MyApp extends StatelessWidget {
   }
 
   /// 悼念模式
-  void _changeColorModel({required Color color,  required Widget widget }) {
-    ColorFiltered(
-      colorFilter: ColorFilter.mode(color, BlendMode.color),
-      child: widget
-    );
+  /// 将这个包裹在GetCupertinoApp外层即可,具体颜色一把使用grey
+  Widget _changeColorModel({required Color color, required Widget widget}) {
+    return ColorFiltered(
+        colorFilter: ColorFilter.mode(color, BlendMode.color), child: widget);
   }
 }
