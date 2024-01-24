@@ -103,6 +103,15 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
                 style: Theme.of(context).textTheme.headlineMedium,
               );
             }),
+            /// 使用GetX<T>时,GetxRxExampleController必须继承GetxController
+            // GetX<GetxRxExampleController>(
+            //   builder: (s) {
+            //     return Text(
+            //       s.count.value.toString(),
+            //       style: Theme.of(context).textTheme.headlineMedium,
+            //     );
+            //   },
+            // ),
             Text(message),
             ElevatedButton(
               onPressed: controller.pushToCoinRankPage,
@@ -132,6 +141,7 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           controller.increment();
+          /// 上一个页面的值也在进行添加
           _easyController.increment();
         }),
         tooltip: 'Increment',
