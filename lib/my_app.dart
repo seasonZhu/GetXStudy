@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/base/getx_router_observer.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
 import 'package:getx_study/logger/logger.dart';
+import 'package:getx_study/routes/getx_router_observer.dart';
+import 'package:getx_study/routes/history_router_observer.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class MyApp extends StatelessWidget {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetCupertinoApp(
       title: 'GetX Study',
-      navigatorObservers: [GetXRouterObserver()],
+      navigatorObservers: [getXRouterObserver, historyRouterObserver],
       unknownRoute: Routes.unknownPage,
 
       /// 通过使用initialRoute来保证绑定的操作

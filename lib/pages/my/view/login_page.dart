@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_study/base/resign_first_view.dart';
+import 'package:getx_study/extension/get_route_extension.dart';
 import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
@@ -98,6 +99,7 @@ class LoginPage extends GetView<LoginController> {
                             style: TextStyle(color: Colors.blue, fontSize: 15),
                           ),
                           onTap: () async {
+                            Get.removeName(Routes.login);
                             final result = await Get.toNamed(Routes.register);
                             if (result != null) {
                               navigator?.pop(result);
