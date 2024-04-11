@@ -1,0 +1,24 @@
+Found API Categories:
+
+Found Dependencies:
+
+- webview_flutter_wkwebview
+ - https://raw.githubusercontent.com/flutter/packages/main/packages/webview_flutter/webview_flutter_wkwebview/ios/Resources/PrivacyInfo.xcprivacy
+
+- FMDB
+ - https://raw.githubusercontent.com/ccgus/fmdb/master/privacy/PrivacyInfo.xcprivacy
+
+- device_info_plus
+ - https://raw.githubusercontent.com/fluttercommunity/plus_plugins/9e187803d395bf1d8cbe74a0494ef28989451dde/packages/device_info_plus/device_info_plus/ios/PrivacyInfo.xcprivacy
+
+- sqflite
+ - https://raw.githubusercontent.com/tekartik/sqflite/master/sqflite/darwin/Resources/PrivacyInfo.xcprivacy
+
+- url_launcher_ios
+ - https://raw.githubusercontent.com/flutter/packages/main/packages/url_launcher/url_launcher_ios/ios/Resources/PrivacyInfo.xcprivacy
+
+- image_picker_ios
+ - https://raw.githubusercontent.com/flutter/packages/main/packages/image_picker/image_picker_ios/ios/Resources/PrivacyInfo.xcprivacy
+
+- Flutter
+ - https://raw.githubusercontent.com/flutter/engine/a565cea256c7bafeaa0c26c2f1b0d66a52692d02/shell/platform/darwin/ios/framework/PrivacyInfo.xcprivacy#L9-L12

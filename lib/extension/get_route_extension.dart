@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:getx_study/routes/history_router_observer.dart';
 
+/// https://juejin.cn/post/7283315133140107304
 extension GetRouteExtension on GetInterface {
   ///路由历史
   List<Route<dynamic>> get history => historyRouterObserver.history;
