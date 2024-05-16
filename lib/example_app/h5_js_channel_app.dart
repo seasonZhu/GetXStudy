@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
@@ -149,5 +150,174 @@ class AppH5Page extends StatelessWidget {
     final string = javaScriptCallbackResult as String;
     logger.d(string);
     EasyLoading.showToast(string);
+  }
+}
+
+/// 返回按钮与侧滑的应用
+class OnBackAppH5Page extends StatelessWidget {
+  late WebViewController _controller;
+
+  ValueNotifier<bool> canGoBackNotifier = ValueNotifier(false);
+
+  final canGoBackRelay = false.obs;
+
+  OnBackAppH5Page({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    _flutterWebViewSetting(context);
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(CupertinoIcons.back),
+          onPressed: () async {
+            final canGoback = await _controller.canGoBack();
+            if (canGoback) {
+              _controller.goBack();
+            } else {
+              Navigator.of(context).pop();
+            }
+          },
+        ),
+        title: const Text("Flutter与JS交互"),
+        actions: [
+          IconButton(
+            icon: const Icon(CupertinoIcons.share),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      // We're using a Builder here so we have a context that is below the Scaffold
+      // to allow calling Scaffold.of(context) so we can show a snackbar.
+      body: builderWidget(),
+    );
+  }
+
+  Widget builderWidget() {
+    return Obx(
+      () {
+        if (canGoBackRelay.value) {
+          return WillPopScope(
+            child: _buildBody(),
+            onWillPop: () async {
+              return !canGoBackRelay.value;
+            },
+          );
+        } else {
+          return _buildBody();
+        }
+      },
+    );
+
+    return ValueListenableBuilder(
+      valueListenable: canGoBackNotifier,
+      builder: (context, bool canGoBack, child) {
+        if (canGoBack) {
+          return WillPopScope(
+            child: _buildBody(),
+            onWillPop: () async {
+              return false;
+            },
+          );
+        } else {
+          return _buildBody();
+        }
+      },
+    );
+  }
+
+  Widget _buildBody() {
+    return SafeArea(
+      child: Builder(
+        builder: (BuildContext context) {
+          return WebViewWidget(
+            controller: _controller,
+          );
+        },
+      ),
+    );
+  }
+
+  void _flutterWebViewSetting(BuildContext context) {
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+      );
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
+
+    final WebViewController webController =
+        WebViewController.fromPlatformCreationParams(params);
+
+    webController
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            logger.d('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            logger.d('Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            logger.d('Page finished loading: $url');
+          },
+          onWebResourceError: (WebResourceError error) {
+            logger.d('''
+                Page resource error:
+                  code: ${error.errorCode}
+                  description: ${error.description}
+                  errorType: ${error.errorType}
+                  isForMainFrame: ${error.isForMainFrame}
+                          ''');
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              logger.d('blocking navigation to ${request.url}');
+              return NavigationDecision.prevent;
+            }
+            logger.d('allowing navigation to ${request.url}');
+            return NavigationDecision.navigate;
+          },
+          onUrlChange: (change) {
+            logger.d('url change to ${change.url}');
+
+            Future.delayed(Duration(seconds: 1), () {
+              webController.canGoBack().then((value) {
+                logger.d('canGoBack value: $value');
+
+                canGoBackNotifier.value = value;
+
+                canGoBackRelay.value = value;
+
+                if (value) {
+                  logger.d("可以返回上一个Web页面");
+                } else {
+                  logger.d("可以返回上一个Page页面");
+                }
+              });
+            });
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse("https://juejin.cn/user/4353721778057997"));
+
+    if (webController.platform is AndroidWebViewController) {
+      AndroidWebViewController.enableDebugging(true);
+      (webController.platform as AndroidWebViewController)
+          .setMediaPlaybackRequiresUserGesture(false);
+    }
+
+    /// 在这里设置iOS的Web侧滑手势
+    if (webController.platform is WebKitWebViewController) {
+      (webController.platform as WebKitWebViewController)
+          .setAllowsBackForwardNavigationGestures(true);
+    }
+
+    _controller = webController;
   }
 }
