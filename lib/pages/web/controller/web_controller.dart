@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:getx_study/base/box.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
@@ -23,6 +24,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
   late final WebViewController webViewController;
 
   late final RefreshController refreshController;
+
+  final canGoBack = false.obs;
 
   var _actionTag = 0;
 
@@ -77,6 +80,16 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
             logger.d('Page finished loading: $url');
             EasyLoading.dismiss();
             //refreshController.refreshCompleted();
+
+            /// 在onPageFinished监听canGoBack()属性变化
+            webViewController.canGoBack().then((value) {
+              canGoBack.value = value;
+              if (value) {
+                print("可以返回上一个Web页面");
+              } else {
+                print("可以返回上一个Page页面");
+              }
+            });
           },
           onWebResourceError: (WebResourceError error) {
             logger.d('''
@@ -103,6 +116,12 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
       AndroidWebViewController.enableDebugging(true);
       (webViewController.platform as AndroidWebViewController)
           .setMediaPlaybackRequiresUserGesture(false);
+    }
+
+    /// 在这里设置iOS的Web侧滑手势
+    if (webViewController.platform is WebKitWebViewController) {
+      (webViewController.platform as WebKitWebViewController)
+          .setAllowsBackForwardNavigationGestures(true);
     }
     this.webViewController = webViewController;
   }

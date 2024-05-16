@@ -113,6 +113,13 @@ class AppH5Page extends StatelessWidget {
       (webController.platform as AndroidWebViewController)
           .setMediaPlaybackRequiresUserGesture(false);
     }
+
+    /// 在这里设置iOS的Web侧滑手势
+    if (webController.platform is WebKitWebViewController) {
+      (webController.platform as WebKitWebViewController)
+          .setAllowsBackForwardNavigationGestures(true);
+    }
+
     _controller = webController;
   }
 
