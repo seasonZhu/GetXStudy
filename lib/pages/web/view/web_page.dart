@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -34,6 +36,13 @@ class WebPage extends GetView<WebController> {
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        leading: Row(children: <Widget>[
+          CupertinoNavigationBarBackButton(
+            onPressed: () async {
+              controller.onBackAction();
+            },
+          ),
+        ]),
         middle: _title(webLoadInfo),
         trailing: SizedBox(
           width: 100,
@@ -75,8 +84,34 @@ class WebPage extends GetView<WebController> {
         child: Builder(builder: (BuildContext context) {
           /// 这里没有使用下拉刷新组件,是因为SmartRefresh+WebViewWidget会导致底部显示异常
           return WebViewWidget(
-            controller: controller.webViewController,
-          );
+              controller: controller.webViewController,
+              gestureRecognizers: Set()
+                ..add(
+                  Factory<OneSequenceGestureRecognizer>(
+                    () => HorizontalDragGestureRecognizer()
+                      ..onStart = (DragStartDetails details) {
+                        // 处理拖动开始的逻辑
+                        print("处理拖动开始的逻辑");
+                      }
+                      ..onUpdate = (DragUpdateDetails details) {
+                        // 处理拖动更新的逻辑
+                        print("处理拖动更新的逻辑");
+                      }
+                      ..onEnd = (DragEndDetails details) {
+                        // 处理拖动结束的逻辑
+                        print("处理拖动结束的逻辑");
+                      },
+                  ),
+                )
+              // ..add(
+              //   Factory<OneSequenceGestureRecognizer>(
+              //     () => LongPressGestureRecognizer()
+              //       ..onLongPress = () {
+              //         print('长按');
+              //       },
+              //   ),
+              // ),
+              );
         }),
       ),
     );

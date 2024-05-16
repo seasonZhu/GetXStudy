@@ -214,4 +214,16 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
       logger.d("it is not MyCollectPage, do nothing");
     }
   }
+
+  Future onBackAction() async {
+    final canGoback = await webViewController.canGoBack();
+    if (canGoback) {
+      webViewController.goBack();
+      Future.delayed(Duration(seconds: 1), () {
+        EasyLoading.dismiss();
+      });
+    } else {
+      Get.back();
+    }
+  }
 }
