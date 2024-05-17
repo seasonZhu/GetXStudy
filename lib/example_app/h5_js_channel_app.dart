@@ -189,29 +189,30 @@ class OnBackAppH5Page extends StatelessWidget {
       ),
       // We're using a Builder here so we have a context that is below the Scaffold
       // to allow calling Scaffold.of(context) so we can show a snackbar.
-      body: builderWidget(),
+      body: _valueListenableBuilder(),
     );
   }
 
-  Widget builderWidget() {
-    return Obx(
-      () {
-        if (canGoBackRelay.value) {
-          return WillPopScope(
-            child: _buildBody(),
-            onWillPop: () async {
-              return !canGoBackRelay.value;
-            },
-          );
-        } else {
-          return _buildBody();
-        }
-      },
-    );
-
+  Widget _valueListenableBuilder() {
     return ValueListenableBuilder(
       valueListenable: canGoBackNotifier,
       builder: (context, bool canGoBack, child) {
+        print("重构了页面, Web可以返回上一页: $canGoBack, 可以侧滑关闭页面: ${!canGoBack}");
+        // 达不到控制页面侧滑使能的效果
+        // return WillPopScope(
+        //   child: _buildBody(),
+        //   onWillPop: () => Future.value(!canGoBack),
+        // );
+
+        /// 这个完全不能用
+        // return PopScope(
+        //   canPop: !canGoBack,
+        //   onPopInvoked: (didPop) {
+            
+        //   },
+        //   child: _buildBody(),
+        // );
+
         if (canGoBack) {
           return WillPopScope(
             child: _buildBody(),
@@ -235,6 +236,24 @@ class OnBackAppH5Page extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Widget _obxBuild() {
+    return Obx(
+      () {
+        print("重构了页面");
+        if (canGoBackRelay.value) {
+          return WillPopScope(
+            child: _buildBody(),
+            onWillPop: () async {
+              return !canGoBackRelay.value;
+            },
+          );
+        } else {
+          return _buildBody();
+        }
+      },
     );
   }
 
@@ -321,3 +340,73 @@ class OnBackAppH5Page extends StatelessWidget {
     _controller = webController;
   }
 }
+
+/**
+ class WillPopScope extends StatefulWidget {
+  /// Creates a widget that registers a callback to veto attempts by the user to
+  /// dismiss the enclosing [ModalRoute].
+  @Deprecated(
+    'Use PopScope instead. '
+    'This feature was deprecated after v3.12.0-1.0.pre.',
+  )
+  const WillPopScope({
+    super.key,
+    required this.child,
+    required this.onWillPop,
+  });
+
+  /// The widget below this widget in the tree.
+  ///
+  /// {@macro flutter.widgets.ProxyWidget.child}
+  final Widget child;
+
+  /// Called to veto attempts by the user to dismiss the enclosing [ModalRoute].
+  ///
+  /// If the callback returns a Future that resolves to false, the enclosing
+  /// route will not be popped.
+  final WillPopCallback? onWillPop;
+
+  @override
+  State<WillPopScope> createState() => _WillPopScopeState();
+}
+
+class _WillPopScopeState extends State<WillPopScope> {
+  ModalRoute<dynamic>? _route;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (widget.onWillPop != null) {
+      _route?.removeScopedWillPopCallback(widget.onWillPop!);
+    }
+    _route = ModalRoute.of(context);
+    if (widget.onWillPop != null) {
+      _route?.addScopedWillPopCallback(widget.onWillPop!);
+    }
+  }
+
+  @override
+  void didUpdateWidget(WillPopScope oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.onWillPop != oldWidget.onWillPop && _route != null) {
+      if (oldWidget.onWillPop != null) {
+        _route!.removeScopedWillPopCallback(oldWidget.onWillPop!);
+      }
+      if (widget.onWillPop != null) {
+        _route!.addScopedWillPopCallback(widget.onWillPop!);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    if (widget.onWillPop != null) {
+      _route?.removeScopedWillPopCallback(widget.onWillPop!);
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}
+ */
