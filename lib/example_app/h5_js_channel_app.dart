@@ -208,7 +208,7 @@ class OnBackAppH5Page extends StatelessWidget {
         // return PopScope(
         //   canPop: !canGoBack,
         //   onPopInvoked: (didPop) {
-            
+
         //   },
         //   child: _buildBody(),
         // );
@@ -318,6 +318,7 @@ class OnBackAppH5Page extends StatelessWidget {
                 } else {
                   logger.d("可以返回上一个Page页面");
                 }
+                _sendMessageToNative(value);
               });
             });
           },
@@ -338,6 +339,19 @@ class OnBackAppH5Page extends StatelessWidget {
     }
 
     _controller = webController;
+  }
+
+  static const platform = const MethodChannel('com.getStudy.app/popIsEnable');
+
+  Future<void> _sendMessageToNative(bool canGoBack) async {
+    String response = "";
+    try {
+      final String result =
+          await platform.invokeMethod('sendMessage', {"canGoBack": canGoBack});
+      response = result;
+    } on PlatformException catch (e) {
+      response = "Failed to send message: '${e.message}'.";
+    }
   }
 }
 
