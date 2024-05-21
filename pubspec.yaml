@@ -29,6 +29,7 @@ dependencies:
   path_provider: ^2.0.11
   event_bus: ^2.0.0
   open_file: ^3.2.1
+  visibility_detector: ^0.4.0+2
   permission_handler: ^10.4.3
   logger: ^1.4.0
   device_info_plus: ^9.0.2
