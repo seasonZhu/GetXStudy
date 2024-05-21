@@ -9,7 +9,7 @@ import 'package:share/share.dart';
 
 import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';
-import 'package:marquee/marquee.dart';
+import 'package:marqueer/marqueer.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
@@ -131,10 +131,17 @@ class WebPage extends GetView<WebController> {
     if (webLoadInfo.id != null) {
       return SizedBox(
         height: 44,
-        child: Marquee(
-            text: webLoadInfo.title.toString().replaceHtmlElement,
-            style: const TextStyle(color: Colors.black),
-            showFadingOnlyWhenScrolling: true),
+        child: Marqueer(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
+              webLoadInfo.title.toString().replaceHtmlElement,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
       );
     } else {
       return Text(

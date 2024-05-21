@@ -20,7 +20,7 @@ dependencies:
   webview_flutter: ^4.2.2
   flutter_slidable: ^3.0.0
   lpinyin: ^2.0.3
-  marquee: ^2.2.3
+  marqueer: ^1.4.4
   share: ^2.0.4
   rxdart: ^0.27.7
   image_picker: ^1.0.1
