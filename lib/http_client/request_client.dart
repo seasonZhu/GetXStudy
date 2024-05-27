@@ -19,6 +19,15 @@ import 'package:retrofit/retrofit.dart';
 part 'request_client.g.dart';
 
 /// 参看 说明.md中的执行脚本
+/*
+dart pub run build_runner build
+
+flutter pub run build_runner build
+
+个人更建议使用 watch 命令
+该命令监听输入，可以实时编译最新的代码，不用每次修改之后重复使用 build 了
+flutter pub run build_runner watch
+*/
 
 const timeout = Duration(seconds: 60);
 
