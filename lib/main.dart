@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
-import 'package:cherrilog/cherrilog.dart';
 
 import 'package:getx_study/my_app.dart';
 import 'package:getx_study/account_manager/account_service.dart';
@@ -53,20 +52,5 @@ run() async {
 }
 
 cherrilog() {
-  CherriLog.init(
-    options: CherriOptions()
-      ..logLevelRange = CherriLogLevelRanges.all
-      ..useBuffer = false,
-  ).logTo(
-      CherriConsole()); // Use `CherriFile()` instead of `CherriConsole` if you want to log to file system
 
-  debug('You are doing something right');
-
-  info('You are doing something');
-
-  warning('You are doing something wrong');
-
-  error('You can not shutdown power');
-
-  fatal('The power is off');
 }

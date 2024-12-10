@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/status_view.dart';
@@ -41,34 +40,12 @@ class MyCollectPage extends GetView<MyCollectController> {
               },
               itemBuilder: (BuildContext context, int index) {
                 final model = controller.dataSource[index];
-                return Slidable(
-                  // Specify a key if the Slidable is dismissible.
-                  key: Key(model.title.toString()),
-                  // The end action pane is the one at the right or the bottom side.
-                  endActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    extentRatio: 0.3,
-                    children: [
-                      SlidableAction(
-                        onPressed: (_) {
-                          controller.unCollectAction(index: index);
-                        },
-                        backgroundColor: const Color(0xFFFE4A49),
-                        foregroundColor: Colors.white,
-                        icon: Icons.delete,
-                        label: '取消收藏',
-                      ),
-                    ],
-                  ),
-                  // The child of the Slidable is what the user sees when the
-                  // component is not dragged.
-                  child: InfoCell(
-                    model: model,
-                    callback: (_) => Get.toNamed(Routes.web,
-                        arguments: model,
-                        parameters: {"className": className(this)}),
-                    isNeedBottomLine: false,
-                  ),
+                return InfoCell(
+                  model: model,
+                  callback: (_) => Get.toNamed(Routes.web,
+                      arguments: model,
+                      parameters: {"className": className(this)}),
+                  isNeedBottomLine: false,
                 );
               },
             ),

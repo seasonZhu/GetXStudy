@@ -124,7 +124,7 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Row(
+                child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

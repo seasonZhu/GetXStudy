@@ -26,7 +26,6 @@ import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 import 'package:getx_study/pages/web/binding/web_binding.dart';
-import 'package:getx_study/pages/web/view/web_page.dart';
 import 'package:getx_study/routes/middleware/login_middleware.dart';
 import 'package:getx_study/routes/middleware/web_middleware.dart';
 
@@ -139,7 +138,7 @@ abstract class Routes {
     ),
     GetPage(
       name: web,
-      page: () => const WebPage(),
+      page: () => const MyCollectPage(),
       binding: WebBinding(),
       middlewares: [WebMiddleware()],
     ),
