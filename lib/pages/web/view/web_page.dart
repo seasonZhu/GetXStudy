@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getx_study/theme/theme_controller.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,9 @@ import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
 
 class WebPage extends GetView<WebController> {
-  const WebPage({Key? key}) : super(key: key);
+  final _themeController = Get.find<ThemeController>();
+
+  WebPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +139,7 @@ class WebPage extends GetView<WebController> {
             padding: const EdgeInsets.only(top: 12),
             child: Text(
               webLoadInfo.title.toString().replaceHtmlElement,
-              style: const TextStyle(
-                color: Colors.black,
-              ),
+              style: _themeController.currentTheme.value.textTheme.navTitleTextStyle,
             ),
           ),
         ),

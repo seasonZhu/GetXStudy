@@ -9,36 +9,43 @@ import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/routes/getx_router_observer.dart';
 import 'package:getx_study/routes/history_router_observer.dart';
 import 'package:getx_study/routes/routes.dart';
+import 'package:getx_study/theme/theme_controller.dart';
 
 class MyApp extends StatelessWidget {
   final bool isFirst;
 
-  const MyApp({Key? key, required this.isFirst}) : super(key: key);
+  MyApp({Key? key, required this.isFirst}) : super(key: key);
+
+  final ThemeController themeController = Get.put(ThemeController());
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetCupertinoApp(
-      title: 'GetX Study',
-      navigatorObservers: [getXRouterObserver, historyRouterObserver],
-      unknownRoute: Routes.unknownPage,
+    return Obx(() {
+      return GetCupertinoApp(
+        title: 'GetX Study',
+        navigatorObservers: [getXRouterObserver, historyRouterObserver],
+        unknownRoute: Routes.unknownPage,
 
-      /// 通过使用initialRoute来保证绑定的操作
-      initialRoute: isFirst ? Routes.welcome : Routes.splash,
-      getPages: Routes.routePage,
-      onGenerateRoute: (settings) {
-        logger.d(settings.name);
-        return null;
-      },
-      /// 使用toast
-      builder: EasyLoading.init(),
-      theme: _getCupertinoCurrentTheme(),
-    );
+        /// 通过使用initialRoute来保证绑定的操作
+        initialRoute: isFirst ? Routes.welcome : Routes.splash,
+        getPages: Routes.routePage,
+        onGenerateRoute: (settings) {
+          logger.d(settings.name);
+          return null;
+        },
+
+        /// 使用toast
+        builder: EasyLoading.init(),
+        theme: themeController.currentTheme.value//_getCupertinoCurrentTheme(),
+      );
+    });
   }
 
   /// App运行过程中,如果在iOS的设置中更改了亮度模式,还是无法实时进行更改,只能下次运行的时候才能体现变化,体验不好
   ThemeData _getMaterialCurrentTheme() {
-    return WidgetsBinding.instance.platformDispatcher.platformBrightness.themeData;
+    return WidgetsBinding
+        .instance.platformDispatcher.platformBrightness.themeData;
     //return View.of(context).platformDispatcher.platformBrightness.themeData;
     //return SchedulerBinding.instance.window.platformBrightness.themeData;
   }

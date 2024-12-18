@@ -9,6 +9,7 @@ enum My {
   myJueJin,
   myCoin,
   myCollect,
+  themeSetting,
   login,
   logout,
 }
@@ -26,6 +27,8 @@ extension Extension on My {
         return "我的积分";
       case My.myCollect:
         return "我的收藏";
+      case My.themeSetting:
+        return "主题颜色";
       case My.myGitHub:
         return "我的GitHub";
       case My.myJueJin:
@@ -47,6 +50,8 @@ extension Extension on My {
         return Routes.myCoinHistory;
       case My.myCollect:
         return Routes.myCollect;
+      case My.themeSetting:
+        return Routes.themeSetting;
       case My.myGitHub:
         return Routes.web;
       case My.myJueJin:
@@ -79,6 +84,8 @@ extension Extension on My {
         return Icons.trending_up;
       case My.myCollect:
         return Icons.local_offer;
+      case My.themeSetting:
+        return Icons.color_lens;
       case My.myGitHub:
         return Icons.link;
       case My.myJueJin:
@@ -93,6 +100,7 @@ extension Extension on My {
     My.myGitHub,
     My.myJueJin,
     My.ranking,
+    My.themeSetting,
     My.login,
   ];
 
@@ -103,6 +111,7 @@ extension Extension on My {
     My.ranking,
     My.myCoin,
     My.myCollect,
+    My.themeSetting,
     My.logout,
   ];
 }
