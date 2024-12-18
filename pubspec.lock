@@ -1362,6 +1362,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.1"
+  webview_flutter_jsbridge:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: ab20013a9a0d3ce9309b8d268f4261a8413f3f04
+      url: "https://github.com/seasonZhu/webview_flutter_jsbridge"
+    source: git
+    version: "0.1.0"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
