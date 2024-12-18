@@ -254,6 +254,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.7"
+  dependency_validator:
+    dependency: "direct dev"
+    description:
+      name: dependency_validator
+      sha256: f727a5627aa405965fab4aef4f468e50a9b632ba0737fd2f98c932fec6d712b9
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.2.3"
   device_info_plus:
     dependency: "direct main"
     description:
@@ -1354,15 +1362,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.1"
-  webview_flutter_jsbridge:
-    dependency: "direct dev"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: ab20013a9a0d3ce9309b8d268f4261a8413f3f04
-      url: "https://github.com/seasonZhu/webview_flutter_jsbridge"
-    source: git
-    version: "0.1.0"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
