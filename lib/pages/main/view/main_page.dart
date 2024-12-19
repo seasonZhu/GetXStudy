@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_study/enum/main_tag_type.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
-import 'package:getx_study/theme/theme_controller.dart';
-import 'package:getx_study/theme/themes.dart';
+import 'package:getx_study/pages/my/controller/theme_controller.dart';
+import 'package:getx_study/pages/common/themes.dart';
 
 class MainPage extends GetView<MainController> {
   const MainPage({Key? key}) : super(key: key);

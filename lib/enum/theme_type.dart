@@ -1,10 +1,12 @@
-enum ThemeType { light, blue, green, red }
+enum ThemeType { light, dark, blue, green, red }
 
 extension Ext on ThemeType {
   String get title {
     switch (this) {
       case ThemeType.light:
         return "浅色";
+      case ThemeType.dark:
+        return "深色";
       case ThemeType.blue:
         return "蓝色";
       case ThemeType.green:
@@ -13,11 +15,4 @@ extension Ext on ThemeType {
         return "红色";
     }
   }
-
-  static final dataSource = [
-    ThemeType.light,
-    ThemeType.blue,
-    ThemeType.green,
-    ThemeType.red
-  ];
 }

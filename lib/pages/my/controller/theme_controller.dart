@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart';
-
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/account_manager/account_service.dart';
 import 'package:getx_study/enum/theme_type.dart';
-import 'themes.dart';
+import '../../common/themes.dart';
 
 class ThemeController extends GetxController {
   var currentTheme = AppThemes.lightTheme.obs;
 
-  void switchTheme(ThemeType type) {
+  void switchTheme(ThemeType type) async {
     switch (type) {
       case ThemeType.light:
         currentTheme.value = AppThemes.lightTheme;
+        break;
+      case ThemeType.dark:
+        currentTheme.value = AppThemes.darkTheme;
         break;
       case ThemeType.blue:
         currentTheme.value = AppThemes.blueLightTheme;
@@ -24,12 +26,7 @@ class ThemeController extends GetxController {
         break;
     }
     saveThemeType(type);
-  }
-
-  void _toggleThemeMode() {
-    var isDarkMode = currentTheme.value.brightness == Brightness.dark;
-    currentTheme.value =
-        isDarkMode ? AppThemes.darkTheme : AppThemes.lightTheme;
+    restartApp();
   }
 
   void saveThemeType(ThemeType type) {
@@ -41,5 +38,12 @@ class ThemeController extends GetxController {
     // 获取主题设置
     final type = await AccountService.find.getThemeSetting();
     switchTheme(type);
+  }
+
+  // 重启应用的方法
+  Future<void> restartApp() async {
+    if (Get.context != null) {
+        Phoenix.rebirth(Get.context!);
+    }
   }
 }

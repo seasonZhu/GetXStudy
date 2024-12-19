@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:getx_study/logger/logger.dart';
-import 'package:getx_study/theme/theme_controller.dart';
+import 'package:getx_study/pages/my/controller/theme_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainController extends GetxController {

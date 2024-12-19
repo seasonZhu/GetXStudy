@@ -9,7 +9,7 @@ import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/routes/getx_router_observer.dart';
 import 'package:getx_study/routes/history_router_observer.dart';
 import 'package:getx_study/routes/routes.dart';
-import 'package:getx_study/theme/theme_controller.dart';
+import 'package:getx_study/pages/my/controller/theme_controller.dart';
 
 class MyApp extends StatelessWidget {
   final bool isFirst;

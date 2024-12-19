@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/enum/theme_type.dart';
-import 'package:getx_study/theme/theme_controller.dart';
+import 'package:getx_study/pages/my/controller/theme_controller.dart';
 
 class ThemeSettingPage extends StatelessWidget {
   const ThemeSettingPage({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class ThemeSettingPage extends StatelessWidget {
             return ListTile(
                 title: Text(dataSource[index].title),
                 trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () {
+                onTap: () async {
                   themeController.switchTheme(dataSource[index]);
                 });
           },

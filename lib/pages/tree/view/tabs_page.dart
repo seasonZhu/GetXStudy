@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/theme/theme_controller.dart';
+import 'package:getx_study/pages/my/controller/theme_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/enum/tag_type.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getx_study/theme/theme_controller.dart';
+import 'package:getx_study/pages/my/controller/theme_controller.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:get/get.dart';
