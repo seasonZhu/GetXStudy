@@ -25,7 +25,7 @@ class MainPage extends GetView<MainController> {
           tabBar: CupertinoTabBar(
             items: MainTagTypeExt.items,
             /// 这个地方目前这样写无法感知到变化
-            // backgroundColor: Get.find<ThemeController>().currentTheme.value == AppThemes.darkTheme? Colors.black : Colors.white,
+            backgroundColor: controller.rxCurrentTheme == AppThemes.darkTheme? Colors.black : Colors.white,
             currentIndex: controller.selectedIndex, //默认选中的 index
             onTap: controller.onItemTapped,
           ),

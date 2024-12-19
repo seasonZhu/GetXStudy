@@ -1,48 +1,45 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/enum/theme_type.dart';
 import 'themes.dart';
 
 class ThemeController extends GetxController {
   var currentTheme = AppThemes.lightTheme.obs;
 
-  void changeTheme(String color, bool isDarkMode) {
-    switch (color) {
-      case 'blue':
+  void switchTheme(ThemeType type) {
+    switch (type) {
+      case ThemeType.light:
+        currentTheme.value = AppThemes.lightTheme;
+        break;
+      case ThemeType.blue:
         currentTheme.value = AppThemes.blueLightTheme;
         break;
-      case 'green':
+      case ThemeType.green:
         currentTheme.value = AppThemes.greenLightTheme;
         break;
-      case 'red':
+      case ThemeType.red:
         currentTheme.value = AppThemes.redLightTheme;
         break;
-      case 'dark':
-        currentTheme.value = isDarkMode ? AppThemes.darkTheme: AppThemes.lightTheme;
-        break;
     }
+    saveThemeType(type);
   }
 
-  void switchTheme(int index) {
+  void _toggleThemeMode() {
     var isDarkMode = currentTheme.value.brightness == Brightness.dark;
-    switch (index) {
-      case 0:
-        changeTheme('blue', isDarkMode);
-        break;
-      case 1:
-        changeTheme('green', isDarkMode);
-        break;
-      case 2:
-        changeTheme('red', isDarkMode);
-        break;
-      case 3:
-        changeTheme('dark', isDarkMode);
-        break;
-    }
+    currentTheme.value =
+        isDarkMode ? AppThemes.darkTheme : AppThemes.lightTheme;
   }
 
-  void toggleThemeMode() {
-    var isDarkMode = currentTheme.value.brightness == Brightness.dark;
-    changeTheme("dark", !isDarkMode);
+  void saveThemeType(ThemeType type) {
+    // 保存 主题设置
+    AccountService.find.saveThemeSetting(type);
+  }
+
+  Future<void> getThemeType() async {
+    // 获取主题设置
+    final type = await AccountService.find.getThemeSetting();
+    switchTheme(type);
   }
 }

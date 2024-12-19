@@ -11,6 +11,7 @@ import 'package:getx_study/example_app/stream_app.dart';
 import 'package:getx_study/example_app/get_x_app.dart';
 import 'package:getx_study/example_app/rx_dart_app.dart';
 import 'package:getx_study/example_app/h5_js_channel_app.dart';
+import 'package:getx_study/theme/theme_controller.dart';
 
 void main() => run();
 
@@ -25,9 +26,13 @@ run() async {
   //cherrilog();
 
   /// 把初始化服务放到runApp之前
-  final accountService = Get.put(AccountService());
+  final accountService = Get.put(AccountService()); 
+
+  final themeController = Get.put(ThemeController());
 
   final isFirst = await accountService.getIsFirstLaunch();
+
+  await themeController.getThemeType();
 
   /// 玩安卓App的进这个
   runApp(MyApp(isFirst: isFirst));

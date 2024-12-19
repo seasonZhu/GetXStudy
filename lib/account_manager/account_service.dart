@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
+import 'package:getx_study/enum/theme_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// 这个类就像一个 "GetxController"，它共享相同的生命周期 （"onInit()"、"onReady()"、"onClose()"） 。 但里面没有 "逻辑"。它只是通知GetX的依赖注入系统，这个子类不能从内存中删除。
@@ -18,6 +19,8 @@ class AccountService extends GetxService {
   final _kOpenDarkMode = "kOpenDarkMode";
 
   final _kIsFirstLaunch = "kIsFirstLaunch";
+
+  final _kThemeSetting = "kThemeSetting";
 
   AccountInfoEntity? info;
 
@@ -70,6 +73,11 @@ class AccountService extends GetxService {
     return userDefine.setBool(_kIsFirstLaunch, false);
   }
 
+  Future<bool> saveThemeSetting(ThemeType type) async {
+    final userDefine = await this.userDefine;
+    return userDefine.setInt(_kThemeSetting, type.index);
+  }
+
   Future<String> getLastLoginUserName() async {
     final userDefine = await this.userDefine;
     return userDefine.getString(_kLastLoginUserName) ?? "";
@@ -98,6 +106,12 @@ class AccountService extends GetxService {
   Future<bool> getIsFirstLaunch() async {
     final userDefine = await this.userDefine;
     return userDefine.getBool(_kIsFirstLaunch) ?? true;
+  }
+
+  Future<ThemeType> getThemeSetting() async {
+    final userDefine = await this.userDefine;
+    final index = userDefine.getInt(_kThemeSetting) ?? 0;
+    return ThemeType.values[index];
   }
 
   Future<void> clear() async {

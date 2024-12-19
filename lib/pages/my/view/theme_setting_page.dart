@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_study/enum/theme_type.dart';
 import 'package:getx_study/theme/theme_controller.dart';
 
 class ThemeSettingPage extends StatelessWidget {
   const ThemeSettingPage({Key? key}) : super(key: key);
+
+  final dataSource = ThemeType.values;
 
   @override
   Widget build(BuildContext context) {
@@ -14,30 +17,22 @@ class ThemeSettingPage extends StatelessWidget {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("主题颜色"),
       ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: themeController.toggleThemeMode,
-              child: const Text('Toggle Light/Dark Mode'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => themeController.switchTheme(0),
-              child: const Text('Switch to Blue Theme'),
-            ),
-            ElevatedButton(
-              onPressed: () => themeController.switchTheme(1),
-              child: const Text('Switch to Green Theme'),
-            ),
-            ElevatedButton(
-              onPressed: () => themeController.switchTheme(2),
-              child: const Text('Switch to Red Theme'),
-            ),
-          ],
-        ),
-      ),
+      child: ListView.separated(
+          itemBuilder: (context, index) {
+            return ListTile(
+                title: Text(dataSource[index].title),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  themeController.switchTheme(dataSource[index]);
+                });
+          },
+          separatorBuilder: (context, index) {
+            return const Divider(
+              indent: 15,
+              height: 0.5,
+            );
+          },
+          itemCount: dataSource.length),
     );
   }
 }
