@@ -8,6 +8,11 @@ class ThemeController extends GetxController {
   var currentTheme = AppThemes.lightTheme.obs;
 
   void switchTheme(ThemeType type) async {
+    final currentThemeType = await AccountService.find.getThemeSetting();
+    if (currentThemeType == type) {
+      return;
+    }
+
     switch (type) {
       case ThemeType.light:
         currentTheme.value = AppThemes.lightTheme;
