@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/account_manager/account_service.dart';
@@ -5,7 +6,31 @@ import 'package:getx_study/enum/theme_type.dart';
 import '../../common/themes.dart';
 
 class ThemeController extends GetxController {
-  var currentTheme = AppThemes.lightTheme.obs;
+  final currentTheme = AppThemes.lightTheme.obs;
+
+  Color get indicatorColor {
+    if (currentTheme.value == AppThemes.lightTheme) {
+      return Colors.blue;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  Color get labelColor {
+    if (currentTheme.value == AppThemes.lightTheme) {
+      return Colors.blue;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  Color get unselectedLabelColor {
+    if (currentTheme.value == AppThemes.lightTheme) {
+      return Colors.lightBlue;
+    } else {
+      return Colors.white60;
+    }
+  }
 
   void switchTheme(ThemeType type) async {
     final currentThemeType = await AccountService.find.getThemeSetting();

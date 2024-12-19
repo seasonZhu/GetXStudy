@@ -81,15 +81,18 @@ class _TabsPageState extends State<TabsPage>
       ).toList(),
       controller: tabController,
       isScrollable: true,
-      indicatorColor: Colors.blue,
+      // 底部线的颜色
+      indicatorColor: _themeController.indicatorColor,//Colors.blue,
       indicatorSize: TabBarIndicatorSize.tab,
       labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+      // 选中tab的文字颜色
+      labelColor: _themeController.labelColor,//Colors.black,
       unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 16),
-      labelColor: Colors.black,
+      // 未选中tab的文字颜色
+      unselectedLabelColor: _themeController.unselectedLabelColor,//Colors.grey,
       labelPadding: const EdgeInsets.all(0.0),
       indicatorPadding: const EdgeInsets.all(0.0),
       indicatorWeight: 2.3,
-      unselectedLabelColor: Colors.grey,
     );
   }
 
