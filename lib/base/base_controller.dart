@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/routes/routes.dart';

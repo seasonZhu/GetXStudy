@@ -11,7 +11,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/base/base_request_controller.dart';
-import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
 import 'package:getx_study/enum/collect_action_type.dart';
 import 'package:getx_study/logger/logger.dart';

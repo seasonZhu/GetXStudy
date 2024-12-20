@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:getx_study/pages/my/controller/theme_controller.dart';
+import 'package:getx_study/app_service/theme_service.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 
-import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:marqueer/marqueer.dart';
 
@@ -16,7 +16,7 @@ import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
 
 class WebPage extends GetView<WebController> {
-  final _themeController = Get.find<ThemeController>();
+  final themeService = ThemeService.find;
 
   WebPage({Key? key}) : super(key: key);
 
@@ -139,7 +139,7 @@ class WebPage extends GetView<WebController> {
             padding: const EdgeInsets.only(top: 12),
             child: Text(
               webLoadInfo.title.toString().replaceHtmlElement,
-              style: _themeController.currentTheme.value.textTheme.navTitleTextStyle,
+              style: themeService.themeData.textTheme.navTitleTextStyle,
             ),
           ),
         ),

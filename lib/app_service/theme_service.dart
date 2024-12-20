@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
-import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/enum/theme_type.dart';
-import '../../common/themes.dart';
 
-class ThemeController extends GetxController {
-  final currentTheme = AppThemes.lightTheme.obs;
+class ThemeService extends GetxService {
+  static ThemeService get find => Get.find<ThemeService>();
+
+  final rxCurrentThemeType = ThemeType.light.obs;
+
+  CupertinoThemeData get themeData {
+    return rxCurrentThemeType.value.theme;
+  }
 
   Color get indicatorColor {
-    if (currentTheme.value == AppThemes.lightTheme) {
+    if (rxCurrentThemeType.value == ThemeType.light) {
       return Colors.blue;
     } else {
       return Colors.white;
@@ -17,7 +23,7 @@ class ThemeController extends GetxController {
   }
 
   Color get labelColor {
-    if (currentTheme.value == AppThemes.lightTheme) {
+    if (rxCurrentThemeType.value == ThemeType.light) {
       return Colors.blue;
     } else {
       return Colors.white;
@@ -25,7 +31,7 @@ class ThemeController extends GetxController {
   }
 
   Color get unselectedLabelColor {
-    if (currentTheme.value == AppThemes.lightTheme) {
+    if (rxCurrentThemeType.value == ThemeType.light) {
       return Colors.lightBlue;
     } else {
       return Colors.white60;
@@ -38,23 +44,7 @@ class ThemeController extends GetxController {
       return;
     }
 
-    switch (type) {
-      case ThemeType.light:
-        currentTheme.value = AppThemes.lightTheme;
-        break;
-      case ThemeType.dark:
-        currentTheme.value = AppThemes.darkTheme;
-        break;
-      case ThemeType.blue:
-        currentTheme.value = AppThemes.blueLightTheme;
-        break;
-      case ThemeType.green:
-        currentTheme.value = AppThemes.greenLightTheme;
-        break;
-      case ThemeType.red:
-        currentTheme.value = AppThemes.redLightTheme;
-        break;
-    }
+    rxCurrentThemeType.value = type;
     saveThemeType(type);
     restartApp();
   }
@@ -64,16 +54,17 @@ class ThemeController extends GetxController {
     AccountService.find.saveThemeSetting(type);
   }
 
-  Future<void> getThemeType() async {
+  Future<ThemeType> getThemeType() async {
     // 获取主题设置
     final type = await AccountService.find.getThemeSetting();
-    switchTheme(type);
+    rxCurrentThemeType.value = type;
+    return type;
   }
 
   // 重启应用的方法
   Future<void> restartApp() async {
     if (Get.context != null) {
-        Phoenix.rebirth(Get.context!);
+      Phoenix.rebirth(Get.context!);
     }
   }
 }

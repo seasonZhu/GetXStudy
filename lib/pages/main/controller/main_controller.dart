@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:getx_study/logger/logger.dart';
-import 'package:getx_study/pages/my/controller/theme_controller.dart';
+import 'package:getx_study/app_service/theme_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainController extends GetxController {
   var selectedIndex = 0;
 
-  final rxCurrentTheme = Get.find<ThemeController>().currentTheme;
+  final rxCurrentTheme = ThemeService.find.rxCurrentThemeType;
 
   void onItemTapped(int index) {
     selectedIndex = index;

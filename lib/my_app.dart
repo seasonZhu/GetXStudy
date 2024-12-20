@@ -9,14 +9,14 @@ import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/routes/getx_router_observer.dart';
 import 'package:getx_study/routes/history_router_observer.dart';
 import 'package:getx_study/routes/routes.dart';
-import 'package:getx_study/pages/my/controller/theme_controller.dart';
+import 'package:getx_study/app_service/theme_service.dart';
 
 class MyApp extends StatelessWidget {
   final bool isFirst;
 
   MyApp({Key? key, required this.isFirst}) : super(key: key);
 
-  final ThemeController themeController = Get.put(ThemeController());
+  final themeService = ThemeService.find;
 
   // This widget is the root of your application.
   @override
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 
         /// 使用toast
         builder: EasyLoading.init(),
-        theme: themeController.currentTheme.value//_getCupertinoCurrentTheme(),
+        theme: themeService.themeData,//_getCupertinoCurrentTheme(),
       );
     });
   }

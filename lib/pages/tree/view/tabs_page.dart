@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/pages/my/controller/theme_controller.dart';
+import 'package:getx_study/app_service/theme_service.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:getx_study/enum/tag_type.dart';
@@ -28,7 +28,7 @@ class _TabsPageState extends State<TabsPage>
 
   late TabController _tabController;
 
-  late ThemeController _themeController;
+  late ThemeService _themeService;
 
   @override
   bool get wantKeepAlive => true;
@@ -37,7 +37,7 @@ class _TabsPageState extends State<TabsPage>
   void initState() {
     super.initState();
     _tabsController = Get.find<TabsController>(tag: widget.type.toString());
-    _themeController = Get.find<ThemeController>();
+    _themeService = ThemeService.find;
   }
 
   @override
@@ -82,14 +82,14 @@ class _TabsPageState extends State<TabsPage>
       controller: tabController,
       isScrollable: true,
       // 底部线的颜色
-      indicatorColor: _themeController.indicatorColor,//Colors.blue,
+      indicatorColor: _themeService.indicatorColor,//Colors.blue,
       indicatorSize: TabBarIndicatorSize.tab,
       labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
       // 选中tab的文字颜色
-      labelColor: _themeController.labelColor,//Colors.black,
+      labelColor: _themeService.labelColor,//Colors.black,
       unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 16),
       // 未选中tab的文字颜色
-      unselectedLabelColor: _themeController.unselectedLabelColor,//Colors.grey,
+      unselectedLabelColor: _themeService.unselectedLabelColor,//Colors.grey,
       labelPadding: const EdgeInsets.all(0.0),
       indicatorPadding: const EdgeInsets.all(0.0),
       indicatorWeight: 2.3,

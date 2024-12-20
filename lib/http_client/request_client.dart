@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/http_util/http_util.dart';
 
 import 'package:getx_study/http_util/api.dart';

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:getx_study/enum/theme_type.dart';
-import 'package:getx_study/pages/my/controller/theme_controller.dart';
+import 'package:getx_study/app_service/theme_service.dart';
 
 class ThemeSettingPage extends StatelessWidget {
   const ThemeSettingPage({Key? key}) : super(key: key);
@@ -11,7 +10,7 @@ class ThemeSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = Get.find<ThemeController>();
+    final themeService = ThemeService.find;
 
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
@@ -23,7 +22,7 @@ class ThemeSettingPage extends StatelessWidget {
                 title: Text(dataSource[index].title),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () async {
-                  themeController.switchTheme(dataSource[index]);
+                  themeService.switchTheme(dataSource[index]);
                 });
           },
           separatorBuilder: (context, index) {

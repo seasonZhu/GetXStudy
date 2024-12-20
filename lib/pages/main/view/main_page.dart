@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_study/enum/main_tag_type.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
-import 'package:getx_study/pages/my/controller/theme_controller.dart';
-import 'package:getx_study/pages/common/themes.dart';
+import 'package:getx_study/enum/theme_type.dart';
 
 class MainPage extends GetView<MainController> {
   const MainPage({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class MainPage extends GetView<MainController> {
           tabBar: CupertinoTabBar(
             items: MainTagTypeExt.items,
             /// 这个地方目前这样写无法感知到变化
-            backgroundColor: controller.rxCurrentTheme == AppThemes.darkTheme? Colors.black : Colors.white,
+            backgroundColor: controller.rxCurrentTheme == ThemeType.dark ? Colors.black : Colors.white,
             currentIndex: controller.selectedIndex, //默认选中的 index
             onTap: controller.onItemTapped,
           ),

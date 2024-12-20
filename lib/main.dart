@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 import 'package:cherrilog/cherrilog.dart';
 
 import 'package:getx_study/my_app.dart';
-import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/example_app/stream_app.dart';
 import 'package:getx_study/example_app/get_x_app.dart';
 import 'package:getx_study/example_app/rx_dart_app.dart';
 import 'package:getx_study/example_app/h5_js_channel_app.dart';
-import 'package:getx_study/pages/my/controller/theme_controller.dart';
+import 'package:getx_study/app_service/theme_service.dart';
 
 void main() => run();
 
@@ -29,11 +29,11 @@ run() async {
   /// 把初始化服务放到runApp之前
   final accountService = Get.put(AccountService()); 
 
-  final themeController = Get.put(ThemeController());
+  final themeService = Get.put(ThemeService());
 
   final isFirst = await accountService.getIsFirstLaunch();
 
-  await themeController.getThemeType();
+  await themeService.getThemeType();
 
   /// 玩安卓App的进这个
   runApp(Phoenix(child: MyApp(isFirst: isFirst)));
