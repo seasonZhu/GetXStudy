@@ -66,10 +66,10 @@ class StateMixinExamplePage extends GetView<StateMixinController> {
                   margin: const EdgeInsets.all(5),
                   child: TextButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      overlayColor: MaterialStateProperty.all(Colors.blue),
-                      shape: MaterialStateProperty.all(
+                      backgroundColor: const WidgetStatePropertyAll(Colors.blue),
+                      foregroundColor: const WidgetStatePropertyAll(Colors.white),
+                      overlayColor: const WidgetStatePropertyAll(Colors.blue),
+                      shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),

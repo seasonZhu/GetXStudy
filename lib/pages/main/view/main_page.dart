@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:getx_study/app_service/theme_service.dart';
 import 'package:getx_study/enum/main_tag_type.dart';
 import 'package:getx_study/pages/main/controller/main_controller.dart';
 import 'package:getx_study/enum/theme_type.dart';
@@ -23,8 +24,8 @@ class MainPage extends GetView<MainController> {
           },
           tabBar: CupertinoTabBar(
             items: MainTagTypeExt.items,
-            /// 这个地方目前这样写无法感知到变化
-            backgroundColor: controller.rxCurrentTheme == ThemeType.dark ? Colors.black : Colors.white,
+            /// 这个地方目前这样写无法感知到变化,于是我使用了flutter_phoenix这个库来进行App的重启
+            backgroundColor: ThemeService.find.rxCurrentThemeType.value == ThemeType.dark ? Colors.black : Colors.white,
             currentIndex: controller.selectedIndex, //默认选中的 index
             onTap: controller.onItemTapped,
           ),
