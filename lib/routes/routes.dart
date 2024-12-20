@@ -22,6 +22,7 @@ import 'package:getx_study/pages/my/view/my_collect_page.dart';
 import 'package:getx_study/pages/my/view/register_page.dart';
 import 'package:getx_study/pages/home/binding/search_result_binding.dart';
 import 'package:getx_study/pages/home/view/search_result_page.dart';
+import 'package:getx_study/pages/my/view/theme_setting_page.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
@@ -64,6 +65,8 @@ abstract class Routes {
   static const unknown = "/unknown";
 
   static const stateMixinExample = "/stateMixinExample";
+
+  static const themeSetting = "/themeSetting";
 
   ///页面合集
   static final routePage = [
@@ -139,7 +142,7 @@ abstract class Routes {
     ),
     GetPage(
       name: web,
-      page: () => const WebPage(),
+      page: () => WebPage(),
       binding: WebBinding(),
       middlewares: [WebMiddleware()],
     ),
@@ -157,6 +160,7 @@ abstract class Routes {
       page: () => const WelcomePage(),
     ),
     GetPage(name: splash, page: () => const SplashPage()),
+    GetPage(name: themeSetting, page: () => const ThemeSettingPage()),
   ];
 
   static final unknownPage = GetPage(

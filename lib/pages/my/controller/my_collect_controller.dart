@@ -7,7 +7,7 @@ import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/logger/class_name.dart';
 import 'package:getx_study/pages/my/repository/my_collect_repository.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
-import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/app_service/account_service.dart';
 
 class MyCollectController
     extends BaseRefreshController<MyCollectRepository, ArticleInfoDatas> {

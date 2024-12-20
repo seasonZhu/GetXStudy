@@ -1,0 +1,70 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:get/get.dart';
+import 'package:getx_study/app_service/account_service.dart';
+import 'package:getx_study/enum/theme_type.dart';
+
+class ThemeService extends GetxService {
+  static ThemeService get find => Get.find<ThemeService>();
+
+  final rxCurrentThemeType = ThemeType.light.obs;
+
+  CupertinoThemeData get themeData {
+    return rxCurrentThemeType.value.theme;
+  }
+
+  Color get indicatorColor {
+    if (rxCurrentThemeType.value == ThemeType.light) {
+      return Colors.blue;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  Color get labelColor {
+    if (rxCurrentThemeType.value == ThemeType.light) {
+      return Colors.blue;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  Color get unselectedLabelColor {
+    if (rxCurrentThemeType.value == ThemeType.light) {
+      return Colors.lightBlue;
+    } else {
+      return Colors.white60;
+    }
+  }
+
+  void switchTheme(ThemeType type) async {
+    final currentThemeType = await AccountService.find.getThemeSetting();
+    if (currentThemeType == type) {
+      return;
+    }
+
+    rxCurrentThemeType.value = type;
+    saveThemeType(type);
+    restartApp();
+  }
+
+  void saveThemeType(ThemeType type) {
+    // 保存 主题设置
+    AccountService.find.saveThemeSetting(type);
+  }
+
+  Future<ThemeType> getThemeType() async {
+    // 获取主题设置
+    final type = await AccountService.find.getThemeSetting();
+    rxCurrentThemeType.value = type;
+    return type;
+  }
+
+  // 重启应用的方法
+  Future<void> restartApp() async {
+    if (Get.context != null) {
+      Phoenix.rebirth(Get.context!);
+    }
+  }
+}

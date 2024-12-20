@@ -1,4 +1,4 @@
-import 'package:getx_study/account_manager/account_service.dart';
+import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
 import 'package:getx_study/pages/my/repository/my_repository.dart';
