@@ -24,7 +24,7 @@ class MainPage extends GetView<MainController> {
           },
           tabBar: CupertinoTabBar(
             items: MainTagTypeExt.items,
-            /// 这个地方目前这样写无法感知到变化,于是我使用了flutter_phoenix这个库来进行App的重启
+            /// 这个地方目前这样写无法感知到变化,于是我使用了全局的GetMaterialController这个库来进行App的重启
             backgroundColor: ThemeService.find.rxCurrentThemeType.value == ThemeType.dark ? Colors.black : Colors.white,
             currentIndex: controller.selectedIndex, //默认选中的 index
             onTap: controller.onItemTapped,
