@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:getx_study/enum/theme_type.dart';
 import 'package:getx_study/app_service/theme_service.dart';
 
@@ -13,8 +16,8 @@ class ThemeSettingPage extends StatelessWidget {
     final themeService = ThemeService.find;
 
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text("主题颜色"),
+      navigationBar: CupertinoNavigationBar(
+        middle: Text("theme_setting".tr),
       ),
       child: ListView.separated(
           itemBuilder: (context, index) {
@@ -23,6 +26,19 @@ class ThemeSettingPage extends StatelessWidget {
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () async {
                   themeService.switchTheme(dataSource[index]);
+                  /// 尝试使用国际化
+                  if (index == 0) {
+                    var locale = const Locale('en', 'US');
+                    Get.updateLocale(locale);
+                  } else if (index == 1) {
+                    var locale = const Locale('zh', 'CN');
+                    Get.updateLocale(locale);
+                  } else if (index == 2) {
+                    var locale = const Locale('fr', 'FR');
+                    Get.updateLocale(locale);
+                  } else {
+                    
+                  }
                 });
           },
           separatorBuilder: (context, index) {

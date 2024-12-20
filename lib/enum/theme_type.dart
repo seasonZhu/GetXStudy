@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:get/get.dart';
+
 enum ThemeType { light, dark, blue, green, red }
 
 extension Ext on ThemeType {
   String get title {
     switch (this) {
       case ThemeType.light:
-        return "浅色";
+        return "light".tr;
       case ThemeType.dark:
-        return "深色";
+        return "dark".tr;
       case ThemeType.blue:
-        return "蓝色";
+        return "blue".tr;
       case ThemeType.green:
-        return "绿色";
+        return "green".tr;
       case ThemeType.red:
-        return "红色";
+        return "red".tr;
     }
   }
 
