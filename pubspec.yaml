@@ -36,7 +36,6 @@ dependencies:
   retrofit: '>=4.0.0 <5.0.0'
   json_annotation: ^4.8.1
   cherrilog: ^0.2.0
-  flutter_phoenix: 1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/enum/theme_type.dart';
@@ -63,8 +62,6 @@ class ThemeService extends GetxService {
 
   // 重启应用的方法
   Future<void> restartApp() async {
-    if (Get.context != null) {
-      Phoenix.rebirth(Get.context!);
-    }
+    Get.find<GetMaterialController>().restartApp();
   }
 }

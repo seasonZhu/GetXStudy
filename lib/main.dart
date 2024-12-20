@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import 'package:get/get.dart';
 import 'package:cherrilog/cherrilog.dart';
@@ -36,7 +35,7 @@ run() async {
   await themeService.getThemeType();
 
   /// 玩安卓App的进这个
-  runApp(Phoenix(child: MyApp(isFirst: isFirst)));
+  runApp(MyApp(isFirst: isFirst));
 
   /// 使用StreamController与StreamBuilder构建页面的进这个
   //runApp(StreamApp());
