@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/app_service/account_service.dart';
+import 'package:getx_study/base/get_cupertino_controller.dart';
 import 'package:getx_study/enum/theme_type.dart';
 
 class ThemeService extends GetxService {
@@ -63,5 +64,18 @@ class ThemeService extends GetxService {
   // 重启应用的方法
   Future<void> restartApp() async {
     Get.find<GetMaterialController>().restartApp();
+  }
+
+  /// 通过GetCupertinoController更换主题颜色的思路
+  void changeTheme(ThemeType type) async {
+    final currentThemeType = await AccountService.find.getThemeSetting();
+    if (currentThemeType == type) {
+      return;
+    }
+
+    rxCurrentThemeType.value = type;
+    Get.find<GetCupertinoController>().setCupertinoTheme(type.theme);
+    AccountService.find.saveThemeSetting(type);
+    Get.find<GetCupertinoController>().restartApp();
   }
 }
