@@ -15,9 +15,7 @@ import 'package:getx_study/i18n/localized_strings.dart';
 class MyApp extends StatelessWidget {
   final bool isFirst;
 
-  MyApp({Key? key, required this.isFirst}) : super(key: key);
-
-  final themeService = ThemeService.find;
+  const MyApp({Key? key, required this.isFirst}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -38,7 +36,7 @@ class MyApp extends StatelessWidget {
 
         /// 使用toast
         builder: EasyLoading.init(),
-        theme: themeService.themeData, //_getCupertinoCurrentTheme(),
+        theme: ThemeService.find.themeData, //_getCupertinoCurrentTheme(),
         translations: LocalizedStrings(),
         locale: Get.deviceLocale, //不加这个就不知道当前要用什么locale下的语言, i18n就会失败
         fallbackLocale: const Locale("en", "US"),
