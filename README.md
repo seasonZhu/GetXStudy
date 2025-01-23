@@ -141,9 +141,19 @@ RefreshStateView和StateView也只保留了一个，我太过自信的认为Dart
 
 其实很想把AccountManager的逻辑写到AccountController里面去，不过看了一下逻辑和操作，本质上面没有变化就算了。
 
+已经将AccountManager抽到了AccountService层了。
+
 ## Swift版wanandroid客户端
 
 [项目地址](https://github.com/seasonZhu/RxStudy)
+
+## Flutter版wanandroid客户端
+
+[项目地址](https://github.com/seasonZhu/GetXStudy)
+
+## HarmonyOS版wanandroid客户端
+
+[项目地址](https://github.com/seasonZhu/HarmonyStudy)
 
 ## uni-app版wanandroid客户端
 
