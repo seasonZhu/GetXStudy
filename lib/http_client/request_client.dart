@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:getx_study/app_service/account_service.dart';
+import 'package:getx_study/entity/common_response.dart';
 import 'package:getx_study/http_util/http_util.dart';
 
 import 'package:getx_study/http_util/api.dart';
@@ -125,4 +126,7 @@ abstract class RequestClient {
   @GET("article/list/{id}/{page}/json")
   Future<BaseEntity<PageEntity<List<ArticleInfoDatas>>>> getCurrentTreeTabList(
       @Path() String id, @Path() int page);
+
+  @GET("tree/json")
+  Future<BaseEntity<CommonResponse>> getExample();
 }
