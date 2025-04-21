@@ -112,3 +112,58 @@ class MyAnimationPresenter extends GetxController
 class SomeRepository extends GetxService {
   
 }
+
+class CounterController extends GetxController with StateMixin<int> {
+  void increment() {
+    // 更新状态值并设置为成功状态
+    change((state ?? 0) + 1, status: RxStatus.success());
+  }
+
+  void reset() {
+    // 重置状态值并设置为空状态
+    change(0, status: RxStatus.empty());
+  }
+
+  void simulateError() {
+    // 模拟错误状态
+    change(state, status: RxStatus.error("An error occurred"));
+  }
+}
+
+class CounterPage extends StatelessWidget {
+  final CounterController controller = Get.put(CounterController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("StateMixin Example")),
+      body: controller.obx(
+        (state) => Center(
+          child: Text("Count: $state", style: TextStyle(fontSize: 24)),
+        ),
+        onLoading: Center(child: CircularProgressIndicator()),
+        onError: (error) => Center(child: Text("Error: $error")),
+        onEmpty: Center(child: Text("No data available")),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: controller.increment,
+            child: Icon(Icons.add),
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: controller.reset,
+            child: Icon(Icons.refresh),
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: controller.simulateError,
+            child: Icon(Icons.error),
+          ),
+        ],
+      ),
+    );
+  }
+}

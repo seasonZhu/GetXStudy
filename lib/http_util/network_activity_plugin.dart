@@ -2,7 +2,10 @@ import 'package:dio/dio.dart';
 
 /// 如果想要监听请求过程,用Dio自带的InterceptorsWrapper就可以了
 
-enum NetworkActivityChangeType { began, ended }
+enum NetworkActivityChangeType {
+  began,
+  ended;
+}
 
 typedef NetworkActivityCallback = void Function(
     NetworkActivityChangeType change, RequestOptions options);

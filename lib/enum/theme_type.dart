@@ -3,7 +3,13 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
 
-enum ThemeType { light, dark, blue, green, red }
+enum ThemeType {
+  light,
+  dark,
+  blue,
+  green,
+  red;
+}
 
 extension Ext on ThemeType {
   String get title {

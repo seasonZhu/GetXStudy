@@ -3,7 +3,7 @@ import 'package:getx_study/http_util/api.dart';
 enum TagType {
     project,
     publicNumber,
-    tree,
+    tree;
 }
 
 extension Ext on TagType {
@@ -34,7 +34,7 @@ extension Ext on TagType {
         case TagType.project:
             return Api.getProjectClassify;
         case TagType.publicNumber:
-            return Api.getPubilicNumber;
+            return Api.getPublicNumber;
         case TagType.tree:
             return Api.getTree;
         }
@@ -45,7 +45,7 @@ extension Ext on TagType {
         case TagType.project:
             return Api.getProjectClassifyList;
         case TagType.publicNumber:
-            return Api.getPubilicNumberList;
+            return Api.getPublicNumberList;
         case TagType.tree:
             return Api.getTreeDetailList;
         }

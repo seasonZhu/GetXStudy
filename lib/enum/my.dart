@@ -11,7 +11,7 @@ enum My {
   myCollect,
   themeSetting,
   login,
-  logout,
+  logout;
 }
 
 extension Extension on My {

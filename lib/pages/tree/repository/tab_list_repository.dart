@@ -17,7 +17,7 @@ class TabListRepository extends IRepository {
         return await http.Request.get(api: api, params: params);
       case TagType.publicNumber:
         final api =
-            "${Api.getPubilicNumberList}${id.toString()}/${page.toString()}/json";
+            "${Api.getPublicNumberList}${id.toString()}/${page.toString()}/json";
         return await http.Request.get(api: api);
       case TagType.tree:
         return BaseEntity<PageEntity<List<ArticleInfoDatas>>>(null, null, null);

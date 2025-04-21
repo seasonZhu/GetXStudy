@@ -6,7 +6,13 @@ import 'package:getx_study/pages/my/view/my_page.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 
-enum MainTagType { home, project, publicNumber, tree, my }
+enum MainTagType {
+  home,
+  project,
+  publicNumber,
+  tree,
+  my;
+}
 
 extension MainTagTypeExt on MainTagType {
   IconData get icon {

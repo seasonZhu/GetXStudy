@@ -28,10 +28,10 @@ abstract class Api {
   static const String getProjectClassifyList = 'project/list/';
 
   // 公众号
-  static const String getPubilicNumber = 'wxarticle/chapters/json';
+  static const String getPublicNumber = 'wxarticle/chapters/json';
 
   // 公众号文章列表
-  static const String getPubilicNumberList = 'wxarticle/list/';
+  static const String getPublicNumberList = 'wxarticle/list/';
 
   // 登录
   static const String postLogin = 'user/login';

@@ -15,7 +15,7 @@ import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
 import 'package:getx_study/enum/collect_action_type.dart';
 import 'package:getx_study/logger/logger.dart';
-import 'package:getx_study/logger/class_name.dart' as Func;
+import 'package:getx_study/base/class_name.dart' as Func;
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
 
 class WebController extends BaseRequestController<WebRepository, Object?> {
