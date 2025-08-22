@@ -1,12 +1,15 @@
 PODS:
   - cupertino_http (0.0.1):
     - Flutter
+    - FlutterMacOS
   - device_info_plus (0.0.1):
     - Flutter
   - Flutter (1.0.0)
   - image_gallery_saver (2.0.2):
     - Flutter
   - image_picker_ios (0.0.1):
+    - Flutter
+  - objective_c (0.0.1):
     - Flutter
   - open_file_ios (0.0.1):
     - Flutter
@@ -32,11 +35,12 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
-  - cupertino_http (from `.symlinks/plugins/cupertino_http/ios`)
+  - cupertino_http (from `.symlinks/plugins/cupertino_http/darwin`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - objective_c (from `.symlinks/plugins/objective_c/ios`)
   - open_file_ios (from `.symlinks/plugins/open_file_ios/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -49,7 +53,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   cupertino_http:
-    :path: ".symlinks/plugins/cupertino_http/ios"
+    :path: ".symlinks/plugins/cupertino_http/darwin"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   Flutter:
@@ -58,6 +62,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_gallery_saver/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  objective_c:
+    :path: ".symlinks/plugins/objective_c/ios"
   open_file_ios:
     :path: ".symlinks/plugins/open_file_ios/ios"
   package_info_plus:
@@ -78,11 +84,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
-  cupertino_http: 6c6bff76e2f6915cd6b22e0e6d2698309339ec46
+  cupertino_http: 94ac07f5ff090b8effa6c5e2c47871d48ab7c86c
   device_info_plus: 335f3ce08d2e174b9fdc3db3db0f4e3b1f66bd89
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   image_gallery_saver: 14711d79da40581063e8842a11acf1969d781ed7
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
+  objective_c: 89e720c30d716b036faf9c9684022048eee1eee2
   open_file_ios: 5ff7526df64e4394b4fe207636b67a95e83078bb
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
@@ -91,7 +98,7 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
-  webview_flutter_wkwebview: 44d4dee7d7056d5ad185d25b38404436d56c547c
+  webview_flutter_wkwebview: 1821ceac936eba6f7984d89a9f3bcb4dea99ebb2
 
 PODFILE CHECKSUM: e7f691503a7db7d89f909fa35faad1dc0fde5642
 
