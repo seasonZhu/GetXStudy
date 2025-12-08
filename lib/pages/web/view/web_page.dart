@@ -38,8 +38,8 @@ class WebPage extends GetView<WebController> {
     controller.flutterWebViewSetting(webLoadInfo);
 
     return PopScope(
-      canPop: false, // 默认不允许弹出
-      onPopInvoked: (bool didPop) async {
+      canPop: false, // 默认不允许弹出,目前这Page侧滑返回与Web的路由返回冲突了
+      onPopInvokedWithResult: (didPop, result) {
         // 这里可以插入你的逻辑,比如确认是否退出,对iOS没有效果,不知道对Android是否有效
         controller.onBackAction();
       },
