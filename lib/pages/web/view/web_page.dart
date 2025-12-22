@@ -6,7 +6,7 @@ import 'package:getx_study/app_service/theme_service.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:get/get.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';

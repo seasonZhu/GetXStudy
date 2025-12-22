@@ -21,16 +21,15 @@ dependencies:
   flutter_slidable: ^3.0.0
   lpinyin: ^2.0.3
   marqueer: ^1.4.4
-  share: ^2.0.4
+  share_plus: ^12.0.1
   rxdart: ^0.27.7
   image_picker: ^1.0.1
   url_launcher: ^6.1.5
-  image_gallery_saver: ^2.0.3
   path_provider: ^2.0.11
   event_bus: ^2.0.0
   open_file: ^3.2.1
   visibility_detector: ^0.4.0+2
-  permission_handler: ^10.4.3
+  permission_handler: ^12.0.1
   logger: ^1.4.0
   device_info_plus: ^9.0.2
   retrofit: '>=4.0.0 <5.0.0'
@@ -50,17 +49,17 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - assets/images/ic_eye.png
-  - assets/images/ic_head.jpeg
-  - assets/images/launchImage.png
-  - assets/images/placeholder.png
-  - assets/images/saber.jpg
-  - assets/images/saber_logo.jpg
-  - assets/images/season_ali_pay.jpg
-  - assets/images/upgrade.png
-  - assets/images/welcome_1.png
-  - assets/images/welcome_2.jpg
-  - assets/html/index.html
+    - assets/images/ic_eye.png
+    - assets/images/ic_head.jpeg
+    - assets/images/launchImage.png
+    - assets/images/placeholder.png
+    - assets/images/saber.jpg
+    - assets/images/saber_logo.jpg
+    - assets/images/season_ali_pay.jpg
+    - assets/images/upgrade.png
+    - assets/images/welcome_1.png
+    - assets/images/welcome_2.jpg
+    - assets/html/index.html
 flr:
   core_version: 3.1.0
   dartfmt_line_length: 80
