@@ -8,7 +8,8 @@ plugins {
 android {
     namespace = "com.example.getx_study"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "28.2.13676358"
+    // 引用gradle.properties中的ndkVersion属性
+    ndkVersion = project.property("ndkVersion") as String
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -17,6 +18,12 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
     }
 
     defaultConfig {

@@ -38,7 +38,7 @@ class WebPage extends GetView<WebController> {
     controller.flutterWebViewSetting(webLoadInfo);
 
     return PopScope(
-      canPop: false, // 默认不允许弹出,目前这Page侧滑返回与Web的路由返回冲突了
+      canPop: true, // 默认不允许弹出,目前这Page侧滑返回与Web的路由返回冲突了,这个地方的Android与iOS的表现形式不同
       onPopInvokedWithResult: (didPop, result) {
         // 这里可以插入你的逻辑,比如确认是否退出,对iOS没有效果,不知道对Android是否有效
         controller.onBackAction();
@@ -62,7 +62,13 @@ class WebPage extends GetView<WebController> {
                     icon: const Icon(CupertinoIcons.share),
                     onPressed: () {
                       if (webLoadInfo.link != null) {
-                        Share.share(webLoadInfo.link!);
+                        /// 使用share_plus插件分享
+                        SharePlus.instance.share(
+                          ShareParams(
+                            title: webLoadInfo.title,
+                            uri: Uri.parse(webLoadInfo.link!),
+                          ),
+                        );
                       }
                     },
                   ),
