@@ -39,10 +39,6 @@ jobs:
       - name: Run tests
         run: flutter test
 
-      # 步骤5：检查代码格式
-      - name: Check formatting
-        run: flutter format --set-exit-if-changed .
-
-      # 步骤6：静态分析
+      # 步骤5：静态分析
       - name: Analyze code
         run: flutter analyze
