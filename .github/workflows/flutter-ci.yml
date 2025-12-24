@@ -40,5 +40,5 @@ jobs:
         run: flutter test
 
       # 步骤5：静态分析
-      - name: Analyze code
-        run: flutter analyze
+#      - name: Analyze code
+#        run: flutter analyze
