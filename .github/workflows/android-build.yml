@@ -1,0 +1,54 @@
+# .github/workflows/android-build.yml
+name: Android Build
+
+on:
+  push:
+    tags:
+      - 'v*'  # 只有打tag时才触发打包
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Setup keystore
+        # 从GitHub Secrets读取签名密钥
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE }}" > android/app/key.jks.base64
+          base64 -d android/app/key.jks.base64 > android/app/key.jks
+
+      - name: Build APK
+        run: |
+          # 构建Release版APK
+          flutter build apk --release \
+            --dart-define=APP_VERSION=${{ github.ref_name }} \
+            --dart-define=BUILD_NUMBER=${{ github.run_number }}
+
+      - name: Build App Bundle
+        run: |
+          # 构建App Bundle
+          flutter build appbundle --release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-build-${{ github.run_number }}
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+
