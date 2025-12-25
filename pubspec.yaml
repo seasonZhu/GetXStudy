@@ -18,11 +18,11 @@ dependencies:
   pull_to_refresh: ^2.0.0
   card_swiper: ^3.0.1
   webview_flutter: ^4.2.2
-  flutter_slidable: ^3.0.0
+  flutter_slidable: ^4.0.3
   lpinyin: ^2.0.3
-  marqueer: ^1.4.4
+  marqueer: ^2.3.1
   share_plus: ^12.0.1
-  rxdart: ^0.27.7
+  rxdart: ^0.28.0
   image_picker: ^1.0.1
   url_launcher: ^6.1.5
   path_provider: ^2.0.11
@@ -30,8 +30,8 @@ dependencies:
   open_file: ^3.2.1
   visibility_detector: ^0.4.0+2
   permission_handler: ^12.0.1
-  logger: ^1.4.0
-  device_info_plus: ^9.0.2
+  logger: ^2.6.2
+  device_info_plus: ^12.3.0
   retrofit: '>=4.0.0 <5.0.0'
   json_annotation: ^4.8.1
   package_info_plus: ^8.3.0
@@ -39,11 +39,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  retrofit_generator: '>=7.0.0 <8.0.0'
+  flutter_lints: ^6.0.0
+  retrofit_generator: ^10.2.1
   build_runner: '>=2.3.0 <4.0.0'
   json_serializable: ^6.6.2
-  dependency_validator: ^3.2.3
+  dependency_validator: ^5.0.3
   webview_flutter_jsbridge:
     git:
       url: 'https://github.com/seasonZhu/webview_flutter_jsbridge'
