@@ -48,55 +48,35 @@
 ### 引入的第三库
 
 ```ruby
-# GetX
-get: ^4.6.5
-# 轮播图
-card_swiper: ^2.0.4
-# WebView
-webview_flutter: ^3.0.4
-# 下拉刷新，上拉加载更多
-pull_to_refresh: ^2.0.0
-# 侧滑功能库
-flutter_slidable: ^2.0.0
-# 网络图片缓存库
-cached_network_image: ^3.2.1
-# 拼音转字符串
-lpinyin: ^2.0.3
-# 简单的数据存储库
-shared_preferences: ^2.0.15
-# 网络请求库
-dio: ^4.0.6
-# 网络请求日志
-pretty_dio_logger: ^1.1.1
-# 走马灯组件
-marquee: ^2.2.3
-# 吐司
-flutter_easyloading: ^3.0.5
-# 原生分享
-share: ^2.0.4
-# 网易开发的R函数，需要使用插件运行CLI进行
-r_dart_library:
-  git:
-    url: 'https://github.com/YK-Unit/r_dart_library.git'
-    ref: 0.4.1
-# 暂时没有使用的库
-
-# RxDart，感觉有GetX这个库没啥用
-rxdart: ^0.27.5
-# 图片选择器
-image_picker: ^0.8.5+3
-# URL跳转
-url_launcher: ^6.1.5
-# 图片保存
-image_gallery_saver: ^1.7.1
-# App沙盒路径
-path_provider: ^2.0.11
-# 总线，类似iOS的NotificationCenter，有了GetX之后，跨页面通信可以不用总线了
-event_bus: ^2.0.0
-# 通过原生打开文件
-open_file: ^3.2.1
-# 隐私权限
-permission_handler: ^10.0.0
+  cupertino_icons: ^1.0.5
+  get: ^4.6.5
+  dio: ^5.2.0+1
+  pretty_dio_logger: ^1.3.1
+  native_dio_adapter: ^1.0.0+1
+  cached_network_image: ^3.2.3
+  shared_preferences: ^2.1.1
+  flutter_easyloading: ^3.0.5
+  pull_to_refresh: ^2.0.0
+  card_swiper: ^3.0.1
+  webview_flutter: ^4.2.2
+  flutter_slidable: ^4.0.3
+  lpinyin: ^2.0.3
+  marqueer: ^2.3.1
+  share_plus: ^12.0.1
+  rxdart: ^0.28.0
+  image_picker: ^1.0.1
+  url_launcher: ^6.1.5
+  path_provider: ^2.0.11
+  event_bus: ^2.0.0
+  open_file: ^3.2.1
+  visibility_detector: ^0.4.0+2
+  permission_handler: ^12.0.1
+  logger: ^2.6.2
+  device_info_plus: ^12.3.0
+  retrofit: '>=4.0.0 <5.0.0'
+  json_annotation: ^4.8.1
+  package_info_plus: ^8.3.0
+  flutter_native_splash: ^2.4.7
 ```
 
 ## GetX的感受
