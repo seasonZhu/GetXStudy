@@ -20,6 +20,29 @@ import 'package:getx_study/pages/common/refresh_header_footer.dart';
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
 
+  /// 统一处理 InfoCell 点击事件
+  void _handleInfoCellClick(dynamic model) async {
+    logger.d("点击了");
+    if (model.id == 24742) {
+      // QQ群链接特殊处理
+      if (model.link != null) {
+        final url = Uri.parse(model.link.toString().replaceHtmlElement);
+        if (await canLaunchUrl(url)) {
+          launchUrl(url, mode: LaunchMode.externalApplication);
+        } else {
+          Get.snackbar(
+            "",
+            "请安装手机QQ",
+            duration: const Duration(seconds: 1),
+          );
+        }
+      }
+    } else {
+      // 普通文章跳转 WebView
+      Get.toNamed(Routes.web, arguments: model);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -81,27 +104,7 @@ class HomePage extends GetView<HomeController> {
                       final model = controller.dataSource[index];
                       return InfoCell(
                         model: model,
-                        callback: (_) async {
-                          logger.d("点击了");
-                          if (model.id == 24742) {
-                            if (model.link != null) {
-                              final url = Uri.parse(
-                                  model.link.toString().replaceHtmlElement);
-                              if (await canLaunchUrl(url)) {
-                                launchUrl(url,
-                                    mode: LaunchMode.externalApplication);
-                              } else {
-                                Get.snackbar(
-                                  "",
-                                  "请安装手机QQ",
-                                  duration: const Duration(seconds: 1),
-                                );
-                              }
-                            }
-                          } else {
-                            Get.toNamed(Routes.web, arguments: model);
-                          }
-                        },
+                        callback: (_) => _handleInfoCellClick(model),
                       );
                     },
                     childCount: controller.dataSource.length,
@@ -148,25 +151,7 @@ class HomePage extends GetView<HomeController> {
         final model = controller.dataSource[index];
         return InfoCell(
           model: model,
-          callback: (_) async {
-            logger.d("点击了");
-            if (model.id == 24742) {
-              if (model.link != null) {
-                final url = Uri.parse(model.link.toString().replaceHtmlElement);
-                if (await canLaunchUrl(url)) {
-                  launchUrl(url, mode: LaunchMode.externalApplication);
-                } else {
-                  Get.snackbar(
-                    "",
-                    "请安装手机QQ",
-                    duration: const Duration(seconds: 1),
-                  );
-                }
-              }
-            } else {
-              Get.toNamed(Routes.web, arguments: model);
-            }
-          },
+          callback: (_) => _handleInfoCellClick(model),
         );
       },
       itemCount: controller.dataSource.length,

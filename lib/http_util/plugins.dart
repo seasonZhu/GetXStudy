@@ -22,12 +22,15 @@ const kWhiteList = [
 ];
 
 /// 网络请求日志插件
+/// 在生产环境中禁用以提升性能和安全性
 final loggerPlugin = PrettyDioLogger(
   requestHeader: false,
   requestBody: true,
   responseBody: true,
   responseHeader: false,
   compact: false,
+  // 在生产环境中禁用日志
+  enabled: !const bool.fromEnvironment('dart.vm.product'),
 );
 
 /// 网络请求loading与dismiss插件

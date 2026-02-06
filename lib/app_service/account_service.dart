@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
 import 'package:getx_study/enum/theme_type.dart';
@@ -30,6 +31,13 @@ class AccountService extends GetxService {
 
   static AccountService get find => Get.find<AccountService>();
 
+  // 使用安全存储来保存敏感信息（如密码）
+  static const _secureStorage = FlutterSecureStorage(
+    aOptions: AndroidOptions(
+      encryptedSharedPreferences: true,
+    ),
+  );
+
   Future<SharedPreferences> get userDefine async =>
       await SharedPreferences.getInstance();
 
@@ -51,8 +59,10 @@ class AccountService extends GetxService {
     this.info?.password = password;
 
     final userDefine = await this.userDefine;
+    // 使用普通存储保存用户名
     userDefine.setString(_kLastLoginUserName, info.username ?? "");
-    userDefine.setString(_kLastLoginPassword, password);
+    // 使用安全存储保存密码（加密存储）
+    await _secureStorage.write(key: _kLastLoginPassword, value: password);
     // 本来想尝试保存一个字典的,结果没这个方法,只有List<String>,但是我可以将Map转为String在存呀
     final infoJsonString = json.encode(info.toJson());
     userDefine.setString(_kAccountInfo, infoJsonString);
@@ -94,8 +104,8 @@ class AccountService extends GetxService {
   }
 
   Future<String> getLastLoginPassword() async {
-    final userDefine = await this.userDefine;
-    return userDefine.getString(_kLastLoginPassword) ?? "";
+    // 从安全存储中读取密码
+    return await _secureStorage.read(key: _kLastLoginPassword) ?? "";
   }
 
   Future<bool> getIsOpenDarkMode() async {
@@ -120,6 +130,7 @@ class AccountService extends GetxService {
     isLogin = false;
     final userDefine = await this.userDefine;
     userDefine.remove(_kLastLoginUserName);
-    userDefine.remove(_kLastLoginPassword);
+    // 从安全存储中删除密码
+    await _secureStorage.delete(key: _kLastLoginPassword);
   }
 }
