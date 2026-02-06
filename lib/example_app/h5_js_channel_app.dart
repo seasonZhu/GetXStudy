@@ -197,7 +197,7 @@ class OnBackAppH5Page extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: canGoBackNotifier,
       builder: (context, bool canGoBack, child) {
-        print("重构了页面, Web可以返回上一页: $canGoBack, 可以侧滑关闭页面: ${!canGoBack}");
+        logger.d("重构了页面, Web可以返回上一页: $canGoBack, 可以侧滑关闭页面: ${!canGoBack}");
         // 达不到控制页面侧滑使能的效果
         // return WillPopScope(
         //   child: _buildBody(),
@@ -240,7 +240,7 @@ class OnBackAppH5Page extends StatelessWidget {
   Widget _obxBuild() {
     return Obx(
       () {
-        print("重构了页面");
+        logger.d("重构了页面");
         if (canGoBackRelay.value) {
           return PopScope(
             canPop: false,

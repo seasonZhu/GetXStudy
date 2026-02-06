@@ -6,11 +6,6 @@ import 'package:get/get.dart';
 
 import 'package:getx_study/my_app.dart';
 import 'package:getx_study/app_service/account_service.dart';
-import 'package:getx_study/example_app/stream_app.dart';
-import 'package:getx_study/example_app/get_x_app.dart';
-import 'package:getx_study/example_app/rx_dart_app.dart';
-import 'package:getx_study/example_app/h5_js_channel_app.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:getx_study/app_service/theme_service.dart';
 
 void main() => run();

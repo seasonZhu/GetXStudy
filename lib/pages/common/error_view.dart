@@ -27,7 +27,7 @@ class ErrorView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    backgroundColor: WidgetStateProperty.all(Colors.blue),
                   ),
                   onPressed: () {
                     if (retryAction != null) {

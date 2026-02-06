@@ -137,7 +137,7 @@ class RegisterPage extends GetView<RegisterController> {
                           child: TextButton(
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(Colors.blue),
+                                    WidgetStateProperty.all(Colors.blue),
                               ),
                               child: const Text(
                                 "注册",

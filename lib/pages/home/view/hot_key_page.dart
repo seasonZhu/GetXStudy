@@ -40,11 +40,11 @@ class HotKeyPage extends GetView<HotKeyController> {
                     margin: const EdgeInsets.all(5),
                     child: TextButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                        backgroundColor: WidgetStateProperty.all(Colors.blue),
                         foregroundColor:
-                            MaterialStateProperty.all(Colors.white),
-                        overlayColor: MaterialStateProperty.all(Colors.blue),
-                        shape: MaterialStateProperty.all(
+                            WidgetStateProperty.all(Colors.white),
+                        overlayColor: WidgetStateProperty.all(Colors.blue),
+                        shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

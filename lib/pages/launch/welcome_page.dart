@@ -43,9 +43,9 @@ class WelcomePage extends StatelessWidget {
             bottom: 44,
             child: TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.grey),
-                foregroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.grey),
+                foregroundColor: WidgetStateProperty.all(Colors.white),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     side: BorderSide.none,
                     borderRadius: BorderRadius.all(

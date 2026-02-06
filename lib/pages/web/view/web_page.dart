@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/app_service/theme_service.dart';
+import 'package:getx_study/logger/logger.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:get/get.dart';
@@ -108,15 +109,15 @@ class WebPage extends GetView<WebController> {
                         () => HorizontalDragGestureRecognizer()
                           ..onStart = (DragStartDetails details) {
                             // 处理拖动开始的逻辑
-                            print("处理拖动开始的逻辑");
+                            logger.d("处理拖动开始的逻辑");
                           }
                           ..onUpdate = (DragUpdateDetails details) {
                             // 处理拖动更新的逻辑
-                            print("处理拖动更新的逻辑");
+                            logger.d("处理拖动更新的逻辑");
                           }
                           ..onEnd = (DragEndDetails details) {
                             // 处理拖动结束的逻辑
-                            print("处理拖动结束的逻辑");
+                            logger.d("处理拖动结束的逻辑");
                           },
                       ),
                     )

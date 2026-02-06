@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:getx_study/base/box.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
@@ -85,9 +84,9 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
             webViewController.canGoBack().then((value) {
               canGoBack.value = value;
               if (value) {
-                print("可以返回上一个Web页面");
+                logger.d("可以返回上一个Web页面");
               } else {
-                print("可以返回上一个Page页面");
+                logger.d("可以返回上一个Page页面");
               }
             });
           },
