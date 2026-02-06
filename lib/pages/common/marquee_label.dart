@@ -15,12 +15,12 @@ class MarqueeLabel extends StatefulWidget {
   final double ratioOfBlankToScreen;
 
   const MarqueeLabel({
-    Key? key,
+    super.key,
     required this.text,
     this.textStyle,
     this.scrollAxis = Axis.horizontal,
     this.ratioOfBlankToScreen = 0.1,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() {

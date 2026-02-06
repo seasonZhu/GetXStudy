@@ -24,7 +24,7 @@ import 'package:get/get.dart';
 /// }
 class GetBindWidget extends StatefulWidget {
   const GetBindWidget({
-    Key? key,
+    super.key,
     this.bind,
     this.tag,
     this.binds,
@@ -34,8 +34,7 @@ class GetBindWidget extends StatefulWidget {
           binds == null || tags == null || binds.length == tags.length,
           'The binds and tags arrays length should be equal\n'
           'and the elements in the two arrays correspond one-to-one',
-        ),
-        super(key: key);
+        );
 
   final GetxController? bind;
   final String? tag;
@@ -129,7 +128,7 @@ class TestPage extends StatelessWidget {
 */
 
 class AutoDisposePage extends StatefulWidget {
-  const AutoDisposePage({Key? key}) : super(key: key);
+  const AutoDisposePage({super.key});
 
   @override
   State<AutoDisposePage> createState() => _AutoDisposePageState();

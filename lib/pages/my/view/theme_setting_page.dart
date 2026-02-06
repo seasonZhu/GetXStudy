@@ -7,7 +7,7 @@ import 'package:getx_study/enum/theme_type.dart';
 import 'package:getx_study/app_service/theme_service.dart';
 
 class ThemeSettingPage extends StatelessWidget {
-  const ThemeSettingPage({Key? key}) : super(key: key);
+  const ThemeSettingPage({super.key});
 
   final dataSource = ThemeType.values;
 

@@ -8,7 +8,7 @@ import 'package:getx_study/pages/tree/controller/tabs_controller.dart';
 import 'tree_cell.dart';
 
 class TreePage extends GetView<TabsController> {
-  const TreePage({Key? key}) : super(key: key);
+  const TreePage({super.key});
 
   @override
   Widget build(BuildContext context) {

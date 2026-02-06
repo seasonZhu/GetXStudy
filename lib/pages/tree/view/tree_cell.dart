@@ -5,7 +5,7 @@ import 'package:lpinyin/lpinyin.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 
 class TreeCell extends StatelessWidget {
-  const TreeCell(this.model, {Key? key}) : super(key: key);
+  const TreeCell(this.model, {super.key});
 
   final TabEntity model;
 

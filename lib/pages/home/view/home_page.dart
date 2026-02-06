@@ -18,7 +18,7 @@ import 'package:getx_study/pages/home/controller/home_controller.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 
 class HomePage extends GetView<HomeController> {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   /// 统一处理 InfoCell 点击事件
   void _handleInfoCellClick(dynamic model) async {

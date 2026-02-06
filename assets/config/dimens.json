@@ -1,0 +1,26 @@
+{
+  "dimens": {
+    "padding_tiny": 4.0,
+    "padding_small": 8.0,
+    "padding_medium": 16.0,
+    "padding_large": 24.0,
+    "padding_xlarge": 32.0,
+    "font_size_tiny": 10.0,
+    "font_size_small": 12.0,
+    "font_size_medium": 14.0,
+    "font_size_large": 16.0,
+    "font_size_xlarge": 18.0,
+    "font_size_xxlarge": 20.0,
+    "radius_small": 4.0,
+    "radius_medium": 8.0,
+    "radius_large": 12.0,
+    "radius_xlarge": 16.0,
+    "icon_small": 16.0,
+    "icon_medium": 24.0,
+    "icon_large": 32.0,
+    "icon_xlarge": 48.0,
+    "button_height": 44.0,
+    "input_height": 48.0,
+    "app_bar_height": 44.0
+  }
+}

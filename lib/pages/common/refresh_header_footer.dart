@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class RefreshHeader extends StatelessWidget {
-  const RefreshHeader({Key? key}) : super(key: key);
+  const RefreshHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class RefreshHeader extends StatelessWidget {
 }
 
 class RefreshFooter extends StatelessWidget {
-  const RefreshFooter({Key? key}) : super(key: key);
+  const RefreshFooter({super.key});
 
   @override
   Widget build(BuildContext context) {

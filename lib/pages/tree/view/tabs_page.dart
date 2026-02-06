@@ -16,7 +16,7 @@ import 'package:getx_study/pages/tree/view/tab_list_page.dart';
 class TabsPage extends StatefulWidget {
   final TagType type;
 
-  const TabsPage({Key? key, required this.type}) : super(key: key);
+  const TabsPage({super.key, required this.type});
 
   @override
   State<TabsPage> createState() => _TabsPageState();

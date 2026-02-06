@@ -49,7 +49,7 @@ class StateMixinController extends GetxController
 }
 
 class StateMixinExamplePage extends GetView<StateMixinController> {
-  const StateMixinExamplePage({Key? key}) : super(key: key);
+  const StateMixinExamplePage({super.key});
 
   @override
   Widget build(BuildContext context) {

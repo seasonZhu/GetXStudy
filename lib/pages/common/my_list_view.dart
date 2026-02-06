@@ -6,13 +6,12 @@ import 'package:flutter/material.dart';
 */
 class MyListView extends ScrollView {
   const MyListView(
-      {Key? key,
+      {super.key,
       this.banner,
       required this.itemBuilder,
       required this.itemCount,
       this.itemExtent,
-      Key? center})
-      : super(key: key, center: center);
+      super.center});
 
   final Widget? banner;
   final IndexedWidgetBuilder itemBuilder;

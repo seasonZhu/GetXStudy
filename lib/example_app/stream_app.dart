@@ -12,7 +12,7 @@ class StreamApp extends StatelessWidget {
 }
 
 class StreamExamplePage extends StatelessWidget {
-  StreamExamplePage({Key? key}) : super(key: key);
+  StreamExamplePage({super.key});
 
   final _viewModel = StreamExampleViewModel();
 

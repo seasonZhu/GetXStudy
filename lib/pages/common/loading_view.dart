@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 class LoadingView extends StatelessWidget {
   final String? _message;
 
-  const LoadingView({Key? key, String? message}) : 
-    _message = message, 
-    super(key: key);
+  const LoadingView({super.key, String? message})
+      : _message = message;
 
   @override
   Widget build(BuildContext context) {

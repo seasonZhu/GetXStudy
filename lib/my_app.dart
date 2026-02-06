@@ -15,7 +15,7 @@ import 'package:getx_study/i18n/localized_strings.dart';
 class MyApp extends StatelessWidget {
   final bool isFirst;
 
-  const MyApp({Key? key, required this.isFirst}) : super(key: key);
+  const MyApp({super.key, required this.isFirst});
 
   // This widget is the root of your application.
   @override

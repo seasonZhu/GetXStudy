@@ -25,7 +25,7 @@ class H5JSChannelApp extends StatelessWidget {
 class AppH5Page extends StatelessWidget {
   late WebViewController _controller;
 
-  AppH5Page({Key? key}) : super(key: key);
+  AppH5Page({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +161,7 @@ class OnBackAppH5Page extends StatelessWidget {
 
   final canGoBackRelay = false.obs;
 
-  OnBackAppH5Page({Key? key}) : super(key: key);
+  OnBackAppH5Page({super.key});
 
   @override
   Widget build(BuildContext context) {

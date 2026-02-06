@@ -19,7 +19,7 @@ import 'package:getx_study/extension/string_extension.dart';
 class WebPage extends GetView<WebController> {
   final themeService = ThemeService.find;
 
-  WebPage({Key? key}) : super(key: key);
+  WebPage({super.key});
 
   @override
   Widget build(BuildContext context) {

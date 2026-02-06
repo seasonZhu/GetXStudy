@@ -10,7 +10,7 @@ import 'package:getx_study/pages/home/controller/hot_key_controller.dart';
 import 'search_text_field.dart';
 
 class HotKeyPage extends GetView<HotKeyController> {
-  const HotKeyPage({Key? key}) : super(key: key);
+  const HotKeyPage({super.key});
 
   @override
   Widget build(BuildContext context) {

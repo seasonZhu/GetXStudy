@@ -14,7 +14,7 @@ class RxDartApp extends StatelessWidget {
 }
 
 class RxDartExamplePage extends StatelessWidget {
-  RxDartExamplePage({Key? key}) : super(key: key);
+  RxDartExamplePage({super.key});
 
   final _viewModel = RxDartExampleViewModel();
 

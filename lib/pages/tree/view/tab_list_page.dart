@@ -13,9 +13,8 @@ import 'package:getx_study/routes/routes.dart';
 class TabListPage extends StatelessWidget {
   final TabListController _controller;
 
-  const TabListPage({Key? key, required TabListController controller})
-      : _controller = controller,
-        super(key: key);
+  const TabListPage({super.key, required TabListController controller})
+      : _controller = controller;
 
   @override
   Widget build(BuildContext context) {

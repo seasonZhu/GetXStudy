@@ -9,7 +9,7 @@ import 'package:getx_study/pages/main/controller/main_controller.dart';
 import 'package:getx_study/enum/theme_type.dart';
 
 class MainPage extends GetView<MainController> {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {

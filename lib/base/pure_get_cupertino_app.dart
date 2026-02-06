@@ -60,7 +60,7 @@ class PureGetCupertinoApp extends StatelessWidget {
   final CupertinoThemeData? theme;
   final bool useInheritedMediaQuery;
   const PureGetCupertinoApp({
-    Key? key,
+    super.key,
     this.theme,
     this.navigatorKey,
     this.home,
@@ -114,11 +114,10 @@ class PureGetCupertinoApp extends StatelessWidget {
   })  : routeInformationProvider = null,
         routeInformationParser = null,
         routerDelegate = null,
-        backButtonDispatcher = null,
-        super(key: key);
+        backButtonDispatcher = null;
 
   PureGetCupertinoApp.router({
-    Key? key,
+    super.key,
     this.theme,
     this.routeInformationProvider,
     RouteInformationParser<Object>? routeInformationParser,
@@ -177,8 +176,7 @@ class PureGetCupertinoApp extends StatelessWidget {
         onGenerateInitialRoutes = null,
         onUnknownRoute = null,
         routes = null,
-        initialRoute = null,
-        super(key: key) {
+        initialRoute = null {
     Get.routerDelegate = routerDelegate;
     Get.routeInformationParser = routeInformationParser;
   }

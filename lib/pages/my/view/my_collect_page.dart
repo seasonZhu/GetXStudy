@@ -12,7 +12,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 
 class MyCollectPage extends GetView<MyCollectController> {
-  const MyCollectPage({Key? key}) : super(key: key);
+  const MyCollectPage({super.key});
 
   @override
   Widget build(BuildContext context) {

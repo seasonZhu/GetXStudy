@@ -8,7 +8,7 @@ import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class MyPage extends GetView<MyController> {
-  const MyPage({Key? key}) : super(key: key);
+  const MyPage({super.key});
 
   @override
   Widget build(BuildContext context) {

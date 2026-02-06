@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'resign_first_responder.dart';
 
 class ResignFirstView extends StatelessWidget {
-  const ResignFirstView({Key? key, required this.child}) : super(key: key);
+  const ResignFirstView({super.key, required this.child});
 
   final Widget child;
 

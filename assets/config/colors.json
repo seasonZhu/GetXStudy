@@ -1,0 +1,24 @@
+{
+  "colors": {
+    "primary": "#2196F3",
+    "primaryDark": "#1976D2",
+    "secondary": "#03A9F4",
+    "success": "#4CAF50",
+    "warning": "#FF9800",
+    "error": "#FE4A49",
+    "info": "#2196F3",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "transparent": "#00000000",
+    "grey50": "#FAFAFA",
+    "grey100": "#F5F5F5",
+    "grey200": "#EEEEEE",
+    "grey300": "#E0E0E0",
+    "grey400": "#BDBDBD",
+    "grey500": "#9E9E9E",
+    "grey600": "#757575",
+    "grey700": "#616161",
+    "grey800": "#424242",
+    "grey900": "#212121"
+  }
+}

@@ -7,7 +7,7 @@ import 'package:getx_study/base/resign_first_view.dart';
 import 'package:getx_study/pages/my/controller/register_controller.dart';
 
 class RegisterPage extends GetView<RegisterController> {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {

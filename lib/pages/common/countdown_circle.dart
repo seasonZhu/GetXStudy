@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CountdownCircle extends StatefulWidget {
   const CountdownCircle({
-    Key? key,
+    super.key,
     this.countdownSeconds = 5,
     this.ringBackgroundColor = Colors.transparent,
     this.ringColor = Colors.white,
@@ -12,8 +12,7 @@ class CountdownCircle extends StatefulWidget {
     this.textStyle = const TextStyle(color: Colors.grey),
     this.finished,
   })  : assert(countdownSeconds > 0),
-        assert(ringStrokeWidth > 0),
-        super(key: key);
+        assert(ringStrokeWidth > 0);
 
   /// 倒计时秒数，默认为 5 秒
   final int countdownSeconds;

@@ -9,7 +9,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 
 class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
-  const MyCoinHistoryPage({Key? key}) : super(key: key);
+  const MyCoinHistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {

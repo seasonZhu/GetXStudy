@@ -9,7 +9,7 @@ import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class LoginPage extends GetView<LoginController> {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {

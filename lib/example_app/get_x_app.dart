@@ -16,7 +16,7 @@ class GetXApp extends StatelessWidget {
 }
 
 class GetXExamplePage extends GetView<GetXExampleController> {
-  const GetXExamplePage({Key? key}) : super(key: key);
+  const GetXExamplePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class GetXExampleBindings extends Bindings {
 }
 
 class GetxRxExamplePage extends GetView<GetxRxExampleController> {
-  GetxRxExamplePage({Key? key}) : super(key: key);
+  GetxRxExamplePage({super.key});
 
   final _easyController = Get.find<GetXExampleController>();
 

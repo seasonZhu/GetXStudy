@@ -14,14 +14,13 @@ class InfoCell extends StatelessWidget {
   final bool _isNeedBottomLine;
 
   const InfoCell(
-      {Key? key,
+      {super.key,
       required ArticleInfoDatas model,
       required ValueChanged<ArticleInfoDatas> callback,
       bool isNeedBottomLine = true})
       : _model = model,
         _cellTapCallback = callback,
-        _isNeedBottomLine = isNeedBottomLine,
-        super(key: key);
+        _isNeedBottomLine = isNeedBottomLine;
 
   @override
   Widget build(BuildContext context) {

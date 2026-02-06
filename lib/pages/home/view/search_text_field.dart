@@ -13,9 +13,8 @@ class SearchTextField extends StatelessWidget {
 
   final changeString = "".obs;
 
-  SearchTextField({Key? key, required ValueChanged<String> keywordCallback})
-      : _keywordCallback = keywordCallback,
-        super(key: key);
+  SearchTextField({super.key, required ValueChanged<String> keywordCallback})
+      : _keywordCallback = keywordCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +80,8 @@ class SearchValueField extends StatelessWidget {
 
   final ValueChanged<String> _keywordCallback;
 
-  SearchValueField({Key? key, required ValueChanged<String> keywordCallback})
-      : _keywordCallback = keywordCallback,
-        super(key: key);
+  SearchValueField({super.key, required ValueChanged<String> keywordCallback})
+      : _keywordCallback = keywordCallback;
 
   @override
   Widget build(BuildContext context) {

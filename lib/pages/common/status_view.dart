@@ -32,13 +32,12 @@ class StatusView<T extends BaseController> extends StatelessWidget {
   final String? tag;
 
   const StatusView(
-      {Key? key,
+      {super.key,
       this.loadingView,
       this.errorViewBuilder,
       required this.contentBuilder,
       this.emptyViewBuilder,
-      this.tag})
-      : super(key: key);
+      this.tag});
 
   @override
   Widget build(BuildContext context) {

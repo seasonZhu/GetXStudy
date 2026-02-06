@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EmptyView extends StatelessWidget {
   final VoidCallback? emptyTap;
 
-  const EmptyView({Key? key, this.emptyTap}) : super(key: key);
+  const EmptyView({super.key, this.emptyTap});
 
   @override
   Widget build(BuildContext context) {

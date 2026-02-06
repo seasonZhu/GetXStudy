@@ -1,0 +1,96 @@
+{
+  "app": {
+    "name": "玩安卓",
+    "version": "1.0.0"
+  },
+  "common": {
+    "loading": "加载中...",
+    "success": "操作成功",
+    "error": "出错了",
+    "retry": "重试",
+    "confirm": "确认",
+    "cancel": "取消",
+    "close": "关闭",
+    "next": "下一页",
+    "tip": "提示",
+    "logout_confirm": "是否登出?"
+  },
+  "network": {
+    "error_timeout": "网络连接超时，请检查网络设置",
+    "error_connection": "网络连接失败，请检查网络设置",
+    "error_server": "服务器错误，请稍后重试",
+    "error_401": "登录已过期，请重新登录",
+    "error_403": "没有权限访问",
+    "error_404": "请求的资源不存在",
+    "error_unknown": "网络请求失败"
+  },
+  "login": {
+    "title": "登录",
+    "username": "用户名",
+    "password": "密码",
+    "username_hint": "请输入用户名",
+    "password_hint": "请输入密码",
+    "button": "登录",
+    "register_link": "还没有注册?",
+    "success": "登录成功",
+    "failed": "登录失败",
+    "auto_login_success": "自动登录成功",
+    "auto_login_failed": "自动登录失败",
+    "logout_success": "登出成功",
+    "logout_failed": "登出失败"
+  },
+  "register": {
+    "title": "注册",
+    "username": "用户名",
+    "password": "密码",
+    "repassword": "确认密码",
+    "button": "注册",
+    "success": "注册成功",
+    "failed": "注册失败"
+  },
+  "home": {
+    "title": "首页",
+    "search_hint": "搜索文章...",
+    "banner_load_failed": "轮播图加载失败",
+    "article_list_load_failed": "文章列表加载失败"
+  },
+  "my": {
+    "title": "我的",
+    "coins": "我的积分",
+    "collect": "我的收藏",
+    "share": "我的分享",
+    "github": "我的GitHub",
+    "juejin": "我的掘金",
+    "logout": "退出登录"
+  },
+  "coin": {
+    "title": "积分排名"
+  },
+  "collect": {
+    "title": "我的收藏",
+    "cancel_success": "取消收藏成功",
+    "collect_success": "收藏成功"
+  },
+  "tree": {
+    "title": "体系"
+  },
+  "refresh": {
+    "pull_complete": "下拉刷新完成",
+    "load_more": "上拉加载",
+    "release_to_load": "松手,加载更多!",
+    "no_more_data": "没有更多数据了!"
+  },
+  "page": {
+    "unknown": "未知页面",
+    "enter": "点击进入"
+  },
+  "example": {
+    "counter": "计数器",
+    "getx_simple": "GetX编写计数器",
+    "getx_reactive": "GetX响应式编写计数器",
+    "rxdart": "RxDart编写计数器",
+    "stream": "Stream编写计数器",
+    "state_mixin": "StateMixin例子",
+    "h5_js": "Flutter与JS交互"
+  }
+}

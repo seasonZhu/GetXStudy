@@ -10,7 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 
 class SearchResultPage extends GetView<SearchResultController> {
-  const SearchResultPage({Key? key}) : super(key: key);
+  const SearchResultPage({super.key});
 
   @override
   Widget build(BuildContext context) {

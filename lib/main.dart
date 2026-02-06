@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/my_app.dart';
 import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/app_service/theme_service.dart';
+import 'package:getx_study/resource/app_resources.dart';
 
 void main() => run();
 
@@ -20,8 +21,11 @@ run() async {
 
   //cherrilog();
 
+  /// 初始化资源文件（字符串、颜色、尺寸等）
+  await AppResources.init();
+
   /// 把初始化服务放到runApp之前
-  final accountService = Get.put(AccountService()); 
+  final accountService = Get.put(AccountService());
 
   final themeService = Get.put(ThemeService());
 

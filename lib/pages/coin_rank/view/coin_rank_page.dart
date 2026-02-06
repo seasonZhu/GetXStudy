@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/pages/coin_rank/controller/coin_rank_controller.dart';
 
 class CoinRankPage extends GetView<CoinRankController> {
-  const CoinRankPage({Key? key}) : super(key: key);
+  const CoinRankPage({super.key});
 
   @override
   Widget build(BuildContext context) {
