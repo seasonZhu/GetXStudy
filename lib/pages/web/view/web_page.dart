@@ -15,6 +15,7 @@ import 'package:marqueer/marqueer.dart';
 
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/extension/string_extension.dart';
+import 'package:getx_study/widgets/animated_button.dart';
 
 class WebPage extends GetView<WebController> {
   final themeService = ThemeService.find;
@@ -59,7 +60,7 @@ class WebPage extends GetView<WebController> {
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Visibility(
                   visible: webLoadInfo.id != null,
-                  child: IconButton(
+                  child: AnimatedIconButton(
                     icon: const Icon(CupertinoIcons.share),
                     onPressed: () {
                       if (webLoadInfo.link != null) {
@@ -76,7 +77,7 @@ class WebPage extends GetView<WebController> {
                 ),
                 Visibility(
                   visible: isShowCollectIcon,
-                  child: IconButton(
+                  child: AnimatedIconButton(
                     icon: Obx(
                       () {
                         final icon = isCollect.value

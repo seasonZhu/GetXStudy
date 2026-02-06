@@ -7,6 +7,8 @@ import 'package:getx_study/base/resign_first_responder.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/home/controller/hot_key_controller.dart';
+import 'package:getx_study/widgets/animated_button.dart';
+import 'package:getx_study/widgets/staggered_animation.dart';
 import 'search_text_field.dart';
 
 class HotKeyPage extends GetView<HotKeyController> {
@@ -33,30 +35,36 @@ class HotKeyPage extends GetView<HotKeyController> {
         ),
         child: StatusView<HotKeyController>(
           contentBuilder: (controller) {
-            return Wrap(
+            return StaggeredWrap(
+              spacing: 5,
+              runSpacing: 5,
               children: (controller.data ?? []).map(
                 (model) {
-                  return Container(
-                    margin: const EdgeInsets.all(5),
-                    child: TextButton(
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(Colors.blue),
-                        foregroundColor:
-                            WidgetStateProperty.all(Colors.white),
-                        overlayColor: WidgetStateProperty.all(Colors.blue),
-                        shape: WidgetStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                  return AnimatedTextButton(
+                    onPressed: () {
+                      ResignFirstResponder.unfocus();
+                      Get.toNamed(Routes.searchResult,
+                          arguments: model.name.toString());
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(Colors.blue),
+                      foregroundColor:
+                          WidgetStateProperty.all(Colors.white),
+                      overlayColor: WidgetStateProperty.all(Colors.blue),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(model.name.toString()),
-                      onPressed: () {
-                        ResignFirstResponder.unfocus();
-                        Get.toNamed(Routes.searchResult,
-                            arguments: model.name.toString());
-                      },
+                      padding: WidgetStateProperty.all(
+                        const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                      ),
                     ),
+                    child: Text(model.name.toString()),
                   );
                 },
               ).toList(),

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:getx_study/base/resign_first_view.dart';
 import 'package:getx_study/pages/my/controller/register_controller.dart';
+import 'package:getx_study/widgets/animated_button.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({super.key});
@@ -134,26 +135,27 @@ class RegisterPage extends GetView<RegisterController> {
                       child: Obx(
                         () => Visibility(
                           visible: controller.isShowRegisterButton,
-                          child: TextButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    WidgetStateProperty.all(Colors.blue),
-                              ),
-                              child: const Text(
-                                "注册",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                              onPressed: () {
-                                controller.register(
-                                  username: controller
-                                      .userNameTextFiledController.text,
-                                  password: controller
-                                      .passwordTextFiledController.text,
-                                  rePassword: controller
-                                      .rePasswordTextFiledController.text,
-                                );
-                              }),
+                          child: AnimatedTextButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  WidgetStateProperty.all(Colors.blue),
+                            ),
+                            child: const Text(
+                              "注册",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18),
+                            ),
+                            onPressed: () {
+                              controller.register(
+                                username: controller
+                                    .userNameTextFiledController.text,
+                                password: controller
+                                    .passwordTextFiledController.text,
+                                rePassword: controller
+                                    .rePasswordTextFiledController.text,
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),

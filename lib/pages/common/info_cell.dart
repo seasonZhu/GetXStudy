@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/generated/assets.dart';
+import 'package:getx_study/widgets/animated_button.dart';
 
 class InfoCell extends StatelessWidget {
   final ArticleInfoDatas _model;
@@ -24,7 +25,7 @@ class InfoCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return AnimatedInkWell(
       onTap: () {
         _cellTapCallback(_model);
       },

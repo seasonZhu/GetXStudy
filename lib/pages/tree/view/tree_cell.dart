@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lpinyin/lpinyin.dart';
 
 import 'package:getx_study/entity/tab_entity.dart';
+import 'package:getx_study/widgets/animated_button.dart';
 
 class TreeCell extends StatelessWidget {
   const TreeCell(this.model, {super.key});
@@ -15,8 +16,9 @@ class TreeCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return AnimatedInkWell(
       onTap: () {},
+      borderRadius: BorderRadius.circular(8),
       child: Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(

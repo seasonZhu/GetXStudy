@@ -7,6 +7,7 @@ import 'package:getx_study/base/resign_first_view.dart';
 import 'package:getx_study/extension/get_route_extension.dart';
 import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/routes/routes.dart';
+import 'package:getx_study/widgets/animated_button.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
@@ -93,11 +94,7 @@ class LoginPage extends GetView<LoginController> {
                       const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(top: 20, right: 15),
-                        child: GestureDetector(
-                          child: const Text(
-                            "还没有注册?",
-                            style: TextStyle(color: Colors.blue, fontSize: 15),
-                          ),
+                        child: AnimatedInkWell(
                           onTap: () async {
                             Get.removeName(Routes.login);
                             final result = await Get.toNamed(Routes.register);
@@ -105,6 +102,10 @@ class LoginPage extends GetView<LoginController> {
                               navigator?.pop(result);
                             }
                           },
+                          child: const Text(
+                            "还没有注册?",
+                            style: TextStyle(color: Colors.blue, fontSize: 15),
+                          ),
                         ),
                       ),
                     ],
@@ -120,23 +121,24 @@ class LoginPage extends GetView<LoginController> {
                         () => Visibility(
                           visible: controller.userNameIsNotEmpty.value &&
                               controller.passwordIsNotEmpty.value,
-                          child: TextButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    WidgetStateProperty.all(Colors.blue),
-                              ),
-                              child: const Text(
-                                "登录",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                              onPressed: () {
-                                controller.login(
-                                    username: controller
-                                        .userNameTextFiledController.text,
-                                    password: controller
-                                        .passwordTextFiledController.text);
-                              }),
+                          child: AnimatedTextButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  WidgetStateProperty.all(Colors.blue),
+                            ),
+                            child: const Text(
+                              "登录",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18),
+                            ),
+                            onPressed: () {
+                              controller.login(
+                                  username: controller
+                                      .userNameTextFiledController.text,
+                                  password: controller
+                                      .passwordTextFiledController.text);
+                            },
+                          ),
                         ),
                       ),
                     ),
