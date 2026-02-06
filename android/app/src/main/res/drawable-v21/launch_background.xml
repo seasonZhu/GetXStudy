@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Center模式：保持图片原始比例，居中显示，避免变形 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 白色背景 -->
     <item>
-        <bitmap android:gravity="fill" android:src="@drawable/background"/>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF"/>
+        </shape>
     </item>
-    <item>
-        <bitmap android:gravity="center" android:src="@drawable/splash"/>
-    </item>
+    <!-- 使用center模式保持比例，完整显示图片内容 -->
+    <item android:drawable="@drawable/splash_center_crop"/>
 </layer-list>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Fill模式：图片拉伸铺满屏幕，适配各种屏幕比例 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 白色背景 -->
     <item>
-        <bitmap android:gravity="fill" android:src="@drawable/background"/>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF"/>
+        </shape>
     </item>
-    <item>
-        <bitmap android:gravity="center" android:src="@drawable/splash"/>
-    </item>
+    <!-- 使用fill模式确保图片完全铺满屏幕 -->
+    <item android:drawable="@drawable/splash_center_crop"/>
 </layer-list>

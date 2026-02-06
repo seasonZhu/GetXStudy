@@ -6,8 +6,9 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
-        <item name="android:windowSplashScreenBackground">#FFFFFF</item>
-        <item name="android:windowSplashScreenIconBackgroundColor">#FFFFFF</item>
+        <!-- 使用传统启动屏幕，禁用Android 12+的新API以获得更多控制 -->
+        <item name="android:windowSplashScreenAnimatedIcon">@null</item>
+        <item name="android:windowBackground">@drawable/launch_background</item>
     </style>
     <!-- Theme applied to the Android Window as soon as the process has started.
          This theme determines the color of the Android Window while your

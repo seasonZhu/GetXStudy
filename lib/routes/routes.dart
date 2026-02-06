@@ -159,8 +159,12 @@ abstract class Routes {
       name: welcome,
       page: () => const WelcomePage(),
     ),
-    GetPage(name: splash, page: () => const SplashPage()),
-    GetPage(name: themeSetting, page: () => const ThemeSettingPage()),
+    GetPage(name: splash,
+        page: () => const SplashPage()
+    ),
+    GetPage(name: themeSetting,
+        page: () => const ThemeSettingPage()
+    ),
   ];
 
   static final unknownPage = GetPage(

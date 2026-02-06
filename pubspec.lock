@@ -1430,7 +1430,7 @@ packages:
     source: hosted
     version: "4.10.11"
   webview_flutter_jsbridge:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: "."
       ref: HEAD

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CenterCrop效果：保持比例，铺满屏幕，允许裁剪 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 白色背景 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF"/>
+        </shape>
+    </item>
+    <!-- 图片：使用fill铺满，antialias和filter优化显示质量 -->
+    <item>
+        <bitmap
+            android:src="@drawable/splash"
+            android:gravity="fill"
+            android:antialias="true"
+            android:filter="true"/>
+    </item>
+</layer-list>

@@ -18,6 +18,9 @@ dependencies:
   pull_to_refresh: ^2.0.0
   card_swiper: ^3.0.1
   webview_flutter: ^4.2.2
+  webview_flutter_jsbridge:
+    git:
+      url: 'https://github.com/seasonZhu/webview_flutter_jsbridge'
   flutter_slidable: ^4.0.3
   lpinyin: ^2.0.3
   marqueer: ^2.3.1
@@ -36,6 +39,16 @@ dependencies:
   json_annotation: ^4.8.1
   package_info_plus: ^8.3.0
   flutter_native_splash: ^2.4.7
+
+# flutter_native_splash 配置说明:
+# 运行生成命令: flutter pub run flutter_native_splash:create
+# 清除生成: flutter pub run flutter_native_splash:remove
+#
+# 当前 splash 配置:
+# - 原图: assets/images/launchImage.png (1242x2208, 9:16 比例)
+# - 显示模式: center (保持原始比例, 居中显示)
+# - 背景色: #FFFFFF (白色)
+# - Android 12+: 使用固定尺寸显示
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -44,9 +57,6 @@ dev_dependencies:
   build_runner: '>=2.3.0 <4.0.0'
   json_serializable: ^6.6.2
   dependency_validator: ^5.0.3
-  webview_flutter_jsbridge:
-    git:
-      url: 'https://github.com/seasonZhu/webview_flutter_jsbridge'
 flutter:
   uses-material-design: true
   assets:

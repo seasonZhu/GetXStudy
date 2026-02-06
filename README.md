@@ -48,34 +48,63 @@
 ### 引入的第三库
 
 ```ruby
+  # iOS风格图标
   cupertino_icons: ^1.0.5
+  # GetX框架，用于状态管理、路由、依赖注入等
   get: ^4.6.5
+  # 网络请求库
   dio: ^5.2.0+1
+  # Dio请求日志打印美化
   pretty_dio_logger: ^1.3.1
+  # Dio的原生平台适配器
   native_dio_adapter: ^1.0.0+1
+  # 网络图片缓存加载组件
   cached_network_image: ^3.2.3
+  # 本地轻量级数据存储
   shared_preferences: ^2.1.1
+  # 全局加载中提示组件
   flutter_easyloading: ^3.0.5
+  # 下拉刷新和上拉加载更多组件
   pull_to_refresh: ^2.0.0
+  # 轮播图组件
   card_swiper: ^3.0.1
+  # WebView组件，用于加载网页
   webview_flutter: ^4.2.2
+  # 滑动操作组件（如侧滑删除）
   flutter_slidable: ^4.0.3
+  # 汉字转拼音工具
   lpinyin: ^2.0.3
+  # 跑马灯文本组件
   marqueer: ^2.3.1
+  # 分享功能插件
   share_plus: ^12.0.1
+  # 响应式编程库，提供Stream相关工具
   rxdart: ^0.28.0
+  # 图片选择器（从相册/相机获取图片）
   image_picker: ^1.0.1
+  # URL启动器（打开链接、拨打电话等）
   url_launcher: ^6.1.5
+  # 文件路径获取（获取应用沙盒路径等）
   path_provider: ^2.0.11
+  # 事件总线，用于组件间通信
   event_bus: ^2.0.0
+  # 文件打开工具
   open_file: ^3.2.1
+  # 组件可见性检测
   visibility_detector: ^0.4.0+2
+  # 权限请求处理（如相机、存储权限）
   permission_handler: ^12.0.1
+  # 日志打印工具
   logger: ^2.6.2
+  # 设备信息获取（如型号、系统版本）
   device_info_plus: ^12.3.0
+  # API接口生成工具（基于Retrofit风格）
   retrofit: '>=4.0.0 <5.0.0'
+  # JSON序列化注解
   json_annotation: ^4.8.1
+  # 应用包信息获取（版本号、包名等）
   package_info_plus: ^8.3.0
+  # 原生启动屏设置
   flutter_native_splash: ^2.4.7
 ```
 
@@ -123,21 +152,14 @@ RefreshStateView和StateView也只保留了一个，我太过自信的认为Dart
 
 已经将AccountManager抽到了AccountService层了。
 
-## Swift版wanandroid客户端
+## 2025年12月26日更新
 
-[项目地址](https://github.com/seasonZhu/RxStudy)
 
-## Flutter版wanandroid客户端
 
-[项目地址](https://github.com/seasonZhu/GetXStudy)
+## 其他版本的wanandroid客户端
+| [Swift版wanandroid客户端](https://github.com/seasonZhu/RxStudy) | [Flutter版wanandroid客户端](https://github.com/seasonZhu/GetXStudy) | [HarmonyOS版wanandroid客户端](https://github.com/seasonZhu/HarmonyStudy) | [uni-app版wanandroid客户端](https://github.com/seasonZhu/UniAppPlayAndroid) |  
+| --- | --- | --- | --- |
 
-## HarmonyOS版wanandroid客户端
-
-[项目地址](https://github.com/seasonZhu/HarmonyStudy)
-
-## uni-app版wanandroid客户端
-
-[项目地址](https://github.com/seasonZhu/UniAppPlayAndroid)
 
 ## 我的掘金主页
 

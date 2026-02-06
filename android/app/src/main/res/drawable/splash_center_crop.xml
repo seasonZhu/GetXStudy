@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 保持图片原始比例，居中显示，适配各种屏幕比例 -->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/splash"
+    android:gravity="center"
+    android:filter="true"
+    android:antialias="true" />
