@@ -35,11 +35,12 @@ class HotKeyPage extends GetView<HotKeyController> {
         ),
         child: StatusView<HotKeyController>(
           contentBuilder: (controller) {
-            return StaggeredWrap(
+            return Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
+              child: StaggeredWrap(
               spacing: 5,
               runSpacing: 5,
               children: (controller.data ?? []).map(
-                (model) {
+                    (model) {
                   return AnimatedTextButton(
                     onPressed: () {
                       ResignFirstResponder.unfocus();
@@ -48,9 +49,9 @@ class HotKeyPage extends GetView<HotKeyController> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          WidgetStateProperty.all(Colors.blue),
+                      WidgetStateProperty.all(Colors.blue),
                       foregroundColor:
-                          WidgetStateProperty.all(Colors.white),
+                      WidgetStateProperty.all(Colors.white),
                       overlayColor: WidgetStateProperty.all(Colors.blue),
                       shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
@@ -68,6 +69,7 @@ class HotKeyPage extends GetView<HotKeyController> {
                   );
                 },
               ).toList(),
+            ),
             );
           },
         ),
