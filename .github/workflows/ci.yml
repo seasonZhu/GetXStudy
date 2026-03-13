@@ -1,0 +1,39 @@
+# GitHub Actions CI 配置（增强版）
+# 自动化检查 Flutter 代码质量 + 格式化
+
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  flutter-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.4'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 格式化检查
+      - name: Check formatting
+        run: flutter format --set-exit-if-changed .
+
+      # 静态分析
+      - name: Flutter Analyze
+        run: flutter analyze
+
+      # 运行测试
+      - name: Run tests
+        run: flutter test
