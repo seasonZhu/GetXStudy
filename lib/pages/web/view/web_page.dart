@@ -68,6 +68,7 @@ class WebPage extends GetView<WebController> {
                         SharePlus.instance.share(
                           ShareParams(
                             title: webLoadInfo.title,
+                            text: '${webLoadInfo.title}\n${webLoadInfo.link}',
                             uri: Uri.parse(webLoadInfo.link!),
                           ),
                         );
