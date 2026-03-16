@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -20,9 +21,7 @@ import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/base/class_name.dart' as Func;
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
 
-class WebController extends BaseRequestController<WebRepository, Object?> {
-  void Function(CollectActionType, IWebLoadInfo)? collectActionCallback;
-
+class WebController extends BaseRequestController<WebRepository, Object?> with WidgetsBindingObserver {
   late final WebViewController webViewController;
 
   late final RefreshController refreshController;
@@ -41,13 +40,43 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
   void onInit() {
     super.onInit();
     refreshController = Get.find(tag: Func.className(WebController));
+
+    // 注册生命周期监听
+    WidgetsBinding.instance.addObserver(this);
+
+    // 设置自适应屏幕方向（竖屏 + 横屏）
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
   @override
   void onClose() {
     super.onClose();
+    // 移除生命周期监听
+    WidgetsBinding.instance.removeObserver(this);
     EasyLoading.dismiss();
     doCollectAction();
+
+    // 恢复竖屏
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // 页面可见性变化时重新设置方向
+    if (state == AppLifecycleState.resumed) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+    }
   }
 
   void flutterWebViewSetting(IWebLoadInfo webLoadInfo) {
@@ -71,8 +100,12 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
         NavigationDelegate(
           onProgress: (int progress) {
             logger.d('WebView is loading (progress : $progress%)');
-            EasyLoading.showProgress((progress / 100).toDouble(),
-                maskType: EasyLoadingMaskType.none);
+            if (progress == 100) {
+              EasyLoading.dismiss();
+            } else {
+              EasyLoading.showProgress((progress / 100).toDouble(),
+                  maskType: EasyLoadingMaskType.none);
+            }
           },
           onPageStarted: (String url) {
             logger.d('Page started loading: $url');
@@ -268,7 +301,7 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
       final uri = Uri.parse(url);
       final scheme = uri.scheme.toLowerCase();
       return customSchemes.contains(scheme) ||
-             !scheme.startsWith('http'); // 任何非 http/https 的 scheme
+          !scheme.startsWith('http'); // 任何非 http/https 的 scheme
     } catch (e) {
       logger.d('解析 URL 失败: $url, error: $e');
       return false;
@@ -282,39 +315,39 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
 
     // 通用 schemes（两个平台都支持）
     final commonSchemes = [
-      'weixin',           // 微信
-      'alipay',           // 支付宝
-      'taobao',           // 淘宝
-      'zhihu',            // 知乎
-      'bilibili',         // 哔哩哔哩
+      'weixin', // 微信
+      'alipay', // 支付宝
+      'taobao', // 淘宝
+      'zhihu', // 知乎
+      'bilibili', // 哔哩哔哩
     ];
 
     // Android 特有 schemes
     final androidSchemes = [
-      'snssdk2606',       // 掘金 Android
-      'jdmobile',         // 京东 Android
-      'pinduoduo',        // 拼多多 Android
-      'mqzone',           // QQ空间 Android
-      'mqq',              // 手机QQ Android
-      'mqqapi',           // QQ API Android
-      'tmall',            // 天猫 Android
-      'csj',              // 穿山甲 Android
-      'bytedance',        // 字节跳动 Android
-      'tbopen',           // 淘宝开放 Android
+      'snssdk2606', // 掘金 Android
+      'jdmobile', // 京东 Android
+      'pinduoduo', // 拼多多 Android
+      'mqzone', // QQ空间 Android
+      'mqq', // 手机QQ Android
+      'mqqapi', // QQ API Android
+      'tmall', // 天猫 Android
+      'csj', // 穿山甲 Android
+      'bytedance', // 字节跳动 Android
+      'tbopen', // 淘宝开放 Android
     ];
 
     // iOS 特有 schemes
     final iOSSchemes = [
-      'juejin',           // 掘金 iOS
-      'cn.juejin',        // 掘金 iOS 完整包名前缀
-      'snssdk2606',       // 掘金 iOS（与 Android 共用）
-      'orz',              // 掘金 iOS 旧 scheme
-      'snssdk',           // 抖音 iOS
-      'wtloginmqq2',      // QQ iOS
-      'mqzonev2',         // QQ空间 iOS
-      'pinduoduo',        // 拼多多 iOS
-      'jd',               // 京东 iOS
-      'tmall',            // 天猫 iOS
+      'juejin', // 掘金 iOS
+      'cn.juejin', // 掘金 iOS 完整包名前缀
+      'snssdk2606', // 掘金 iOS（与 Android 共用）
+      'orz', // 掘金 iOS 旧 scheme
+      'snssdk', // 抖音 iOS
+      'wtloginmqq2', // QQ iOS
+      'mqzonev2', // QQ空间 iOS
+      'pinduoduo', // 拼多多 iOS
+      'jd', // 京东 iOS
+      'tmall', // 天猫 iOS
     ];
 
     if (isAndroid) {
@@ -382,7 +415,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
     } else if (url.startsWith('snssdk')) {
       // 抖音 Android
       EasyLoading.showInfo('未安装抖音，正在前往应用商店...');
-      _openAndroidAppStore(packageName: 'com.ss.android.ugc.aweme', appName: '抖音');
+      _openAndroidAppStore(
+          packageName: 'com.ss.android.ugc.aweme', appName: '抖音');
     } else if (url.startsWith('weixin')) {
       // 微信 Android
       EasyLoading.showInfo('未安装微信，请先下载微信');
@@ -390,7 +424,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
     } else if (url.startsWith('alipay')) {
       // 支付宝 Android
       EasyLoading.showInfo('未安装支付宝，请先下载支付宝');
-      _openAndroidAppStore(packageName: 'com.eg.android.AlipayGphone', appName: '支付宝');
+      _openAndroidAppStore(
+          packageName: 'com.eg.android.AlipayGphone', appName: '支付宝');
     } else if (url.startsWith('bilibili')) {
       // 哔哩哔哩 Android
       EasyLoading.showInfo('未安装哔哩哔哩，请先下载');
@@ -414,12 +449,15 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
     // 注意：判断顺序很重要！更具体的 scheme 要放在前面
     // snssdk2606 要在 snssdk 之前判断，否则会被匹配为抖音
 
-    if (url.startsWith('snssdk2606') || url.startsWith('juejin') || url.startsWith('cn.juejin')) {
+    if (url.startsWith('snssdk2606') ||
+        url.startsWith('juejin') ||
+        url.startsWith('cn.juejin')) {
       // 掘金 iOS（支持 snssdk2606、juejin、cn.juejin 三种 scheme）
       // 正确的掘金 App Store ID
       EasyLoading.showInfo('未安装掘金 App，正在前往 App Store...');
       _openIOSAppStore(
-        appStoreUrl: 'https://apps.apple.com/cn/app/id1252852573', // 掘金正确的 App Store ID
+        appStoreUrl:
+            'https://apps.apple.com/cn/app/id1252852573', // 掘金正确的 App Store ID
         appName: '掘金',
       );
     } else if (url.startsWith('snssdk')) {
@@ -525,8 +563,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
   ///
   /// @deprecated 请使用 [_openAndroidAppStore] 或 [_openIOSAppStore]
   Future<void> _openAppStore({
-    String? packageName,  // Android 包名
-    String? iosAppStoreUrl,  // iOS App Store 链接
+    String? packageName, // Android 包名
+    String? iosAppStoreUrl, // iOS App Store 链接
   }) async {
     if (packageName != null && Platform.isAndroid) {
       await _openAndroidAppStore(packageName: packageName);
@@ -550,7 +588,8 @@ class WebController extends BaseRequestController<WebRepository, Object?> {
         'ios_scheme': 'snssdk2606',
         'android_package': 'cn.juejin',
         'ios_bundle': 'cn.juejin',
-        'ios_appstore': 'https://apps.apple.com/cn/app/id1252852573', // 掘金正确的 App Store ID
+        'ios_appstore':
+            'https://apps.apple.com/cn/app/id1252852573', // 掘金正确的 App Store ID
         'name': '稀土掘金',
       },
       'douyin': {
