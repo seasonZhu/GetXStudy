@@ -39,14 +39,17 @@ class WebPage extends GetView<WebController> {
 
     controller.flutterWebViewSetting(webLoadInfo);
 
-    return PopScope(
-      canPop: true, // 默认不允许弹出,目前这Page侧滑返回与Web的路由返回冲突了,这个地方的Android与iOS的表现形式不同
-      onPopInvokedWithResult: (didPop, result) {
-        // 这里可以插入你的逻辑,比如确认是否退出,对iOS没有效果,不知道对Android是否有效
-        controller.onBackAction();
-      },
-      child: Obx(
-        () => CupertinoPageScaffold(
+    return Obx(
+      // 根据 WebView 是否有历史记录来决定是否允许侧滑退出
+      () => PopScope(
+        canPop: !controller.canGoBack.value, // Web 无历史时允许退出，有历史时拦截
+        onPopInvokedWithResult: (didPop, result) async {
+          // 如果 didPop 为 true，说明已经退出了（canPop 为 true 的情况）
+          if (didPop) return;
+          // Web 有历史记录时，侧滑先尝试 WebView 后退
+          await controller.onBackAction();
+        },
+        child: CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             automaticallyImplyLeading: controller.canGoBack.value,
             leading: CupertinoNavigationBarBackButton(
