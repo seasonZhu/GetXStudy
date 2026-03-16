@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/my_app.dart';
 import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/app_service/theme_service.dart';
+import 'package:getx_study/app_service/orientation_service.dart';
 import 'package:getx_study/resource/app_resources.dart';
 
 void main() => run();
@@ -28,6 +29,9 @@ run() async {
   final accountService = Get.put(AccountService());
 
   final themeService = Get.put(ThemeService());
+
+  /// 初始化屏幕方向服务
+  final orientationService = Get.put(OrientationService());
 
   final isFirst = await accountService.getIsFirstLaunch();
 

@@ -15,13 +15,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/app_service/account_service.dart';
+import 'package:getx_study/app_service/orientation_service.dart';
 import 'package:getx_study/pages/web/repository/web_repository.dart';
 import 'package:getx_study/enum/collect_action_type.dart';
 import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/base/class_name.dart' as Func;
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
 
-class WebController extends BaseRequestController<WebRepository, Object?> with WidgetsBindingObserver {
+class WebController extends BaseRequestController<WebRepository, Object?> {
   late final WebViewController webViewController;
 
   late final RefreshController refreshController;
@@ -41,42 +42,18 @@ class WebController extends BaseRequestController<WebRepository, Object?> with W
     super.onInit();
     refreshController = Get.find(tag: Func.className(WebController));
 
-    // 注册生命周期监听
-    WidgetsBinding.instance.addObserver(this);
-
-    // 设置自适应屏幕方向（竖屏 + 横屏）
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    // 启用自适应屏幕方向（竖屏 + 横屏）
+    OrientationService.find.enableAutoRotation();
   }
 
   @override
   void onClose() {
     super.onClose();
-    // 移除生命周期监听
-    WidgetsBinding.instance.removeObserver(this);
     EasyLoading.dismiss();
     doCollectAction();
 
-    // 恢复竖屏
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // 页面可见性变化时重新设置方向
-    if (state == AppLifecycleState.resumed) {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
-    }
+    // 恢复默认竖屏
+    OrientationService.find.resetToDefault();
   }
 
   void flutterWebViewSetting(IWebLoadInfo webLoadInfo) {
