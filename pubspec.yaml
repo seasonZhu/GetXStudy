@@ -29,6 +29,8 @@ dependencies:
   pull_to_refresh: ^2.0.0
   card_swiper: ^3.0.1
   webview_flutter: ^4.10.0
+  webview_flutter_android: ^4.10.13
+  webview_flutter_wkwebview: ^3.15.0
   flutter_slidable: ^3.1.1
   marqueer: ^2.2.1
 
