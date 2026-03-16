@@ -203,6 +203,71 @@ void main() {
         const input = '结尾空格  ';
         expect(input.replaceHtmlElement, '结尾空格 ');
       });
+
+      // 补充更多边界情况
+      test('应该处理不完整的 HTML 标签', () {
+        const input = '<em>未闭合';
+        expect(input.replaceHtmlElement, '未闭合');
+      });
+
+      test('应该处理单独的 < 符号', () {
+        const input = 'a < b';
+        expect(input.replaceHtmlElement, 'a < b');
+      });
+
+      test('应该处理单独的 > 符号', () {
+        const input = 'a > b';
+        expect(input.replaceHtmlElement, 'a > b');
+      });
+
+      test('应该处理 & 符号（非实体）', () {
+        const input = 'Tom & Jerry';
+        expect(input.replaceHtmlElement, 'Tom & Jerry');
+      });
+
+      // 注意：当前实现不支持数字形式和十六进制形式的 HTML 实体
+      // 这些是未来可以扩展的功能
+      test('数字形式的 HTML 实体当前不转换（可扩展）', () {
+        const input = '&#60;test&#62;';
+        expect(input.replaceHtmlElement, '&#60;test&#62;');
+      });
+
+      test('十六进制形式的 HTML 实体当前不转换（可扩展）', () {
+        const input = '&#x3C;test&#x3E;';
+        expect(input.replaceHtmlElement, '&#x3C;test&#x3E;');
+      });
+
+      test('应该处理嵌套的相同标签', () {
+        const input = '<em><em><em>三层嵌套</em></em></em>';
+        expect(input.replaceHtmlElement, '三层嵌套');
+      });
+
+      // 注意：当前实现对自闭合标签和复杂属性支持有限
+      test('自闭合标签当前不处理（可扩展）', () {
+        const input = '文本<img src="test.png"/>更多';
+        expect(input.replaceHtmlElement, '文本<img src="test.png"/>更多');
+      });
+
+      test('带换行的标签属性当前不处理（可扩展）', () {
+        const input = '<span\nclass="test">内容</span>';
+        expect(input.replaceHtmlElement, '<span\nclass="test">内容</span>');
+      });
+
+      // 注意：当前实现不支持 &copy; 和 &reg;
+      test('特殊 Unicode 字符当前不处理（可扩展）', () {
+        const input = '&copy; 2024 &reg;';
+        expect(input.replaceHtmlElement, '&copy; 2024 &reg;');
+      });
+
+      test('应该保留合法的换行符', () {
+        const input = '第一行\n第二行';
+        expect(input.replaceHtmlElement, '第一行\n第二行');
+      });
+
+      test('应该处理 Tab 字符', () {
+        const input = 'a\tb';
+        expect(input.replaceHtmlElement, 'a\tb');
+      });
     });
 
     group('实际应用场景', () {

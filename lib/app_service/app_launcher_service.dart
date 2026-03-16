@@ -30,11 +30,25 @@ class AppLauncherService extends GetxService {
   /// [url] 要检查的 URL
   /// [customSchemes] 可选的自定义 scheme 列表，默认使用内置列表
   bool isCustomScheme(String url, {List<String>? customSchemes}) {
-    final schemes = customSchemes ?? _getPlatformSpecificSchemes();
+    // 边界情况处理
+    if (url.isEmpty) {
+      return false;
+    }
+
+    // 获取 schemes 并转换为小写
+    final schemes = (customSchemes ?? _getPlatformSpecificSchemes())
+        .map((s) => s.toLowerCase())
+        .toList();
 
     try {
       final uri = Uri.parse(url);
       final scheme = uri.scheme.toLowerCase();
+
+      // 无效的 scheme（如解析失败）返回 false
+      if (scheme.isEmpty) {
+        return false;
+      }
+
       return schemes.contains(scheme) || !scheme.startsWith('http');
     } catch (e) {
       _logger.d('解析 URL 失败: $url, error: $e');
