@@ -7,7 +7,7 @@ class Assets {
   static const String assetsImagesIcHead = 'assets/images/ic_head.jpeg';
   static const String assetsImagesLaunchImage = 'assets/images/launchImage.png';
   static const String assetsImagesMe = 'assets/images/me.jpg';
-  static const String assetsImagesPlaceholder = 'assets/images/placeholde2r.png';
+  static const String assetsImagesPlaceholder = 'assets/images/placeholder.png';
   static const String assetsImagesSaber = 'assets/images/saber.jpg';
   static const String assetsImagesSaberLogo = 'assets/images/saber_logo.jpg';
   static const String assetsImagesSeasonAliPay = 'assets/images/season_ali_pay.jpg';

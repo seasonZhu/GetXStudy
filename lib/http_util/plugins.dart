@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/http_util/network_activity_plugin.dart';
 import 'package:getx_study/resource/constant.dart';
 import 'package:getx_study/routes/routes.dart';
+import 'package:getx_study/http_util/http_util.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'api.dart';
@@ -29,8 +30,8 @@ final loggerPlugin = PrettyDioLogger(
   responseBody: true,
   responseHeader: false,
   compact: false,
-  // 在生产环境中禁用日志
-  enabled: !const bool.fromEnvironment('dart.vm.product'),
+  // 在 debug 模式下启用日志，release 模式禁用
+  enabled: !inProduction,
 );
 
 /// 网络请求loading与dismiss插件
