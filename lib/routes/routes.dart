@@ -24,7 +24,9 @@ import 'package:getx_study/pages/home/binding/search_result_binding.dart';
 import 'package:getx_study/pages/home/view/search_result_page.dart';
 import 'package:getx_study/pages/my/view/theme_setting_page.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
+import 'package:getx_study/pages/tree/bindings/tree_list_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
+import 'package:getx_study/pages/tree/view/tree_list_page.dart';
 import 'package:getx_study/pages/tree/view/tree_page.dart';
 import 'package:getx_study/pages/web/binding/web_binding.dart';
 import 'package:getx_study/pages/web/view/web_page.dart';
@@ -41,6 +43,8 @@ abstract class Routes {
   static const searchResult = "/searchResult";
 
   static const tree = "/tree";
+
+  static const treeList = "/treeList";
 
   static const project = "/project";
 
@@ -96,6 +100,13 @@ abstract class Routes {
       name: tree,
       page: () => const TreePage(),
       binding: TabsBinding(TagType.tree),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: treeList,
+      page: () => const TreeListPage(),
+      binding: TreeListBinding(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 300),
     ),

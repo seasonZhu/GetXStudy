@@ -20,7 +20,10 @@ class TabListRepository extends IRepository {
             "${Api.getPublicNumberList}${id.toString()}/${page.toString()}/json";
         return await http.Request.get(api: api);
       case TagType.tree:
-        return BaseEntity<PageEntity<List<ArticleInfoDatas>>>(null, null, null);
+              final params = <String, String>{};
+        params["cid"] = id.toString();
+        final api = "${Api.getArticleList}${page.toString()}/json";
+        return await http.Request.get(api: api, params: params);
     }
   }
 }

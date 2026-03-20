@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
 import 'package:lpinyin/lpinyin.dart';
 
 import 'package:getx_study/entity/tab_entity.dart';
 import 'package:getx_study/widgets/animated_button.dart';
+import 'package:getx_study/routes/routes.dart';
 
 class TreeCell extends StatelessWidget {
   const TreeCell(this.model, {super.key});
@@ -52,16 +54,21 @@ class TreeCell extends StatelessWidget {
           .map(
             (topic) => Padding(
               padding: const EdgeInsets.all(3.0),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                color: _getChipBgColor(topic.name.toString()),
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  child: Text(
-                    topic.name.toString(),
-                    style: const TextStyle(fontSize: 14.0),
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.treeList, arguments: topic);
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  color: _getChipBgColor(topic.name.toString()),
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      topic.name.toString(),
+                      style: const TextStyle(fontSize: 14.0),
+                    ),
                   ),
                 ),
               ),
