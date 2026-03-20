@@ -1,20 +1,26 @@
 import UIKit
 import Flutter
 
+/// AppDelegate向SceneDelegate迁移文档 https://docs.flutter.dev/release/breaking-changes/uiscenedelegate
 @main
 @objc class AppDelegate: FlutterAppDelegate {
     private let channelName = "com.getStudy.app/popIsEnable"
-    
+
     override func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        GeneratedPluginRegistrant.register(with: self)
         
-        guard let controller = window?.rootViewController as? FlutterViewController else {
-            fatalError("rootViewController is not type FlutterViewController")
-        }
-        let channel = FlutterMethodChannel(name: channelName, binaryMessenger: controller.binaryMessenger)
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+}
+
+extension AppDelegate: FlutterImplicitEngineDelegate {
+    func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
+        GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+        
+        // Create method channels with `engineBridge.applicationRegistrar.messenger()`
+        let channel = FlutterMethodChannel(name: channelName, binaryMessenger: engineBridge.applicationRegistrar.messenger())
         channel.setMethodCallHandler { [weak self] (call, result) in
             if call.method == "sendMessage" {
                 self?.handleMessage(call.arguments)
@@ -23,12 +29,11 @@ import Flutter
                 result(FlutterMethodNotImplemented)
             }
         }
-        
-        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
-    
+}
+
+extension AppDelegate {
     private func handleMessage(_ message: Any?) {
-        print(message)
         guard let dict = message as? [String: Bool],
               let canGoBack = dict["canGoBack"] else {
             return
@@ -38,7 +43,6 @@ import Flutter
             return
         }
         
-        /// 这里其实有很本质的问题,那就是navigationController根本不存在,所以这个方法调用没有意义
         controller.navigationController?.interactivePopGestureRecognizer?.isEnabled = !canGoBack
     }
 }
