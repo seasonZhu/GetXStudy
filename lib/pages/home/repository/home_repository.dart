@@ -8,14 +8,17 @@ import 'package:getx_study/http_util/api.dart';
 
 class HomeRepository extends IRepository {
   Future<BaseEntity<List<BannerEntity>>> getBanner() =>
-      http.Request.get(api: Api.getBanner);
+      http.Request.get(showBusinessErrorToast: false, api: Api.getBanner);
 
   Future<BaseEntity<List<ArticleInfoDatas>>> getTopArticleList() =>
-      http.Request.get(api: Api.getTopArticleList);
+      http.Request.get(
+          showBusinessErrorToast: false, api: Api.getTopArticleList);
 
   Future<BaseEntity<PageEntity<List<ArticleInfoDatas>>>> getArticleList(
           {required int page}) =>
-      http.Request.get(api: "${Api.getArticleList}${page.toString()}/json");
+      http.Request.get(
+          showBusinessErrorToast: false,
+          api: "${Api.getArticleList}${page.toString()}/json");
 }
 
 /* 瞬间觉得自己写的HomeRepository不香了

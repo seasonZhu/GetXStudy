@@ -87,7 +87,7 @@ final responseInterceptorPlugin = InterceptorsWrapper(
 
     if (code == 0) {
       /// 0正常业务码
-    } else {
+    } else if (requestOptions.extra['showBusinessErrorToast'] != false) {
       EasyLoading.showToast(message);
     }
     handler.next(response);

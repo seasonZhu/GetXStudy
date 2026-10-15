@@ -1,72 +1,102 @@
-import 'package:get/get.dart';
+import 'dart:async';
 
+import 'package:get/get.dart';
 import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
 import 'package:getx_study/pages/my/controller/get_user_info_mixin.dart';
 import 'package:getx_study/pages/my/repository/my_repository.dart';
-import 'package:getx_study/logger/logger.dart';
 
 class MyController
     extends BaseRequestController<MyRepository, AccountInfoEntity>
     with GetUserInfoMixin {
-  /*
-     为了避免这种问题，_observable_的第一次变化将总是触发一个事件，即使它包含相同的.value。
-     如果你想删除这种行为，你可以使用： isLogin.firstRebuild = false;。
-     */
   final isLogin = AccountService.find.isLogin.obs;
-
   final rxUserInfo = AccountService.find.userInfo.obs;
+  bool _loggingOut = false;
+  bool _autoLoggingIn = false;
 
-  @override
-  void onInit() {
-    super.onInit();
-    logger.d("onInit");
+  void syncAccount() {
+    if (isClosed) return;
+    isLogin.value = AccountService.find.isLogin;
+    rxUserInfo.value = AccountService.find.userInfo;
   }
 
   Future<bool> logout() async {
-    final response = await request.logout();
-    String message;
-    if (response.isSuccess) {
-      message = "登出成功";
-      AccountService.find.clear();
-    } else {
-      message = "登出失败";
+    if (isClosed || _loggingOut) return AccountService.find.isLogin;
+    _loggingOut = true;
+    final account = AccountService.find;
+    final revision = account.sessionRevision;
+    try {
+      final response = await request.logout();
+      if (isClosed || account.sessionRevision != revision) {
+        return account.isLogin;
+      }
+      if (response.isSuccess) {
+        await account.clear();
+        syncAccount();
+      }
+      if (!isClosed) {
+        Get.snackbar(
+          "",
+          response.isSuccess ? "登出成功" : "登出失败",
+          duration: const Duration(seconds: 1),
+        );
+      }
+    } catch (error) {
+      if (!isClosed) Get.snackbar("", "登出失败：$error");
+    } finally {
+      syncAccount();
+      _loggingOut = false;
     }
-    Get.snackbar(
-      "",
-      message,
-      duration: const Duration(seconds: 1),
-    );
-    return AccountService.find.isLogin;
+    return account.isLogin;
   }
 
   Future<void> autoLogin() async {
-    final username = await AccountService.find.getLastLoginUserName();
-    final password = await AccountService.find.getLastLoginPassword();
-
-    if (username.isNotEmpty && password.isNotEmpty) {
-      final response =
-          await request.login(username: username, password: password);
-
-      String message;
-      if (response.isSuccess == true && response.data != null) {
-        await AccountService.find
-            .save(info: response.data!, isLogin: true, password: password);
-        message = "自动登录成功";
-
-        await getUserCoinInfo();
-
-        isLogin.value = AccountService.find.isLogin;
-        rxUserInfo.value = AccountService.find.userInfo;
-      } else {
-        message = "自动登录失败";
+    if (isClosed ||
+        _autoLoggingIn ||
+        _loggingOut ||
+        AccountService.find.isLogin) {
+      return;
+    }
+    _autoLoggingIn = true;
+    final account = AccountService.find;
+    final revision = account.sessionRevision;
+    var operationRevision = revision;
+    try {
+      final username = await account.getLastLoginUserName();
+      final password = await account.getLastLoginPassword();
+      if (isClosed ||
+          account.sessionRevision != revision ||
+          username.isEmpty ||
+          password.isEmpty) {
+        return;
       }
-      Get.snackbar(
-        "",
-        message,
-        duration: const Duration(seconds: 1),
+      final response = await request.login(
+        username: username,
+        password: password,
       );
+      if (isClosed || account.sessionRevision != revision) return;
+      if (response.isSuccess && response.data != null) {
+        final info = response.data!;
+        operationRevision = revision + 1;
+        await account.save(info: info, isLogin: true, password: password);
+        if (isClosed ||
+            account.sessionRevision != operationRevision ||
+            !account.isLogin ||
+            !identical(account.info, info)) {
+          return;
+        }
+        syncAccount();
+        unawaited(getUserCoinInfo());
+      } else {
+        Get.snackbar("", "自动登录失败", duration: const Duration(seconds: 1));
+      }
+    } catch (error) {
+      if (!isClosed && account.sessionRevision == operationRevision) {
+        Get.snackbar("", "自动登录失败：$error");
+      }
+    } finally {
+      _autoLoggingIn = false;
     }
   }
 }

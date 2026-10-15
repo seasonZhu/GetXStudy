@@ -1,22 +1,25 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_study/base/base_refresh_controller.dart';
 import 'package:getx_study/entity/article_info_entity.dart';
 import 'package:getx_study/entity/banner_entity.dart';
-import 'package:getx_study/entity/base_entity.dart';
-import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/enum/scroll_view_action_type.dart';
 import 'package:getx_study/base/class_name.dart';
-import 'package:getx_study/logger/logger.dart';
 import 'package:getx_study/pages/home/repository/home_repository.dart';
 import 'package:getx_study/pages/my/controller/my_controller.dart';
 
 class HomeController
     extends BaseRefreshController<HomeRepository, ArticleInfoDatas> {
-  var banners = [];
+  List<BannerEntity> banners = [];
+  List<ArticleInfoDatas> topArticles = [];
+  final List<ArticleInfoDatas> _articles = [];
+  bool _hasLoadedArticles = false;
+  bool _hasRenderedContent = false;
 
-  var swiperAutoPlay = false;
+  bool get hasContent => banners.isNotEmpty || dataSource.isNotEmpty;
+  bool get swiperAutoPlay => banners.length > 1;
 
   @override
   void onInit() {
@@ -24,75 +27,112 @@ class HomeController
     initPage = Get.find<int>(tag: className(HomeController));
     page = initPage;
     refreshController = Get.find(tag: className(HomeController));
-
-    final myController = Get.find<MyController>();
-    myController.autoLogin();
+    Get.find<MyController>().autoLogin();
   }
 
   @override
-  Future<void> onRefresh() async {
-    page = initPage;
-    await aRequest(type: ScrollViewActionType.refresh);
-  }
+  Future<void> onRefresh() => aRequest(type: ScrollViewActionType.refresh);
 
   @override
-  Future<void> onLoadMore() async {
-    page = page + 1;
-    await aRequest(type: ScrollViewActionType.loadMore);
-  }
+  Future<void> onLoadMore() => aRequest(type: ScrollViewActionType.loadMore);
 
   @override
   Future<void> aRequest({
     required ScrollViewActionType type,
     Map<String, dynamic>? parameters,
   }) async {
-    response = await request.getArticleList(page: page).catchError((error) {
-      return processError(type: type, error: error);
-    });
-    status = response?.responseStatus ?? ResponseStatus.loading;
-
-    final models = response?.data?.dataSource ?? [];
-
-    switch (type) {
-      case ScrollViewActionType.refresh:
-        final result = await Future.wait(
-          [
-            request.getBanner(),
-            request.getTopArticleList(),
-            request.getArticleList(page: page),
-          ],
-          cleanUp: (successValue) => logger.d(successValue),
-        );
-
-        if (result.length == 3) {
-          final bannerModels = result[0].data as List<BannerEntity>;
-          final topArticleModels = result[1].data as List<ArticleInfoDatas>;
-          response =
-              result[2] as BaseEntity<PageEntity<List<ArticleInfoDatas>>>;
-          final articleModels = response?.data?.dataSource ?? [];
-
-          /// 轮播图赋值
-          banners = bannerModels;
-          swiperAutoPlay = banners.length > 1 ? true : false;
-
-          /// 列表赋值
-          dataSource = topArticleModels;
-          dataSource.addAll(articleModels);
-        } else {
-          response = BaseEntity(null, null, null);
-
-          swiperAutoPlay = false;
-        }
-
-        break;
-      case ScrollViewActionType.loadMore:
-        response = await request.getArticleList(page: page);
-        dataSource.addAll(models);
-        break;
+    if (isClosed ||
+        isLoading ||
+        (type == ScrollViewActionType.loadMore && !_hasLoadedArticles)) {
+      return;
     }
-
-    refreshControllerStatusUpdate(type);
-
+    isLoading = true;
+    if (!hasContent && !_hasRenderedContent) status = ResponseStatus.loading;
     update();
+    try {
+      final results = await Future.wait([
+        _loadArticles(type),
+        if (type == ScrollViewActionType.refresh) _loadBanner(),
+        if (type == ScrollViewActionType.refresh) _loadTopArticles(),
+      ]);
+      if (isClosed) return;
+      if (results.first) {
+        refreshControllerStatusUpdate(type);
+      } else if (type == ScrollViewActionType.refresh) {
+        refreshController.refreshFailed();
+      } else {
+        // 分页失败只结束加载；保留列表、页码，不向页脚添加错误文案。
+        refreshController.loadComplete();
+      }
+      final failed = results.contains(false);
+      if (failed && !hasContent && !_hasRenderedContent) {
+        status = ResponseStatus.fail;
+      } else {
+        status = hasContent
+            ? ResponseStatus.successHasContent
+            : ResponseStatus.successNoData;
+        if (failed) EasyLoading.showToast('加载失败，请重试');
+      }
+    } finally {
+      isLoading = false;
+      if (!isClosed) update();
+    }
+  }
+
+  Future<bool> _loadArticles(ScrollViewActionType type) async {
+    final targetPage =
+        type == ScrollViewActionType.refresh ? initPage : page + 1;
+    try {
+      final result = await request.getArticleList(page: targetPage);
+      if (isClosed || !result.isSuccess) return false;
+      response = result;
+      page = targetPage;
+      _hasLoadedArticles = true;
+      if (type == ScrollViewActionType.refresh) _articles.clear();
+      _articles.addAll(result.data?.dataSource ?? []);
+      _combineArticles();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  void _combineArticles() {
+    dataSource = [...topArticles, ..._articles];
+    _updateContentStatus();
+  }
+
+  void _updateContentStatus() {
+    if (hasContent) {
+      _hasRenderedContent = true;
+      status = ResponseStatus.successHasContent;
+    } else if (_hasRenderedContent) {
+      status = ResponseStatus.successNoData;
+    }
+    update();
+  }
+
+  Future<bool> _loadBanner() async {
+    try {
+      final result = await request.getBanner();
+      if (isClosed || !result.isSuccess) return false;
+      banners = List.of(result.data ?? []);
+      _updateContentStatus();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> _loadTopArticles() async {
+    try {
+      final result = await request.getTopArticleList();
+      if (isClosed || !result.isSuccess) return false;
+      topArticles = List.of(result.data ?? []);
+      _combineArticles();
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 }

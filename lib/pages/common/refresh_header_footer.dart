@@ -40,7 +40,7 @@ extension on LoadStatus {
       case LoadStatus.noMore:
         return const Text("没有更多数据了!");
       case LoadStatus.failed:
-        return Container();
+        return const Text('加载失败，请上拉重试');
     }
   }
 }

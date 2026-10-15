@@ -14,9 +14,7 @@ class RegisterPage extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return ResignFirstView(
       child: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          middle: Text("注册"),
-        ),
+        navigationBar: const CupertinoNavigationBar(middle: Text("注册")),
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: SingleChildScrollView(
@@ -33,9 +31,8 @@ class RegisterPage extends GetView<RegisterController> {
                           focusNode: controller.userNameFocusNode,
                           placeholder: "手机号",
                           textInputAction: TextInputAction.next,
-                          onChanged: (value) => controller
-                              .userNameIsNotEmpty.value = value.isNotEmpty,
-                          onSubmitted: (_) => controller.userNameTextFieldOnSubmitted(context),
+                          onSubmitted: (_) =>
+                              controller.userNameTextFieldOnSubmitted(context),
                         ),
                       ),
                       SizedBox(
@@ -50,9 +47,7 @@ class RegisterPage extends GetView<RegisterController> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -64,9 +59,8 @@ class RegisterPage extends GetView<RegisterController> {
                             placeholder: "密码",
                             textInputAction: TextInputAction.next,
                             obscureText: controller.obscureText.value,
-                            onChanged: (value) =>
-                                controller.password.value = value,
-                            onSubmitted: (_) => controller.passwordTextFieldOnSubmitted(context),
+                            onSubmitted: (_) => controller
+                                .passwordTextFieldOnSubmitted(context),
                           ),
                         ),
                       ),
@@ -87,9 +81,7 @@ class RegisterPage extends GetView<RegisterController> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -103,8 +95,6 @@ class RegisterPage extends GetView<RegisterController> {
                             placeholder: "确认密码",
                             textInputAction: TextInputAction.done,
                             obscureText: controller.reObscureText.value,
-                            onChanged: (value) =>
-                                controller.rePassword.value = value,
                           ),
                         ),
                       ),
@@ -126,8 +116,11 @@ class RegisterPage extends GetView<RegisterController> {
                     ],
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20, left: 15, right: 15),
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                      left: 15,
+                      right: 15,
+                    ),
                     child: SizedBox(
                       /// 这个地方可以写宽一点 会被Padding卡住
                       width: double.infinity,
@@ -137,24 +130,29 @@ class RegisterPage extends GetView<RegisterController> {
                           visible: controller.isShowRegisterButton,
                           child: AnimatedTextButton(
                             style: ButtonStyle(
-                              backgroundColor:
-                                  WidgetStateProperty.all(Colors.blue),
+                              backgroundColor: WidgetStateProperty.all(
+                                Colors.blue,
+                              ),
                             ),
+                            onPressed: controller.isSubmitting.value
+                                ? null
+                                : () {
+                                    controller.register(
+                                      username: controller
+                                          .userNameTextFiledController.text,
+                                      password: controller
+                                          .passwordTextFiledController.text,
+                                      rePassword: controller
+                                          .rePasswordTextFiledController.text,
+                                    );
+                                  },
                             child: const Text(
                               "注册",
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 18),
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
-                            onPressed: () {
-                              controller.register(
-                                username: controller
-                                    .userNameTextFiledController.text,
-                                password: controller
-                                    .passwordTextFiledController.text,
-                                rePassword: controller
-                                    .rePasswordTextFiledController.text,
-                              );
-                            },
                           ),
                         ),
                       ),

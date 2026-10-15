@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/enum/my.dart' as my;
 import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/routes/routes.dart';
@@ -48,13 +47,8 @@ class MyPage extends GetView<MyController> {
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () async {
                       if (model == my.My.login) {
-                        final result = await Get.toNamed(Routes.login);
-
-                        if (result != null) {
-                          final map = result as Map<String, dynamic>;
-                          controller.isLogin.value = map["isLogin"];
-                          controller.rxUserInfo.value = map["userInfo"];
-                        }
+                        await Get.toNamed(Routes.login);
+                        controller.syncAccount();
                       } else if (model == my.My.logout) {
                         showCupertinoDialog(
                           context: context,
@@ -81,10 +75,7 @@ class MyPage extends GetView<MyController> {
                                   ),
                                   onPressed: () async {
                                     Get.back();
-                                    final result = await controller.logout();
-                                    controller.rxUserInfo.value =
-                                        AccountService.find.userInfo;
-                                    controller.isLogin.value = result;
+                                    await controller.logout();
                                   },
                                 ),
                               ],

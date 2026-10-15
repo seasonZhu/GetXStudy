@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_study/base/resign_first_view.dart';
-import 'package:getx_study/extension/get_route_extension.dart';
 import 'package:getx_study/pages/my/controller/login_controller.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/widgets/animated_button.dart';
@@ -16,9 +15,7 @@ class LoginPage extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return ResignFirstView(
       child: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          middle: Text("登录"),
-        ),
+        navigationBar: const CupertinoNavigationBar(middle: Text("登录")),
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: SingleChildScrollView(
@@ -35,8 +32,6 @@ class LoginPage extends GetView<LoginController> {
                           focusNode: controller.userNameFocusNode,
                           placeholder: "手机号",
                           textInputAction: TextInputAction.next,
-                          onChanged: (value) => controller
-                              .userNameIsNotEmpty.value = value.isNotEmpty,
                           onSubmitted: (_) =>
                               controller.userNameTextFieldOnSubmitted(context),
                         ),
@@ -53,9 +48,7 @@ class LoginPage extends GetView<LoginController> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -67,8 +60,6 @@ class LoginPage extends GetView<LoginController> {
                             placeholder: "密码",
                             textInputAction: TextInputAction.done,
                             obscureText: controller.obscureText.value,
-                            onChanged: (value) => controller
-                                .passwordIsNotEmpty.value = value.isNotEmpty,
                           ),
                         ),
                       ),
@@ -96,9 +87,10 @@ class LoginPage extends GetView<LoginController> {
                         padding: const EdgeInsets.only(top: 20, right: 15),
                         child: AnimatedInkWell(
                           onTap: () async {
-                            Get.removeName(Routes.login);
+                            if (controller.isSubmitting.value) return;
                             final result = await Get.toNamed(Routes.register);
-                            if (result != null) {
+                            if (!controller.isClosed &&
+                                result is Map<String, dynamic>) {
                               navigator?.pop(result);
                             }
                           },
@@ -111,8 +103,11 @@ class LoginPage extends GetView<LoginController> {
                     ],
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20, left: 15, right: 15),
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                      left: 15,
+                      right: 15,
+                    ),
                     child: SizedBox(
                       /// 这个地方可以写宽一点 会被Padding卡住
                       width: double.infinity,
@@ -123,21 +118,27 @@ class LoginPage extends GetView<LoginController> {
                               controller.passwordIsNotEmpty.value,
                           child: AnimatedTextButton(
                             style: ButtonStyle(
-                              backgroundColor:
-                                  WidgetStateProperty.all(Colors.blue),
+                              backgroundColor: WidgetStateProperty.all(
+                                Colors.blue,
+                              ),
                             ),
+                            onPressed: controller.isSubmitting.value
+                                ? null
+                                : () {
+                                    controller.login(
+                                      username: controller
+                                          .userNameTextFiledController.text,
+                                      password: controller
+                                          .passwordTextFiledController.text,
+                                    );
+                                  },
                             child: const Text(
                               "登录",
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 18),
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
-                            onPressed: () {
-                              controller.login(
-                                  username: controller
-                                      .userNameTextFiledController.text,
-                                  password: controller
-                                      .passwordTextFiledController.text);
-                            },
                           ),
                         ),
                       ),

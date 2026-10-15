@@ -45,13 +45,19 @@ abstract class HttpUtils {
       {required String api,
       Map<String, dynamic> params = const {},
       Map<String, dynamic> headers = const {},
-      bool enableCache = false}) async {
+      bool enableCache = false,
+      bool showBusinessErrorToast = true}) async {
     getCookieHeaderOptions().headers?.addAll(headers);
 
     final options = getCookieHeaderOptions();
     if (enableCache && !inProduction) {
       options.extra = _cacheOptions.toExtra();
     }
+
+    options.extra = {
+      ...?options.extra,
+      'showBusinessErrorToast': showBusinessErrorToast
+    };
 
     try {
       Response response = await _dio.get(

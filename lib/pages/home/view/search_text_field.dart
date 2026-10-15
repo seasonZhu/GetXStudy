@@ -1,139 +1,65 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
-import 'package:getx_study/logger/logger.dart';
 
-class SearchTextField extends StatelessWidget {
-  final searchKeyCtrl = TextEditingController(text: '');
+class SearchTextField extends StatefulWidget {
+  final ValueChanged<String> keywordCallback;
 
-  final ValueChanged<String> _keywordCallback;
+  const SearchTextField({super.key, required this.keywordCallback});
 
-  final changeString = "".obs;
+  @override
+  State<SearchTextField> createState() => _SearchTextFieldState();
+}
 
-  SearchTextField({super.key, required ValueChanged<String> keywordCallback})
-      : _keywordCallback = keywordCallback;
+class _SearchTextFieldState extends State<SearchTextField> {
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    final keyword = _controller.text.trim();
+    if (keyword.isEmpty) return;
+    ResignFirstResponder.unfocus();
+    widget.keywordCallback(keyword);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
+      children: [
         Expanded(
           child: CupertinoTextField(
             style: TextStyle(color: Theme.of(context).brightness.color),
-            keyboardType: TextInputType.text,
-            controller: searchKeyCtrl,
-            placeholder: "请输入搜索关键字",
-            onEditingComplete: () {
-              _inputComplete(context);
-            },
-            onSubmitted: (input) {
-              logger.d(input);
-            },
-            onChanged: (value) {
-              changeString.value = value;
-            },
+            controller: _controller,
+            placeholder: '请输入搜索关键字',
+            onEditingComplete: _submit,
           ),
         ),
-        Obx(
-          (() {
-            return Visibility(
-              visible: changeString.isNotEmpty,
-              child: InkWell(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  width: 50,
-                  height: 30,
-                  alignment: Alignment.center,
-                  child: const Text(
-                    '搜索',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  _inputComplete(context);
-                },
+        ValueListenableBuilder<TextEditingValue>(
+          valueListenable: _controller,
+          builder: (context, value, child) => Visibility(
+            visible: value.text.trim().isNotEmpty,
+            child: InkWell(
+              onTap: _submit,
+              child: Container(
+                padding: const EdgeInsets.only(left: 10),
+                height: 30,
+                alignment: Alignment.center,
+                child: const Text('搜索', style: TextStyle(fontSize: 16)),
               ),
-            );
-          }),
+            ),
+          ),
         ),
       ],
     );
   }
-
-  void _inputComplete(BuildContext context) {
-    ResignFirstResponder.unfocus();
-    // if (searchKeyCtrl.text.trim().isEmpty) {
-    //   Get.snackbar('', '搜索关键字不能为空');
-    //   return;
-    // }
-    _keywordCallback(searchKeyCtrl.text.trim());
-  }
 }
 
-/// Obx与ObxValue的使用区别
-class SearchValueField extends StatelessWidget {
-  final _searchKeyCtrl = TextEditingController(text: '');
-
-  final ValueChanged<String> _keywordCallback;
-
-  SearchValueField({super.key, required ValueChanged<String> keywordCallback})
-      : _keywordCallback = keywordCallback;
-
-  @override
-  Widget build(BuildContext context) {
-    return ObxValue<RxBool>(
-      (visibleRelay) {
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: CupertinoTextField(
-                style: TextStyle(color: Theme.of(context).brightness.color),
-                keyboardType: TextInputType.text,
-                controller: _searchKeyCtrl,
-                placeholder: "请输入搜索关键字",
-                onEditingComplete: () {
-                  _inputComplete(context);
-                },
-                onSubmitted: (input) {
-                  logger.d(input);
-                },
-                onChanged: (value) {
-                  visibleRelay.value = value.isNotEmpty;
-                },
-              ),
-            ),
-            Visibility(
-              visible: visibleRelay.value,
-              child: InkWell(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 10),
-                  // width: 50,
-                  // height: 30,
-                  alignment: Alignment.center,
-                  child: const Text(
-                    '搜索',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                onTap: () {
-                  _inputComplete(context);
-                },
-              ),
-            ),
-          ],
-        );
-      },
-      false.obs,
-    );
-  }
-
-  void _inputComplete(BuildContext context) {
-    ResignFirstResponder.unfocus();
-    _keywordCallback(_searchKeyCtrl.text.trim());
-  }
+class SearchValueField extends SearchTextField {
+  const SearchValueField({super.key, required super.keywordCallback});
 }

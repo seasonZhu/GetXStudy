@@ -1,77 +1,99 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
 import 'package:getx_study/entity/account_info_entity.dart';
+import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/pages/my/controller/get_user_info_mixin.dart';
+import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/pages/my/repository/my_repository.dart';
-import 'package:getx_study/logger/logger.dart';
 
 class LoginController
     extends BaseRequestController<MyRepository, AccountInfoEntity>
     with GetUserInfoMixin {
   final userNameTextFiledController = TextEditingController(text: "");
-
   final passwordTextFiledController = TextEditingController(text: "");
-
   final userNameIsNotEmpty = false.obs;
-
   final passwordIsNotEmpty = false.obs;
-
   final obscureText = true.obs;
-
+  final isSubmitting = false.obs;
   final userNameFocusNode = FocusNode();
-
   final passwordFocusNode = FocusNode();
 
   @override
   void onInit() {
     super.onInit();
-    logger.d("onInit");
+    userNameTextFiledController.addListener(syncInput);
+    passwordTextFiledController.addListener(syncInput);
+    syncInput();
   }
 
-  void login({required String username, required String password}) async {
-    ResignFirstResponder.unfocus();
-    final response =
-        await request.login(username: username, password: password);
+  void syncInput() {
+    userNameIsNotEmpty.value = userNameTextFiledController.text.isNotEmpty;
+    passwordIsNotEmpty.value = passwordTextFiledController.text.isNotEmpty;
+  }
 
-    String message;
-    if (response.isSuccess == true && response.data != null) {
-      await AccountService.find
-          .save(info: response.data!, isLogin: true, password: password);
-      await getUserCoinInfo();
-      message = "登录成功";
-    } else {
-      message = "登录失败";
-    }
-
-    /// 在这里可以跳转
-    // Get.back();
-    // return;
-    Get.snackbar(
-      "",
-      message,
-      duration: const Duration(seconds: 1),
-      snackbarStatus: (status) {
-        if (status == SnackbarStatus.CLOSED) {
-          /// 在这里不能跳转,目前还没找到原因
-          // Get.back();
-          if (response.isSuccess) {
-            final params = {
-              "isLogin": AccountService.find.isLogin,
-              "userInfo": userInfo,
-            };
-            navigator?.pop(params);
-          }
-          // navigator?.popUntil(
-          //   (route) => route.settings.name == Routes.main,
-          // );
-        }
-      },
+  Future<void> login({
+    required String username,
+    required String password,
+  }) async {
+    if (username.trim().isEmpty || password.isEmpty) return;
+    await submitAccount(
+      operation: () => request.login(username: username, password: password),
+      password: password,
+      successMessage: "登录成功",
+      failureMessage: "登录失败",
     );
+  }
+
+  Future<void> submitAccount({
+    required Future<BaseEntity<AccountInfoEntity>> Function() operation,
+    required String password,
+    required String successMessage,
+    required String failureMessage,
+  }) async {
+    if (isClosed || isSubmitting.value) return;
+    isSubmitting.value = true;
+    ResignFirstResponder.unfocus();
+    final account = AccountService.find;
+    final revision = account.sessionRevision;
+    var operationRevision = revision;
+    try {
+      final response = await operation();
+      if (isClosed || account.sessionRevision != revision) return;
+      if (!response.isSuccess || response.data == null) {
+        Get.snackbar("", response.errorMsg ?? failureMessage);
+        return;
+      }
+      final info = response.data!;
+      operationRevision = revision + 1;
+      await account.save(info: info, isLogin: true, password: password);
+      if (isClosed ||
+          account.sessionRevision != operationRevision ||
+          !account.isLogin ||
+          !identical(account.info, info)) {
+        return;
+      }
+      if (Get.isRegistered<MyController>()) {
+        Get.find<MyController>().syncAccount();
+      }
+      final result = <String, dynamic>{
+        "isLogin": account.isLogin,
+        "userInfo": account.userInfo,
+      };
+      unawaited(getUserCoinInfo());
+      navigator?.pop(result);
+      Get.snackbar("", successMessage, duration: const Duration(seconds: 1));
+    } catch (error) {
+      if (!isClosed && account.sessionRevision == operationRevision) {
+        Get.snackbar("", "$failureMessage：$error");
+      }
+    } finally {
+      if (!isClosed) isSubmitting.value = false;
+    }
   }
 
   void userNameTextFieldOnSubmitted(BuildContext context) {
@@ -81,8 +103,12 @@ class LoginController
 
   @override
   void onClose() {
-    super.onClose();
+    userNameTextFiledController.removeListener(syncInput);
+    passwordTextFiledController.removeListener(syncInput);
+    userNameTextFiledController.dispose();
+    passwordTextFiledController.dispose();
     userNameFocusNode.dispose();
     passwordFocusNode.dispose();
+    super.onClose();
   }
 }

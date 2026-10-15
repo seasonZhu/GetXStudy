@@ -13,7 +13,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/routes/routes.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
-import 'package:getx_study/pages/common/status_view.dart';
+import 'package:getx_study/enum/response_status.dart';
+import 'package:getx_study/pages/common/error_view.dart';
+import 'package:getx_study/pages/common/empty_view.dart';
+import 'package:getx_study/pages/common/loading_view.dart';
 import 'package:getx_study/pages/home/controller/home_controller.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 
@@ -30,11 +33,7 @@ class HomePage extends GetView<HomeController> {
         if (await canLaunchUrl(url)) {
           launchUrl(url, mode: LaunchMode.externalApplication);
         } else {
-          Get.snackbar(
-            "",
-            "请安装手机QQ",
-            duration: const Duration(seconds: 1),
-          );
+          Get.snackbar("", "请安装手机QQ", duration: const Duration(seconds: 1));
         }
       }
     } else {
@@ -53,65 +52,82 @@ class HomePage extends GetView<HomeController> {
           onPressed: (() => Get.toNamed(Routes.hotKey)),
         ),
       ),
-      child: StatusView<HomeController>(
-        contentBuilder: (controller) {
-          return SmartRefresher(
-            enablePullUp: true,
-            header: const RefreshHeader(),
-            footer: const RefreshFooter(),
-            controller: controller.refreshController,
-            onRefresh: controller.onRefresh,
-            onLoading: controller.onLoadMore,
-            child: CustomScrollView(
-              slivers: <Widget>[
-                /// 随便把一个Widget放到CustomScrollView中的slivers它是不认识的,通过SliverToBoxAdapter适配器包裹就可以了
-                SliverToBoxAdapter(
-                  child: AspectRatio(
-                    aspectRatio: 16.0 / 9.0,
-                    child: Swiper(
-                      itemBuilder: (BuildContext itemContext, int index) {
-                        if (controller.banners.length >= index) {
-                          return CachedNetworkImage(
-                            fit: BoxFit.fitWidth,
-                            imageUrl: controller.banners[index].imagePath,
-                            placeholder: (context, url) => Image.asset(
-                              Assets.assetsImagesPlaceholder,
+      child: GetBuilder<HomeController>(
+        builder: (controller) {
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              SmartRefresher(
+                enablePullUp: controller.response?.isSuccess == true,
+                header: const RefreshHeader(),
+                footer: const RefreshFooter(),
+                controller: controller.refreshController,
+                onRefresh: controller.onRefresh,
+                onLoading: controller.onLoadMore,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    /// 随便把一个Widget放到CustomScrollView中的slivers它是不认识的,通过SliverToBoxAdapter适配器包裹就可以了
+                    if (controller.banners.isNotEmpty)
+                      SliverToBoxAdapter(
+                        child: AspectRatio(
+                          aspectRatio: 16.0 / 9.0,
+                          child: Swiper(
+                            itemBuilder: (BuildContext itemContext, int index) {
+                              if (index < controller.banners.length) {
+                                return CachedNetworkImage(
+                                  fit: BoxFit.fitWidth,
+                                  imageUrl:
+                                      controller.banners[index].imagePath ?? '',
+                                  placeholder: (context, url) => Image.asset(
+                                      Assets.assetsImagesPlaceholder),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            },
+                            itemCount: controller.banners.length,
+                            pagination: const SwiperPagination(
+                              builder: DotSwiperPaginationBuilder(
+                                color: Colors.grey,
+                                activeColor: Colors.blue,
+                              ),
                             ),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
-                      itemCount: controller.banners.length,
-                      pagination: const SwiperPagination(
-                        builder: DotSwiperPaginationBuilder(
-                            color: Colors.grey,
-                            activeColor: Colors.blue),
+                            autoplay: controller.swiperAutoPlay,
+                            autoplayDisableOnInteraction: true,
+                            onTap: (index) {
+                              logger.d(index);
+                              Get.toNamed(
+                                "/web/true",
+                                arguments: controller.banners[index],
+                              );
+                            },
+                          ),
+                        ),
                       ),
-                      autoplay: controller.swiperAutoPlay,
-                      autoplayDisableOnInteraction: true,
-                      onTap: (index) {
-                        logger.d(index);
-                        Get.toNamed("/web/true",
-                            arguments: controller.banners[index]);
-                      },
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((content, index) {
+                        final model = controller.dataSource[index];
+                        return InfoCell(
+                          model: model,
+                          callback: (_) => _handleInfoCellClick(model),
+                        );
+                      }, childCount: controller.dataSource.length),
                     ),
-                  ),
+                  ],
                 ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (content, index) {
-                      final model = controller.dataSource[index];
-                      return InfoCell(
-                        model: model,
-                        callback: (_) => _handleInfoCellClick(model),
-                      );
-                    },
-                    childCount: controller.dataSource.length,
-                  ),
-                )
-              ],
-            ),
+              ),
+              if (!controller.hasContent)
+                Positioned.fill(
+                  child: switch (controller.status) {
+                    ResponseStatus.loading => const LoadingView(),
+                    ResponseStatus.fail =>
+                      ErrorView(retryAction: controller.retry),
+                    ResponseStatus.successNoData =>
+                      EmptyView(emptyTap: controller.emptyTap),
+                    ResponseStatus.successHasContent => const SizedBox.shrink(),
+                  },
+                ),
+            ],
           );
         },
       ),
@@ -125,13 +141,12 @@ class HomePage extends GetView<HomeController> {
         aspectRatio: 16.0 / 9.0,
         child: Swiper(
           itemBuilder: (BuildContext itemContext, int index) {
-            if (controller.banners.length >= index) {
+            if (index < controller.banners.length) {
               return CachedNetworkImage(
                 fit: BoxFit.fitWidth,
-                imageUrl: controller.banners[index].imagePath,
-                placeholder: (context, url) => Image.asset(
-                  Assets.assetsImagesPlaceholder,
-                ),
+                imageUrl: controller.banners[index].imagePath ?? '',
+                placeholder: (context, url) =>
+                    Image.asset(Assets.assetsImagesPlaceholder),
               );
             } else {
               return Container();

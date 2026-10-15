@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
 import 'package:getx_study/pages/common/empty_view.dart';
+import 'package:getx_study/pages/common/error_view.dart';
+import 'package:getx_study/pages/common/loading_view.dart';
+import 'package:getx_study/enum/response_status.dart';
 import 'package:getx_study/pages/common/refresh_header_footer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -31,10 +34,20 @@ class TabListPage extends StatelessWidget {
           child: ListView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
-            itemCount: controller.dataSource.length,
+            itemCount: controller.dataSource.isEmpty
+                ? 1
+                : controller.dataSource.length,
             itemBuilder: (BuildContext context, int index) {
               if (controller.dataSource.isEmpty) {
-                return const EmptyView();
+                switch (controller.status) {
+                  case ResponseStatus.fail:
+                    return ErrorView(retryAction: controller.retry);
+                  case ResponseStatus.loading:
+                    return const LoadingView();
+                  case ResponseStatus.successNoData:
+                  case ResponseStatus.successHasContent:
+                    return EmptyView(emptyTap: controller.emptyTap);
+                }
               }
 
               final model = controller.dataSource[index];

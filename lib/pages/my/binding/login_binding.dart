@@ -1,9 +1,13 @@
+import 'package:getx_study/pages/my/repository/my_repository.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/pages/my/controller/login_controller.dart';
 
 class LoginBinding extends Bindings {
   @override
   void dependencies() {
+    if (!Get.isRegistered<MyRepository>()) {
+      Get.lazyPut<MyRepository>(() => MyRepository(), fenix: true);
+    }
     Get.lazyPut(
       () => LoginController(),
       // fenix: true,

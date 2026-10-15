@@ -9,8 +9,11 @@ import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/page_entity.dart';
 import 'package:getx_study/logger/logger.dart';
 
-abstract class BaseRefreshController<R extends IRepository, T> extends BaseController {
+abstract class BaseRefreshController<R extends IRepository, T>
+    extends BaseController {
   late R request;
+
+  bool isLoading = false;
 
   late RefreshController refreshController;
 
@@ -47,12 +50,16 @@ abstract class BaseRefreshController<R extends IRepository, T> extends BaseContr
     switch (type) {
       case ScrollViewActionType.refresh:
         refreshController.refreshCompleted(resetFooterState: true);
-        if (response?.data?.curPage == response?.data?.pageCount) {
+        if (response?.data?.over == true ||
+            (response?.data?.curPage != null &&
+                response?.data?.curPage == response?.data?.pageCount)) {
           refreshController.loadNoData();
         }
         break;
       case ScrollViewActionType.loadMore:
-        if (response?.data?.curPage == response?.data?.pageCount) {
+        if (response?.data?.over == true ||
+            (response?.data?.curPage != null &&
+                response?.data?.curPage == response?.data?.pageCount)) {
           refreshController.loadNoData();
         } else {
           refreshController.loadComplete();
@@ -64,23 +71,23 @@ abstract class BaseRefreshController<R extends IRepository, T> extends BaseContr
   }
 
   void checkDataSourceAndStatus() {
-    if (status == ResponseStatus.successNoData && dataSource.isNotEmpty) {
-      status = ResponseStatus.successHasContent;
-    }
-
-    if (status == ResponseStatus.fail && dataSource.isNotEmpty) {
-      status = ResponseStatus.successHasContent;
-    }
+    status = dataSource.isEmpty
+        ? ResponseStatus.successNoData
+        : ResponseStatus.successHasContent;
   }
 
   void failHandle(ScrollViewActionType type) {
-    if (type == ScrollViewActionType.loadMore) {
-      page = page - 1;
+    status = dataSource.isEmpty
+        ? ResponseStatus.fail
+        : ResponseStatus.successHasContent;
+    switch (type) {
+      case ScrollViewActionType.refresh:
+        refreshController.refreshFailed();
+        break;
+      case ScrollViewActionType.loadMore:
+        refreshController.loadFailed();
+        break;
     }
-
-    status = ResponseStatus.fail;
-
-    refreshControllerStatusUpdate(type);
   }
 
   @override
@@ -91,11 +98,5 @@ abstract class BaseRefreshController<R extends IRepository, T> extends BaseContr
   @override
   void emptyTap() {
     onRefresh();
-  }
-
-  processError({required ScrollViewActionType type, required dynamic error}) {
-    failHandle(type);
-    update();
-    return error;
   }
 }

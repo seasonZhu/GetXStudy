@@ -27,15 +27,24 @@ class AccountService extends GetxService {
 
   var isLogin = false;
 
+  int sessionRevision = 0;
+
+  Future<void> _pendingPersistence = Future<void>.value();
+
+  /// 按会话操作顺序落盘，避免旧登录写入覆盖随后发生的退出。
+  Future<void> _persist(Future<void> Function() operation) {
+    final result = _pendingPersistence.then((_) => operation());
+    _pendingPersistence = result.catchError((Object _) {});
+    return result;
+  }
+
   var userInfo = "等级 --  排名 --  积分 --";
 
   static AccountService get find => Get.find<AccountService>();
 
   // 使用安全存储来保存敏感信息（如密码）
   static const _secureStorage = FlutterSecureStorage(
-    aOptions: AndroidOptions(
-      encryptedSharedPreferences: true,
-    ),
+    aOptions: AndroidOptions(encryptedSharedPreferences: true),
   );
 
   Future<SharedPreferences> get userDefine async =>
@@ -50,22 +59,39 @@ class AccountService extends GetxService {
     }
   }
 
-  Future<void> save(
-      {required AccountInfoEntity info,
-      required bool isLogin,
-      required String password}) async {
+  Future<void> save({
+    required AccountInfoEntity info,
+    required bool isLogin,
+    required String password,
+  }) async {
+    final previousInfo = this.info;
+    final previousIsLogin = this.isLogin;
+    final previousUserInfo = userInfo;
+    final revision = ++sessionRevision;
     this.info = info;
-    this.isLogin = true;
+    this.isLogin = isLogin;
+    userInfo = "等级 --  排名 --  积分 --";
     this.info?.password = password;
 
-    final userDefine = await this.userDefine;
-    // 使用普通存储保存用户名
-    userDefine.setString(_kLastLoginUserName, info.username ?? "");
-    // 使用安全存储保存密码（加密存储）
-    await _secureStorage.write(key: _kLastLoginPassword, value: password);
-    // 本来想尝试保存一个字典的,结果没这个方法,只有List<String>,但是我可以将Map转为String在存呀
-    final infoJsonString = json.encode(info.toJson());
-    userDefine.setString(_kAccountInfo, infoJsonString);
+    try {
+      await _persist(() async {
+        final userDefine = await this.userDefine;
+        // 使用普通存储保存用户名
+        await userDefine.setString(_kLastLoginUserName, info.username ?? "");
+        // 使用安全存储保存密码（加密存储）
+        await _secureStorage.write(key: _kLastLoginPassword, value: password);
+        // 本来想尝试保存一个字典的,结果没这个方法,只有List<String>,但是我可以将Map转为String在存呀
+        final infoJsonString = json.encode(info.toJson());
+        await userDefine.setString(_kAccountInfo, infoJsonString);
+      });
+    } catch (_) {
+      if (sessionRevision == revision) {
+        this.info = previousInfo;
+        this.isLogin = previousIsLogin;
+        userInfo = previousUserInfo;
+      }
+      rethrow;
+    }
   }
 
   Future<bool> saveLastThemeSettingIndex(int index) async {
@@ -125,12 +151,16 @@ class AccountService extends GetxService {
   }
 
   Future<void> clear() async {
+    sessionRevision++;
     info = null;
     userInfo = "等级 --  排名 --  积分 --";
     isLogin = false;
-    final userDefine = await this.userDefine;
-    userDefine.remove(_kLastLoginUserName);
-    // 从安全存储中删除密码
-    await _secureStorage.delete(key: _kLastLoginPassword);
+    await _persist(() async {
+      final userDefine = await this.userDefine;
+      await userDefine.remove(_kLastLoginUserName);
+      await userDefine.remove(_kAccountInfo);
+      // 从安全存储中删除密码
+      await _secureStorage.delete(key: _kLastLoginPassword);
+    });
   }
 }

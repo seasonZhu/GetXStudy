@@ -17,9 +17,7 @@ class MyCollectPage extends GetView<MyCollectController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text("我的收藏"),
-      ),
+      navigationBar: const CupertinoNavigationBar(middle: Text("我的收藏")),
       child: StatusView<MyCollectController>(
         contentBuilder: (controller) {
           return SmartRefresher(
@@ -33,26 +31,27 @@ class MyCollectPage extends GetView<MyCollectController> {
               shrinkWrap: true,
               itemCount: controller.dataSource.length,
               separatorBuilder: (context, index) {
-                return const Divider(
-                  indent: 15,
-                  endIndent: 15,
-                  height: 0.1,
-                );
+                return const Divider(indent: 15, endIndent: 15, height: 0.1);
               },
               itemBuilder: (BuildContext context, int index) {
                 final model = controller.dataSource[index];
                 return Slidable(
                   // Specify a key if the Slidable is dismissible.
-                  key: Key(model.title.toString()),
+                  key: ValueKey(model.originId ?? model.id),
                   // The end action pane is the one at the right or the bottom side.
                   endActionPane: ActionPane(
                     motion: const ScrollMotion(),
                     extentRatio: 0.3,
                     children: [
                       SlidableAction(
-                        onPressed: (_) {
-                          controller.unCollectAction(index: index);
-                        },
+                        onPressed: model.originId == null ||
+                                controller.pendingUncollectIds.contains(
+                                  model.originId,
+                                )
+                            ? null
+                            : (_) => controller.unCollectAction(
+                                  originId: model.originId!,
+                                ),
                         backgroundColor: const Color(0xFFFE4A49),
                         foregroundColor: Colors.white,
                         icon: Icons.delete,
@@ -64,9 +63,11 @@ class MyCollectPage extends GetView<MyCollectController> {
                   // component is not dragged.
                   child: InfoCell(
                     model: model,
-                    callback: (_) => Get.toNamed(Routes.web,
-                        arguments: model,
-                        parameters: {"className": className(this)}),
+                    callback: (_) => Get.toNamed(
+                      Routes.web,
+                      arguments: model,
+                      parameters: {"className": className(this)},
+                    ),
                     isNeedBottomLine: false,
                   ),
                 );
