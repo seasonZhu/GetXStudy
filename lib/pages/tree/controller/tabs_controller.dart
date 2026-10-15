@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_study/enum/tag_type.dart';
@@ -8,28 +9,58 @@ import 'package:getx_study/pages/tree/repository/tabs_repository.dart';
 import 'package:getx_study/logger/logger.dart';
 
 class TabsController
-    extends BaseRequestController<TabsRepository, List<TabEntity>> with ScrollMixin {
+    extends BaseRequestController<TabsRepository, List<TabEntity>>
+    with ScrollMixin {
   TabsController(this.type);
 
-  TagType type;
+  final TagType type;
 
   @override
-  void onInit() async {
+  String get repositoryTag => type.toString();
+
+  bool _isLoading = false;
+
+  @override
+  void onInit() {
     super.onInit();
-    request = Get.find(tag: type.toString());
     aRequest();
   }
 
   @override
   Future<void> aRequest({Map<String, dynamic>? parameters}) async {
-    response = await request.getTab().catchError((error) {
-      status = ResponseStatus.fail;
+    if (isClosed || _isLoading) return;
+    _isLoading = true;
+    if (data?.isNotEmpty != true) {
+      status = ResponseStatus.loading;
       update();
-      return error;
-    });
-    data = response?.data ?? [];
-    status = response?.responseStatus ?? ResponseStatus.loading;
-    update();
+    }
+    try {
+      final result = await request.getTab();
+      if (isClosed) return;
+      if (!result.isSuccess) {
+        _handleFailure();
+        return;
+      }
+      response = result;
+      data = List.of(result.data ?? []);
+      status = data!.isEmpty
+          ? ResponseStatus.successNoData
+          : ResponseStatus.successHasContent;
+    } catch (_) {
+      if (!isClosed) _handleFailure();
+    } finally {
+      _isLoading = false;
+      if (!isClosed) update();
+    }
+  }
+
+  void _handleFailure() {
+    if (data?.isNotEmpty == true) {
+      status = ResponseStatus.successHasContent;
+      EasyLoading.showToast('加载失败，请重试');
+    } else {
+      status = ResponseStatus.fail;
+    }
   }
 
   @override

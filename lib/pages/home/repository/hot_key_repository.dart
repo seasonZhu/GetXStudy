@@ -6,5 +6,5 @@ import 'package:getx_study/http_util/api.dart';
 
 class HotKeyRepository extends IRepository {
   Future<BaseEntity<List<HotKeyEntity>>> getHotKey() =>
-      http.Request.get(api: Api.getSearchHotKey);
+      http.Request.get(api: Api.getSearchHotKey, showBusinessErrorToast: false);
 }

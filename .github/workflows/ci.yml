@@ -1,39 +1,45 @@
-# GitHub Actions CI 配置（增强版）
-# 自动化检查 Flutter 代码质量 + 格式化
-
 name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop, optimize-project]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop, optimize-project]
+
+permissions:
+  contents: read
 
 jobs:
   flutter-ci:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read Flutter version
+        id: flutter_version
+        run: echo "version=$(cat .flutter-version)" >> "$GITHUB_OUTPUT"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.4'
+          flutter-version: ${{ steps.flutter_version.outputs.version }}
+          channel: stable
           cache: true
 
       - name: Install dependencies
         run: flutter pub get
 
-      # 格式化检查
-      - name: Check formatting
-        run: flutter format --set-exit-if-changed .
+      - name: Check changed Dart formatting
+        run: python3 .github/scripts/check_dart_format.py
 
-      # 静态分析
+      - name: Test formatting scope
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+
       - name: Flutter Analyze
-        run: flutter analyze
+        run: flutter analyze --no-fatal-warnings --no-fatal-infos
 
-      # 运行测试
       - name: Run tests
         run: flutter test

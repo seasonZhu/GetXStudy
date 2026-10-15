@@ -14,50 +14,56 @@ import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class TabListPage extends StatelessWidget {
-  final TabListController _controller;
+  final String controllerTag;
 
-  const TabListPage({super.key, required TabListController controller})
-      : _controller = controller;
+  const TabListPage({super.key, required this.controllerTag});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TabListController>(
-      tag: _controller.id,
+      tag: controllerTag,
+      autoRemove: false,
       builder: ((controller) {
+        final isEmpty = controller.dataSource.isEmpty;
         return SmartRefresher(
-          enablePullUp: true,
-          header: const RefreshHeader(),
+          enablePullUp: !isEmpty,
+          header: isEmpty
+              ? CustomHeader(
+                  height: 0,
+                  builder: (context, mode) => const SizedBox.shrink(),
+                )
+              : const RefreshHeader(),
           footer: const RefreshFooter(),
           controller: controller.refreshController,
           onRefresh: controller.onRefresh,
           onLoading: controller.onLoadMore,
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: controller.dataSource.isEmpty
-                ? 1
-                : controller.dataSource.length,
-            itemBuilder: (BuildContext context, int index) {
-              if (controller.dataSource.isEmpty) {
-                switch (controller.status) {
-                  case ResponseStatus.fail:
-                    return ErrorView(retryAction: controller.retry);
-                  case ResponseStatus.loading:
-                    return const LoadingView();
-                  case ResponseStatus.successNoData:
-                  case ResponseStatus.successHasContent:
-                    return EmptyView(emptyTap: controller.emptyTap);
-                }
-              }
-
-              final model = controller.dataSource[index];
-              return InfoCell(
-                model: model,
-                callback: (_) {
-                  Get.toNamed(Routes.web, arguments: model);
-                },
-              );
-            },
+          child: CustomScrollView(
+            key: PageStorageKey(controllerTag),
+            slivers: [
+              if (isEmpty)
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: switch (controller.status) {
+                    ResponseStatus.fail =>
+                      ErrorView(retryAction: controller.retry),
+                    ResponseStatus.loading => const LoadingView(),
+                    ResponseStatus.successNoData ||
+                    ResponseStatus.successHasContent =>
+                      EmptyView(emptyTap: controller.emptyTap),
+                  },
+                )
+              else
+                SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final model = controller.dataSource[index];
+                    return InfoCell(
+                      model: model,
+                      callback: (_) =>
+                          Get.toNamed(Routes.web, arguments: model),
+                    );
+                  }, childCount: controller.dataSource.length),
+                ),
+            ],
           ),
         );
       }),

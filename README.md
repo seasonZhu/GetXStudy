@@ -1,189 +1,141 @@
-# GetXStudy - WanAndroid 客户端
+# GetXStudy · WanAndroid 客户端
 
-<div align="center">
+基于 [WanAndroid 开放 API](https://www.wanandroid.com/) 的 Flutter/GetX 学习项目，通过文章阅读、分类浏览和账户功能，实践 GetX 的状态管理、路由与依赖注入。
 
-![Flutter](https://img.shields.io/badge/Flutter-3.0+-02569B?logo=flutter&logoColor=white)
-![Dart](https://img.shields.io/badge/Dart-3.0+-0175C2?logo=dart&logoColor=white)
-![GetX](https://img.shields.io/badge/GetX-4.6.6-38d54a?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgZmlsbD0iIzM4ZDU0YSIvPjwvc3ZnPg%3D%3D&logoColor=white)
-![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)
-![License](https://img.shields.io/badge/license-MIT-blue)
+当前主要维护 Cupertino 界面，面向 Android 和 iOS。Material 界面截图作为历史展示，不代表两套界面持续同步维护；仓库中的其他平台目录也不代表已经完成适配。
 
-基于 GetX 框架构建的 Flutter WanAndroid 客户端，采用响应式编程架构，展示现代 Flutter 开发最佳实践。
+[功能介绍](#功能介绍) · [快速开始](#快速开始) · [代码组织](#代码组织) · [开发维护](#开发维护) · [项目文档](#项目文档)
 
-[功能特性](#-功能特性) • [快速开始](#-快速开始) • [项目架构](#-项目架构) • [完整文档](#-项目文档)
+## 功能介绍
 
-</div>
+| 模块 | 功能 |
+| --- | --- |
+| 首页 | 横幅轮播、置顶文章、文章分页、搜索入口 |
+| 项目 | 项目分类、Tab 切换、分类文章分页 |
+| 公众号 | 公众号切换、文章列表与分页 |
+| 体系 | 知识体系导航、分类文章浏览 |
+| 我的 | 登录、注册、退出、收藏管理、积分排名与积分历史 |
 
----
+列表支持下拉刷新和分页加载；搜索支持热门关键词及提交关键词查询。文章通过 WebView 阅读，并提供收藏、取消收藏和分享操作。应用内容依赖 WanAndroid 服务及网络可用性。
 
-## 📖 项目简介
+## 快速开始
 
-本项目是一个基于 [WanAndroid 开放 API](https://www.wanandroid.com/) 的 Flutter 客户端应用，旨在展示如何使用 **GetX** 框架构建生产级别的移动应用。
+### 环境准备
 
-### 核心特点
+- 当前验证环境为 **Flutter 3.47.0 stable**，与根目录 [.flutter-version](.flutter-version) 及 CI 配置一致；Dart 使用该 Flutter SDK 自带版本。
+- [pubspec.yaml](pubspec.yaml) 中的 Dart SDK 约束为 `^3.0.0`，这是声明的约束，不表示所有对应 Flutter 版本均已验证。
+- Android 开发需准备 Android SDK；iOS 开发需使用 macOS、Xcode 和 CocoaPods，真机运行还需配置签名。
 
-- 🏗️ **GetX 全家桶**：状态管理、路由管理、依赖注入一体化解决方案
-- 📱 **双风格支持**：Material Design & Cupertino 两种 UI 风格
-- 🔄 **响应式编程**：基于 RxDart 的流式数据处理
-- 🛠️ **Retrofit 风格 API**：类型安全的网络请求层
-- 🎨 **微交互优化**：流畅的动画过渡和用户交互体验
-
----
-
-## ✨ 功能特性
-
-### 核心功能
-
-| 模块 | 功能描述 |
-|:-----|:---------|
-| 🏠 **首页** | 文章列表、Banner 轮播、热门搜索 |
-| 📁 **项目** | 项目分类、Tab 切换、分页加载 |
-| 🌳 **体系** | 知识体系树形导航 |
-| 👤 **我的** | 登录注册、收藏管理、积分排行 |
-
-### 交互体验
-
-- ✅ 下拉刷新 / 上拉加载更多
-- ✅ 搜索功能（热门搜索关键词、实时搜索）
-- ✅ 收藏/取消收藏文章
-- ✅ WebView 文章详情页
-- ✅ 分享功能
-- ✅ 侧滑删除操作
-
----
-
-## 🚀 快速开始
-
-### 环境要求
-
-```yaml
-Flutter SDK: >=3.0.0
-Dart SDK:   >=3.0.0 <4.0.0
-```
-
-### 安装步骤
+先确认本地 SDK 版本及工具链状态：
 
 ```bash
-# 1. 克隆项目
+flutter --version
+flutter doctor
+```
+
+### 获取与运行
+
+```bash
 git clone https://github.com/seasonZhu/GetXStudy.git
 cd GetXStudy
-
-# 2. 安装依赖
 flutter pub get
-
-# 3. 生成代码（Retrofit、JsonSerializable）
-flutter pub run build_runner build --delete-conflicting-outputs
-
-# 4. 运行项目
-# iOS
-flutter run
-
-# Android
-flutter run
+flutter devices
 ```
 
-### 项目配置
-
-#### 生成启动屏
+从 `flutter devices` 输出中选择 Android 或 iOS 设备，将以下占位符替换为实际设备 ID：
 
 ```bash
-flutter pub run flutter_native_splash:create
+flutter run -d <设备ID>
 ```
 
-#### 代码格式化
+默认入口为 `lib/main.dart`。仓库已跟踪所需的生成代码，首次运行无需先执行代码生成。
 
-```bash
-# 格式化所有代码
-dart format .
+## 代码组织
 
-# 检查格式问题
-dart format --output=none --set-exit-if-changed .
-```
+| 技术 | 用途 |
+| --- | --- |
+| Flutter / Cupertino | 页面与交互展示 |
+| GetX | 状态管理、路由、依赖注入与生命周期管理 |
+| Dio / Retrofit | HTTP 请求封装及声明式接口 |
+| SharedPreferences / Flutter Secure Storage | 本地偏好与存储工具；具体数据使用方式以服务实现为准 |
+| pull_to_refresh / card_swiper | 列表刷新、分页与轮播 |
+| webview_flutter / share_plus | 文章阅读与分享 |
+| build_runner / json_serializable | 部分接口和模型的代码生成 |
 
----
+依赖声明以 [pubspec.yaml](pubspec.yaml) 为准，实际解析版本见 [pubspec.lock](pubspec.lock)。
 
-## 🏗️ 项目架构
+页面按业务模块组织，常见调用关系为 View → Controller → Repository。View 负责布局和交互，Controller 管理状态与业务流程，Repository 封装数据获取；Service 承载账户、主题等跨页面能力，Binding 注册路由所需依赖。
 
-### 技术栈
+项目同时使用 `Obx` 和 `GetBuilder`：前者监听响应式状态，后者通过 `update()` 显式刷新。阅读和修改时沿用所在模块已有方式。
 
-```mermaid
-graph TB
-    A[GetXStudy] --> B[UI层]
-    A --> C[逻辑层]
-    A --> D[数据层]
-    A --> E[服务层]
-
-    B --> B1[Material/Cupertino]
-    B --> B2[自定义组件]
-
-    C --> C1[GetXController]
-    C --> C2[RxDart Stream]
-
-    D --> D1[Retrofit API]
-    D --> D2[本地存储]
-
-    E --> E1[AccountService]
-    E --> E2[ThemeService]
-```
-
-### 目录结构
-
-```
+```text
 lib/
-├── app_service/          # 应用服务（账户、主题）
-├── base/                 # 基类和接口定义
-├── entity/               # 数据实体
-├── enum/                 # 枚举定义
-├── generated/            # 自动生成的代码
-├── http_client/          # HTTP 客户端
-├── http_util/            # HTTP 工具类
-├── pages/                # 页面
-│   ├── home/            # 首页模块
-│   ├── tree/            # 体系模块
-│   ├── my/              # 我的模块
-│   ├── main/            # 主页
-│   ├── web/             # WebView
-│   ├── coin_rank/       # 排行榜
-│   └── common/          # 公共组件
-├── resource/             # 资源常量
-├── routes/               # 路由配置
-├── util/                 # 工具类
-└── widget/               # 公共 Widget
+├── main.dart        # 应用入口
+├── app_service/     # 账户、主题等应用服务
+├── base/            # 请求、刷新等基类
+├── entity/          # 数据模型
+├── generated/       # 生成代码与资源索引
+├── http_client/     # Retrofit 接口及生成实现
+├── http_util/       # 网络请求工具
+├── pages/           # 首页、分类、账户、阅读等业务页面
+├── resource/        # 应用资源封装
+├── routes/          # 路由与依赖绑定
+├── util/            # 工具方法
+└── widgets/          # 通用组件
 ```
 
-### 设计模式
+## 开发维护
 
-- **MVVM 架构**：View ↔ Controller ↔ Model
-- **Repository 模式**：数据层抽象
-- **Service Locator**：依赖注入
-- **Observer 模式**：响应式状态管理
+### 验证改动
 
----
+在项目根目录执行：
 
-## 📚 项目文档
+```bash
+flutter analyze --no-fatal-warnings --no-fatal-infos
+flutter test
+python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+```
 
-完整的文档已迁移至 [docs/](./docs/) 目录：
+最后一条命令验证 CI 的 Dart 格式检查范围逻辑，需要 Python 3。以上命令不要求启动模拟器。
 
-| 文档 | 说明 |
-|:-----|:------|
-| [📖 文档索引](./docs/INDEX.md) | 所有文档的快速导航入口 |
-| [🏗️ 架构说明](./docs/ARCHITECTURE.md) | 项目架构、设计模式、目录结构详解 |
-| [🔌 API 文档](./docs/API_DOCUMENTATION.md) | 网络请求接口、数据模型、错误处理 |
-| [✨ 微交互效果指南](./docs/MICRO_INTERACTIONS_GUIDE.md) | 按钮动画、页面过渡、列表动画 |
-| [🎨 常量管理指南](./docs/CONSTANTS_MANAGEMENT.md) | 资源配置、字符串、颜色管理 |
-| [🚀 快速开始](./docs/CONSTANTS_QUICK_START.md) | 5分钟快速上手常量管理 |
+本地只检查本次新增或修改的 Dart 文件，手动替换文件路径（可指定多个文件）：
 
-### 文档快速链接
+```bash
+dart format --output=none --set-exit-if-changed lib/本次修改的文件.dart
+```
 
-- **架构相关**: [架构设计](./docs/ARCHITECTURE.md) | [设计模式](./docs/ARCHITECTURE.md#设计模式) | [状态管理](./docs/ARCHITECTURE.md#状态管理)
-- **API 相关**: [接口列表](./docs/API_DOCUMENTATION.md#api-端点) | [数据模型](./docs/API_DOCUMENTATION.md#数据模型) | [错误处理](./docs/API_DOCUMENTATION.md#错误处理)
-- **开发指南**: [最佳实践](./docs/ARCHITECTURE.md#最佳实践) | [性能优化](./docs/ARCHITECTURE.md#性能优化) | [安全建议](./docs/ARCHITECTURE.md#安全建议)
+CI 自动计算变更范围并检查格式：PR 比较 base/head，push 比较 before/当前提交；新分支回退到父提交，无父提交时检查全部已跟踪的 Dart 文件。格式检查不改写源码。
 
----
+[CI](.github/workflows/ci.yml) 覆盖 `main`、`develop`、`optimize-project`，[Flutter CI](.github/workflows/flutter-ci.yml) 覆盖 `develop_cupertino`。检查包含依赖获取、变更文件格式、格式脚本测试、静态分析和 Flutter 测试。静态分析完整输出诊断，error 必须阻断，已有 warning/info 暂不阻断；格式或测试失败也必须阻断。
+
+本地检查结果与远端 Actions 结果分别确认；远端是否通过，以对应提交的工作流运行结果为准。
+
+### 按需生成代码
+
+修改 Retrofit 接口或使用 `json_serializable` 的模型后，可执行：
+
+```bash
+dart run build_runner build
+```
+
+检查生成文件差异后再提交。项目也保留了 `lib/generated/json/` 下另一套模型转换代码，不应将所有模型都视为 `json_serializable` 生成；修改前先确认文件使用的注解和生成方式，可参考 [历史开发说明](说明.md)。
+
+## 项目文档
+
+| 入口 | 内容 |
+| --- | --- |
+| [文档索引](docs/INDEX.md) | 详细文档导航 |
+| [架构说明](docs/ARCHITECTURE.md) | 代码组织与设计说明 |
+| [API 文档](docs/API_DOCUMENTATION.md) | 请求接口和数据处理说明 |
+| [资源常量指南](docs/CONSTANTS_MANAGEMENT.md) | 字符串、颜色及尺寸资源 |
+
+详细文档包含历史设计和阶段性优化记录，部分描述可能与当前实现有差异；当前行为以源码、依赖和工作流配置为准。
 
 ## 📸 界面预览
 
-### Cupertino 风格
+以下为仓库保留的历史截图，仅供界面参考，未反映当前全部功能（例如公众号入口）。
+
+### Cupertino 历史界面
 
 <table>
   <tr>
@@ -194,7 +146,7 @@ lib/
   </tr>
 </table>
 
-### Material 风格(已经长时间未更新)
+### Material 历史界面（长期未更新）
 
 <table>
   <tr>
@@ -204,68 +156,6 @@ lib/
     <td><img src="ScreenShots/8.PNG" alt="我的" width="200"/></td>
   </tr>
 </table>
-
----
-
-## 📦 依赖说明
-
-### 核心依赖
-
-```yaml
-# 框架核心
-dependencies:
-  # GetX 框架：状态管理、路由、依赖注入
-  get: ^4.6.6
-
-  # 网络请求
-  dio: ^5.7.0
-  retrofit: '>=4.0.0 <5.0.0'
-  dio_cache_interceptor: ^3.5.0
-  pretty_dio_logger: ^1.3.1
-  native_dio_adapter: ^1.0.0+1
-
-  # 响应式编程
-  rxdart: ^0.28.0
-
-  # 本地存储
-  shared_preferences: ^2.3.3
-  flutter_secure_storage: ^9.2.2
-
-  # UI 组件
-  cached_network_image: ^3.4.1
-  flutter_easyloading: ^3.0.5
-  pull_to_refresh: ^2.0.0
-  card_swiper: ^3.0.1
-  flutter_slidable: ^4.0.3
-  webview_flutter: ^4.2.2
-  marqueer: ^2.3.1
-
-  # 工具库
-  lpinyin: ^2.0.3
-  share_plus: ^12.0.1
-  image_picker: ^1.0.1
-  url_launcher: ^6.1.5
-  path_provider: ^2.0.11
-  event_bus: ^2.0.0
-  permission_handler: ^12.0.1
-  logger: ^2.6.2
-  device_info_plus: ^12.3.0
-  package_info_plus: ^8.3.0
-  flutter_native_splash: ^2.4.7
-
-  # 代码生成
-  json_annotation: ^4.8.1
-
-dev_dependencies:
-  # 代码生成工具
-  retrofit_generator: ^10.2.1
-  json_serializable: ^6.6.2
-  build_runner: '>=2.3.0 <4.0.0'
-
-  # 代码质量
-  flutter_lints: ^6.0.0
-  dependency_validator: ^5.0.3
-```
 
 ---
 
@@ -302,35 +192,18 @@ StatefulWidget → Provider → GetX
 
 ---
 
-## 🤝 贡献指南
+## 贡献指南
 
-欢迎提交 Issue 和 Pull Request！
+欢迎通过 [GitHub Issues](https://github.com/seasonZhu/GetXStudy/issues) 反馈问题或提出建议，也欢迎提交 Pull Request。
 
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 提交 Pull Request
+提交时说明问题、修改内容及验证结果；涉及界面变化时可附截图。格式调整限定在本次修改的文件，避免混入无关改动。
 
----
+## 历史记录
 
-## 📜 更新日志
+以下为原 README 保留的阶段性记录，不代表新的发布版本。
 
-### 2025年12月26日
-
-- 项目架构优化和代码重构
-
-### 2023年8月15日
-
-- 模块整合优化：项目/公众号模块统一复用 Tree 模块
-- StateView 组件简化合并
-- Page 层从 StatefulWidget 迁移到 StatelessWidget
-- 引入 Dart 版本 Retrofit
-- MyController 业务拆分优化
-- AccountManager 抽取为 AccountService
-- Mixin 使用优化
-
----
+- **2025年12月26日**：项目架构优化和代码重构。
+- **2023年8月15日**：项目/公众号模块复用 Tree 模块，调整状态组件、页面及业务拆分，引入 Dart Retrofit，并抽取 AccountService。
 
 ## 🔗 相关项目
 
@@ -355,10 +228,14 @@ StatefulWidget → Provider → GetX
 
 ---
 
-<div align="center">
-
 **如果这个项目对你有帮助，请给一个 ⭐️ 支持一下！**
 
 Made with ❤️ by seasonZhu
 
-</div>
+## 最后
+
+随着AI时代的到来，其实我也不知道这种开源项目是否还有多少意义？
+
+其实不管是 ⭐️ 还是Fork，在目前来看，对于开源项目都说明不了什么。
+
+我唯一能说的是，这是我来时的路，对我自己而言是珍贵的过程。

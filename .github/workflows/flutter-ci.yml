@@ -1,44 +1,45 @@
-name: Flutter CI  # 工作流名称
+name: Flutter CI
 
-# 触发条件：当有代码推送到develop_cupertino分支，或者有PR时
 on:
   push:
-    branches: [develop_cupertino ]
+    branches: [develop_cupertino]
   pull_request:
     branches: [develop_cupertino]
 
-# 设置权限
 permissions:
-  contents: read  # 只读权限，保证安全
+  contents: read
 
-# 工作流中的任务
 jobs:
-  # 任务1：运行测试
   test:
-    # 运行在Ubuntu最新版
     runs-on: ubuntu-latest
-
-    # 任务步骤
     steps:
-      # 步骤1：检出代码
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # 步骤2：安装Flutter
+      - name: Read Flutter version
+        id: flutter_version
+        run: echo "version=$(cat .flutter-version)" >> "$GITHUB_OUTPUT"
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.4'  # 指定Flutter版本
-          channel: 'stable'          # 稳定版
+          flutter-version: ${{ steps.flutter_version.outputs.version }}
+          channel: stable
+          cache: true
 
-      # 步骤3：获取依赖
-      - name: Get dependencies
+      - name: Install dependencies
         run: flutter pub get
 
-      # 步骤4：运行测试
+      - name: Check changed Dart formatting
+        run: python3 .github/scripts/check_dart_format.py
+
+      - name: Test formatting scope
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+
+      - name: Flutter Analyze
+        run: flutter analyze --no-fatal-warnings --no-fatal-infos
+
       - name: Run tests
         run: flutter test
-
-      # 步骤5：静态分析
-#      - name: Analyze code
-#        run: flutter analyze

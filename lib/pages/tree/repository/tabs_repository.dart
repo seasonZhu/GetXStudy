@@ -10,5 +10,5 @@ class TabsRepository extends IRepository {
   TagType type;
 
   Future<BaseEntity<List<TabEntity>>> getTab() =>
-      http.Request.get(api: type.tabApi);
+      http.Request.get(api: type.tabApi, showBusinessErrorToast: false);
 }

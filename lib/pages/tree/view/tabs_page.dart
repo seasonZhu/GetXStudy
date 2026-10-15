@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:getx_study/app_service/theme_service.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'package:getx_study/app_service/theme_service.dart';
+import 'package:getx_study/entity/tab_entity.dart';
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/extension/string_extension.dart';
 import 'package:getx_study/pages/common/status_view.dart';
@@ -23,22 +24,9 @@ class TabsPage extends StatefulWidget {
 }
 
 class _TabsPageState extends State<TabsPage>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  late TabsController _tabsController;
-
-  late TabController _tabController;
-
-  late ThemeService _themeService;
-
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabsController = Get.find<TabsController>(tag: widget.type.toString());
-    _themeService = ThemeService.find;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,76 +34,87 @@ class _TabsPageState extends State<TabsPage>
     return CupertinoPageScaffold(
       child: StatusView<TabsController>(
         tag: widget.type.toString(),
-        contentBuilder: (controller) {
-          _tabController =
-              TabController(length: controller.data?.length ?? 0, vsync: this);
-          return CupertinoPageScaffold(
-            navigationBar: CupertinoNavigationBar(
-              middle: MaterialApp(
-                home: _tabBar(_tabController),
-                debugShowCheckedModeBanner: false,
-              ), //_segmentedControl(), //Text(_tabsController.type.title),
-              //bottom: _tabBar(_tabController),
-            ),
-            child: TabBarView(
-              controller: _tabController,
-              children: _createTabsPage(),
-            ),
-          );
-        },
+        contentBuilder: (controller) => _TabsContent(
+          key: ValueKey(widget.type),
+          type: widget.type,
+          tabs: List.of(controller.data ?? []),
+        ),
       ),
     );
   }
+}
 
-  TabBar _tabBar(TabController tabController) {
-    return TabBar(
-      tabs: (_tabsController.data ?? []).map(
-        (model) {
-          return Tab(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Text(model.name.toString().replaceHtmlElement),
-            ),
-          );
-        },
-      ).toList(),
-      controller: tabController,
-      isScrollable: true,
-      // 底部线的颜色
-      indicatorColor: _themeService.indicatorColor,//Colors.blue,
-      indicatorSize: TabBarIndicatorSize.tab,
-      labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
-      // 选中tab的文字颜色
-      labelColor: _themeService.labelColor,//Colors.black,
-      unselectedLabelStyle: const TextStyle(color: Colors.grey, fontSize: 16),
-      // 未选中tab的文字颜色
-      unselectedLabelColor: _themeService.unselectedLabelColor,//Colors.grey,
-      labelPadding: const EdgeInsets.all(0.0),
-      indicatorPadding: const EdgeInsets.all(0.0),
-      indicatorWeight: 2.3,
-    );
+class _TabsContent extends StatefulWidget {
+  const _TabsContent({super.key, required this.type, required this.tabs});
+
+  final TagType type;
+  final List<TabEntity> tabs;
+
+  @override
+  State<_TabsContent> createState() => _TabsContentState();
+}
+
+class _TabsContentState extends State<_TabsContent>
+    with TickerProviderStateMixin {
+  TabController? _tabController;
+  List<String> _ids = [];
+  final Map<String, Widget> _pages = {};
+  final Map<String, TabListController> _ownedControllers = {};
+
+  String _tag(String id) => '${widget.type.name}:$id';
+
+  @override
+  void initState() {
+    super.initState();
+    _syncTabs();
   }
 
-  List<Widget> _createTabsPage() {
-    return (_tabsController.data ?? []).map((model) {
-      final controller = TabListController();
-      controller.tagType = _tabsController.type;
-      controller.id = model.id.toString();
-      controller.request = Get.find();
-      controller.refreshController = RefreshController(initialRefresh: true);
-      controller.page = _tabsController.type.pageNum;
-      controller.initPage = _tabsController.type.pageNum;
-      Get.put(controller, tag: model.id.toString());
-      return KeepAliveWrapper(
-        child: TabListPage(
-          controller: controller,
-        ),
+  @override
+  void didUpdateWidget(covariant _TabsContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _syncTabs();
+  }
+
+  void _syncTabs() {
+    final ids = widget.tabs.map((tab) => tab.id.toString()).toList();
+    if (listEquals(ids, _ids)) return;
+    final selectedId = _tabController == null || _ids.isEmpty
+        ? null
+        : _ids[_tabController!.index];
+    for (final id in _ids.where((id) => !ids.contains(id))) {
+      _pages.remove(id);
+      _release(id);
+    }
+    for (final id in ids.where((id) => !_pages.containsKey(id))) {
+      final tag = _tag(id);
+      if (!Get.isRegistered<TabListController>(tag: tag)) {
+        final controller = TabListController()
+          ..tagType = widget.type
+          ..id = id
+          ..refreshController = RefreshController(initialRefresh: true)
+          ..initPage = widget.type.pageNum
+          ..page = widget.type.pageNum;
+        _ownedControllers[id] = Get.put(controller, tag: tag);
+      }
+      _pages[id] = KeepAliveWrapper(
+        key: GlobalObjectKey(Get.find<TabListController>(tag: tag)),
+        child: TabListPage(controllerTag: tag),
       );
-    }).toList();
+    }
+    final selectedIndex = selectedId == null ? -1 : ids.indexOf(selectedId);
+    _tabController?.dispose();
+    _ids = ids;
+    _tabController = ids.isEmpty
+        ? null
+        : TabController(
+            length: ids.length,
+            initialIndex: selectedIndex < 0 ? 0 : selectedIndex,
+            vsync: this,
+          );
   }
 
   Widget _segmentedControl() {
-    final array = _tabsController.data ?? [];
+    final array = widget.tabs;
 
     if (array.isEmpty) {
       return Container();
@@ -134,18 +133,76 @@ class _TabsPageState extends State<TabsPage>
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: CupertinoSegmentedControl<int>(
-        groupValue: _tabController.animation?.value.toInt(),
+        groupValue: _tabController!.animation?.value.toInt(),
         children: map,
         onValueChanged: ((value) {
-          _tabController.animateTo(value);
+          _tabController!.animateTo(value);
         }),
       ),
     );
   }
 
+  void _release(String id) {
+    final controller = _ownedControllers.remove(id);
+    if (controller == null) return;
+    final tag = _tag(id);
+    if (Get.isRegistered<TabListController>(tag: tag) &&
+        identical(Get.find<TabListController>(tag: tag), controller)) {
+      Get.delete<TabListController>(tag: tag);
+    } else if (!controller.isClosed) {
+      controller.onDelete();
+    }
+  }
+
   @override
   void dispose() {
-    _tabController.dispose();
+    for (final id in _ownedControllers.keys.toList()) {
+      _release(id);
+    }
+    _tabController?.dispose();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_tabController == null) return const SizedBox.shrink();
+    final themeService = ThemeService.find;
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: TabBar(
+            controller: _tabController,
+            tabs: widget.tabs
+                .map((tab) => Tab(
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(tab.name.toString().replaceHtmlElement),
+                      ),
+                    ))
+                .toList(),
+            isScrollable: true,
+            indicatorColor: themeService.indicatorColor,
+            indicatorSize: TabBarIndicatorSize.tab,
+            labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+            labelColor: themeService.labelColor,
+            unselectedLabelStyle:
+                const TextStyle(color: Colors.grey, fontSize: 16),
+            unselectedLabelColor: themeService.unselectedLabelColor,
+            labelPadding: EdgeInsets.zero,
+            indicatorPadding: EdgeInsets.zero,
+            indicatorWeight: 2.3,
+          ),
+        ),
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        child: TabBarView(
+          key: ValueKey(_tabController),
+          controller: _tabController,
+          children: _ids.map((id) => _pages[id]!).toList(),
+        ),
+      ),
+    );
   }
 }

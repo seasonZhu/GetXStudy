@@ -11,6 +11,12 @@ class TabListController
   late String id;
 
   @override
+  void onClose() {
+    refreshController.dispose();
+    super.onClose();
+  }
+
+  @override
   Future<void> onRefresh() async {
     await aRequest(type: ScrollViewActionType.refresh);
   }
