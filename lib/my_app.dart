@@ -6,6 +6,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
 import 'package:getx_study/logger/logger.dart';
+import 'package:getx_study/logger/log_route_observer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:getx_study/routes/getx_router_observer.dart';
 import 'package:getx_study/routes/history_router_observer.dart';
 import 'package:getx_study/routes/routes.dart';
@@ -23,7 +25,11 @@ class MyApp extends StatelessWidget {
     return Obx(() {
       return GetCupertinoApp(
         title: 'GetX Study',
-        navigatorObservers: [getXRouterObserver, historyRouterObserver],
+        navigatorObservers: [
+          getXRouterObserver,
+          historyRouterObserver,
+          if (kDebugMode) logRouteObserver,
+        ],
         unknownRoute: Routes.unknownPage,
 
         /// 通过使用initialRoute来保证绑定的操作

@@ -17,31 +17,34 @@ class CoinRankPage extends GetView<CoinRankController> {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("积分排名"),
       ),
-      child: StatusView<CoinRankController>(
-        contentBuilder: (controller) {
-          return SmartRefresher(
-            enablePullUp: true,
-            header: const RefreshHeader(), 
-            footer: const RefreshFooter(),
-            controller: controller.refreshController,
-            onRefresh: controller.onRefresh,
-            onLoading: controller.onLoadMore,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: controller.dataSource.length,
-              itemBuilder: (BuildContext context, int index) {
-                final model = controller.dataSource[index];
+      child: Material(
+        type: MaterialType.transparency,
+        child: StatusView<CoinRankController>(
+          contentBuilder: (controller) {
+            return SmartRefresher(
+              enablePullUp: true,
+              header: const RefreshHeader(),
+              footer: const RefreshFooter(),
+              controller: controller.refreshController,
+              onRefresh: controller.onRefresh,
+              onLoading: controller.onLoadMore,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.dataSource.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final model = controller.dataSource[index];
 
-                return ListTile(
-                  leading: Text(model.rank.toString()),
-                  title: Text(model.username.toString()),
-                  trailing: Text('积分:${model.level.toString()}'),
-                  onTap: () => logger.d(model.username),
-                );
-              },
-            ),
-          );
-        },
+                  return ListTile(
+                    leading: Text(model.rank.toString()),
+                    title: Text(model.username.toString()),
+                    trailing: Text('积分:${model.level.toString()}'),
+                    onTap: () => logger.d(model.username),
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }

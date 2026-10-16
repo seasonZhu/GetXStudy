@@ -8,8 +8,7 @@ import 'package:get/get.dart';
 import 'package:getx_study/http_util/network_activity_plugin.dart';
 import 'package:getx_study/resource/constant.dart';
 import 'package:getx_study/routes/routes.dart';
-import 'package:getx_study/http_util/http_util.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:getx_study/logger/network_log_interceptor.dart';
 
 import 'api.dart';
 
@@ -24,15 +23,7 @@ const kWhiteList = [
 
 /// 网络请求日志插件
 /// 在生产环境中禁用以提升性能和安全性
-final loggerPlugin = PrettyDioLogger(
-  requestHeader: false,
-  requestBody: true,
-  responseBody: true,
-  responseHeader: false,
-  compact: false,
-  // 在 debug 模式下启用日志，release 模式禁用
-  enabled: !inProduction,
-);
+final loggerPlugin = NetworkLogInterceptor();
 
 /// 网络请求loading与dismiss插件
 final networkActivityPlugin = NetworkActivityPlugin(

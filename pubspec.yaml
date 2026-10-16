@@ -15,7 +15,7 @@ dependencies:
 
   # 网络请求
   dio: ^5.7.0
-  pretty_dio_logger: ^1.4.0
+  talker_dio_logger: 5.1.16
   dio_cache_interceptor: ^3.5.0
 
   # 本地存储
@@ -43,7 +43,7 @@ dependencies:
   lpinyin: ^2.0.3
 
   # 工具
-  logger: ^2.5.0
+  talker_flutter: 5.1.16
   event_bus: ^2.0.0
   rxdart: ^0.28.0
 

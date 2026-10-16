@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:get/get.dart';
 import 'package:getx_study/enum/my.dart' as my;
 import 'package:getx_study/pages/my/controller/my_controller.dart';
 import 'package:getx_study/routes/routes.dart';
+import 'package:getx_study/logger/debug_logs_page.dart';
 
 class MyPage extends GetView<MyController> {
   const MyPage({super.key});
@@ -22,8 +24,22 @@ class MyPage extends GetView<MyController> {
               : my.Extension.visitorDataSource;
           final icon = controller.isLogin.value ? Icons.android : Icons.person;
 
-          return ListView.separated(
+          // Cupertino 背景内的 ListTile 需要就近的 Material 承载点击效果。
+          return Material(
+            type: MaterialType.transparency,
+            child: ListView.separated(
               itemBuilder: (context, index) {
+                if (kDebugMode && index == dataSource.length) {
+                  return ListTile(
+                    leading: const Icon(Icons.bug_report_outlined),
+                    title: const Text('调试日志'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () => Get.to(
+                      () => const DebugLogsPage(),
+                      routeName: '/debug-logs',
+                    ),
+                  );
+                }
                 if (index == 0) {
                   return AspectRatio(
                     aspectRatio: 16.0 / 9.0,
@@ -99,7 +115,8 @@ class MyPage extends GetView<MyController> {
                   height: 0.5,
                 );
               },
-              itemCount: dataSource.length);
+              itemCount: dataSource.length + (kDebugMode ? 1 : 0)),
+          );
         },
       ),
     );

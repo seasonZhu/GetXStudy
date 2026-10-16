@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_study/logger/log_error_handlers.dart';
 
 import 'package:getx_study/my_app.dart';
 import 'package:getx_study/app_service/account_service.dart';
@@ -15,6 +16,7 @@ void main() => run();
 
 run() async {
   WidgetsFlutterBinding.ensureInitialized();
+  installLogErrorHandlers();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

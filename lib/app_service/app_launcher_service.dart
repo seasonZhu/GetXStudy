@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
+import 'package:getx_study/logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// 外部应用启动服务
@@ -23,7 +23,7 @@ import 'package:url_launcher/url_launcher.dart';
 class AppLauncherService extends GetxService {
   static AppLauncherService get find => Get.find<AppLauncherService>();
 
-  final _logger = Logger();
+  final _logger = logger;
 
   /// 判断是否是自定义 scheme URL
   ///

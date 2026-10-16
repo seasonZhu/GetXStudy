@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/routes/routes.dart';
@@ -10,6 +11,7 @@ enum My {
   myCoin,
   myCollect,
   themeSetting,
+  languageSetting,
   login,
   logout;
 }
@@ -29,6 +31,8 @@ extension Extension on My {
         return "我的收藏";
       case My.themeSetting:
         return "主题颜色";
+      case My.languageSetting:
+        return "language_setting".tr;
       case My.myGitHub:
         return "我的GitHub";
       case My.myJueJin:
@@ -52,6 +56,8 @@ extension Extension on My {
         return Routes.myCollect;
       case My.themeSetting:
         return Routes.themeSetting;
+      case My.languageSetting:
+        return Routes.languageSetting;
       case My.myGitHub:
         return Routes.web;
       case My.myJueJin:
@@ -86,6 +92,8 @@ extension Extension on My {
         return Icons.local_offer;
       case My.themeSetting:
         return Icons.color_lens;
+      case My.languageSetting:
+        return Icons.language;
       case My.myGitHub:
         return Icons.link;
       case My.myJueJin:
@@ -101,6 +109,7 @@ extension Extension on My {
     My.myJueJin,
     My.ranking,
     My.themeSetting,
+    My.languageSetting,
     My.login,
   ];
 
@@ -112,6 +121,7 @@ extension Extension on My {
     My.myCoin,
     My.myCollect,
     My.themeSetting,
+    My.languageSetting,
     My.logout,
   ];
 }

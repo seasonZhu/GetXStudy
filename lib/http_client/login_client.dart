@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:getx_study/logger/network_log_interceptor.dart';
 
 import 'package:getx_study/entity/base_entity.dart';
 import 'package:getx_study/entity/banner_entity.dart';
@@ -15,7 +16,7 @@ final _dio = Dio(
     receiveTimeout: timeout,
     headers: {"name": "season"},
   ),
-);
+)..interceptors.add(NetworkLogInterceptor());
 
 /// 通过不同的client来区分不同的业务,一般情况下对于非登录和登录,使用不同的client来进行网络请求,
 /// 另外,只有创建这个文件,然后把`part 'login_client.g.dart';`标注好,硬着头皮跑脚本就完事了

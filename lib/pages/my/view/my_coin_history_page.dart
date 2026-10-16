@@ -17,31 +17,34 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("我的积分"),
       ),
-      child: StatusView<MyCoinHistoryController>(
-        contentBuilder: (controller) {
-          return SmartRefresher(
-            enablePullUp: true,
-            header: const RefreshHeader(),
-            footer: const RefreshFooter(), 
-            controller: controller.refreshController,
-            onRefresh: controller.onRefresh,
-            onLoading: controller.onLoadMore,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: controller.dataSource.length,
-              itemBuilder: (BuildContext context, int index) {
-                final model = controller.dataSource[index];
+      child: Material(
+        type: MaterialType.transparency,
+        child: StatusView<MyCoinHistoryController>(
+          contentBuilder: (controller) {
+            return SmartRefresher(
+              enablePullUp: true,
+              header: const RefreshHeader(),
+              footer: const RefreshFooter(),
+              controller: controller.refreshController,
+              onRefresh: controller.onRefresh,
+              onLoading: controller.onLoadMore,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.dataSource.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final model = controller.dataSource[index];
 
-                return ListTile(
-                  leading: Text(model.reason.toString()),
-                  title: Text(model.desc.toString()),
-                  trailing: Text(model.coinCount.toString()),
-                  onTap: () => Get.toNamed(Routes.stateMixinExample),
-                );
-              },
-            ),
-          );
-        },
+                  return ListTile(
+                    leading: Text(model.reason.toString()),
+                    title: Text(model.desc.toString()),
+                    trailing: Text(model.coinCount.toString()),
+                    onTap: () => Get.toNamed(Routes.stateMixinExample),
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
