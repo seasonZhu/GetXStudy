@@ -76,7 +76,8 @@ abstract class HttpUtils {
   static Future<Map<String, dynamic>> post(
       {required String api,
       Map<String, dynamic> params = const {},
-      Map<String, dynamic> headers = const {}}) async {
+      Map<String, dynamic> headers = const {},
+      bool showBusinessErrorToast = true}) async {
     getCookieHeaderOptions().headers?.addAll(headers);
 
     /// 这个地方必须用queryParameters,用data传入就报错了
@@ -85,7 +86,8 @@ abstract class HttpUtils {
       Response response = await _dio.post(
         api,
         queryParameters: params,
-        options: getCookieHeaderOptions(),
+        options: getCookieHeaderOptions()
+          ..extra = {'showBusinessErrorToast': showBusinessErrorToast},
       );
       Map<String, dynamic> json = response.data;
       return json;

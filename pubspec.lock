@@ -1238,7 +1238,7 @@ packages:
     source: hosted
     version: "3.2.5"
   url_launcher_platform_interface:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: url_launcher_platform_interface
       sha256: "552f8a1e663569be95a8190206a38187b531910283c3e982193e4f2733f01029"
@@ -1334,7 +1334,7 @@ packages:
     source: hosted
     version: "4.13.0"
   webview_flutter_platform_interface:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: webview_flutter_platform_interface
       sha256: "1221c1b12f5278791042f2ec2841743784cf25c5a644e23d6680e5d718824f04"

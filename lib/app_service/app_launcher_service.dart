@@ -111,15 +111,20 @@ class AppLauncherService extends GetxService {
   ///
   /// [url] 要打开的 URL
   /// [onNotInstalled] App 未安装时的回调，可选
+  /// [isActive] 调用页面是否仍有效；失效后停止提示和后续引导。
   Future<void> launchExternalApp(
     String url, {
     void Function(String url)? onNotInstalled,
+    bool Function()? isActive,
   }) async {
+    bool active() => isActive?.call() ?? true;
+    if (!active()) return;
     try {
       final uri = Uri.parse(url);
       _logger.d('尝试拉起外部 App: $url');
 
       final canLaunch = await canLaunchUrl(uri);
+      if (!active()) return;
 
       if (canLaunch) {
         final launched = await launchUrl(
@@ -127,6 +132,7 @@ class AppLauncherService extends GetxService {
           mode: LaunchMode.externalApplication,
         );
 
+        if (!active()) return;
         if (launched) {
           _logger.d('成功拉起外部 App');
           EasyLoading.showToast('正在打开外部应用...');
@@ -137,9 +143,10 @@ class AppLauncherService extends GetxService {
       } else {
         _logger.d('无法拉起该 App，可能未安装');
         EasyLoading.showError('未安装对应应用，请先下载安装');
-        onNotInstalled?.call(url);
+        if (active()) onNotInstalled?.call(url);
       }
     } catch (e) {
+      if (!active()) return;
       _logger.d('拉起外部 App 异常: $e');
       EasyLoading.showError('打开应用失败');
     }
@@ -266,8 +273,7 @@ class AppLauncherService extends GetxService {
     String? appName,
   }) async {
     // 优先使用应用宝（更适合国内用户）
-    final storeUrl =
-        'https://a.app.qq.com/o/simple.jsp?pkgname=$packageName';
+    final storeUrl = 'https://a.app.qq.com/o/simple.jsp?pkgname=$packageName';
     // 备选：Google Play
     // final storeUrl = 'https://play.google.com/store/apps/details?id=$packageName';
 

@@ -22,8 +22,14 @@ extension Request on HttpUtils {
 
   /// Post请求
   static Future<BaseEntity<T>> post<T>(
-      {required String api, Map<String, dynamic> params = const {}}) async {
-    final data = await HttpUtils.post(api: api, params: params);
+      {required String api,
+      Map<String, dynamic> params = const {},
+      bool showBusinessErrorToast = true}) async {
+    final data = await HttpUtils.post(
+      api: api,
+      params: params,
+      showBusinessErrorToast: showBusinessErrorToast,
+    );
     final model = BaseEntity<T>.fromJson(data);
     return model;
   }

@@ -168,10 +168,7 @@ abstract class Routes {
     GetPage(
       name: myCollect,
       page: () => const MyCollectPage(),
-      bindings: [
-        MyCollectBinding(),
-        WebBinding(),
-      ],
+      binding: MyCollectBinding(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 300),
     ),

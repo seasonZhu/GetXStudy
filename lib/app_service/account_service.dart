@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -28,6 +29,17 @@ class AccountService extends GetxService {
   var isLogin = false;
 
   int sessionRevision = 0;
+
+  final _sessionChanges = StreamController<int>.broadcast(sync: true);
+  Stream<int> get sessionChanges => _sessionChanges.stream;
+
+  void _notifySessionChanged() => _sessionChanges.add(sessionRevision);
+
+  @override
+  void onClose() {
+    _sessionChanges.close();
+    super.onClose();
+  }
 
   Future<void> _pendingPersistence = Future<void>.value();
 
@@ -72,6 +84,7 @@ class AccountService extends GetxService {
     this.isLogin = isLogin;
     userInfo = "等级 --  排名 --  积分 --";
     this.info?.password = password;
+    _notifySessionChanged();
 
     try {
       await _persist(() async {
@@ -89,6 +102,7 @@ class AccountService extends GetxService {
         this.info = previousInfo;
         this.isLogin = previousIsLogin;
         userInfo = previousUserInfo;
+        _notifySessionChanged();
       }
       rethrow;
     }
@@ -155,6 +169,7 @@ class AccountService extends GetxService {
     info = null;
     userInfo = "等级 --  排名 --  积分 --";
     isLogin = false;
+    _notifySessionChanged();
     await _persist(() async {
       final userDefine = await this.userDefine;
       await userDefine.remove(_kLastLoginUserName);

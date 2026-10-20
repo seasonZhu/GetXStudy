@@ -1,20 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:getx_study/entity/base_entity.dart';
-import 'package:getx_study/pages/web/repository/web_repository.dart';
 
 void main() {
-  group('WebRepository', () {
-    late WebRepository repository;
-
-    setUp(() {
-      repository = WebRepository();
-    });
-
-    group('collectAction', () {
+  group('BaseEntity', () {
+    group('收藏响应解析', () {
       test('收藏成功的响应应该返回 isSuccess 为 true', () {
-        // 由于无法直接 Mock HttpUtils，这里展示测试结构
-        // 实际项目中可以使用 mockito 或 mocktail 进行依赖注入和 Mock
-
         // 模拟成功的响应数据
         const successResponse = {
           'errorCode': 0,
@@ -54,7 +44,8 @@ void main() {
           'data': {'id': 123, 'title': '测试文章'},
         };
 
-        final entity = BaseEntity<Map<String, dynamic>>.fromJson(responseWithData);
+        final entity =
+            BaseEntity<Map<String, dynamic>>.fromJson(responseWithData);
 
         expect(entity.isSuccess, true);
         expect(entity.data?['id'], 123);
@@ -62,7 +53,7 @@ void main() {
       });
     });
 
-    group('unCollectAction', () {
+    group('取消收藏响应解析', () {
       test('取消收藏成功的响应应该返回 isSuccess 为 true', () {
         const successResponse = {
           'errorCode': 0,

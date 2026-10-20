@@ -1,3 +1,5 @@
+import 'package:getx_study/app_service/collection_service.dart';
+import 'package:getx_study/repository/collection_repository.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,6 +32,7 @@ run() async {
 
   /// 把初始化服务放到runApp之前
   final accountService = Get.put(AccountService());
+  Get.put(CollectionService(accountService, CollectionRepository()));
 
   final themeService = Get.put(ThemeService());
 

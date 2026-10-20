@@ -1,7 +1,7 @@
+import 'package:getx_study/pages/web/view/web_collection_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:getx_study/app_service/theme_service.dart';
 import 'package:getx_study/logger/logger.dart';
 
@@ -9,7 +9,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
-import 'package:getx_study/app_service/account_service.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';
 import 'package:marqueer/marqueer.dart';
 
@@ -24,20 +23,7 @@ class WebPage extends GetView<WebController> {
 
   @override
   Widget build(BuildContext context) {
-    /// 平台判断
-    IWebLoadInfo webLoadInfo = Get.arguments;
-    final isCollect = controller.isCollect(webLoadInfo).obs;
-    final notShowCollectIcon = Get.parameters['notShowCollectIcon'];
-    final className = Get.parameters['className'];
-    controller.className = className;
-    bool isShowCollectIcon;
-    if (notShowCollectIcon == "true") {
-      isShowCollectIcon = false;
-    } else {
-      isShowCollectIcon = webLoadInfo.id != null && AccountService.find.isLogin;
-    }
-
-    controller.flutterWebViewSetting(webLoadInfo);
+    final webLoadInfo = controller.webLoadInfo;
 
     return Obx(
       // 根据 WebView 是否有历史记录来决定是否允许侧滑退出
@@ -65,77 +51,65 @@ class WebPage extends GetView<WebController> {
                   visible: webLoadInfo.id != null,
                   child: AnimatedIconButton(
                     icon: const Icon(CupertinoIcons.share),
-                    onPressed: () {
+                    onPressed: () async {
+                      print('分享链接: ${webLoadInfo.link}');
                       if (webLoadInfo.link != null) {
-                        /// 使用share_plus插件分享
-                        SharePlus.instance.share(
-                          ShareParams(
-                            title: webLoadInfo.title,
-                            text: '${webLoadInfo.title}\n${webLoadInfo.link}',
-                            uri: Uri.parse(webLoadInfo.link!),
-                          ),
-                        );
+                        try {
+                          await SharePlus.instance.share(
+                            ShareParams(
+                              title: webLoadInfo.title,
+                              text: '${webLoadInfo.title.toString().replaceHtmlElement}\n${webLoadInfo.link}',
+                            ),
+                          );
+                        } catch (error, stackTrace) {
+                          logger.e(error, stackTrace, '分享网页失败');
+                        }
                       }
                     },
                   ),
                 ),
-                Visibility(
-                  visible: isShowCollectIcon,
-                  child: AnimatedIconButton(
-                    icon: Obx(
-                      () {
-                        final icon = isCollect.value
-                            ? CupertinoIcons.heart_fill
-                            : CupertinoIcons.heart;
-                        return Icon(icon);
-                      },
-                    ),
-                    onPressed: () async {
-                      isCollect.value =
-                          await controller.collectOrUnCollectAction(
-                              webLoadInfo: webLoadInfo,
-                              isCollect: isCollect.value);
-                    },
-                  ),
+                WebCollectionButton(
+                  controller: controller,
+                  webLoadInfo: webLoadInfo,
+                  hidden: controller.hideCollection,
                 ),
               ]),
             ),
           ),
-          // We're using a Builder here so we have a context that is below the Scaffold
-          // to allow calling Scaffold.of(context) so we can show a snackbar.
           child: SafeArea(
-            child: Builder(builder: (BuildContext context) {
-              /// 这里没有使用下拉刷新组件,是因为SmartRefresh+WebViewWidget会导致底部显示异常
-              return WebViewWidget(
-                  controller: controller.webViewController,
-                  gestureRecognizers: Set()
-                    ..add(
-                      Factory<OneSequenceGestureRecognizer>(
-                        () => HorizontalDragGestureRecognizer()
-                          ..onStart = (DragStartDetails details) {
-                            // 处理拖动开始的逻辑
-                            logger.d("处理拖动开始的逻辑");
-                          }
-                          ..onUpdate = (DragUpdateDetails details) {
-                            // 处理拖动更新的逻辑
-                            logger.d("处理拖动更新的逻辑");
-                          }
-                          ..onEnd = (DragEndDetails details) {
-                            // 处理拖动结束的逻辑
-                            logger.d("处理拖动结束的逻辑");
-                          },
+            child: switch (controller.initializationStatus.value) {
+              WebInitializationStatus.initializing =>
+                const Center(child: CupertinoActivityIndicator()),
+              WebInitializationStatus.failed => Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('网页初始化失败，请返回后重试'),
+                      CupertinoButton(
+                        onPressed: controller.onBackAction,
+                        child: const Text('返回'),
                       ),
-                    )
-                  // ..add(
-                  //   Factory<OneSequenceGestureRecognizer>(
-                  //     () => LongPressGestureRecognizer()
-                  //       ..onLongPress = () {
-                  //         print('长按');
-                  //       },
-                  //   ),
-                  // ),
-                  );
-            }),
+                    ],
+                  ),
+                ),
+              WebInitializationStatus.ready => WebViewWidget(
+                  controller: controller.webViewController,
+                  gestureRecognizers: {
+                    Factory<OneSequenceGestureRecognizer>(
+                      () => HorizontalDragGestureRecognizer()
+                        ..onStart = (_) {
+                          logger.d('处理拖动开始的逻辑');
+                        }
+                        ..onUpdate = (_) {
+                          logger.d('处理拖动更新的逻辑');
+                        }
+                        ..onEnd = (_) {
+                          logger.d('处理拖动结束的逻辑');
+                        },
+                    ),
+                  },
+                ),
+            },
           ),
         ),
       ),

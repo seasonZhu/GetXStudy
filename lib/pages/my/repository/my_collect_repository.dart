@@ -10,8 +10,4 @@ class MyCollectRepository extends IRepository {
           {required int page}) =>
       http.Request.get(
           api: "${Api.getCollectArticleList}${page.toString()}/json");
-
-  Future<BaseEntity<Object?>> unCollectAction({required int originId}) =>
-      http.Request.post(
-          api: "${Api.postUnCollectArticle}${originId.toString()}/json");
 }

@@ -58,6 +58,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  webview_flutter_platform_interface: ^2.15.1
+  url_launcher_platform_interface: ^2.3.2
 
   # 代码生成
   build_runner: ^2.4.14

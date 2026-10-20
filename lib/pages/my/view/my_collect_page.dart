@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:getx_study/base/class_name.dart';
 import 'package:getx_study/pages/common/info_cell.dart';
 import 'package:getx_study/pages/common/status_view.dart';
 import 'package:getx_study/pages/my/controller/my_collect_controller.dart';
@@ -45,8 +44,8 @@ class MyCollectPage extends GetView<MyCollectController> {
                     children: [
                       SlidableAction(
                         onPressed: model.originId == null ||
-                                controller.pendingUncollectIds.contains(
-                                  model.originId,
+                                controller.isPending(
+                                  model.originId!,
                                 )
                             ? null
                             : (_) => controller.unCollectAction(
@@ -66,7 +65,6 @@ class MyCollectPage extends GetView<MyCollectController> {
                     callback: (_) => Get.toNamed(
                       Routes.web,
                       arguments: model,
-                      parameters: {"className": className(this)},
                     ),
                     isNeedBottomLine: false,
                   ),
