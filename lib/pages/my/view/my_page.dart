@@ -1,3 +1,5 @@
+import 'package:getx_study/i18n/app_text.dart';
+import 'package:getx_study/app_service/account_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -14,9 +16,9 @@ class MyPage extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
-        middle: Text("我的"),
+        middle: Text(AppText.t('my.title')),
       ),
       child: Obx(
         () {
@@ -33,7 +35,7 @@ class MyPage extends GetView<MyController> {
                 if (kDebugMode && index == dataSource.length) {
                   return ListTile(
                     leading: const Icon(Icons.bug_report_outlined),
-                    title: const Text('调试日志'),
+                    title: Text(AppText.t('logs.title')),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () => Get.to(
                       () => const DebugLogsPage(),
@@ -42,8 +44,8 @@ class MyPage extends GetView<MyController> {
                   );
                 }
                 if (index == 0) {
-                  return AspectRatio(
-                    aspectRatio: 16.0 / 9.0,
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -52,7 +54,10 @@ class MyPage extends GetView<MyController> {
                           height: 66,
                           child: Icon(icon),
                         ),
-                        Obx(() => Text(controller.rxUserInfo.value)),
+                        Obx(() {
+                          controller.rxUserInfo.value;
+                          return Text(AccountService.find.userInfo, textAlign: TextAlign.center);
+                        }),
                       ],
                     ),
                   );
@@ -71,12 +76,12 @@ class MyPage extends GetView<MyController> {
                           context: context,
                           builder: ((context) {
                             return CupertinoAlertDialog(
-                              title: const Text("提示"),
-                              content: const Text("是否登出?"),
+                              title: Text(AppText.t('common.tip')),
+                              content: Text(AppText.t('common.logout_confirm')),
                               actions: <Widget>[
                                 TextButton(
-                                  child: const Text(
-                                    "取消",
+                                  child: Text(
+                                    AppText.t('common.cancel'),
                                     style: TextStyle(
                                       color: Colors.red,
                                     ),
@@ -84,8 +89,8 @@ class MyPage extends GetView<MyController> {
                                   onPressed: () => Get.back(), //关闭对话框
                                 ),
                                 TextButton(
-                                  child: const Text(
-                                    "确定",
+                                  child: Text(
+                                    AppText.t('common.confirm'),
                                     style: TextStyle(
                                       color: Colors.blue,
                                     ),

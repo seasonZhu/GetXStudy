@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 
 import 'package:get/get.dart';
@@ -38,12 +39,12 @@ class MyController
       if (!isClosed) {
         Get.snackbar(
           "",
-          response.isSuccess ? "登出成功" : "登出失败",
+          response.isSuccess ? AppText.t('login.logout_success') : AppText.t('login.logout_failed'),
           duration: const Duration(seconds: 1),
         );
       }
     } catch (error) {
-      if (!isClosed) Get.snackbar("", "登出失败：$error");
+      if (!isClosed) Get.snackbar("", AppText.t('login.logout_error', {'error': error.toString()}));
     } finally {
       syncAccount();
       _loggingOut = false;
@@ -89,11 +90,11 @@ class MyController
         syncAccount();
         unawaited(getUserCoinInfo());
       } else {
-        Get.snackbar("", "自动登录失败", duration: const Duration(seconds: 1));
+        Get.snackbar("", AppText.t('login.auto_login_failed'), duration: const Duration(seconds: 1));
       }
     } catch (error) {
       if (!isClosed && account.sessionRevision == operationRevision) {
-        Get.snackbar("", "自动登录失败：$error");
+        Get.snackbar("", AppText.t('login.auto_login_error', {'error': error.toString()}));
       }
     } finally {
       _autoLoggingIn = false;

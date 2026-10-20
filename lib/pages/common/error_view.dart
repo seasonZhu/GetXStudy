@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
@@ -13,8 +14,8 @@ class ErrorView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              '哎呀,出错了...',
+            Text(
+              AppText.t('common.error_title'),
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(
@@ -34,8 +35,8 @@ class ErrorView extends StatelessWidget {
                       retryAction!();
                     }
                   },
-                  child: const Text(
-                    "重试",
+                  child: Text(
+                    AppText.t('common.retry'),
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

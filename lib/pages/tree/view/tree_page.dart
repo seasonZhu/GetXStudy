@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
@@ -13,9 +14,9 @@ class TreePage extends GetView<TabsController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
-        middle: Text("体系"),
+        middle: Text(AppText.t('tree.title')),
       ),
       child: StatusView<TabsController>(
         tag: TagType.tree.toString(),

@@ -16,6 +16,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		A11000000000000000000001 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A11000000000000000000002 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +52,9 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE1ABEE275AAF32FF1E57A31 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		CCB7DAEED0E1CA0A61B4D726 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		A11000000000000000000003 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en"; path = "en.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A11000000000000000000004 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A11000000000000000000005 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr"; path = "fr.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				A11000000000000000000002 /* InfoPlist.strings */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -179,6 +184,8 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				"zh-Hans",
+				fr,
 				en,
 				Base,
 			);
@@ -200,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11000000000000000000001 /* InfoPlist.strings in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
@@ -310,6 +318,12 @@
 				97C147001CF9000F007C117D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A11000000000000000000002 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (A11000000000000000000003, A11000000000000000000004, A11000000000000000000005);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

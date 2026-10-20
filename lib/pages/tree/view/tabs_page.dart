@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:getx_study/app_service/language_service.dart';
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -171,6 +174,9 @@ class _TabsContentState extends State<_TabsContent>
       navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
         middle: MaterialApp(
+          locale: AppText.locale,
+          supportedLocales: LanguageService.supportedLocales,
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
           debugShowCheckedModeBanner: false,
           home: TabBar(
             controller: _tabController,

@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <script src="localization.js"></script>
+    <title data-i18n="html.title">WebView example</title>
   </head>
   <body style="display: flex;align-items: center;justify-content: center;height: 100vh;">
-    <button onclick="openApp()">测试按钮</button>
-    <div id="logo"> <a href="dna://home?appPage=1">超链接跳转</a></div>
+    <button onclick="openApp()" data-i18n="html.open">Test button</button>
+    <div id="logo"> <a href="dna://home?appPage=1" data-i18n="html.link">Open link</a></div>
   </body>
   <script>
     function openApp() {
@@ -17,7 +18,7 @@
       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if(isiOS)  appUrl = 'iosScheme://home?appPage=1';
         if(isAndroid)  appUrl = 'androidScheme://home?appPage=1';
-      alert(`我触发了打开，链接是${appUrl}`)
+      alert(window.appText("html.opening").replace("@url", appUrl))
       var fallbackUrl = 'https://www.example.com/'; // 如果 APP 不存在，则跳转到备选 URL 地址
 
       // 尝试打开 APP
@@ -28,7 +29,7 @@
         if (document.hidden) {
           // 成功打开 APP
         } else {
-            alert('好像没成功')
+            alert(window.appText("html.failed"))
           // APP 未安装或无法打开，跳转到备选 URL 地址
         //   window.location.href = fallbackUrl;
         }

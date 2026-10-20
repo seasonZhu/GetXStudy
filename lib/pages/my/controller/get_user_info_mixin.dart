@@ -7,7 +7,7 @@ import 'package:getx_study/pages/my/repository/my_repository.dart';
 
 mixin GetUserInfoMixin
     on BaseRequestController<MyRepository, AccountInfoEntity> {
-  var userInfo = "等级 --  排名 --  积分 --";
+  String get userInfo => AccountService.find.userInfo;
 
   /// 积分失败不影响登录；旧会话的结果不能覆盖当前账户。
   Future<String> getUserCoinInfo() async {
@@ -25,9 +25,7 @@ mixin GetUserInfoMixin
         return account.userInfo;
       }
       final data = response.data!;
-      userInfo =
-          "等级 ${data.level ?? "--"}  排名 ${data.rank ?? "--"}  积分 ${data.coinCount ?? "--"}";
-      account.userInfo = userInfo;
+      account.updateCoinSummary(level: data.level, rank: data.rank, points: data.coinCount);
       if (Get.isRegistered<MyController>()) {
         final controller = Get.find<MyController>();
         if (!controller.isClosed) controller.syncAccount();

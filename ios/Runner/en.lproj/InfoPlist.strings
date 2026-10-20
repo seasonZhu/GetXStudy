@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Camera access is used to take photos for upload and sharing.";
+"NSPhotoLibraryAddUsageDescription" = "Photo library access is used to save photos.";
+"NSPhotoLibraryUsageDescription" = "Photo library access is used to select photos for upload and sharing.";

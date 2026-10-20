@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
@@ -71,7 +72,7 @@ class HomeController
         status = hasContent
             ? ResponseStatus.successHasContent
             : ResponseStatus.successNoData;
-        if (failed) EasyLoading.showToast('加载失败，请重试');
+        if (failed) EasyLoading.showToast(AppText.t('common.load_failed'));
       }
     } finally {
       isLoading = false;

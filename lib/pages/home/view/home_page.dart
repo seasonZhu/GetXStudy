@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class HomePage extends GetView<HomeController> {
         if (await canLaunchUrl(url)) {
           launchUrl(url, mode: LaunchMode.externalApplication);
         } else {
-          Get.snackbar("", "请安装手机QQ", duration: const Duration(seconds: 1));
+          Get.snackbar("", AppText.t('launcher.qq'), duration: const Duration(seconds: 1));
         }
       }
     } else {
@@ -47,8 +48,9 @@ class HomePage extends GetView<HomeController> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
-        middle: const Text("首页"),
+        middle: Text(AppText.t('home.title')),
         trailing: IconButton(
+          tooltip: AppText.t('search.action'),
           icon: const Icon(CupertinoIcons.search),
           onPressed: (() => Get.toNamed(Routes.hotKey)),
         ),

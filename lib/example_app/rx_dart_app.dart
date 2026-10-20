@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:getx_study/app_service/language_service.dart';
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -8,34 +11,48 @@ class RxDartApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: AppText.locale,
+      supportedLocales: LanguageService.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       home: RxDartExamplePage(),
     );
   }
 }
 
-class RxDartExamplePage extends StatelessWidget {
-  RxDartExamplePage({super.key});
+class RxDartExamplePage extends StatefulWidget {
+  const RxDartExamplePage({super.key});
 
+  @override
+  State<RxDartExamplePage> createState() => _RxDartExamplePageState();
+}
+
+class _RxDartExamplePageState extends State<RxDartExamplePage> {
   final _viewModel = RxDartExampleViewModel();
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("RxDart编写计数器"),
+        title: Text(AppText.t('example.rxdart')),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              AppText.t('example.counter_hint'),
             ),
             StreamBuilder<int>(
               stream: _viewModel.stream,
               builder: (context, snapshot) {
                 return Text(
-                  snapshot.data.toString(),
+                  AppText.number(snapshot.data),
                   //_viewModel.stream.value.toString(),
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
@@ -46,7 +63,7 @@ class RxDartExamplePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _viewModel.increment,
-        tooltip: 'Increment',
+        tooltip: AppText.t('example.increment'),
         child: const Icon(Icons.add),
       ),
     );

@@ -1,12 +1,14 @@
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8"/>
+        <script src="localization.js"></script>
         <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no minimal-ui"/>
         <meta name="format-detection" content="telephone=no"/>
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache,no-store, must-revalidate">
         <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
         <meta HTTP-EQUIV="expires" CONTENT="0">
-        <title>Webview页面标题</title>
+        <title data-i18n="html.title">WebView example</title>
         <script type="text/javascript">
             
             let u = navigator.userAgent;
@@ -16,7 +18,7 @@
             function jsCallNative() {
                 var message = {
                     "type":"reply",
-                    "message": "this is a message from js"
+                    "message": window.appText("html.message")
                 };
 
                 var jsonString = JSON.stringify(message);
@@ -68,7 +70,7 @@
             function sendMessageToDiscussList(object) {
                 var model = JSON.parse(object);
                 document.getElementById("result").innerText = model.message;
-                return "Hello,Native!";
+                return window.appText("html.reply");
             }
 
             // function sendMessageToDiscussList(message) {
@@ -76,17 +78,17 @@
             //     console.log(message);
             //     var model = message;
             //     document.getElementById("result").innerText = model;
-            //     return "Hello,Native!";
+            //     return window.appText("html.reply");
             // }
             
         </script>
     </head>
 
     <body>
-        Hello,world!<br />
+        <span data-i18n="html.hello">Hello, world!</span><br />
         <span id="result">
             
         </span><br />
-        <button onclick="jsCallNative()">JS call Native</button><br />
+        <button onclick="jsCallNative()" data-i18n="html.call_native">JS calls native</button><br />
     </body>
 </html>

@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "L’accès à l’appareil photo permet de prendre des photos à téléverser et à partager.";
+"NSPhotoLibraryAddUsageDescription" = "L’accès à la photothèque permet d’enregistrer des photos.";
+"NSPhotoLibraryUsageDescription" = "L’accès à la photothèque permet de sélectionner des photos à téléverser et à partager.";

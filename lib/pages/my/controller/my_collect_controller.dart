@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 
 import 'package:getx_study/app_service/collection_service.dart';
@@ -120,8 +121,8 @@ class MyCollectController
       Get.snackbar(
           '',
           result.type == CollectionResultType.success
-              ? '取消收藏成功'
-              : (result.message ?? '取消收藏失败'),
+              ? AppText.t('collect.cancel_success')
+              : (result.message ?? AppText.t('collect.cancel_failed')),
           duration: const Duration(seconds: 1));
     }
   }

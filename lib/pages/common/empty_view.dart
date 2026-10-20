@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/material.dart';
 
 class EmptyView extends StatelessWidget {
@@ -19,8 +20,8 @@ class EmptyView extends StatelessWidget {
                   emptyTap!();
                 }
               },
-              child: const Text(
-                '暂无数据',
+              child: Text(
+                AppText.t('common.empty'),
                 style: TextStyle(fontSize: 20),
               ),
             ),

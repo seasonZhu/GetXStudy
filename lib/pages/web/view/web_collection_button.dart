@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:getx_study/base/interface.dart';
 import 'package:getx_study/pages/web/controller/web_controller.dart';
@@ -25,6 +26,7 @@ class WebCollectionButton extends StatelessWidget {
       builder: (context, snapshot) => Visibility(
         visible: !hidden && id != null && collections.account.isLogin,
         child: AnimatedIconButton(
+          tooltip: AppText.t(id != null && collections.isCollected(id) ? 'collect.cancel' : 'collect.add'),
           icon: Icon(id != null && collections.isCollected(id)
               ? CupertinoIcons.heart_fill
               : CupertinoIcons.heart),

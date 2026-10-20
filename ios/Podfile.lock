@@ -3,26 +3,20 @@ PODS:
     - Flutter
     - FlutterMacOS
   - Flutter (1.0.0)
-  - flutter_secure_storage (6.0.0):
-    - Flutter
 
 DEPENDENCIES:
   - cupertino_http (from `.symlinks/plugins/cupertino_http/darwin`)
   - Flutter (from `Flutter`)
-  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
 
 EXTERNAL SOURCES:
   cupertino_http:
     :path: ".symlinks/plugins/cupertino_http/darwin"
   Flutter:
     :path: Flutter
-  flutter_secure_storage:
-    :path: ".symlinks/plugins/flutter_secure_storage/ios"
 
 SPEC CHECKSUMS:
   cupertino_http: 94ac07f5ff090b8effa6c5e2c47871d48ab7c86c
   Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
-  flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
 
 PODFILE CHECKSUM: e7f691503a7db7d89f909fa35faad1dc0fde5642
 

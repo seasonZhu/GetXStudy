@@ -182,6 +182,7 @@ class AnimatedIconButton extends StatelessWidget {
   final Widget icon;
   final VoidCallback? onPressed;
   final double? iconSize;
+  final String? tooltip;
   final Duration duration;
   final double scaleDown;
 
@@ -190,6 +191,7 @@ class AnimatedIconButton extends StatelessWidget {
     required this.icon,
     this.onPressed,
     this.iconSize,
+    this.tooltip,
     this.duration = const Duration(milliseconds: 100),
     this.scaleDown = 0.85,
   });
@@ -204,6 +206,7 @@ class AnimatedIconButton extends StatelessWidget {
         onPressed: onPressed,
         icon: icon,
         iconSize: iconSize,
+        tooltip: tooltip,
       ),
     );
   }

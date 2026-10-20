@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:io';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -135,20 +136,20 @@ class AppLauncherService extends GetxService {
         if (!active()) return;
         if (launched) {
           _logger.d('成功拉起外部 App');
-          EasyLoading.showToast('正在打开外部应用...');
+          EasyLoading.showToast(AppText.t('launcher.opening'));
         } else {
           _logger.d('取消拉起外部 App');
-          EasyLoading.showToast('已取消打开');
+          EasyLoading.showToast(AppText.t('launcher.cancelled'));
         }
       } else {
         _logger.d('无法拉起该 App，可能未安装');
-        EasyLoading.showError('未安装对应应用，请先下载安装');
+        EasyLoading.showError(AppText.t('launcher.install'));
         if (active()) onNotInstalled?.call(url);
       }
     } catch (e) {
       if (!active()) return;
       _logger.d('拉起外部 App 异常: $e');
-      EasyLoading.showError('打开应用失败');
+      EasyLoading.showError(AppText.t('launcher.failed'));
     }
   }
 
@@ -162,53 +163,53 @@ class AppLauncherService extends GetxService {
       await _handleIOSAppNotInstalled(url);
     } else {
       _logger.d('未知平台: ${Platform.operatingSystem}');
-      EasyLoading.showInfo('未安装对应应用，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.download'));
     }
   }
 
   /// 处理 Android 平台应用未安装的情况
   Future<void> _handleAndroidAppNotInstalled(String url) async {
     if (url.startsWith('snssdk2606')) {
-      EasyLoading.showInfo('未安装掘金 App，正在前往应用商店...');
+      EasyLoading.showInfo(AppText.t('launcher.juejin_store'));
       await _openAndroidAppStore(packageName: 'cn.juejin', appName: '掘金');
     } else if (url.startsWith('snssdk')) {
-      EasyLoading.showInfo('未安装抖音，正在前往应用商店...');
+      EasyLoading.showInfo(AppText.t('launcher.douyin_store'));
       await _openAndroidAppStore(
         packageName: 'com.ss.android.ugc.aweme',
         appName: '抖音',
       );
     } else if (url.startsWith('weixin')) {
-      EasyLoading.showInfo('未安装微信，请先下载微信');
+      EasyLoading.showInfo(AppText.t('launcher.wechat'));
       await _openAndroidAppStore(
         packageName: 'com.tencent.mm',
         appName: '微信',
       );
     } else if (url.startsWith('alipay')) {
-      EasyLoading.showInfo('未安装支付宝，请先下载支付宝');
+      EasyLoading.showInfo(AppText.t('launcher.alipay'));
       await _openAndroidAppStore(
         packageName: 'com.eg.android.AlipayGphone',
         appName: '支付宝',
       );
     } else if (url.startsWith('bilibili')) {
-      EasyLoading.showInfo('未安装哔哩哔哩，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.bilibili'));
       await _openAndroidAppStore(
         packageName: 'tv.danmaku.bili',
         appName: '哔哩哔哩',
       );
     } else if (url.startsWith('zhihu')) {
-      EasyLoading.showInfo('未安装知乎，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.zhihu'));
       await _openAndroidAppStore(
         packageName: 'com.zhihu.android',
         appName: '知乎',
       );
     } else if (url.startsWith('taobao')) {
-      EasyLoading.showInfo('未安装淘宝，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.taobao'));
       await _openAndroidAppStore(
         packageName: 'com.taobao.taobao',
         appName: '淘宝',
       );
     } else {
-      EasyLoading.showInfo('未安装对应应用，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.download'));
     }
   }
 
@@ -218,49 +219,49 @@ class AppLauncherService extends GetxService {
     if (url.startsWith('snssdk2606') ||
         url.startsWith('juejin') ||
         url.startsWith('cn.juejin')) {
-      EasyLoading.showInfo('未安装掘金 App，正在前往 App Store...');
+      EasyLoading.showInfo(AppText.t('launcher.juejin_ios'));
       await _openIOSAppStore(
         appStoreUrl: 'https://apps.apple.com/cn/app/id1252852573',
         appName: '掘金',
       );
     } else if (url.startsWith('snssdk')) {
-      EasyLoading.showInfo('未安装抖音，正在前往 App Store...');
+      EasyLoading.showInfo(AppText.t('launcher.douyin_ios'));
       await _openIOSAppStore(
         appStoreUrl: 'https://apps.apple.com/cn/app/id1142110895',
         appName: '抖音',
       );
     } else if (url.startsWith('weixin')) {
-      EasyLoading.showInfo('未安装微信，请先下载微信');
+      EasyLoading.showInfo(AppText.t('launcher.wechat'));
       await _openIOSAppStore(
         appStoreUrl: 'https://apps.apple.com/cn/app/id414478124',
         appName: '微信',
       );
     } else if (url.startsWith('alipay')) {
-      EasyLoading.showInfo('未安装支付宝，请先下载支付宝');
+      EasyLoading.showInfo(AppText.t('launcher.alipay'));
       await _openIOSAppStore(
         appStoreUrl: 'https://apps.apple.com/cn/app/id333206289',
         appName: '支付宝',
       );
     } else if (url.startsWith('bilibili')) {
-      EasyLoading.showInfo('未安装哔哩哔哩，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.bilibili'));
       await _openIOSAppStore(
         appStoreUrl: 'https://apps.apple.com/cn/app/id736536022',
         appName: '哔哩哔哩',
       );
     } else if (url.startsWith('zhihu')) {
-      EasyLoading.showInfo('未安装知乎，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.zhihu'));
       await _openIOSAppStore(
         appStoreUrl: 'https://apps.apple.com/cn/app/id432274380',
         appName: '知乎',
       );
     } else if (url.startsWith('taobao')) {
-      EasyLoading.showInfo('未安装淘宝，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.taobao'));
       await _openIOSAppStore(
         appStoreUrl: 'https://apps.apple.com/cn/app/id387682726',
         appName: '淘宝',
       );
     } else {
-      EasyLoading.showInfo('未安装对应应用，请先下载');
+      EasyLoading.showInfo(AppText.t('launcher.download'));
     }
   }
 

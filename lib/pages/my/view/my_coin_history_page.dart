@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/pages/common/status_view.dart';
@@ -14,9 +15,9 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
-        middle: Text("我的积分"),
+        middle: Text(AppText.t('my.coins')),
       ),
       child: Material(
         type: MaterialType.transparency,
@@ -38,7 +39,7 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
                   return ListTile(
                     leading: Text(model.reason.toString()),
                     title: Text(model.desc.toString()),
-                    trailing: Text(model.coinCount.toString()),
+                    trailing: Text(AppText.number(model.coinCount)),
                     onTap: () => Get.toNamed(Routes.stateMixinExample),
                   );
                 },

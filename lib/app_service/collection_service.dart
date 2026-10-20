@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 
 import 'package:get/get.dart';
@@ -92,7 +93,7 @@ class CollectionService extends GetxService {
         isCurrent()
             ? CollectionResultType.failure
             : CollectionResultType.staleSession,
-        message: '操作失败，请重试',
+        message: AppText.t('common.operation_failed'),
       );
     } finally {
       _pending.remove(key);

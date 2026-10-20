@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -16,7 +17,7 @@ class ErrorHandler {
     } else if (error is Exception) {
       msg = error.toString().replaceAll('Exception: ', '');
     } else {
-      msg = defaultMsg ?? '发生未知错误';
+      msg = defaultMsg ?? AppText.t('error.unknown');
     }
 
     // 显示错误提示
@@ -29,20 +30,20 @@ class ErrorHandler {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        return '网络连接超时，请检查网络设置';
+        return AppText.t('network.error_timeout');
       case DioExceptionType.badResponse:
         return _getResponseErrorMessage(error);
       case DioExceptionType.cancel:
-        return '请求已取消';
+        return AppText.t('network.cancelled');
       case DioExceptionType.connectionError:
-        return '网络连接失败，请检查网络设置';
+        return AppText.t('network.error_connection');
       case DioExceptionType.badCertificate:
-        return '证书验证失败';
+        return AppText.t('network.certificate');
       case DioExceptionType.unknown:
         if (error.error is SocketException) {
-          return '网络连接失败，请检查网络设置';
+          return AppText.t('network.error_connection');
         }
-        return '网络请求失败';
+        return AppText.t('network.error_unknown');
     }
   }
 
@@ -62,23 +63,23 @@ class ErrorHandler {
     // 根据状态码返回错误信息
     switch (statusCode) {
       case 400:
-        return '请求参数错误';
+        return AppText.t('network.error_400');
       case 401:
-        return '登录已过期，请重新登录';
+        return AppText.t('network.error_401');
       case 403:
-        return '没有权限访问';
+        return AppText.t('network.error_403');
       case 404:
-        return '请求的资源不存在';
+        return AppText.t('network.error_404');
       case 500:
-        return '服务器错误';
+        return AppText.t('network.error_server');
       case 502:
-        return '网关错误';
+        return AppText.t('network.error_502');
       case 503:
-        return '服务不可用';
+        return AppText.t('network.error_503');
       case 504:
-        return '网关超时';
+        return AppText.t('network.error_504');
       default:
-        return '请求失败: $statusCode';
+        return AppText.t('network.status', {'status': statusCode?.toString() ?? '--'});
     }
   }
 

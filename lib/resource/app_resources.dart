@@ -1,37 +1,35 @@
+import 'package:getx_study/i18n/app_text.dart';
+import 'package:getx_study/i18n/localized_strings.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// 资源管理类 - 从JSON文件加载配置
+/// 资源管理：文案使用统一翻译，颜色和尺寸从 JSON 加载。
 ///
 /// 使用方法：
 /// ```dart
-/// String appName = AppStrings.of(context).app.name;
+/// String appName = AppStrings.appName;
 /// Color primaryColor = AppColors.primary;
 /// double padding = AppDimens.paddingMedium;
 /// ```
 class AppStrings {
-  static Map<String, dynamic>? _strings;
+  /// 翻译资源随应用编译，无需再次异步读取中文文件。
+  static Future<void> init() async {}
 
-  /// 初始化资源（在main函数中调用）
-  static Future<void> init() async {
-    _strings ??= await _loadJson('assets/config/strings_zh.json');
-  }
-
-  /// 获取字符串资源
   static Map<String, dynamic> of(BuildContext context) {
-    if (_strings == null) {
-      throw Exception('AppStrings 未初始化！请在 main() 中调用 await AppStrings.init()');
-    }
-    return _strings!;
+    Localizations.localeOf(context);
+    return direct;
   }
 
-  /// 直接访问（不依赖context）
   static Map<String, dynamic> get direct {
-    if (_strings == null) {
-      throw Exception('AppStrings 未初始化！请在 main() 中调用 await AppStrings.init()');
+    final result = <String, dynamic>{};
+    for (final key in LocalizedStrings.catalogs['en_US']!.keys) {
+      final parts = key.split('.');
+      if (parts.length == 2) {
+        (result[parts.first] ??= <String, dynamic>{})[parts.last] = AppText.t(key);
+      }
     }
-    return _strings!;
+    return result;
   }
 
   /// 快捷访问方法
@@ -115,10 +113,7 @@ class AppStrings {
   static String get pageUnknown => direct['page']['unknown'];
   static String get pageEnter => direct['page']['enter'];
 
-  static Future<Map<String, dynamic>> _loadJson(String path) async {
-    final jsonString = await rootBundle.loadString(path);
-    return json.decode(jsonString) as Map<String, dynamic>;
-  }
+
 }
 
 /// 颜色资源类

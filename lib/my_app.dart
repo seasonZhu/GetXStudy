@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:getx_study/app_service/language_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -44,7 +47,14 @@ class MyApp extends StatelessWidget {
         builder: EasyLoading.init(),
         theme: ThemeService.find.themeData, //_getCupertinoCurrentTheme(),
         translations: LocalizedStrings(),
-        locale: Get.deviceLocale, //不加这个就不知道当前要用什么locale下的语言, i18n就会失败
+        locale: LanguageService.find.effectiveLocale.value,
+        supportedLocales: LanguageService.supportedLocales,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          RefreshLocalizations.delegate,
+        ],
         fallbackLocale: const Locale("en", "US"),
       );
     });

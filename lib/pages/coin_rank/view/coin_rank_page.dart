@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/logger/logger.dart';
@@ -14,9 +15,9 @@ class CoinRankPage extends GetView<CoinRankController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
-        middle: Text("积分排名"),
+        middle: Text(AppText.t('coin.title')),
       ),
       child: Material(
         type: MaterialType.transparency,
@@ -36,9 +37,9 @@ class CoinRankPage extends GetView<CoinRankController> {
                   final model = controller.dataSource[index];
 
                   return ListTile(
-                    leading: Text(model.rank.toString()),
+                    leading: Text(AppText.number(model.rank)),
                     title: Text(model.username.toString()),
-                    trailing: Text('积分:${model.level.toString()}'),
+                    trailing: Text(AppText.t('coin.points', {'points': AppText.number(model.level)})),
                     onTap: () => logger.d(model.username),
                   );
                 },

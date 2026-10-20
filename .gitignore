@@ -49,3 +49,5 @@ app.*.map.json
 
 # CodeGraph 本地索引
 .codegraph/
+
+.planning/

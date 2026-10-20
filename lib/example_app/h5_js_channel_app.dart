@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:getx_study/app_service/language_service.dart';
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 import 'dart:convert' as convert;
 
@@ -16,26 +19,55 @@ class H5JSChannelApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: AppText.locale,
+      supportedLocales: LanguageService.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       builder: EasyLoading.init(),
       home: AppH5Page(),
     );
   }
 }
 
-class AppH5Page extends StatelessWidget {
-  late WebViewController _controller;
+class AppH5Page extends StatefulWidget {
+  const AppH5Page({super.key});
 
-  AppH5Page({super.key});
+  @override
+  State<AppH5Page> createState() => _AppH5PageState();
+}
+
+class _AppH5PageState extends State<AppH5Page> {
+  late WebViewController _controller;
+  Worker? _languageWorker;
+  bool _localPage = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _flutterWebViewSetting(context);
+    if (Get.isRegistered<LanguageService>()) {
+      _languageWorker = ever(LanguageService.find.effectiveLocale, (_) => _updateHtmlLanguage());
+    }
+  }
+
+  Future<void> _updateHtmlLanguage() async {
+    if (!_localPage) return;
+    await _controller.runJavaScript('window.setAppLanguage && window.setAppLanguage(${convert.jsonEncode(AppText.locale.toString())})');
+  }
+
+  @override
+  void dispose() {
+    _languageWorker?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _flutterWebViewSetting(context);
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Flutter与JS交互"),
+        title: Text(AppText.t('example.h5_js')),
         actions: [
           IconButton(
+            tooltip: AppText.t('common.share'),
             icon: const Icon(CupertinoIcons.share),
             onPressed: _flutterCallJS,
           ),
@@ -77,9 +109,11 @@ class AppH5Page extends StatelessWidget {
           },
           onPageStarted: (String url) {
             logger.d('Page started loading: $url');
+            _localPage = Uri.tryParse(url)?.scheme == 'file' && url.contains('/assets/html/');
           },
           onPageFinished: (String url) {
             logger.d('Page finished loading: $url');
+            unawaited(_updateHtmlLanguage());
           },
           onWebResourceError: (WebResourceError error) {
             logger.d('''
@@ -103,7 +137,7 @@ class AppH5Page extends StatelessWidget {
       ..addJavaScriptChannel("handleMessageFromJS",
           onMessageReceived: (javaScriptMessage) {
         final dict = convert.jsonDecode(javaScriptMessage.message);
-        final string = "message from js: $dict";
+        final string = dict['message']?.toString() ?? '';
         logger.d(string);
         EasyLoading.showToast(string);
       })
@@ -138,7 +172,7 @@ class AppH5Page extends StatelessWidget {
   void _flutterCallJS() async {
     var flutterMap = {
       "type": "commit",
-      "message": "this is a message from Flutter"
+      "message": AppText.t('html.flutter_message')
     };
 
     var jsonString = convert.jsonEncode(flutterMap);
@@ -146,7 +180,7 @@ class AppH5Page extends StatelessWidget {
     /// dart调用js,js方法入参,使用html中注释的方法,基本上所有的类型都可以传
     final javaScriptCallbackResult =
         await _controller.runJavaScriptReturningResult(
-            "sendMessageToDiscussList('$jsonString')");
+            "sendMessageToDiscussList(${convert.jsonEncode(jsonString)})");
     final string = javaScriptCallbackResult as String;
     logger.d(string);
     EasyLoading.showToast(string);
@@ -154,21 +188,38 @@ class AppH5Page extends StatelessWidget {
 }
 
 /// 返回按钮与侧滑的应用
-class OnBackAppH5Page extends StatelessWidget {
+class OnBackAppH5Page extends StatefulWidget {
+  const OnBackAppH5Page({super.key});
+
+  @override
+  State<OnBackAppH5Page> createState() => _OnBackAppH5PageState();
+}
+
+class _OnBackAppH5PageState extends State<OnBackAppH5Page> {
   late WebViewController _controller;
 
   ValueNotifier<bool> canGoBackNotifier = ValueNotifier(false);
 
   final canGoBackRelay = false.obs;
 
-  OnBackAppH5Page({super.key});
+  @override
+  void initState() {
+    super.initState();
+    _flutterWebViewSetting(context);
+  }
+
+  @override
+  void dispose() {
+    canGoBackNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _flutterWebViewSetting(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          tooltip: AppText.t('common.back'),
           icon: Icon(CupertinoIcons.back),
           onPressed: () async {
             final canGoback = await _controller.canGoBack();
@@ -179,9 +230,10 @@ class OnBackAppH5Page extends StatelessWidget {
             }
           },
         ),
-        title: const Text("Flutter与JS交互"),
+        title: Text(AppText.t('example.h5_js')),
         actions: [
           IconButton(
+            tooltip: AppText.t('common.share'),
             icon: const Icon(CupertinoIcons.share),
             onPressed: () {},
           ),
@@ -305,6 +357,7 @@ class OnBackAppH5Page extends StatelessWidget {
               webController.canGoBack().then((value) {
                 logger.d('canGoBack value: $value');
 
+                if (!mounted) return;
                 canGoBackNotifier.value = value;
 
                 canGoBackRelay.value = value;

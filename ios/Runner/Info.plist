@@ -4,6 +4,8 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>CFBundleLocalizations</key>
+	<array><string>en</string><string>zh-Hans</string><string>fr</string></array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -27,11 +29,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>需要访问相机来拍摄照片用于上传和分享</string>
+	<string>Camera access is used to take photos for upload and sharing.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>需要保存照片到相册</string>
+	<string>Photo library access is used to save photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>需要访问相册来选择照片用于上传和分享</string>
+	<string>Photo library access is used to select photos for upload and sharing.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

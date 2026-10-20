@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/base/interface.dart';
@@ -22,23 +23,23 @@ extension Extension on My {
       case My.header:
         return "";
       case My.login:
-        return "登录";
+        return AppText.t('login.title');
       case My.logout:
-        return "登出";
+        return AppText.t('my.logout');
       case My.myCoin:
-        return "我的积分";
+        return AppText.t('my.coins');
       case My.myCollect:
-        return "我的收藏";
+        return AppText.t('my.collect');
       case My.themeSetting:
-        return "主题颜色";
+        return AppText.t('my.theme');
       case My.languageSetting:
         return "language_setting".tr;
       case My.myGitHub:
-        return "我的GitHub";
+        return AppText.t('my.github');
       case My.myJueJin:
-        return "我的掘金";
+        return AppText.t('my.juejin');
       case My.ranking:
-        return "积分排名";
+        return AppText.t('coin.title');
     }
   }
 
@@ -70,9 +71,9 @@ extension Extension on My {
   WebLoadInfoEntity? get entity {
     if (this == My.myJueJin) {
       return WebLoadInfoEntity(
-          "我的掘金", "https://juejin.cn/user/4353721778057997");
+          AppText.t('my.juejin'), "https://juejin.cn/user/4353721778057997");
     } else if (this == My.myGitHub) {
-      return WebLoadInfoEntity("我的GitHub", "https://github.com/seasonZhu");
+      return WebLoadInfoEntity(AppText.t('my.github'), "https://github.com/seasonZhu");
     } else {
       return null;
     }

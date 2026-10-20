@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:getx_study/app_service/language_service.dart';
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,6 +11,9 @@ class GetXApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      locale: AppText.locale,
+      supportedLocales: LanguageService.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       getPages: Routes.routePage,
       initialBinding: GetXExampleBindings(),
       home: const GetXExamplePage(),
@@ -22,33 +28,33 @@ class GetXExamplePage extends GetView<GetXExampleController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("GetX编写计数器"),
+        title: Text(AppText.t('example.getx_simple')),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              AppText.t('example.counter_hint'),
             ),
             GetBuilder<GetXExampleController>(
               builder: ((controller) {
                 return Text(
-                  controller.count.toString(),
+                  AppText.number(controller.count),
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
               }),
             ),
             ElevatedButton(
               onPressed: controller.pushToNextPage,
-              child: const Text("下一页"),
+              child: Text(AppText.t('common.next_page')),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: controller.increment,
-        tooltip: 'Increment',
+        tooltip: AppText.t('example.increment'),
         child: const Icon(Icons.add),
       ),
     );
@@ -65,7 +71,7 @@ class GetXExampleController extends GetxController {
 
   void pushToNextPage() {
     Get.toNamed(Routes.getxRxExamplePage,
-        arguments: {"message": "我是GetXExamplePage传来的数据"});
+        arguments: {"message": 'example.message'});
   }
 }
 
@@ -88,18 +94,18 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
     return Scaffold(
       backgroundColor: const Color(0xFFE0E5EC),
       appBar: AppBar(
-        title: const Text("GetX响应式编写计数器"),
+        title: Text(AppText.t('example.getx_reactive')),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              AppText.t('example.counter_hint'),
             ),
             Obx(() {
               return Text(
-                controller.count.value.toString(),
+                AppText.number(controller.count.value),
                 style: Theme.of(context).textTheme.headlineMedium,
               );
             }),
@@ -112,10 +118,10 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
             //     );
             //   },
             // ),
-            Text(message),
+            Text(AppText.t(message)),
             ElevatedButton(
               onPressed: controller.pushToCoinRankPage,
-              child: const Text("下一页"),
+              child: Text(AppText.t('common.next_page')),
             ),
             Container(
                 height: 50,
@@ -124,13 +130,13 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Row(
+                child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(Icons.share),
                       SizedBox(width: 12),
-                      Text("Share")
+                      Text(AppText.t('common.share'))
                     ])).addNeumorphism(
               bottomShadowColor: const Color(0xFFA3B1C6),
               topShadowColor: Colors.white,
@@ -144,7 +150,7 @@ class GetxRxExamplePage extends GetView<GetxRxExampleController> {
           /// 上一个页面的值也在进行添加
           _easyController.increment();
         }),
-        tooltip: 'Increment',
+        tooltip: AppText.t('example.increment'),
         child: const Icon(Icons.add),
       ),
     );

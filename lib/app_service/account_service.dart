@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -50,13 +51,28 @@ class AccountService extends GetxService {
     return result;
   }
 
-  var userInfo = "等级 --  排名 --  积分 --";
+  Map<String, num?>? _coinSummary;
+  String? _userInfoOverride;
+
+  String get userInfo => _userInfoOverride ?? AppText.t('account.summary', {
+    'level': AppText.number(_coinSummary?['level']),
+    'rank': AppText.number(_coinSummary?['rank']),
+    'points': AppText.number(_coinSummary?['points']),
+  });
+
+  set userInfo(String value) => _userInfoOverride = value;
+
+  void updateCoinSummary({num? level, num? rank, num? points}) {
+    _userInfoOverride = null;
+    _coinSummary = {'level': level, 'rank': rank, 'points': points};
+  }
 
   static AccountService get find => Get.find<AccountService>();
 
   // 使用安全存储来保存敏感信息（如密码）
   static const _secureStorage = FlutterSecureStorage(
-    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    // 从旧版加密存储迁移时保留备份，支持迁移中断后的恢复。
+    aOptions: AndroidOptions(migrateWithBackup: true),
   );
 
   Future<SharedPreferences> get userDefine async =>
@@ -78,11 +94,13 @@ class AccountService extends GetxService {
   }) async {
     final previousInfo = this.info;
     final previousIsLogin = this.isLogin;
-    final previousUserInfo = userInfo;
+    final previousUserInfo = _userInfoOverride;
+    final previousCoinSummary = _coinSummary;
     final revision = ++sessionRevision;
     this.info = info;
     this.isLogin = isLogin;
-    userInfo = "等级 --  排名 --  积分 --";
+    _userInfoOverride = null;
+    _coinSummary = null;
     this.info?.password = password;
     _notifySessionChanged();
 
@@ -101,7 +119,8 @@ class AccountService extends GetxService {
       if (sessionRevision == revision) {
         this.info = previousInfo;
         this.isLogin = previousIsLogin;
-        userInfo = previousUserInfo;
+        _userInfoOverride = previousUserInfo;
+        _coinSummary = previousCoinSummary;
         _notifySessionChanged();
       }
       rethrow;
@@ -167,7 +186,8 @@ class AccountService extends GetxService {
   Future<void> clear() async {
     sessionRevision++;
     info = null;
-    userInfo = "等级 --  排名 --  积分 --";
+    _userInfoOverride = null;
+    _coinSummary = null;
     isLogin = false;
     _notifySessionChanged();
     await _persist(() async {

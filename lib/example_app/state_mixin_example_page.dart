@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -54,9 +55,9 @@ class StateMixinExamplePage extends GetView<StateMixinController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
-        middle: Text("StateMixin例子"),
+        middle: Text(AppText.t('example.state_mixin')),
       ),
       child: Center(
         child: controller.obx(
@@ -84,7 +85,7 @@ class StateMixinExamplePage extends GetView<StateMixinController> {
             ).toList(),
           ),
           onLoading: const CupertinoActivityIndicator(),
-          onEmpty: const Text('No data found'),
+          onEmpty: Text(AppText.t('example.empty')),
           onError: (error) => Text(error.toString()),
         ),
       ),
@@ -127,7 +128,7 @@ class CounterController extends GetxController with StateMixin<int> {
 
   void simulateError() {
     // 模拟错误状态
-    change(state, status: RxStatus.error("An error occurred"));
+    change(state, status: RxStatus.error(AppText.t('example.error')));
   }
 }
 
@@ -137,29 +138,32 @@ class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("StateMixin Example")),
+      appBar: AppBar(title: Text(AppText.t('example.state_title'))),
       body: controller.obx(
         (state) => Center(
-          child: Text("Count: $state", style: TextStyle(fontSize: 24)),
+          child: Text(AppText.t('example.count', {'count': AppText.number(state)}), style: TextStyle(fontSize: 24)),
         ),
         onLoading: Center(child: CircularProgressIndicator()),
-        onError: (error) => Center(child: Text("Error: $error")),
-        onEmpty: Center(child: Text("No data available")),
+        onError: (error) => Center(child: Text(AppText.t('example.error_detail', {'error': error ?? ''}))),
+        onEmpty: Center(child: Text(AppText.t('example.no_data'))),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            tooltip: AppText.t('example.increment'),
             onPressed: controller.increment,
             child: Icon(Icons.add),
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            tooltip: AppText.t('counter.reset'),
             onPressed: controller.reset,
             child: Icon(Icons.refresh),
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            tooltip: AppText.t('counter.simulate_error'),
             onPressed: controller.simulateError,
             child: Icon(Icons.error),
           ),

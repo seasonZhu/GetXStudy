@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -77,19 +78,19 @@ class InfoCell extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Row(
+                Flexible(child: Wrap(
                   children: <Widget>[
                     Visibility(
                       visible: (_model.fresh ?? false),
-                      child: const Text(
-                        "最新 ",
+                      child: Text(
+                        AppText.t('article.fresh'),
                         style: TextStyle(color: Colors.grey),
                       ),
                     ),
                     Visibility(
                       visible: (_model.type != null && _model.type != 0),
-                      child: const Text(
-                        "置顶 ",
+                      child: Text(
+                        AppText.t('article.pinned'),
                         style: TextStyle(color: Colors.grey),
                       ),
                     ),
@@ -104,14 +105,16 @@ class InfoCell extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                )),
               ],
             ),
             Row(
               children: [
                 const Spacer(),
                 Text(
-                  _model.niceShareDate ?? "",
+                  (_model.shareDate ?? _model.publishTime) == null
+                      ? (_model.niceShareDate ?? "")
+                      : AppText.date((_model.shareDate ?? _model.publishTime)!),
                   style: const TextStyle(color: Colors.grey),
                 ),
               ],

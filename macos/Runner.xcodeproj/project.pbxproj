@@ -73,6 +73,9 @@
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		B778A737BFD75C7B9891D4CA /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		EEAB0B035F2C1DF2975518D9 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		A12000000000000000000001 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en"; path = "en.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		A12000000000000000000002 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		A12000000000000000000003 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr"; path = "fr.lproj/MainMenu.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +230,8 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				"zh-Hans",
+				fr,
 				en,
 				Base,
 			);
@@ -358,6 +363,10 @@
 		33CC10F42044A3C60003C045 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
+				A12000000000000000000001,
+				A12000000000000000000002,
+				A12000000000000000000003,
+
 				33CC10F52044A3C60003C045 /* Base */,
 			);
 			name = MainMenu.xib;

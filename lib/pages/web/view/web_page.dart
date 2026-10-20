@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:getx_study/pages/web/view/web_collection_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -51,6 +52,7 @@ class WebPage extends GetView<WebController> {
                 Visibility(
                   visible: webLoadInfo.id != null,
                   child: AnimatedIconButton(
+                    tooltip: AppText.t('common.share'),
                     icon: const Icon(CupertinoIcons.share),
                     onPressed: () async {
                       print('分享链接: ${webLoadInfo.link}');
@@ -85,10 +87,10 @@ class WebPage extends GetView<WebController> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('网页初始化失败，请返回后重试'),
+                      Text(AppText.t('web.init_failed')),
                       CupertinoButton(
                         onPressed: controller.onBackAction,
-                        child: const Text('返回'),
+                        child: Text(AppText.t('common.back')),
                       ),
                     ],
                   ),

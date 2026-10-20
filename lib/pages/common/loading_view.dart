@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class LoadingView extends StatelessWidget {
@@ -18,7 +19,7 @@ class LoadingView extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            Text(_message ?? '正在加载...'),
+            Text(_message ?? AppText.t('common.loading')),
           ],
         ),
       ),

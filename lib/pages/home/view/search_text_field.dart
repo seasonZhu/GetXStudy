@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/extension/theme_data_extension.dart';
@@ -36,7 +37,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
           child: CupertinoTextField(
             style: TextStyle(color: Theme.of(context).brightness.color),
             controller: _controller,
-            placeholder: '请输入搜索关键字',
+            placeholder: AppText.t('search.hint'),
             onEditingComplete: _submit,
           ),
         ),
@@ -50,7 +51,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
                 padding: const EdgeInsets.only(left: 10),
                 height: 30,
                 alignment: Alignment.center,
-                child: const Text('搜索', style: TextStyle(fontSize: 16)),
+                child: Text(AppText.t('search.action'), style: TextStyle(fontSize: 16)),
               ),
             ),
           ),

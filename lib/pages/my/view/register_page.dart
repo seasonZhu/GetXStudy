@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +15,9 @@ class RegisterPage extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return ResignFirstView(
       child: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
+        navigationBar: CupertinoNavigationBar(
           automaticBackgroundVisibility: false,
-          middle: Text("注册"),
+          middle: Text(AppText.t('register.title')),
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
@@ -32,7 +33,7 @@ class RegisterPage extends GetView<RegisterController> {
                         child: CupertinoTextField(
                           controller: controller.userNameTextFiledController,
                           focusNode: controller.userNameFocusNode,
-                          placeholder: "手机号",
+                          placeholder: AppText.t('login.phone'),
                           textInputAction: TextInputAction.next,
                           onSubmitted: (_) =>
                               controller.userNameTextFieldOnSubmitted(context),
@@ -42,7 +43,7 @@ class RegisterPage extends GetView<RegisterController> {
                         height: 40,
                         width: 40,
                         child: InkWell(
-                          child: const Icon(Icons.clear),
+                          child: Icon(Icons.clear, semanticLabel: AppText.t('input.clear')),
                           onTap: () {
                             controller.userNameTextFiledController.text = "";
                           },
@@ -59,7 +60,7 @@ class RegisterPage extends GetView<RegisterController> {
                             enabled: controller.userNameIsNotEmpty.value,
                             controller: controller.passwordTextFiledController,
                             focusNode: controller.passwordFocusNode,
-                            placeholder: "密码",
+                            placeholder: AppText.t('login.password'),
                             textInputAction: TextInputAction.next,
                             obscureText: controller.obscureText.value,
                             onSubmitted: (_) => controller
@@ -73,8 +74,8 @@ class RegisterPage extends GetView<RegisterController> {
                         child: Obx(
                           () => InkWell(
                             child: controller.obscureText.value
-                                ? const Icon(Icons.remove_red_eye)
-                                : const Icon(Icons.security),
+                                ? Icon(Icons.remove_red_eye, semanticLabel: AppText.t('input.show_password'))
+                                : Icon(Icons.security, semanticLabel: AppText.t('input.hide_password')),
                             onTap: () {
                               final value = controller.obscureText.value;
                               controller.obscureText.value = !value;
@@ -95,7 +96,7 @@ class RegisterPage extends GetView<RegisterController> {
                             controller:
                                 controller.rePasswordTextFiledController,
                             focusNode: controller.rePasswordFocusNode,
-                            placeholder: "确认密码",
+                            placeholder: AppText.t('register.repassword'),
                             textInputAction: TextInputAction.done,
                             obscureText: controller.reObscureText.value,
                           ),
@@ -107,8 +108,8 @@ class RegisterPage extends GetView<RegisterController> {
                         child: Obx(
                           () => InkWell(
                             child: controller.reObscureText.value
-                                ? const Icon(Icons.remove_red_eye)
-                                : const Icon(Icons.security),
+                                ? Icon(Icons.remove_red_eye, semanticLabel: AppText.t('input.show_password'))
+                                : Icon(Icons.security, semanticLabel: AppText.t('input.hide_password')),
                             onTap: () {
                               final value = controller.reObscureText.value;
                               controller.reObscureText.value = !value;
@@ -149,8 +150,8 @@ class RegisterPage extends GetView<RegisterController> {
                                           .rePasswordTextFiledController.text,
                                     );
                                   },
-                            child: const Text(
-                              "注册",
+                            child: Text(
+                              AppText.t('register.title'),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

@@ -1,14 +1,15 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 
 class CountdownCircle extends StatefulWidget {
-  const CountdownCircle({
+  CountdownCircle({
     super.key,
     this.countdownSeconds = 5,
     this.ringBackgroundColor = Colors.transparent,
     this.ringColor = Colors.white,
     this.ringStrokeWidth = 3.0,
-    this.text = "跳过",
+    this.text,
     this.textStyle = const TextStyle(color: Colors.grey),
     this.finished,
   })  : assert(countdownSeconds > 0),
@@ -27,7 +28,7 @@ class CountdownCircle extends StatefulWidget {
   final double ringStrokeWidth;
 
   /// 跳过文字
-  final String text;
+  final String? text;
 
   /// 中间文案的字体
   final TextStyle textStyle;
@@ -77,6 +78,8 @@ class _CountdownCircleState extends State<CountdownCircle> {
                 ValueListenableBuilder(
                   builder: ((context, int countdownDuration, child) =>
                       CircularProgressIndicator(
+                        semanticsLabel: widget.text ?? AppText.t('common.skip'),
+                        semanticsValue: AppText.seconds(widget.countdownSeconds - countdownDuration ~/ 1000),
                         strokeWidth: widget.ringStrokeWidth,
                         color: widget.ringColor,
                         value: countdownDuration /
@@ -86,7 +89,7 @@ class _CountdownCircleState extends State<CountdownCircle> {
                   valueListenable: _currentTimer,
                 ),
                 Text(
-                  widget.text,
+                  widget.text ?? AppText.t('common.skip'),
                   style: widget.textStyle,
                 ),
               ],

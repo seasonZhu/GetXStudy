@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +16,9 @@ class LoginPage extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return ResignFirstView(
       child: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
+        navigationBar: CupertinoNavigationBar(
           automaticBackgroundVisibility: false,
-          middle: Text("登录"),
+          middle: Text(AppText.t('login.title')),
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
@@ -33,7 +34,7 @@ class LoginPage extends GetView<LoginController> {
                         child: CupertinoTextField(
                           controller: controller.userNameTextFiledController,
                           focusNode: controller.userNameFocusNode,
-                          placeholder: "手机号",
+                          placeholder: AppText.t('login.phone'),
                           textInputAction: TextInputAction.next,
                           onSubmitted: (_) =>
                               controller.userNameTextFieldOnSubmitted(context),
@@ -43,7 +44,7 @@ class LoginPage extends GetView<LoginController> {
                         height: 40,
                         width: 40,
                         child: InkWell(
-                          child: const Icon(Icons.clear),
+                          child: Icon(Icons.clear, semanticLabel: AppText.t('input.clear')),
                           onTap: () {
                             controller.userNameTextFiledController.text = "";
                           },
@@ -60,7 +61,7 @@ class LoginPage extends GetView<LoginController> {
                             enabled: controller.userNameIsNotEmpty.value,
                             controller: controller.passwordTextFiledController,
                             focusNode: controller.passwordFocusNode,
-                            placeholder: "密码",
+                            placeholder: AppText.t('login.password'),
                             textInputAction: TextInputAction.done,
                             obscureText: controller.obscureText.value,
                           ),
@@ -72,8 +73,8 @@ class LoginPage extends GetView<LoginController> {
                         child: Obx(
                           () => InkWell(
                             child: controller.obscureText.value
-                                ? const Icon(Icons.remove_red_eye)
-                                : const Icon(Icons.security),
+                                ? Icon(Icons.remove_red_eye, semanticLabel: AppText.t('input.show_password'))
+                                : Icon(Icons.security, semanticLabel: AppText.t('input.hide_password')),
                             onTap: () {
                               final value = controller.obscureText.value;
                               controller.obscureText.value = !value;
@@ -83,10 +84,9 @@ class LoginPage extends GetView<LoginController> {
                       ),
                     ],
                   ),
-                  Row(
-                    children: <Widget>[
-                      const Spacer(),
-                      Padding(
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
                         padding: const EdgeInsets.only(top: 20, right: 15),
                         child: AnimatedInkWell(
                           onTap: () async {
@@ -97,13 +97,12 @@ class LoginPage extends GetView<LoginController> {
                               navigator?.pop(result);
                             }
                           },
-                          child: const Text(
-                            "还没有注册?",
+                          child: Text(
+                            AppText.t('login.register_link'),
                             style: TextStyle(color: Colors.blue, fontSize: 15),
                           ),
                         ),
                       ),
-                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -135,8 +134,8 @@ class LoginPage extends GetView<LoginController> {
                                           .passwordTextFiledController.text,
                                     );
                                   },
-                            child: const Text(
-                              "登录",
+                            child: Text(
+                              AppText.t('login.title'),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

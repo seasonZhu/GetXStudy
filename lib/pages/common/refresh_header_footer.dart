@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -7,9 +8,9 @@ class RefreshHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const WaterDropHeader(
+    return WaterDropHeader(
       complete: Center(
-        child: Text("下拉刷新完成"),
+        child: Text(AppText.t('refresh.pull_complete')),
       ),
     );
   }
@@ -32,15 +33,15 @@ extension on LoadStatus {
   Widget get statusBody {
     switch (this) {
       case LoadStatus.idle:
-        return const Text("上拉加载");
+        return Text(AppText.t('refresh.load_more'));
       case LoadStatus.canLoading:
-        return const Text("松手,加载更多!");
+        return Text(AppText.t('refresh.release_to_load'));
       case LoadStatus.loading:
         return const CupertinoActivityIndicator();
       case LoadStatus.noMore:
-        return const Text("没有更多数据了!");
+        return Text(AppText.t('refresh.no_more_data'));
       case LoadStatus.failed:
-        return const Text('加载失败，请上拉重试');
+        return Text(AppText.t('refresh.failed'));
     }
   }
 }

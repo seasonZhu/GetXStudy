@@ -1,39 +1,15 @@
 import 'package:get/get.dart';
+import 'zh_cn.dart';
+import 'en_us.dart';
+import 'fr_fr.dart';
 
 class LocalizedStrings extends Translations {
-  @override Map<String, Map<String, String>> get keys => {
-    "zh_CN": {
-      "today": "今天",
-      "profile": "设置",
-      "theme_setting": "主题设置",
-      "language_setting": "语言设置",
-      "light": "浅色",
-      "dark": "深色",
-      "blue": "蓝色",
-      "green": "绿色",
-      "red": "红色",
-    },
-    "en": {
-      "today": "Today",
-      "profile": "Profile",
-      "theme_setting": "Theme Setting",
-      "language_setting": "Language",
-      "light": "Light",
-      "dark": "Dark",
-      "blue": "Blue",
-      "green": "Green",
-      "red": "Red",
-    },
-    "fr": {
-      "today": "Aujourd’hui",
-      "profile": "Pprofil",
-      "theme_setting": "Paramètres du thème",
-      "language_setting": "Langue",
-      "light": "Lumière",
-      "dark": "Sombre",
-      "blue": "Bleu",
-      "green": "Vert",
-      "red": "Rouge",
-    }
+  static const catalogs = <String, Map<String, String>>{
+    'zh_CN': zhCn,
+    'en_US': enUs,
+    'fr_FR': frFr,
   };
+
+  @override
+  Map<String, Map<String, String>> get keys => catalogs;
 }

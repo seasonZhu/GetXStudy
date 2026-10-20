@@ -38,8 +38,8 @@ class RegisterController extends LoginController {
         rePassword: rePassword,
       ),
       password: password,
-      successMessage: "注册成功",
-      failureMessage: "注册失败",
+      successMessage: 'register.success',
+      failureMessage: 'register.failed',
     );
   }
 

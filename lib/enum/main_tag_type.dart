@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_study/enum/tag_type.dart';
 
@@ -33,15 +34,15 @@ extension MainTagTypeExt on MainTagType {
   String get title {
     switch (this) {
       case MainTagType.home:
-        return "首页";
+        return AppText.t('home.title');
       case MainTagType.project:
-        return "项目";
+        return AppText.t('projects.title');
       case MainTagType.publicNumber:
-        return "公众号";
+        return AppText.t('accounts.title');
       case MainTagType.tree:
-        return "体系";
+        return AppText.t('tree.title');
       case MainTagType.my:
-        return "我的";
+        return AppText.t('my.title');
     }
   }
 

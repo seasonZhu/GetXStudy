@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:getx_study/http_util/api.dart';
 
 enum TagType {
@@ -10,11 +11,11 @@ extension Ext on TagType {
     String get title {
         switch (this) {
         case TagType.project:
-            return "项目";
+            return AppText.t('projects.title');
         case TagType.publicNumber:
-            return "公众号";
+            return AppText.t('accounts.title');
         case TagType.tree:
-            return "体系";
+            return AppText.t('tree.title');
         }
     }
     

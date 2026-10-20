@@ -1,3 +1,5 @@
+import 'package:getx_study/app_service/language_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
@@ -31,7 +33,12 @@ class _ThemeService extends ThemeService {
 
 void main() {
   _SettingsTestBinding();
-  setUp(() => Get.testMode = true);
+  setUp(() async {
+    Get.testMode = true;
+    SharedPreferences.setMockInitialValues(
+        {LanguageService.preferenceKey: 'zh'});
+    await Get.put(LanguageService()).init();
+  });
   tearDown(Get.reset);
 
   testWidgets('切换主题不再联动语言', (tester) async {

@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class UnknownPage extends StatelessWidget {
@@ -5,14 +6,14 @@ class UnknownPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
+    return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
-        middle: Text("未知页面"),
+        middle: Text(AppText.t('page.unknown')),
       ),
       child: Center(
         child: Text(
-          "未知页面",
+          AppText.t('page.unknown'),
           style: TextStyle(fontSize: 20),
         ),
       ),

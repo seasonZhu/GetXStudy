@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "需要访问相机来拍摄照片用于上传和分享";
+"NSPhotoLibraryAddUsageDescription" = "需要保存照片到相册";
+"NSPhotoLibraryUsageDescription" = "需要访问相册来选择照片用于上传和分享";

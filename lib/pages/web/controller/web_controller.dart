@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -155,8 +156,8 @@ class WebController extends GetxController {
       Get.snackbar(
           '',
           result.type == CollectionResultType.success
-              ? (target ? '收藏成功' : '取消收藏成功')
-              : (result.message ?? '操作失败，请重试'),
+              ? (target ? AppText.t('collect.collect_success') : AppText.t('collect.cancel_success'))
+              : (result.message ?? AppText.t('common.operation_failed')),
           duration: const Duration(seconds: 1));
     }
   }

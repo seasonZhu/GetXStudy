@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -16,9 +17,9 @@ class MyCollectPage extends GetView<MyCollectController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
-        middle: Text("我的收藏"),
+        middle: Text(AppText.t('my.collect')),
       ),
       child: StatusView<MyCollectController>(
         contentBuilder: (controller) {
@@ -57,7 +58,7 @@ class MyCollectPage extends GetView<MyCollectController> {
                         backgroundColor: const Color(0xFFFE4A49),
                         foregroundColor: Colors.white,
                         icon: Icons.delete,
-                        label: '取消收藏',
+                        label: AppText.t('collect.cancel'),
                       ),
                     ],
                   ),

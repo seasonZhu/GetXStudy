@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:getx_study/app_service/language_service.dart';
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -6,35 +9,49 @@ class StreamApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: AppText.locale,
+      supportedLocales: LanguageService.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       home: StreamExamplePage(),
     );
   }
 }
 
-class StreamExamplePage extends StatelessWidget {
-  StreamExamplePage({super.key});
+class StreamExamplePage extends StatefulWidget {
+  const StreamExamplePage({super.key});
 
+  @override
+  State<StreamExamplePage> createState() => _StreamExamplePageState();
+}
+
+class _StreamExamplePageState extends State<StreamExamplePage> {
   final _viewModel = StreamExampleViewModel();
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("RxDart编写计数器"),
+        title: Text(AppText.t('example.stream')),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              AppText.t('example.counter_hint'),
             ),
             StreamBuilder<int>(
               initialData: 0,
               stream: _viewModel.stream,
               builder: (context, snapshot) {
                 return Text(
-                  snapshot.data.toString(),
+                  AppText.number(snapshot.data),
                   //_viewModel.stream.value.toString(),
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
@@ -45,7 +62,7 @@ class StreamExamplePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _viewModel.increment,
-        tooltip: 'Increment',
+        tooltip: AppText.t('example.increment'),
         child: const Icon(Icons.add),
       ),
     );

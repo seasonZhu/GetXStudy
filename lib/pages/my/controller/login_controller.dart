@@ -1,3 +1,4 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -44,11 +45,12 @@ class LoginController
     await submitAccount(
       operation: () => request.login(username: username, password: password),
       password: password,
-      successMessage: "登录成功",
-      failureMessage: "登录失败",
+      successMessage: 'login.success',
+      failureMessage: 'login.failed',
     );
   }
 
+  /// 消息参数传入翻译键，在异步操作完成时使用当前语言解析。
   Future<void> submitAccount({
     required Future<BaseEntity<AccountInfoEntity>> Function() operation,
     required String password,
@@ -65,7 +67,7 @@ class LoginController
       final response = await operation();
       if (isClosed || account.sessionRevision != revision) return;
       if (!response.isSuccess || response.data == null) {
-        Get.snackbar("", response.errorMsg ?? failureMessage);
+        Get.snackbar("", response.errorMsg ?? AppText.t(failureMessage));
         return;
       }
       final info = response.data!;
@@ -86,10 +88,10 @@ class LoginController
       };
       unawaited(getUserCoinInfo());
       navigator?.pop(result);
-      Get.snackbar("", successMessage, duration: const Duration(seconds: 1));
+      Get.snackbar("", AppText.t(successMessage), duration: const Duration(seconds: 1));
     } catch (error) {
       if (!isClosed && account.sessionRevision == operationRevision) {
-        Get.snackbar("", "$failureMessage：$error");
+        Get.snackbar("", AppText.t('example.error_detail', {'error': '${AppText.t(failureMessage)}: $error'}));
       }
     } finally {
       if (!isClosed) isSubmitting.value = false;

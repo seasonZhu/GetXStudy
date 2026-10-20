@@ -1,4 +1,7 @@
+import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:getx_study/app_service/language_service.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -14,6 +17,9 @@ class DebugLogsPage extends StatelessWidget {
     // Cupertino 应用下局部补齐弹窗、主题、本地化及消息提示。
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      locale: AppText.locale,
+      supportedLocales: LanguageService.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       theme: ThemeData(brightness: MediaQuery.platformBrightnessOf(context)),
       home: _LogViewer(onBack: () => Navigator.of(context).pop()),
     );
@@ -31,7 +37,7 @@ class _LogViewer extends StatefulWidget {
 
 class _LogViewerState extends State<_LogViewer> {
   String _query = '';
-  String _category = '全部';
+  String _category = 'logs.all';
   bool _sharing = false;
 
   String _categoryOf(TalkerData data) {
@@ -39,10 +45,10 @@ class _LogViewerState extends State<_LogViewer> {
       TalkerKey.httpRequest ||
       TalkerKey.httpResponse ||
       TalkerKey.httpError =>
-        '网络',
-      TalkerKey.route => '页面',
-      TalkerKey.error || TalkerKey.exception => '异常',
-      _ => '业务',
+        'logs.network',
+      TalkerKey.route => 'logs.route',
+      TalkerKey.error || TalkerKey.exception => 'logs.error',
+      _ => 'logs.business',
     };
   }
 
@@ -53,13 +59,13 @@ class _LogViewerState extends State<_LogViewer> {
     try {
       await SharePlus.instance.share(ShareParams(
         text: entries.reversed.join('\n\n'),
-        subject: 'GetXStudy 调试日志',
+        subject: AppText.t('logs.subject'),
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
       ));
     } catch (_) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('日志分享失败，请稍后重试')),
+          SnackBar(content: Text(AppText.t('logs.share_failed'))),
         );
       }
     } finally {
@@ -74,23 +80,23 @@ class _LogViewerState extends State<_LogViewer> {
       builder: (context, history) {
         final entries = history.reversed
             .where(
-                (data) => _category == '全部' || _categoryOf(data) == _category)
+                (data) => _category == 'logs.all' || _categoryOf(data) == _category)
             .map((data) => data.generateTextMessage())
             .where((text) => text.toLowerCase().contains(_query))
             .toList();
         return Scaffold(
           appBar: AppBar(
-            title: const Text('调试日志'),
+            title: Text(AppText.t('logs.title')),
             leading: BackButton(onPressed: widget.onBack),
             actions: [
               IconButton(
-                tooltip: '清空日志',
+                tooltip: AppText.t('logs.clear'),
                 icon: const Icon(Icons.delete_outline),
                 onPressed: () => setState(appTalker.cleanHistory),
               ),
               Builder(builder: (context) {
                 return IconButton(
-                  tooltip: '分享当前筛选日志',
+                  tooltip: AppText.t('logs.share'),
                   icon: const Icon(Icons.ios_share_outlined),
                   onPressed: entries.isEmpty || _sharing
                       ? null
@@ -104,8 +110,8 @@ class _LogViewerState extends State<_LogViewer> {
               Padding(
                 padding: const EdgeInsets.all(12),
                 child: TextField(
-                  decoration: const InputDecoration(
-                    labelText: '搜索日志',
+                  decoration: InputDecoration(
+                    labelText: AppText.t('logs.search'),
                     prefixIcon: Icon(Icons.search),
                   ),
                   onChanged: (text) =>
@@ -115,9 +121,9 @@ class _LogViewerState extends State<_LogViewer> {
               Wrap(
                 spacing: 8,
                 children: [
-                  for (final category in ['全部', '业务', '网络', '页面', '异常'])
+                  for (final category in ['logs.all', 'logs.business', 'logs.network', 'logs.route', 'logs.error'])
                     ChoiceChip(
-                      label: Text(category),
+                      label: Text(AppText.t(category)),
                       selected: _category == category,
                       onSelected: (_) => setState(() => _category = category),
                     ),
@@ -125,7 +131,7 @@ class _LogViewerState extends State<_LogViewer> {
               ),
               Expanded(
                 child: entries.isEmpty
-                    ? const Center(child: Text('暂无匹配日志'))
+                    ? Center(child: Text(AppText.t('logs.empty')))
                     : ListView.builder(
                         itemCount: entries.length,
                         itemBuilder: (context, index) => Card(
