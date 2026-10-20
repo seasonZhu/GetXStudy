@@ -17,6 +17,7 @@ class SearchResultPage extends GetView<SearchResultController> {
     String title = Get.arguments;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text(title),
       ),
       child: StatusView<SearchResultController>(

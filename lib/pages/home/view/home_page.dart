@@ -46,6 +46,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: const Text("首页"),
         trailing: IconButton(
           icon: const Icon(CupertinoIcons.search),

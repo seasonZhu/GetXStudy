@@ -14,7 +14,10 @@ class RegisterPage extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return ResignFirstView(
       child: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(middle: Text("注册")),
+        navigationBar: const CupertinoNavigationBar(
+          automaticBackgroundVisibility: false,
+          middle: Text("注册"),
+        ),
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: SingleChildScrollView(

@@ -15,19 +15,37 @@ class MainPage extends GetView<MainController> {
   Widget build(BuildContext context) {
     return GetBuilder<MainController>(
       builder: ((controller) {
-        return CupertinoTabScaffold(
-          tabBuilder: (context, index) {
-            final type = MainTagType.values[index];
-            return CupertinoTabView(builder: (context) {
-              return type.page;
-            });
-          },
-          tabBar: CupertinoTabBar(
-            items: MainTagTypeExt.items,
-            /// 这个地方目前这样写无法感知到变化,于是我使用了全局的GetMaterialController这个库来进行App的重启
-            backgroundColor: ThemeService.find.rxCurrentThemeType.value == ThemeType.dark ? Colors.black : Colors.white,
-            currentIndex: controller.selectedIndex, //默认选中的 index
-            onTap: controller.onItemTapped,
+        final mediaQuery = MediaQuery.of(context);
+        final bottomSpacing =
+            Theme.of(context).platform == TargetPlatform.android ? 20.0 : 0.0;
+        // 同时调整导航和内容避让使用的底部间距，保留系统安全区。
+        return MediaQuery(
+          data: mediaQuery.copyWith(
+            padding: mediaQuery.padding.copyWith(
+              bottom: mediaQuery.padding.bottom + bottomSpacing,
+            ),
+            viewPadding: mediaQuery.viewPadding.copyWith(
+              bottom: mediaQuery.viewPadding.bottom + bottomSpacing,
+            ),
+          ),
+          child: CupertinoTabScaffold(
+            tabBuilder: (context, index) {
+              final type = MainTagType.values[index];
+              return CupertinoTabView(builder: (context) {
+                return type.page;
+              });
+            },
+            tabBar: CupertinoTabBar(
+              items: MainTagTypeExt.items,
+
+              /// 这个地方目前这样写无法感知到变化,于是我使用了全局的GetMaterialController这个库来进行App的重启
+              backgroundColor:
+                  ThemeService.find.rxCurrentThemeType.value == ThemeType.dark
+                      ? Colors.black
+                      : Colors.white,
+              currentIndex: controller.selectedIndex, //默认选中的 index
+              onTap: controller.onItemTapped,
+            ),
           ),
         );
       }),

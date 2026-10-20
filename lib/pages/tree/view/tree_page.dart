@@ -14,6 +14,7 @@ class TreePage extends GetView<TabsController> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text("体系"),
       ),
       child: StatusView<TabsController>(

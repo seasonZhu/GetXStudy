@@ -16,6 +16,7 @@ class LanguageSettingPage extends StatelessWidget {
     final languages = _languages.entries.toList();
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text('language_setting'.tr),
       ),
       child: Material(

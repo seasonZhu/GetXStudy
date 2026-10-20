@@ -20,6 +20,7 @@ class HotKeyPage extends GetView<HotKeyController> {
       onTap: (() => ResignFirstResponder.unfocus()),
       child: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
+          automaticBackgroundVisibility: false,
           middle: SizedBox(
             height: 44,
             child: Padding(

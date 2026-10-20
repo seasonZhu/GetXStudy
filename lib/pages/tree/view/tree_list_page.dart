@@ -20,6 +20,7 @@ class TreeListPage extends StatelessWidget {
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text(model.name.toString()),
       ),
       child: StatusView<TreeListController>(

@@ -169,6 +169,7 @@ class _TabsContentState extends State<_TabsContent>
     final themeService = ThemeService.find;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: MaterialApp(
           debugShowCheckedModeBanner: false,
           home: TabBar(

@@ -15,7 +15,10 @@ class LoginPage extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return ResignFirstView(
       child: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(middle: Text("登录")),
+        navigationBar: const CupertinoNavigationBar(
+          automaticBackgroundVisibility: false,
+          middle: Text("登录"),
+        ),
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: SingleChildScrollView(

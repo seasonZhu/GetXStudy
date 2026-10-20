@@ -16,7 +16,10 @@ class MyCollectPage extends GetView<MyCollectController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(middle: Text("我的收藏")),
+      navigationBar: const CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
+        middle: Text("我的收藏"),
+      ),
       child: StatusView<MyCollectController>(
         contentBuilder: (controller) {
           return SmartRefresher(

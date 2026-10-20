@@ -15,6 +15,7 @@ class MyPage extends GetView<MyController> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text("我的"),
       ),
       child: Obx(
@@ -51,7 +52,7 @@ class MyPage extends GetView<MyController> {
                           height: 66,
                           child: Icon(icon),
                         ),
-                        Text(controller.rxUserInfo.value),
+                        Obx(() => Text(controller.rxUserInfo.value)),
                       ],
                     ),
                   );

@@ -15,6 +15,7 @@ class CoinRankPage extends GetView<CoinRankController> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text("积分排名"),
       ),
       child: Material(

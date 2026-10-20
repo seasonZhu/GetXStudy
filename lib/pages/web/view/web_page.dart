@@ -37,6 +37,7 @@ class WebPage extends GetView<WebController> {
         },
         child: CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
+            automaticBackgroundVisibility: false,
             automaticallyImplyLeading: controller.canGoBack.value,
             leading: CupertinoNavigationBarBackButton(
               onPressed: () async {

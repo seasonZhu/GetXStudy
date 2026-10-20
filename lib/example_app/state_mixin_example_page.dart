@@ -55,6 +55,7 @@ class StateMixinExamplePage extends GetView<StateMixinController> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text("StateMixin例子"),
       ),
       child: Center(

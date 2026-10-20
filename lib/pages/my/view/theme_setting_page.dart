@@ -17,6 +17,7 @@ class ThemeSettingPage extends StatelessWidget {
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text("theme_setting".tr),
       ),
       child: Material(

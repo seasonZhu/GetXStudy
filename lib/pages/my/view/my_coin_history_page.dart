@@ -15,6 +15,7 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text("我的积分"),
       ),
       child: Material(

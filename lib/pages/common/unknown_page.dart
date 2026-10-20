@@ -7,6 +7,7 @@ class UnknownPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         middle: Text("未知页面"),
       ),
       child: Center(
