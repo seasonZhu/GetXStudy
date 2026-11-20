@@ -16,6 +16,7 @@ import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/controller/tabs_controller.dart';
 import 'package:getx_study/pages/tree/repository/tab_list_repository.dart';
 import 'package:getx_study/pages/tree/repository/tabs_repository.dart';
+import 'package:getx_study/pages/tree/view/elastic_tab_indicator.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -162,6 +163,74 @@ void main() {
     expect(list.isClosed, isTrue);
     expect(list.refreshController.headerMode, isNull);
     expect(Get.isRegistered<TabListController>(tag: 'project:1'), isFalse);
+  });
+
+  testWidgets('胶囊跟随双向点击、快速反向及滑页，减少动态效果时恢复普通指示器', (tester) async {
+    final parent = register(TagType.project, [1, 2]);
+    final reduceMotion = ValueNotifier(false);
+    addTearDown(reduceMotion.dispose);
+    await tester.pumpWidget(GetMaterialApp(
+      home: ValueListenableBuilder<bool>(
+        valueListenable: reduceMotion,
+        builder: (context, reduced, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(disableAnimations: reduced),
+          child: child!,
+        ),
+        child: const TabsPage(type: TagType.project),
+      ),
+    ));
+    await settle(tester);
+    parent.data!.last.name = '宽度不同的第二个分类';
+    parent.update();
+    await settle(tester);
+    TabBar bar() => tester.widget<TabBar>(find.byType(TabBar));
+    final controller = bar().controller!;
+    Animation<double> rebound() =>
+        (bar().indicator! as ElasticTabIndicator).rebound;
+    expect(bar().indicator, isA<ElasticTabIndicator>());
+    expect(bar().indicatorAnimation, TabIndicatorAnimation.elastic);
+
+    await tester.tap(find.text('宽度不同的第二个分类'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 75));
+    expect(controller.animation!.value, inExclusiveRange(0, 1));
+    await tester.tap(find.text('分类1'));
+    await settle(tester);
+    expect(controller.animation!.value, 0);
+    expect(rebound().value, 0);
+
+    await tester.tap(find.text('宽度不同的第二个分类'));
+    await settle(tester);
+    expect(controller.animation!.value, 1);
+    expect(rebound().value, 1);
+    var reboundStarts = 0;
+    rebound().addStatusListener((status) {
+      if (status == AnimationStatus.forward) reboundStarts++;
+    });
+    final view = find.byType(TabBarView);
+    final gesture = await tester.startGesture(tester.getCenter(view));
+    await gesture.moveBy(const Offset(60, 0));
+    await gesture.moveBy(const Offset(60, 0));
+    await tester.pump();
+    expect(controller.animation!.value, inExclusiveRange(0, 1));
+    await gesture.cancel();
+    await settle(tester);
+    expect(controller.animation!.value, 1);
+    expect(reboundStarts, 0);
+    await tester.fling(view, const Offset(450, 0), 1200);
+    await settle(tester);
+    expect(controller.animation!.value, 0);
+    expect(reboundStarts, 1);
+    expect(rebound().value, 1);
+    expect(repository.calls.where((call) => call.$2 == '1'), hasLength(1));
+    expect(repository.calls.where((call) => call.$2 == '2'), hasLength(1));
+
+    reduceMotion.value = true;
+    await tester.pump();
+    expect(bar().controller, same(controller));
+    expect(bar().indicator, isA<BoxDecoration>());
+    expect(bar().indicatorAnimation, TabIndicatorAnimation.linear);
+    await close(tester);
   });
 
   testWidgets('分类增删重排按 ID 保留选中项和实例，删除当前分类选第一项', (tester) async {

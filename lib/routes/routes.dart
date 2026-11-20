@@ -22,8 +22,10 @@ import 'package:getx_study/pages/my/view/my_collect_page.dart';
 import 'package:getx_study/pages/my/view/register_page.dart';
 import 'package:getx_study/pages/home/binding/search_result_binding.dart';
 import 'package:getx_study/pages/home/view/search_result_page.dart';
+import 'package:getx_study/pages/my/bindings/tree_layout_setting_binding.dart';
 import 'package:getx_study/pages/my/view/theme_setting_page.dart';
 import 'package:getx_study/pages/my/view/language_setting_page.dart';
+import 'package:getx_study/pages/my/view/tree_layout_setting_page.dart';
 import 'package:getx_study/pages/tree/bindings/tabs_binding.dart';
 import 'package:getx_study/pages/tree/bindings/tree_list_binding.dart';
 import 'package:getx_study/pages/tree/view/tabs_page.dart';
@@ -73,6 +75,7 @@ abstract class Routes {
 
   static const themeSetting = "/themeSetting";
   static const languageSetting = "/languageSetting";
+  static const treeLayoutSetting = "/treeLayoutSetting";
 
   ///页面合集
   static final routePage = [
@@ -208,6 +211,13 @@ abstract class Routes {
     GetPage(
       name: languageSetting,
       page: () => const LanguageSettingPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: treeLayoutSetting,
+      page: () => const TreeLayoutSettingPage(),
+      binding: TreeLayoutSettingBinding(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 300),
     ),

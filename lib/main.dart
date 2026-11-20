@@ -1,4 +1,6 @@
 import 'package:getx_study/app_service/language_service.dart';
+import 'package:getx_study/app_service/tree_layout_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:getx_study/app_service/collection_service.dart';
 import 'package:getx_study/repository/collection_repository.dart';
 import 'dart:io';
@@ -29,6 +31,7 @@ run() async {
   //cherrilog();
 
   await Get.put(LanguageService()).init();
+  Get.put(TreeLayoutService(await SharedPreferences.getInstance()));
 
   /// 初始化资源文件（字符串、颜色、尺寸等）
   await AppResources.init();

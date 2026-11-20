@@ -16,6 +16,7 @@ import 'package:getx_study/pages/common/keep_alive_wrapper.dart';
 import 'package:getx_study/pages/tree/controller/tab_list_controller.dart';
 import 'package:getx_study/pages/tree/controller/tabs_controller.dart';
 import 'package:getx_study/pages/tree/view/tab_list_page.dart';
+import 'package:getx_study/pages/tree/view/elastic_tab_indicator.dart';
 
 class TabsPage extends StatefulWidget {
   final TagType type;
@@ -60,6 +61,41 @@ class _TabsContent extends StatefulWidget {
 class _TabsContentState extends State<_TabsContent>
     with TickerProviderStateMixin {
   TabController? _tabController;
+  late final _rebound = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 220),
+  );
+  int _settledIndex = 0;
+  bool _tapSwitch = false;
+
+  void _handleTabChange() {
+    final controller = _tabController!;
+    if (controller.indexIsChanging) {
+      _tapSwitch = true;
+      if (_rebound.value != 0) _rebound.reset();
+    } else if (_tapSwitch) {
+      _tapSwitch = false;
+      _settleIndicator();
+    }
+  }
+
+  void _settleIndicator() {
+    final controller = _tabController!;
+    if (controller.indexIsChanging || _settledIndex == controller.index) return;
+    _settledIndex = controller.index;
+    if (!MediaQuery.disableAnimationsOf(context)) _rebound.forward(from: 0);
+  }
+
+  bool _handlePageScroll(ScrollNotification notification) {
+    if (notification.depth != 0) return false;
+    if (notification is ScrollUpdateNotification && _rebound.isAnimating) {
+      _rebound.reset();
+    } else if (notification is ScrollEndNotification) {
+      _settleIndicator();
+    }
+    return false;
+  }
+
   List<String> _ids = [];
   final Map<String, Widget> _pages = {};
   final Map<String, TabListController> _ownedControllers = {};
@@ -106,14 +142,18 @@ class _TabsContentState extends State<_TabsContent>
     }
     final selectedIndex = selectedId == null ? -1 : ids.indexOf(selectedId);
     _tabController?.dispose();
+    _rebound.reset();
+    _tapSwitch = false;
+    _settledIndex = selectedIndex < 0 ? 0 : selectedIndex;
     _ids = ids;
     _tabController = ids.isEmpty
         ? null
         : TabController(
             length: ids.length,
-            initialIndex: selectedIndex < 0 ? 0 : selectedIndex,
+            initialIndex: _settledIndex,
             vsync: this,
           );
+    _tabController?.addListener(_handleTabChange);
   }
 
   Widget _segmentedControl() {
@@ -163,12 +203,15 @@ class _TabsContentState extends State<_TabsContent>
       _release(id);
     }
     _tabController?.dispose();
+    _rebound.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_tabController == null) return const SizedBox.shrink();
+    final controller = _tabController;
+    if (controller == null) return const SizedBox.shrink();
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
     final accent = CupertinoDynamicColor.resolve(
       ThemeService.find.indicatorColor,
       context,
@@ -201,10 +244,19 @@ class _TabsContentState extends State<_TabsContent>
             padding: const EdgeInsets.symmetric(horizontal: 6),
             dividerHeight: 0,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicator: BoxDecoration(
-              color: accent.withAlpha(32),
-              borderRadius: BorderRadius.circular(24),
-            ),
+            indicatorAnimation: reduceMotion
+                ? TabIndicatorAnimation.linear
+                : TabIndicatorAnimation.elastic,
+            indicator: reduceMotion
+                ? BoxDecoration(
+                    color: accent.withAlpha(32),
+                    borderRadius: BorderRadius.circular(24),
+                  )
+                : ElasticTabIndicator(
+                    controller: controller,
+                    rebound: _rebound,
+                    color: accent.withAlpha(32),
+                  ),
             indicatorPadding: const EdgeInsets.symmetric(vertical: 5),
             labelPadding: const EdgeInsets.symmetric(horizontal: 12),
             labelStyle:
@@ -218,10 +270,13 @@ class _TabsContentState extends State<_TabsContent>
       ),
       child: Material(
         type: MaterialType.transparency,
-        child: TabBarView(
-          key: ValueKey(_tabController),
-          controller: _tabController,
-          children: _ids.map((id) => _pages[id]!).toList(),
+        child: NotificationListener<ScrollNotification>(
+          onNotification: _handlePageScroll,
+          child: TabBarView(
+            key: ValueKey(_tabController),
+            controller: _tabController,
+            children: _ids.map((id) => _pages[id]!).toList(),
+          ),
         ),
       ),
     );

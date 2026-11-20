@@ -1,6 +1,7 @@
 import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:getx_study/app_service/tree_layout_service.dart';
 
 import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/base/base_request_controller.dart';
@@ -20,10 +21,27 @@ class TabsController
   String get repositoryTag => type.toString();
 
   bool _isLoading = false;
+  TreeLayout _layout = TreeLayout.wrap;
+
+  TreeLayout get layout => _layout;
+
+  TreeLayout get _preferredLayout => Get.isRegistered<TreeLayoutService>()
+      ? Get.find<TreeLayoutService>().selected
+      : TreeLayout.wrap;
+
+  void applyLayoutPreference() {
+    if (type != TagType.tree) return;
+    final preferred = _preferredLayout;
+    if (_layout == preferred) return;
+    if (scroll.hasClients) scroll.jumpTo(0);
+    _layout = preferred;
+    update();
+  }
 
   @override
   void onInit() {
     super.onInit();
+    if (type == TagType.tree) _layout = _preferredLayout;
     aRequest();
   }
 

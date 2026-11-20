@@ -13,6 +13,7 @@ enum My {
   myCollect,
   themeSetting,
   languageSetting,
+  treeLayoutSetting,
   login,
   logout;
 }
@@ -34,6 +35,8 @@ extension Extension on My {
         return AppText.t('my.theme');
       case My.languageSetting:
         return "language_setting".tr;
+      case My.treeLayoutSetting:
+        return AppText.t('tree.layout_setting');
       case My.myGitHub:
         return AppText.t('my.github');
       case My.myJueJin:
@@ -59,6 +62,8 @@ extension Extension on My {
         return Routes.themeSetting;
       case My.languageSetting:
         return Routes.languageSetting;
+      case My.treeLayoutSetting:
+        return Routes.treeLayoutSetting;
       case My.myGitHub:
         return Routes.web;
       case My.myJueJin:
@@ -95,6 +100,8 @@ extension Extension on My {
         return Icons.color_lens;
       case My.languageSetting:
         return Icons.language;
+      case My.treeLayoutSetting:
+        return Icons.view_list_outlined;
       case My.myGitHub:
         return Icons.link;
       case My.myJueJin:
@@ -111,6 +118,7 @@ extension Extension on My {
     My.ranking,
     My.themeSetting,
     My.languageSetting,
+    My.treeLayoutSetting,
     My.login,
   ];
 
@@ -123,6 +131,7 @@ extension Extension on My {
     My.myCollect,
     My.themeSetting,
     My.languageSetting,
+    My.treeLayoutSetting,
     My.logout,
   ];
 }
