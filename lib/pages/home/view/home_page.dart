@@ -61,7 +61,8 @@ class HomePage extends GetView<HomeController> {
             fit: StackFit.expand,
             children: [
               SmartRefresher(
-                enablePullUp: controller.response?.isSuccess == true,
+                enablePullUp: controller.response?.isSuccess == true &&
+                    controller.dataSource.isNotEmpty,
                 header: const RefreshHeader(),
                 footer: const RefreshFooter(),
                 controller: controller.refreshController,

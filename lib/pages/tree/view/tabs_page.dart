@@ -169,7 +169,10 @@ class _TabsContentState extends State<_TabsContent>
   @override
   Widget build(BuildContext context) {
     if (_tabController == null) return const SizedBox.shrink();
-    final themeService = ThemeService.find;
+    final accent = CupertinoDynamicColor.resolve(
+      ThemeService.find.indicatorColor,
+      context,
+    );
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticBackgroundVisibility: false,
@@ -180,25 +183,36 @@ class _TabsContentState extends State<_TabsContent>
           debugShowCheckedModeBanner: false,
           home: TabBar(
             controller: _tabController,
-            tabs: widget.tabs
-                .map((tab) => Tab(
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(tab.name.toString().replaceHtmlElement),
-                      ),
-                    ))
-                .toList(),
+            tabs: [
+              for (final tab in widget.tabs)
+                Tab(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 152),
+                    child: Text(
+                      (tab.name ?? '').replaceHtmlElement,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+            ],
             isScrollable: true,
-            indicatorColor: themeService.indicatorColor,
+            tabAlignment: TabAlignment.start,
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            dividerHeight: 0,
             indicatorSize: TabBarIndicatorSize.tab,
-            labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
-            labelColor: themeService.labelColor,
-            unselectedLabelStyle:
-                const TextStyle(color: Colors.grey, fontSize: 16),
-            unselectedLabelColor: themeService.unselectedLabelColor,
-            labelPadding: EdgeInsets.zero,
-            indicatorPadding: EdgeInsets.zero,
-            indicatorWeight: 2.3,
+            indicator: BoxDecoration(
+              color: accent.withAlpha(32),
+              borderRadius: BorderRadius.circular(24),
+            ),
+            indicatorPadding: const EdgeInsets.symmetric(vertical: 5),
+            labelPadding: const EdgeInsets.symmetric(horizontal: 12),
+            labelStyle:
+                const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            unselectedLabelStyle: const TextStyle(fontSize: 14),
+            labelColor: CupertinoColors.label.resolveFrom(context),
+            unselectedLabelColor:
+                CupertinoColors.secondaryLabel.resolveFrom(context),
           ),
         ),
       ),

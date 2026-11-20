@@ -20,12 +20,12 @@ class TreePage extends GetView<TabsController> {
       ),
       child: StatusView<TabsController>(
         tag: TagType.tree.toString(),
+        keepInactiveViews: false,
         contentBuilder: (controller) {
           return ListView.builder(
             /// 通过ScrollMixin的scoll,可以监听滑动到顶部与滑动到底部,
             /// 这里添加了ScrollMixin的scoll之后,iOS特有的点击顶部回到列表顶部就失效了
             controller: controller.scroll,
-            shrinkWrap: true,
             itemCount: controller.data?.length ?? 0,
             itemBuilder: ((context, index) {
               final model = controller.data?[index];

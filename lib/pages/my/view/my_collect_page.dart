@@ -24,14 +24,13 @@ class MyCollectPage extends GetView<MyCollectController> {
       child: StatusView<MyCollectController>(
         contentBuilder: (controller) {
           return SmartRefresher(
-            enablePullUp: true,
+            enablePullUp: controller.dataSource.isNotEmpty,
             header: const RefreshHeader(),
             footer: const RefreshFooter(),
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
             child: ListView.separated(
-              shrinkWrap: true,
               itemCount: controller.dataSource.length,
               separatorBuilder: (context, index) {
                 return const Divider(indent: 15, endIndent: 15, height: 0.1);

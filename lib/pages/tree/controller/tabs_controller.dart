@@ -6,8 +6,8 @@ import 'package:getx_study/enum/tag_type.dart';
 import 'package:getx_study/base/base_request_controller.dart';
 import 'package:getx_study/entity/tab_entity.dart';
 import 'package:getx_study/enum/response_status.dart';
-import 'package:getx_study/pages/tree/repository/tabs_repository.dart';
 import 'package:getx_study/logger/logger.dart';
+import 'package:getx_study/pages/tree/repository/tabs_repository.dart';
 
 class TabsController
     extends BaseRequestController<TabsRepository, List<TabEntity>>
@@ -43,7 +43,12 @@ class TabsController
         return;
       }
       response = result;
-      data = List.of(result.data ?? []);
+      final categories = result.data ?? const <TabEntity>[];
+      data = type == TagType.tree
+          ? categories
+              .where((category) => category.children?.isNotEmpty == true)
+              .toList()
+          : List.of(categories);
       status = data!.isEmpty
           ? ResponseStatus.successNoData
           : ResponseStatus.successHasContent;
@@ -66,11 +71,11 @@ class TabsController
 
   @override
   Future<void> onTopScroll() async {
-    logger.d("滑到了顶部");
+    logger.d('滑到了顶部');
   }
 
   @override
   Future<void> onEndScroll() async {
-    logger.d("滑到了底部");
+    logger.d('滑到了底部');
   }
 }

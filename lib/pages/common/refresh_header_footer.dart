@@ -23,14 +23,20 @@ class RefreshFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomFooter(
       builder: (context, mode) {
-        return Center(child: mode?.statusBody);
+        return Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+            child: mode?.statusBody(context),
+          ),
+        );
       },
     );
   }
 }
 
 extension on LoadStatus {
-  Widget get statusBody {
+  Widget statusBody(BuildContext context) {
     switch (this) {
       case LoadStatus.idle:
         return Text(AppText.t('refresh.load_more'));
@@ -39,7 +45,29 @@ extension on LoadStatus {
       case LoadStatus.loading:
         return const CupertinoActivityIndicator();
       case LoadStatus.noMore:
-        return Text(AppText.t('refresh.no_more_data'));
+        final line = Container(
+          width: 20,
+          height: 1,
+          color: CupertinoColors.separator.resolveFrom(context),
+        );
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            line,
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                AppText.t('refresh.no_more_data'),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 12,
+                    color: CupertinoColors.secondaryLabel.resolveFrom(context)),
+              ),
+            ),
+            const SizedBox(width: 8),
+            line,
+          ],
+        );
       case LoadStatus.failed:
         return Text(AppText.t('refresh.failed'));
     }

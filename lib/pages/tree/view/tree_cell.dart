@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:lpinyin/lpinyin.dart';
 
 import 'package:getx_study/entity/tab_entity.dart';
-import 'package:getx_study/widgets/animated_button.dart';
 import 'package:getx_study/routes/routes.dart';
 
 class TreeCell extends StatelessWidget {
@@ -18,21 +16,17 @@ class TreeCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedInkWell(
-      onTap: () {},
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(width: 0.33, color: Colors.grey[400]!),
-          ),
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(width: 0.33, color: Colors.grey[400]!),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: _chipTitleItem(model),
-        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: _chipTitleItem(model),
       ),
     );
   }
@@ -50,25 +44,27 @@ class TreeCell extends StatelessWidget {
     );
 
     final wrap = Wrap(
+      spacing: 8,
+      runSpacing: 8,
       children: (model.children ?? [])
           .map(
-            (topic) => Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: GestureDetector(
-                onTap: () {
-                  Get.toNamed(Routes.treeList, arguments: topic);
-                },
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  color: _getChipBgColor(topic.name.toString()),
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    child: Text(
-                      topic.name.toString(),
-                      style: const TextStyle(fontSize: 14.0),
-                    ),
+            (topic) => GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.treeList, arguments: topic);
+              },
+              child: Card(
+                margin: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                elevation: 0,
+                color: _nameToColor(topic.name ?? ''),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: Text(
+                    topic.name.toString(),
+                    style: const TextStyle(fontSize: 14.0),
                   ),
                 ),
               ),
@@ -82,12 +78,6 @@ class TreeCell extends StatelessWidget {
       ..add(space)
       ..add(wrap);
     return list;
-  }
-
-  Color _getChipBgColor(String name) {
-    String pinyin = PinyinHelper.getFirstWordPinyin(name);
-    pinyin = pinyin.substring(0, 1).toUpperCase();
-    return _nameToColor(pinyin);
   }
 
   Color _nameToColor(String name) {

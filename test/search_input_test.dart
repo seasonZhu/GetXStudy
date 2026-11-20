@@ -16,8 +16,17 @@ void main() {
     await tester.tap(find.text('搜索'));
     expect(results, ['Flutter']);
     await tester.enterText(find.byType(CupertinoTextField), '   ');
-    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.testTextInput.receiveAction(TextInputAction.search);
     expect(results, ['Flutter']);
+    await tester.enterText(find.byType(CupertinoTextField), '  Dart  ');
+    await tester.testTextInput.receiveAction(TextInputAction.search);
+    expect(results, ['Flutter', 'Dart']);
+    await tester.enterText(find.byType(CupertinoTextField), '待清除');
+    await tester.pump();
+    await tester.tap(find.byIcon(CupertinoIcons.xmark_circle_fill));
+    await tester.pump();
+    expect(find.text('待清除'), findsNothing);
+    expect(find.text('搜索'), findsNothing);
     await tester.pumpWidget(const SizedBox());
     expect(tester.takeException(), isNull);
   });

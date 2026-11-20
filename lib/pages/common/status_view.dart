@@ -30,6 +30,7 @@ class StatusView<T extends BaseController> extends StatelessWidget {
   final WidgetBuilder<T>? emptyViewBuilder;
 
   final String? tag;
+  final bool keepInactiveViews;
 
   const StatusView(
       {super.key,
@@ -37,7 +38,8 @@ class StatusView<T extends BaseController> extends StatelessWidget {
       this.errorViewBuilder,
       required this.contentBuilder,
       this.emptyViewBuilder,
-      this.tag});
+      this.tag,
+      this.keepInactiveViews = true});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,9 @@ class StatusView<T extends BaseController> extends StatelessWidget {
         //return responseStatusWidgetWithSwitch(controller);
 
         // 默认情况下使用IndexedStack来切换不同的状态视图
-        return responseStatusWidgetWithIndexStack(controller);
+        return keepInactiveViews
+            ? responseStatusWidgetWithIndexStack(controller)
+            : responseStatusWidgetWithSwitch(controller);
       }),
     );
   }

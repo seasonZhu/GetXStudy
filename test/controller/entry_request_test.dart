@@ -136,6 +136,28 @@ void main() {
     });
   }
 
+  test('仅体系过滤空分类并按过滤结果切换空态', () async {
+    final repository = _TabsRepository();
+    Get.put<TabsRepository>(repository, tag: TagType.tree.toString());
+    final controller = Get.put(TabsController(TagType.tree));
+    final missing = TabEntity();
+    final empty = TabEntity()..children = [];
+    final first = TabEntity()..children = [TabEntity()];
+    final second = TabEntity()..children = [TabEntity()];
+    repository.pending.single.complete(
+      BaseEntity(0, '', [missing, second, empty, first]),
+    );
+    await Future<void>.delayed(Duration.zero);
+    expect(controller.data, [second, first]);
+    expect(controller.status, ResponseStatus.successHasContent);
+
+    final reload = controller.aRequest();
+    repository.pending.last.complete(BaseEntity(0, '', [empty, missing]));
+    await reload;
+    expect(controller.data, isEmpty);
+    expect(controller.status, ResponseStatus.successNoData);
+  });
+
   test('分类初始化直接取得有 tag 的 Repository', () async {
     final repository = _TabsRepository();
     Get.put<TabsRepository>(repository, tag: TagType.project.toString());

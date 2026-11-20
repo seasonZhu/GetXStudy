@@ -64,7 +64,7 @@ const zhCn = <String, String>{
   "refresh.pull_complete": "下拉刷新完成",
   "refresh.load_more": "上拉加载",
   "refresh.release_to_load": "松手,加载更多!",
-  "refresh.no_more_data": "没有更多数据了!",
+  "refresh.no_more_data": "我是有底线的",
   "refresh.failed": "加载失败，请上拉重试",
   "page.unknown": "未知页面",
   "page.enter": "点击进入",

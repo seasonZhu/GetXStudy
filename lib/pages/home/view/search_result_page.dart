@@ -23,14 +23,13 @@ class SearchResultPage extends GetView<SearchResultController> {
       child: StatusView<SearchResultController>(
         contentBuilder: (_) {
           return SmartRefresher(
-            enablePullUp: true,
+            enablePullUp: controller.dataSource.isNotEmpty,
             header: const RefreshHeader(),
             footer: const RefreshFooter(),
             controller: controller.refreshController,
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
             child: ListView.builder(
-              shrinkWrap: true,
               itemCount: controller.dataSource.length,
               itemBuilder: (BuildContext context, int index) {
                 final model = controller.dataSource[index];

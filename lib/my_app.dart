@@ -44,7 +44,16 @@ class MyApp extends StatelessWidget {
         },
 
         /// 使用toast
-        builder: EasyLoading.init(),
+        builder: EasyLoading.init(
+          builder: (context, child) => RefreshConfiguration(
+            springDescription: const SpringDescription(
+              mass: 1,
+              stiffness: 180,
+              damping: 27,
+            ),
+            child: child ?? const SizedBox.shrink(),
+          ),
+        ),
         theme: ThemeService.find.themeData, //_getCupertinoCurrentTheme(),
         translations: LocalizedStrings(),
         locale: LanguageService.find.effectiveLocale.value,

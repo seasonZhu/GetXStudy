@@ -1,4 +1,5 @@
 import 'package:getx_study/i18n/app_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -26,116 +27,96 @@ class InfoCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final author = _model.author?.trim();
+    final timestamp = _model.shareDate ?? _model.publishTime;
+    final imageUrl = _model.envelopePic?.trim() ?? '';
+    final metadata = [
+      if (_model.fresh == true) AppText.t('article.fresh'),
+      if ((_model.type ?? 0) != 0) AppText.t('article.pinned'),
+      if (author != null && author.isNotEmpty)
+        author
+      else
+        _model.shareUser?.trim() ?? '',
+      timestamp == null
+          ? (_model.niceShareDate?.trim() ?? '')
+          : AppText.date(timestamp),
+    ].where((value) => value.isNotEmpty).toList();
+    final brightness =
+        CupertinoTheme.of(context).brightness ?? Theme.of(context).brightness;
+    final foreground =
+        brightness == Brightness.dark ? Colors.white : Colors.black87;
+    final secondary =
+        brightness == Brightness.dark ? Colors.white70 : Colors.black54;
+
     return AnimatedInkWell(
-      onTap: () {
-        _cellTapCallback(_model);
-      },
+      onTap: () => _cellTapCallback(_model),
       child: Padding(
-        padding:
-            const EdgeInsets.only(top: 10, left: 15, bottom: 10, right: 15),
-        child: _getRow(),
-      ),
-    );
-  }
-
-  Widget _imageView() {
-    return Visibility(
-      visible: _model.envelopePic.toString().isNotEmpty,
-      child: SizedBox(
-        width: 60,
-        height: 60,
-        child: CachedNetworkImage(
-          fit: BoxFit.fitHeight,
-          imageUrl: _model.envelopePic.toString(),
-          placeholder: (context, url) => Image.asset(
-            Assets.assetsImagesPlaceholder,
-          ),
-          /// placeholder和progressIndicatorBuilder只能选择其中一种,不能同时显示
-          // progressIndicatorBuilder: (context, url, progress) {
-          //   return const Shimmer();
-          // },
-        ),
-      ),
-    );
-  }
-
-  Widget _contentView() {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.only(
-          left: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              _model.title.toString().replaceHtmlElement,
-              style: const TextStyle(fontSize: 15),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(child: Wrap(
-                  children: <Widget>[
-                    Visibility(
-                      visible: (_model.fresh ?? false),
-                      child: Text(
-                        AppText.t('article.fresh'),
-                        style: TextStyle(color: Colors.grey),
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Row(
+                children: [
+                  if (imageUrl.isNotEmpty) ...[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: CachedNetworkImage(
+                        width: 56,
+                        height: 56,
+                        fit: BoxFit.contain,
+                        imageUrl: imageUrl,
+                        placeholder: (context, url) =>
+                            Image.asset(Assets.assetsImagesPlaceholder),
+                        errorWidget: (context, url, error) =>
+                            Image.asset(Assets.assetsImagesPlaceholder),
                       ),
                     ),
-                    Visibility(
-                      visible: (_model.type != null && _model.type != 0),
-                      child: Text(
-                        AppText.t('article.pinned'),
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                    Visibility(
-                      visible: ((_model.author.toString().isNotEmpty) ||
-                          (_model.shareUser.toString().isNotEmpty)),
-                      child: Text(
-                        _model.author ?? _model.shareUser.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ),
+                    const SizedBox(width: 12),
                   ],
-                )),
-              ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          (_model.title ?? '').replaceHtmlElement,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: foreground,
+                          ),
+                        ),
+                        if (metadata.isNotEmpty) ...[
+                          const SizedBox(height: 6),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 4,
+                            children: [
+                              for (final value in metadata)
+                                Text(
+                                  value,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style:
+                                      TextStyle(fontSize: 12, color: secondary),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Row(
-              children: [
-                const Spacer(),
-                Text(
-                  (_model.shareDate ?? _model.publishTime) == null
-                      ? (_model.niceShareDate ?? "")
-                      : AppText.date((_model.shareDate ?? _model.publishTime)!),
-                  style: const TextStyle(color: Colors.grey),
-                ),
-              ],
-            )
+            if (_isNeedBottomLine)
+              Divider(
+                  height: 1, thickness: 0.5, color: secondary.withAlpha(55)),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _getRow() {
-    return Column(
-      children: [
-        Row(
-          children: <Widget>[
-            _imageView(),
-            _contentView(),
-          ],
-        ),
-        _isNeedBottomLine ? const Divider() : Container()
-      ],
     );
   }
 }

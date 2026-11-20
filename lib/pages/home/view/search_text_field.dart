@@ -1,7 +1,5 @@
 import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:getx_study/extension/theme_data_extension.dart';
 import 'package:getx_study/base/resign_first_responder.dart';
 
 class SearchTextField extends StatefulWidget {
@@ -34,25 +32,31 @@ class _SearchTextFieldState extends State<SearchTextField> {
     return Row(
       children: [
         Expanded(
-          child: CupertinoTextField(
-            style: TextStyle(color: Theme.of(context).brightness.color),
+          child: CupertinoSearchTextField(
+            style: TextStyle(
+                color: CupertinoColors.label.resolveFrom(context),
+                fontSize: 15),
+            backgroundColor:
+                CupertinoColors.tertiarySystemFill.resolveFrom(context),
+            borderRadius: BorderRadius.circular(12),
+            suffixIcon: Icon(
+              CupertinoIcons.xmark_circle_fill,
+              semanticLabel: AppText.t('input.clear'),
+            ),
             controller: _controller,
             placeholder: AppText.t('search.hint'),
-            onEditingComplete: _submit,
+            onSubmitted: (_) => _submit(),
           ),
         ),
         ValueListenableBuilder<TextEditingValue>(
           valueListenable: _controller,
           builder: (context, value, child) => Visibility(
             visible: value.text.trim().isNotEmpty,
-            child: InkWell(
-              onTap: _submit,
-              child: Container(
-                padding: const EdgeInsets.only(left: 10),
-                height: 30,
-                alignment: Alignment.center,
-                child: Text(AppText.t('search.action'), style: TextStyle(fontSize: 16)),
-              ),
+            child: CupertinoButton(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              onPressed: _submit,
+              child: Text(AppText.t('search.action'),
+                  style: const TextStyle(fontSize: 14)),
             ),
           ),
         ),
