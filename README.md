@@ -136,7 +136,7 @@ dart format --output=none --set-exit-if-changed lib/本次修改的文件.dart
 
 CI 自动计算变更范围并检查格式：PR 比较 base/head，push 比较 before/当前提交；新分支回退到父提交，无父提交时检查全部已跟踪的 Dart 文件。格式检查不改写源码。
 
-[CI](.github/workflows/ci.yml) 覆盖 `main`、`develop`、`optimize-project`，[Flutter CI](.github/workflows/flutter-ci.yml) 覆盖 `develop_cupertino`。检查包含依赖获取、变更文件格式、格式脚本测试、静态分析和 Flutter 测试。静态分析完整输出诊断，error 必须阻断，已有 warning/info 暂不阻断；格式或测试失败也必须阻断。
+[CI](.github/workflows/ci.yml) 覆盖 `main`、`develop`、`optimize-project`，[Flutter CI](.github/workflows/flutter-ci.yml) 覆盖 `develop_cupertino`。检查包含依赖获取、变更文件格式、格式脚本测试、静态分析和 Flutter 测试。CI 使用与 `pubspec.lock` 一致的包源，并通过 `flutter pub get --enforce-lockfile` 安装已锁定的版本。静态分析完整输出诊断，error 必须阻断，已有 warning/info 暂不阻断；格式或测试失败也必须阻断。
 
 本地检查结果与远端 Actions 结果分别确认；远端是否通过，以对应提交的工作流运行结果为准。
 

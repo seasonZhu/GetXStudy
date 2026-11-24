@@ -9,6 +9,9 @@ on:
 permissions:
   contents: read
 
+env:
+  PUB_HOSTED_URL: https://pub.flutter-io.cn
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -30,7 +33,7 @@ jobs:
           cache: true
 
       - name: Install dependencies
-        run: flutter pub get
+        run: flutter pub get --enforce-lockfile
 
       - name: Check changed Dart formatting
         run: python3 .github/scripts/check_dart_format.py
@@ -39,7 +42,7 @@ jobs:
         run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
 
       - name: Flutter Analyze
-        run: flutter analyze --no-fatal-warnings --no-fatal-infos
+        run: flutter analyze --no-pub --no-fatal-warnings --no-fatal-infos
 
       - name: Run tests
-        run: flutter test
+        run: flutter test --no-pub
