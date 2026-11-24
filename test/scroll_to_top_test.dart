@@ -39,8 +39,12 @@ void main() {
     }
   });
 
-  for (final platform in [TargetPlatform.android, TargetPlatform.iOS]) {
-    testWidgets('$platform 超过一屏后可回顶，尺寸变化时重新判断', (tester) async {
+  for (final (platform, reduceMotion) in [
+    (TargetPlatform.android, false),
+    (TargetPlatform.android, true),
+    (TargetPlatform.iOS, false),
+  ]) {
+    testWidgets('$platform 减少动态效果 $reduceMotion 时回顶按钮符合平台策略', (tester) async {
       final controller = ScrollController();
       final height = ValueNotifier(300.0);
       addTearDown(controller.dispose);
@@ -50,7 +54,7 @@ void main() {
         theme: ThemeData(platform: platform),
         builder: (context, child) => MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            disableAnimations: platform == TargetPlatform.iOS,
+            disableAnimations: reduceMotion,
           ),
           child: child!,
         ),
@@ -79,6 +83,10 @@ void main() {
 
       controller.jumpTo(350);
       await tester.pumpAndSettle();
+      if (platform == TargetPlatform.iOS) {
+        expect(button, findsNothing);
+        return;
+      }
       expect(button, findsOneWidget);
       height.value = 400;
       await tester.pumpAndSettle();
@@ -88,14 +96,14 @@ void main() {
       expect(button, findsOneWidget);
 
       await tester.tap(button);
-      if (platform == TargetPlatform.iOS) {
+      if (reduceMotion) {
         expect(controller.offset, controller.position.minScrollExtent);
       }
       await tester.pumpAndSettle();
       expect(controller.offset, controller.position.minScrollExtent);
       expect(button, findsNothing);
 
-      if (platform == TargetPlatform.android) {
+      if (!reduceMotion) {
         controller.jumpTo(2400);
         await tester.pumpAndSettle();
         await tester.tap(button);

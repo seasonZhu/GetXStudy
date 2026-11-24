@@ -35,7 +35,7 @@ void main() {
           home: const MainPage(),
         ));
         await tester.pumpAndSettle();
-        final extra = platform == TargetPlatform.android ? 8.0 : 0.0;
+        final extra = platform == TargetPlatform.android ? 20.0 : 0.0;
         final bar = tester.getRect(find.byType(CupertinoTabBar));
         expect(bar.height, closeTo(50 + inset + extra, 0.01));
         expect(

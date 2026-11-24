@@ -2,21 +2,50 @@
 
 基于 [WanAndroid 开放 API](https://www.wanandroid.com/) 的 Flutter/GetX 学习项目，通过文章阅读、分类浏览和账户功能，实践 GetX 的状态管理、路由与依赖注入。
 
-当前主要维护 Cupertino 界面，面向 Android 和 iOS。Material 界面截图作为历史展示，不代表两套界面持续同步维护；仓库中的其他平台目录也不代表已经完成适配。
+当前的 Cupertino 版本在 `develop_cupertino` 分支维护，面向 Android 和 iOS。
 
-[功能介绍](#功能介绍) · [快速开始](#快速开始) · [代码组织](#代码组织) · [开发维护](#开发维护) · [项目文档](#项目文档)
+[功能介绍](#功能介绍) · [界面预览](#界面预览) · [快速开始](#快速开始) · [代码组织](#代码组织) · [开发维护](#开发维护) · [项目文档](#项目文档)
 
 ## 功能介绍
 
 | 模块 | 功能 |
 | --- | --- |
-| 首页 | 横幅轮播、置顶文章、文章分页、搜索入口 |
-| 项目 | 项目分类、Tab 切换、分类文章分页 |
-| 公众号 | 公众号切换、文章列表与分页 |
-| 体系 | 知识体系导航、分类文章浏览 |
-| 我的 | 登录、注册、退出、收藏管理、积分排名与积分历史 |
+| 首页 | 横幅轮播、置顶文章、热门搜索与关键词查询 |
+| 项目 | 按项目分类浏览文章，切换分类时保留列表位置 |
+| 公众号 | 按公众号浏览文章，支持点击标签和左右滑动切换 |
+| 体系 | 按知识分类浏览文章，可在「我的」切换换行与分组列表布局 |
+| 我的 | 登录、注册、退出、收藏管理、积分排名与积分明细 |
 
-列表支持下拉刷新和分页加载；搜索支持热门关键词及提交关键词查询。文章通过 WebView 阅读，并提供收藏、取消收藏和分享操作。应用内容依赖 WanAndroid 服务及网络可用性。
+- 文章列表支持下拉刷新和分页。WebView 阅读页支持收藏、取消收藏及分享。Android 上，长列表和网页滚过一屏后会显示回顶按钮。
+- 「我的」提供浅色、深色、蓝色、绿色和红色主题，支持简体中文、英语、法语和跟随系统语言。
+- 调试日志可在应用内查看、搜索和分享，便于排查请求和页面问题。
+
+## 界面预览
+
+新版截图依次展示首页、项目、公众号、体系和我的。
+
+### Cupertino 界面
+
+<table>
+  <tr>
+    <td><img src="ScreenShots/IMG_3978.PNG" alt="首页" width="200"/></td>
+    <td><img src="ScreenShots/IMG_3979.PNG" alt="项目" width="200"/></td>
+    <td><img src="ScreenShots/IMG_3980.PNG" alt="公众号" width="200"/></td>
+    <td><img src="ScreenShots/IMG_3981.PNG" alt="体系" width="200"/></td>
+    <td><img src="ScreenShots/IMG_3982.PNG" alt="我的" width="200"/></td>
+  </tr>
+</table>
+
+### Material 历史界面
+
+<table>
+  <tr>
+    <td><img src="ScreenShots/5.PNG" alt="首页" width="200"/></td>
+    <td><img src="ScreenShots/6.PNG" alt="项目" width="200"/></td>
+    <td><img src="ScreenShots/7.PNG" alt="体系" width="200"/></td>
+    <td><img src="ScreenShots/8.PNG" alt="我的" width="200"/></td>
+  </tr>
+</table>
 
 ## 快速开始
 
@@ -24,7 +53,8 @@
 
 - 当前验证环境为 **Flutter 3.47.0 stable**，与根目录 [.flutter-version](.flutter-version) 及 CI 配置一致；Dart 使用该 Flutter SDK 自带版本。
 - [pubspec.yaml](pubspec.yaml) 中的 Dart SDK 约束为 `^3.0.0`，这是声明的约束，不表示所有对应 Flutter 版本均已验证。
-- Android 开发需准备 Android SDK；iOS 开发需使用 macOS、Xcode 和 CocoaPods，真机运行还需配置签名。
+- Android 构建使用 JDK 17、Android SDK 和 NDK `28.2.13676358`。
+- iOS 构建使用 macOS、Xcode 和 CocoaPods，真机运行需配置签名。
 
 先确认本地 SDK 版本及工具链状态：
 
@@ -36,7 +66,7 @@ flutter doctor
 ### 获取与运行
 
 ```bash
-git clone https://github.com/seasonZhu/GetXStudy.git
+git clone --branch develop_cupertino https://github.com/seasonZhu/GetXStudy.git
 cd GetXStudy
 flutter pub get
 flutter devices
@@ -128,36 +158,10 @@ dart run build_runner build
 | [架构说明](docs/ARCHITECTURE.md) | 代码组织与设计说明 |
 | [API 文档](docs/API_DOCUMENTATION.md) | 请求接口和数据处理说明 |
 | [资源常量指南](docs/CONSTANTS_MANAGEMENT.md) | 字符串、颜色及尺寸资源 |
+| [国际化](docs/internationalization.md) | 应用语言、翻译与格式化 |
+| [调试日志](docs/debug-logging.md) | 日志查看、筛选与分享 |
 
 详细文档包含历史设计和阶段性优化记录，部分描述可能与当前实现有差异；当前行为以源码、依赖和工作流配置为准。
-
-## 📸 界面预览
-
-以下为仓库保留的历史截图，仅供界面参考，未反映当前全部功能（例如公众号入口）。
-
-### Cupertino 历史界面
-
-<table>
-  <tr>
-    <td><img src="ScreenShots/1.PNG" alt="首页" width="200"/></td>
-    <td><img src="ScreenShots/2.PNG" alt="项目" width="200"/></td>
-    <td><img src="ScreenShots/3.PNG" alt="体系" width="200"/></td>
-    <td><img src="ScreenShots/4.PNG" alt="我的" width="200"/></td>
-  </tr>
-</table>
-
-### Material 历史界面（长期未更新）
-
-<table>
-  <tr>
-    <td><img src="ScreenShots/5.PNG" alt="首页" width="200"/></td>
-    <td><img src="ScreenShots/6.PNG" alt="项目" width="200"/></td>
-    <td><img src="ScreenShots/7.PNG" alt="体系" width="200"/></td>
-    <td><img src="ScreenShots/8.PNG" alt="我的" width="200"/></td>
-  </tr>
-</table>
-
----
 
 ## 💡 GetX 使用心得
 

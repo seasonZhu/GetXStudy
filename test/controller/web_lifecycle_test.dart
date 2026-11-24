@@ -73,7 +73,7 @@ void main() {
     addTearDown(reduceMotion.dispose);
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(GetMaterialApp(
-      theme: ThemeData(platform: TargetPlatform.iOS),
+      theme: ThemeData(platform: TargetPlatform.android),
       builder: (context, child) => ValueListenableBuilder<bool>(
         valueListenable: reduceMotion,
         builder: (context, reduced, _) => MediaQuery(

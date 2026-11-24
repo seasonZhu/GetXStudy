@@ -54,7 +54,7 @@ dependencies:
   native_dio_adapter: ^1.5.1
 
   # 代码生成相关
-  retrofit: ^4.2.0
+  retrofit: ^4.9.2
   json_annotation: ^4.9.0
 
 dev_dependencies:
