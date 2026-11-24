@@ -1,5 +1,6 @@
 // 应用自有文案；参数名须与其他语言保持一致。
 const enUs = <String, String>{
+  "common.scroll_to_top": "Back to top",
   "today": "Today",
   "profile": "Settings",
   "theme_setting": "Theme settings",

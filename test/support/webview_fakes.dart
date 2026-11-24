@@ -37,6 +37,26 @@ class FakeWebViewController extends PlatformWebViewController {
   int reloadCalls = 0;
   int backgrounds = 0;
 
+  void Function(ScrollPositionChange)? onScroll;
+  final scripts = <String>[];
+  bool beyondViewport = false;
+  Completer<Object>? scrollSampleGate;
+
+  @override
+  Future<void> setOnScrollPositionChange(
+    void Function(ScrollPositionChange)? callback,
+  ) async {
+    onScroll = callback;
+  }
+
+  @override
+  Future<Object> runJavaScriptReturningResult(String script) async {
+    return scrollSampleGate?.future ?? beyondViewport;
+  }
+
+  @override
+  Future<void> runJavaScript(String script) async => scripts.add(script);
+
   @override
   Future<void> setJavaScriptMode(JavaScriptMode mode) async {
     if (owner.failSetup) throw StateError('初始化失败');

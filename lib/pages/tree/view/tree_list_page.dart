@@ -1,3 +1,4 @@
+import 'package:getx_study/pages/common/scroll_to_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -25,7 +26,8 @@ class TreeListPage extends StatelessWidget {
       ),
       child: StatusView<TreeListController>(
         contentBuilder: (controller) {
-          return SmartRefresher(
+          return ScrollToTop(
+              child: SmartRefresher(
             enablePullUp: controller.dataSource.isNotEmpty,
             header: const RefreshHeader(),
             footer: const RefreshFooter(),
@@ -42,7 +44,7 @@ class TreeListPage extends StatelessWidget {
                 );
               },
             ),
-          );
+          ));
         },
       ),
     );

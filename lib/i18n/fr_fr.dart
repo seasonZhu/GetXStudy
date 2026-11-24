@@ -1,5 +1,6 @@
 // 应用自有文案；参数名须与其他语言保持一致。
 const frFr = <String, String>{
+  "common.scroll_to_top": "Retour en haut",
   "today": "Aujourd’hui",
   "profile": "Paramètres",
   "theme_setting": "Paramètres du thème",

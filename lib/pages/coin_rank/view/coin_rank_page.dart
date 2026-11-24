@@ -1,3 +1,4 @@
+import 'package:getx_study/pages/common/scroll_to_top.dart';
 import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,8 @@ class CoinRankPage extends GetView<CoinRankController> {
         type: MaterialType.transparency,
         child: StatusView<CoinRankController>(
           contentBuilder: (controller) {
-            return SmartRefresher(
+            return ScrollToTop(
+                child: SmartRefresher(
               enablePullUp: controller.dataSource.isNotEmpty,
               header: const RefreshHeader(),
               footer: const RefreshFooter(),
@@ -38,12 +40,13 @@ class CoinRankPage extends GetView<CoinRankController> {
                   return ListTile(
                     leading: Text(AppText.number(model.rank)),
                     title: Text(model.username.toString()),
-                    trailing: Text(AppText.t('coin.points', {'points': AppText.number(model.level)})),
+                    trailing: Text(AppText.t('coin.points',
+                        {'points': AppText.number(model.level)})),
                     onTap: () => logger.d(model.username),
                   );
                 },
               ),
-            );
+            ));
           },
         ),
       ),

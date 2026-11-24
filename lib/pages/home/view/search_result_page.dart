@@ -1,3 +1,4 @@
+import 'package:getx_study/pages/common/scroll_to_top.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:getx_study/pages/common/info_cell.dart';
@@ -22,7 +23,8 @@ class SearchResultPage extends GetView<SearchResultController> {
       ),
       child: StatusView<SearchResultController>(
         contentBuilder: (_) {
-          return SmartRefresher(
+          return ScrollToTop(
+              child: SmartRefresher(
             enablePullUp: controller.dataSource.isNotEmpty,
             header: const RefreshHeader(),
             footer: const RefreshFooter(),
@@ -39,7 +41,7 @@ class SearchResultPage extends GetView<SearchResultController> {
                 );
               },
             ),
-          );
+          ));
         },
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:getx_study/pages/common/scroll_to_top.dart';
 import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class HomePage extends GetView<HomeController> {
         if (await canLaunchUrl(url)) {
           launchUrl(url, mode: LaunchMode.externalApplication);
         } else {
-          Get.snackbar("", AppText.t('launcher.qq'), duration: const Duration(seconds: 1));
+          Get.snackbar("", AppText.t('launcher.qq'),
+              duration: const Duration(seconds: 1));
         }
       }
     } else {
@@ -57,7 +59,8 @@ class HomePage extends GetView<HomeController> {
       ),
       child: GetBuilder<HomeController>(
         builder: (controller) {
-          return Stack(
+          return ScrollToTop(
+              child: Stack(
             fit: StackFit.expand,
             children: [
               SmartRefresher(
@@ -132,7 +135,7 @@ class HomePage extends GetView<HomeController> {
                   },
                 ),
             ],
-          );
+          ));
         },
       ),
     );

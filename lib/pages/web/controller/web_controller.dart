@@ -27,6 +27,12 @@ class WebController extends GetxController {
   final canGoBack = false.obs;
   Timer? _dismissTimer;
   int _historyQuery = 0;
+  final showScrollToTop = false.obs;
+  Timer? _scrollSampleTimer;
+  bool _samplingScroll = false;
+  bool _scrollSampleRequested = false;
+  bool _documentReady = false;
+  int _documentRevision = 0;
   bool _closing = false;
   bool _backInProgress = false;
   bool _exiting = false;
@@ -55,6 +61,10 @@ class WebController extends GetxController {
       await webViewController.setBackgroundColor(const Color(0x00000000));
       if (!_active) return;
       await webViewController.setNavigationDelegate(_navigationDelegate());
+      if (!_active) return;
+      await webViewController.setOnScrollPositionChange((_) {
+        scheduleScrollSample();
+      });
       if (!_active) return;
       final platform = webViewController.platform;
       if (platform is AndroidWebViewController) {
@@ -91,10 +101,15 @@ class WebController extends GetxController {
         onPageStarted: (url) {
           if (!_active) return;
           _historyQuery++;
+          _documentRevision++;
+          _documentReady = false;
+          showScrollToTop.value = false;
           logger.d('Page started loading: $url');
         },
         onPageFinished: (url) {
           if (!_active) return;
+          _documentReady = true;
+          scheduleScrollSample();
           logger.d('Page finished loading: $url');
           EasyLoading.dismiss();
           unawaited(_readCanGoBack());
@@ -117,6 +132,51 @@ class WebController extends GetxController {
         },
       );
 
+  void scheduleScrollSample() {
+    if (!_active || !_documentReady) return;
+    _scrollSampleRequested = true;
+    if (_samplingScroll || _scrollSampleTimer != null) return;
+    _scrollSampleTimer = Timer(const Duration(milliseconds: 50), () {
+      _scrollSampleTimer = null;
+      unawaited(_sampleScroll());
+    });
+  }
+
+  Future<void> _sampleScroll() async {
+    if (!_active || !_documentReady) return;
+    _scrollSampleRequested = false;
+    _samplingScroll = true;
+    final revision = _documentRevision;
+    try {
+      final result = await webViewController.runJavaScriptReturningResult(
+        'window.scrollY > (window.visualViewport?.height ?? window.innerHeight)',
+      );
+      if (_active && _documentReady && revision == _documentRevision) {
+        showScrollToTop.value = result == true || result == 'true';
+      }
+    } catch (error) {
+      if (_active && revision == _documentRevision) {
+        showScrollToTop.value = false;
+      }
+    } finally {
+      _samplingScroll = false;
+      if (_scrollSampleRequested) scheduleScrollSample();
+    }
+  }
+
+  Future<void> scrollToTop({required bool animated}) async {
+    if (!_active || !_documentReady) return;
+    final behavior = animated ? 'smooth' : 'instant';
+    try {
+      await webViewController.runJavaScript(
+        'window.scrollTo({top: 0, behavior: "$behavior"})',
+      );
+      scheduleScrollSample();
+    } catch (error) {
+      if (_active) logger.e(error, null, '网页回顶失败');
+    }
+  }
+
   Future<bool?> _readCanGoBack() async {
     if (!_active) return null;
     final query = ++_historyQuery;
@@ -132,7 +192,8 @@ class WebController extends GetxController {
   }
 
   Future<void> onRefresh() async {
-    if (!_active || initializationStatus.value != WebInitializationStatus.ready) {
+    if (!_active ||
+        initializationStatus.value != WebInitializationStatus.ready) {
       return;
     }
     try {
@@ -156,7 +217,9 @@ class WebController extends GetxController {
       Get.snackbar(
           '',
           result.type == CollectionResultType.success
-              ? (target ? AppText.t('collect.collect_success') : AppText.t('collect.cancel_success'))
+              ? (target
+                  ? AppText.t('collect.collect_success')
+                  : AppText.t('collect.cancel_success'))
               : (result.message ?? AppText.t('common.operation_failed')),
           duration: const Duration(seconds: 1));
     }
@@ -203,6 +266,7 @@ class WebController extends GetxController {
   @override
   void onClose() {
     _closing = true;
+    _scrollSampleTimer?.cancel();
     _historyQuery++;
     _dismissTimer?.cancel();
     EasyLoading.dismiss();

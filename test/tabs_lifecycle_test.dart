@@ -165,6 +165,41 @@ void main() {
     expect(Get.isRegistered<TabListController>(tag: 'project:1'), isFalse);
   });
 
+  testWidgets('回顶按钮只跟随当前分类，回顶不发起列表请求', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(400, 480));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    register(TagType.project, [1, 2]);
+    await tester.pumpWidget(GetMaterialApp(
+      theme: ThemeData(platform: TargetPlatform.android),
+      home: const TabsPage(type: TagType.project),
+    ));
+    await settle(tester);
+    final first = Get.find<TabListController>(tag: 'project:1')
+        .refreshController
+        .position!;
+    first.jumpTo(first.viewportDimension + 20);
+    await settle(tester);
+    final button = find.byType(FloatingActionButton);
+    expect(button, findsOneWidget);
+
+    await tester.tap(find.text('分类2'));
+    await settle(tester);
+    expect(button, findsNothing);
+    final savedOffset = first.pixels;
+    await tester.tap(find.text('分类1'));
+    await settle(tester);
+    expect(button, findsOneWidget);
+    expect(first.pixels, savedOffset);
+
+    final requests = repository.calls.length;
+    await tester.tap(button);
+    await settle(tester);
+    expect(first.pixels, first.minScrollExtent);
+    expect(button, findsNothing);
+    expect(repository.calls, hasLength(requests));
+    await close(tester);
+  });
+
   testWidgets('胶囊跟随双向点击、快速反向及滑页，减少动态效果时恢复普通指示器', (tester) async {
     final parent = register(TagType.project, [1, 2]);
     final reduceMotion = ValueNotifier(false);

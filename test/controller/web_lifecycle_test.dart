@@ -65,6 +65,63 @@ void main() {
     return web!;
   }
 
+  testWidgets('网页根据视口显示回顶，并丢弃导航前的采样', (tester) async {
+    final controller = await initialize();
+    final native = platform.controllers.single;
+    final navigation = platform.delegate!;
+    final reduceMotion = ValueNotifier(false);
+    addTearDown(reduceMotion.dispose);
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(GetMaterialApp(
+      theme: ThemeData(platform: TargetPlatform.iOS),
+      builder: (context, child) => ValueListenableBuilder<bool>(
+        valueListenable: reduceMotion,
+        builder: (context, reduced, _) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(disableAnimations: reduced),
+          child: child!,
+        ),
+      ),
+      home: WebPage(),
+    ));
+    final button = find.byType(FloatingActionButton);
+    navigation.onFinished(article().link!);
+    await tester.pump(const Duration(milliseconds: 60));
+    expect(button, findsNothing);
+
+    native.beyondViewport = true;
+    native.onScroll!(ScrollPositionChange(0, 600));
+    await tester.pump(const Duration(milliseconds: 60));
+    await tester.pump();
+    expect(button, findsOneWidget);
+    await tester.tap(button);
+    expect(native.scripts.last, contains('"smooth"'));
+    reduceMotion.value = true;
+    await tester.pump();
+    await tester.tap(button);
+    expect(native.scripts.last, contains('"instant"'));
+    await tester.pump(const Duration(milliseconds: 60));
+    await tester.pump();
+    expect(button, findsOneWidget);
+
+    native.beyondViewport = false;
+    await tester.binding.setSurfaceSize(const Size(550, 700));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 60));
+    await tester.pump();
+    expect(button, findsNothing);
+
+    final oldSample = Completer<Object>();
+    native.scrollSampleGate = oldSample;
+    native.onScroll!(ScrollPositionChange(0, 600));
+    await tester.pump(const Duration(milliseconds: 60));
+    navigation.onStarted('https://example.com/next');
+    oldSample.complete(true);
+    native.scrollSampleGate = null;
+    await tester.pump();
+    expect(controller.showScrollToTop.value, isFalse);
+    await tester.pumpWidget(const SizedBox());
+  });
+
   testWidgets('页面重建、主题和收藏变化复用同一 WebView，仅加载一次', (tester) async {
     final controller = await initialize();
     final rebuild = ValueNotifier(0);

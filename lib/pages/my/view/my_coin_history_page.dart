@@ -1,3 +1,4 @@
+import 'package:getx_study/pages/common/scroll_to_top.dart';
 import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,8 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
         type: MaterialType.transparency,
         child: StatusView<MyCoinHistoryController>(
           contentBuilder: (controller) {
-            return SmartRefresher(
+            return ScrollToTop(
+                child: SmartRefresher(
               enablePullUp: controller.dataSource.isNotEmpty,
               header: const RefreshHeader(),
               footer: const RefreshFooter(),
@@ -43,7 +45,7 @@ class MyCoinHistoryPage extends GetView<MyCoinHistoryController> {
                   );
                 },
               ),
-            );
+            ));
           },
         ),
       ),

@@ -1,5 +1,6 @@
 // 应用自有文案；参数名须与其他语言保持一致。
 const zhCn = <String, String>{
+  "common.scroll_to_top": "回到顶部",
   "today": "今天",
   "profile": "设置",
   "theme_setting": "主题设置",

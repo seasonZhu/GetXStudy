@@ -1,3 +1,4 @@
+import 'package:getx_study/pages/common/scroll_to_top.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:getx_study/app_service/language_service.dart';
 import 'package:getx_study/i18n/app_text.dart';
@@ -66,11 +67,13 @@ class _TabsContentState extends State<_TabsContent>
     duration: const Duration(milliseconds: 220),
   );
   int _settledIndex = 0;
+  final _visibleListId = ValueNotifier<String?>(null);
   bool _tapSwitch = false;
 
   void _handleTabChange() {
     final controller = _tabController!;
     if (controller.indexIsChanging) {
+      _visibleListId.value = null;
       _tapSwitch = true;
       if (_rebound.value != 0) _rebound.reset();
     } else if (_tapSwitch) {
@@ -81,13 +84,19 @@ class _TabsContentState extends State<_TabsContent>
 
   void _settleIndicator() {
     final controller = _tabController!;
-    if (controller.indexIsChanging || _settledIndex == controller.index) return;
+    if (controller.indexIsChanging) return;
+    _visibleListId.value = _ids[controller.index];
+    if (_settledIndex == controller.index) return;
     _settledIndex = controller.index;
     if (!MediaQuery.disableAnimationsOf(context)) _rebound.forward(from: 0);
   }
 
   bool _handlePageScroll(ScrollNotification notification) {
     if (notification.depth != 0) return false;
+    if (notification is ScrollStartNotification ||
+        notification is ScrollUpdateNotification) {
+      _visibleListId.value = null;
+    }
     if (notification is ScrollUpdateNotification && _rebound.isAnimating) {
       _rebound.reset();
     } else if (notification is ScrollEndNotification) {
@@ -137,7 +146,14 @@ class _TabsContentState extends State<_TabsContent>
       }
       _pages[id] = KeepAliveWrapper(
         key: GlobalObjectKey(Get.find<TabListController>(tag: tag)),
-        child: TabListPage(controllerTag: tag),
+        child: ValueListenableBuilder<String?>(
+          valueListenable: _visibleListId,
+          builder: (context, visibleId, child) => ScrollToTop(
+            enabled: visibleId == id,
+            child: child!,
+          ),
+          child: TabListPage(controllerTag: tag),
+        ),
       );
     }
     final selectedIndex = selectedId == null ? -1 : ids.indexOf(selectedId);
@@ -146,6 +162,7 @@ class _TabsContentState extends State<_TabsContent>
     _tapSwitch = false;
     _settledIndex = selectedIndex < 0 ? 0 : selectedIndex;
     _ids = ids;
+    _visibleListId.value = ids.isEmpty ? null : ids[_settledIndex];
     _tabController = ids.isEmpty
         ? null
         : TabController(
@@ -204,6 +221,7 @@ class _TabsContentState extends State<_TabsContent>
     }
     _tabController?.dispose();
     _rebound.dispose();
+    _visibleListId.dispose();
     super.dispose();
   }
 

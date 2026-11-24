@@ -1,3 +1,4 @@
+import 'package:getx_study/pages/common/scroll_to_top.dart';
 import 'package:getx_study/i18n/app_text.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -21,7 +22,8 @@ class TreePage extends GetView<TabsController> {
         automaticBackgroundVisibility: false,
         middle: Text(AppText.t('tree.title')),
       ),
-      child: StatusView<TabsController>(
+      child: ScrollToTop(
+          child: StatusView<TabsController>(
         tag: TagType.tree.toString(),
         keepInactiveViews: false,
         contentBuilder: (controller) {
@@ -37,7 +39,7 @@ class TreePage extends GetView<TabsController> {
             itemBuilder: (context, index) => TreeCell(categories[index]),
           );
         },
-      ),
+      )),
     );
   }
 

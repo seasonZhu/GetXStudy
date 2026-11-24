@@ -1,3 +1,4 @@
+import 'package:getx_study/pages/common/scroll_to_top.dart';
 import 'package:getx_study/i18n/app_text.dart';
 import 'package:getx_study/pages/web/view/web_collection_button.dart';
 import 'package:flutter/foundation.dart';
@@ -61,7 +62,8 @@ class WebPage extends GetView<WebController> {
                           await SharePlus.instance.share(
                             ShareParams(
                               title: webLoadInfo.title,
-                              text: '${webLoadInfo.title.toString().replaceHtmlElement}\n${webLoadInfo.link}',
+                              text:
+                                  '${webLoadInfo.title.toString().replaceHtmlElement}\n${webLoadInfo.link}',
                             ),
                           );
                         } catch (error, stackTrace) {
@@ -95,7 +97,7 @@ class WebPage extends GetView<WebController> {
                     ],
                   ),
                 ),
-              WebInitializationStatus.ready => WebViewWidget(
+              WebInitializationStatus.ready => _withScrollToTop(WebViewWidget(
                   controller: controller.webViewController,
                   gestureRecognizers: {
                     Factory<OneSequenceGestureRecognizer>(
@@ -111,12 +113,32 @@ class WebPage extends GetView<WebController> {
                         },
                     ),
                   },
-                ),
+                )),
             },
           ),
         ),
       ),
     );
+  }
+
+  Widget _withScrollToTop(Widget webView) {
+    return LayoutBuilder(builder: (context, constraints) {
+      if (!ScrollToTop.supports(context)) return webView;
+      controller.scheduleScrollSample();
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          webView,
+          Obx(() => controller.showScrollToTop.value
+              ? ScrollToTopButton(
+                  onPressed: () => controller.scrollToTop(
+                    animated: !MediaQuery.disableAnimationsOf(context),
+                  ),
+                )
+              : const SizedBox.shrink()),
+        ],
+      );
+    });
   }
 
   Widget _title(IWebLoadInfo webLoadInfo) {
