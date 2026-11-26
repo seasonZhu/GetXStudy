@@ -11,6 +11,7 @@ import 'package:getx_study/pages/launch/splash_page.dart';
 import 'package:getx_study/pages/launch/welcome_page.dart';
 import 'package:getx_study/pages/main/bindings/main_binding.dart';
 import 'package:getx_study/pages/main/view/main_page.dart';
+import 'package:getx_study/pages/my/view/about_page.dart';
 import 'package:getx_study/pages/my/binding/login_binding.dart';
 import 'package:getx_study/pages/my/binding/my_binding.dart';
 import 'package:getx_study/pages/my/binding/my_coin_history_binding.dart';
@@ -75,6 +76,7 @@ abstract class Routes {
 
   static const themeSetting = "/themeSetting";
   static const languageSetting = "/languageSetting";
+  static const about = "/about";
   static const treeLayoutSetting = "/treeLayoutSetting";
 
   ///页面合集
@@ -218,6 +220,12 @@ abstract class Routes {
       name: treeLayoutSetting,
       page: () => const TreeLayoutSettingPage(),
       binding: TreeLayoutSettingBinding(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: about,
+      page: () => const AboutPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 300),
     ),

@@ -19,6 +19,16 @@ void main() {
         home: Material(child: MyPage()),
       ));
       await tester.pumpAndSettle();
+      final about = find.text('关于');
+      await tester.scrollUntilVisible(
+        about,
+        160,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(
+        tester.getTopLeft(about).dy,
+        greaterThan(tester.getTopLeft(find.text('体系布局')).dy),
+      );
       await tester.scrollUntilVisible(
         find.text('调试日志'),
         200,

@@ -14,6 +14,7 @@ enum My {
   themeSetting,
   languageSetting,
   treeLayoutSetting,
+  about,
   login,
   logout;
 }
@@ -37,6 +38,8 @@ extension Extension on My {
         return "language_setting".tr;
       case My.treeLayoutSetting:
         return AppText.t('tree.layout_setting');
+      case My.about:
+        return AppText.t('my.about');
       case My.myGitHub:
         return AppText.t('my.github');
       case My.myJueJin:
@@ -64,6 +67,8 @@ extension Extension on My {
         return Routes.languageSetting;
       case My.treeLayoutSetting:
         return Routes.treeLayoutSetting;
+      case My.about:
+        return Routes.about;
       case My.myGitHub:
         return Routes.web;
       case My.myJueJin:
@@ -78,7 +83,8 @@ extension Extension on My {
       return WebLoadInfoEntity(
           AppText.t('my.juejin'), "https://juejin.cn/user/4353721778057997");
     } else if (this == My.myGitHub) {
-      return WebLoadInfoEntity(AppText.t('my.github'), "https://github.com/seasonZhu");
+      return WebLoadInfoEntity(
+          AppText.t('my.github'), "https://github.com/seasonZhu");
     } else {
       return null;
     }
@@ -102,6 +108,8 @@ extension Extension on My {
         return Icons.language;
       case My.treeLayoutSetting:
         return Icons.view_list_outlined;
+      case My.about:
+        return Icons.info_outline;
       case My.myGitHub:
         return Icons.link;
       case My.myJueJin:
@@ -113,25 +121,23 @@ extension Extension on My {
 
   static final visitorDataSource = [
     My.header,
-    My.myGitHub,
-    My.myJueJin,
     My.ranking,
     My.themeSetting,
     My.languageSetting,
     My.treeLayoutSetting,
+    My.about,
     My.login,
   ];
 
   static final userDataSource = [
     My.header,
-    My.myGitHub,
-    My.myJueJin,
     My.ranking,
     My.myCoin,
     My.myCollect,
     My.themeSetting,
     My.languageSetting,
     My.treeLayoutSetting,
+    My.about,
     My.logout,
   ];
 }

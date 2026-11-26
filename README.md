@@ -140,6 +140,14 @@ CI 自动计算变更范围并检查格式：PR 比较 base/head，push 比较 b
 
 本地检查结果与远端 Actions 结果分别确认；远端是否通过，以对应提交的工作流运行结果为准。
 
+### Android 安装包
+
+在 GitHub Actions 手动运行 [Android Build](.github/workflows/android-build.yml)，成功后从 `GetXStudy-Android` 产物下载 `arm64-v8a`（64 位）和 `armeabi-v7a`（32 位）签名 APK，以及 `SHA256SUMS.txt`。产物保留 30 天。
+
+仓库维护者需在 **Settings → Secrets and variables → Actions** 配置 GetXStudy 发布密钥对应的 `ANDROID_KEYSTORE_BASE64`、`ANDROID_KEYSTORE_PASSWORD`、`ANDROID_KEY_PASSWORD` 和 `ANDROID_KEY_ALIAS`。已有发布密钥时继续使用同一把密钥，保证后续可覆盖安装。
+
+推送与 `pubspec.yaml` 版本匹配的标签后，Actions 还会创建 Release 草稿并附上同一批文件。例如版本 `1.0.0+1` 对应标签 `v1.0.0`。
+
 ### 按需生成代码
 
 修改 Retrofit 接口或使用 `json_serializable` 的模型后，可执行：

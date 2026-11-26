@@ -1,62 +1,147 @@
-# .github/workflows/android-build.yml
 name: Android Build
 
 on:
   push:
     tags:
-      - 'v*'  # 只有打tag时才触发打包
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PUB_HOSTED_URL: https://pub.flutter-io.cn
+
+concurrency:
+  group: android-release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build-android:
-    runs-on: ubuntu-latest
-
+  build:
+    name: 检查并构建签名 APK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Java
-        uses: actions/setup-java@v3
+      - name: 获取代码
+        uses: actions/checkout@v6
+      - name: 安装 Java
+        uses: actions/setup-java@v5
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
-
-      - name: Read Flutter version
+      - name: 读取 Flutter 版本
         id: flutter_version
         run: echo "version=$(cat .flutter-version)" >> "$GITHUB_OUTPUT"
-
-      - name: Setup Flutter
+      - name: 安装 Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ steps.flutter_version.outputs.version }}
           channel: stable
           cache: true
-
-      - name: Get dependencies
-        run: flutter pub get
-
-      - name: Setup keystore
-        # 从GitHub Secrets读取签名密钥
+      - name: 校验版本标签
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE }}" > android/app/key.jks.base64
-          base64 -d android/app/key.jks.base64 > android/app/key.jks
-
-      - name: Build APK
+          VERSION=$(sed -n 's/^version: *\([^+ ]*\).*/\1/p' pubspec.yaml)
+          test "$RELEASE_TAG" = "v$VERSION" || { echo 'Tag 必须与 pubspec.yaml 中的版本一致'; exit 1; }
+      - name: 安装依赖
+        run: flutter pub get --enforce-lockfile
+      - name: 静态分析
+        run: flutter analyze --no-pub --no-fatal-warnings --no-fatal-infos
+      - name: 自动化测试
+        run: flutter test --no-pub
+      - name: 配置发布签名
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          # 构建Release版APK
-          flutter build apk --release \
-            --dart-define=APP_VERSION=${{ github.ref_name }} \
-            --dart-define=BUILD_NUMBER=${{ github.run_number }}
-
-      - name: Build App Bundle
+          python3 - <<'PY'
+          import base64, os
+          from pathlib import Path
+          names = ['ANDROID_KEYSTORE_BASE64', 'ANDROID_KEYSTORE_PASSWORD', 'ANDROID_KEY_PASSWORD', 'ANDROID_KEY_ALIAS']
+          missing = [name for name in names if not os.environ.get(name)]
+          if missing:
+              raise SystemExit('缺少 Android 签名 Secret：' + ', '.join(missing))
+          os.umask(0o077)
+          def escape(value):
+              return value.replace('\\', '\\\\').replace('\n', '\\n').replace('\r', '\\r').replace('=', '\\=').replace(':', '\\:').replace(' ', '\\ ')
+          key = Path(os.environ['RUNNER_TEMP']) / 'getxstudy-release.jks'
+          key.write_bytes(base64.b64decode(os.environ['ANDROID_KEYSTORE_BASE64'], validate=True))
+          key.chmod(0o600)
+          values = {'storeFile': str(key), 'storePassword': os.environ['ANDROID_KEYSTORE_PASSWORD'], 'keyPassword': os.environ['ANDROID_KEY_PASSWORD'], 'keyAlias': os.environ['ANDROID_KEY_ALIAS']}
+          config = Path('android/key.properties')
+          config.write_text(
+              ''.join(f'{name}={escape(value)}\n' for name, value in values.items()),
+              encoding='utf-8',
+          )
+          config.chmod(0o600)
+          PY
+      - name: 构建 Release APK
+        run: flutter build apk --no-pub --release --split-per-abi --target-platform android-arm,android-arm64
+      - name: 验证 APK 签名并整理产物
         run: |
-          # 构建App Bundle
-          flutter build appbundle --release
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -1)
+          test -x "$APKSIGNER" || { echo "找不到 Android Build Tools 的 apksigner"; exit 1; }
+          VERSION=$(sed -n 's/^version: *\([^ ]*\).*/\1/p' pubspec.yaml)
+          mkdir -p dist
+          for ABI in arm64-v8a armeabi-v7a; do
+            APK="build/app/outputs/flutter-apk/app-$ABI-release.apk"
+            "$APKSIGNER" verify --verbose --print-certs "$APK"
+            python3 - "$APK" "$ABI" <<'PY'
+          import sys
+          from zipfile import ZipFile
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+          apk, expected_abi = sys.argv[1:]
+          with ZipFile(apk) as archive:
+              libraries = {name for name in archive.namelist() if name.startswith('lib/') and name.endswith('.so')}
+          abis = {name.split('/')[1] for name in libraries}
+          if abis != {expected_abi} or f'lib/{expected_abi}/libapp.so' not in libraries:
+              raise SystemExit(f'{apk} 的 ABI 为 {sorted(abis)}，预期为 {expected_abi}')
+          PY
+            cp "$APK" "dist/GetXStudy-$VERSION-$ABI.apk"
+          done
+          cd dist
+          sha256sum ./*.apk > SHA256SUMS.txt
+      - name: 上传安装包
+        uses: actions/upload-artifact@v4
         with:
-          name: android-build-${{ github.run_number }}
-          path: |
-            build/app/outputs/flutter-apk/app-release.apk
-            build/app/outputs/bundle/release/app-release.aab
+          name: GetXStudy-Android
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30
+          overwrite: true
+      - name: 清理签名文件
+        if: always()
+        run: rm -f android/key.properties "$RUNNER_TEMP/getxstudy-release.jks"
 
+  release:
+    name: 创建版本草稿
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: 获取安装包
+        uses: actions/download-artifact@v4
+        with:
+          name: GetXStudy-Android
+          path: dist
+      - name: 上传至 Release 草稿
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft); then
+            if [ "$draft" != true ]; then
+              echo "该版本已发布，保留现有附件"
+              exit 0
+            fi
+          else
+            gh release create "$RELEASE_TAG" --verify-tag --draft --title "GetXStudy $RELEASE_TAG" --generate-notes
+          fi
+          gh release upload "$RELEASE_TAG" dist/* --clobber
